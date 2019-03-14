@@ -1,0 +1,156 @@
+table karyawan {
+  id int PK
+  user_id int
+  golongan_id int
+  jabatan_id int
+  bidang_id int
+  unit_id int
+  no_induk char
+  nama_lengkap varchar
+  tempat_lahir varchar
+  tanggal_lahir date
+  jenis_kelamin enum
+  status_pernikahan enum
+  jumlah_anak int
+  alamat varchar
+  no_hp char
+  nama_pendidikan varchar
+  pendidikan_terakhir enum
+  jurusan varchar
+  tahun_lulus char
+  tanggal_masuk date
+  tanggal_keluar date
+  status_kerja enum
+  pekerjaan varchar
+  bidang varchar
+  nama_bank varchar
+  no_rekening varchar
+  rekening_atas_nama varchar
+  created_at timestamp
+  updated_at timestamp
+}
+
+table kehadiran {
+  id int PK
+  karyawan_id int
+  jam_datang time
+  jam_istirahat time
+  jam_kembali time
+  jam_pulang time
+  jumlah_jam tinyint
+  tanggal date
+}
+
+table users {
+  id int PK
+  name varchar
+  email varchar
+  email_verified_at timestamp
+  password varchar
+  remember_token varchar
+  created_at timestamp
+  updated_at timestamp
+}
+
+// statis
+table jabatan {
+  id int PK
+  nama_jabatan varchar
+  tunjangan_jabatan decimal
+  load decimal
+  max_jam tinyint
+  created_at timestamp
+  updated_at timestamp
+}
+
+table cuti {
+  id int PK
+  karyawan_id int
+  bulan char
+  start_at date
+  end_at date
+  jumlah_cuti tinyint
+  created_at timestamp
+  updated_at timestamp
+}
+
+table gaji {
+  id int PK
+  karyawan_id int
+  bulan varchar
+  gaji_pokok decimal
+  tunjangan_jabatan decimal
+  tunjangan_pendidikan decimal
+  tunjangan_istri decimal
+  tunjangan_anak decimal
+  lembur decimal
+  lain_lain decimal
+  insentif decimal
+  potongan decimal
+  gaji_akhir decimal
+  created_at timestamp
+  updated_at timestamp
+}
+
+table insentif {
+  id int PK
+  karyawan_id int
+  jenis_insentif varchar
+  bulan char
+  jumlah_insentif decimal
+  keterangan varchar
+  created_at timestamp
+  updated_at timestamp
+}
+
+table lembur {
+  id int PK
+  karyawan_id int
+  bulan char
+  jumlah_jam_lembur tinyint
+  keterangan varchar
+  created_at timestamp
+  updated_at timestamp
+}
+
+table potongan {
+  id int PK
+  karyawan_id int
+  nama_potongan varchar
+  jumlah_potongan decimal
+  created_at timestamp
+  updated_at timestamp
+}
+
+table keluarga {
+  id int PK
+  karyawan_id int
+  nama varchar
+  status_keluarga varchar
+  tanggal_lahir date
+  tunjangan_keluarga varchar
+}
+
+table bidang {
+  id int PK
+  nama_bidang varchar
+}
+
+table unit {
+  id int PK
+  budang_id int
+  nama_unit varchar
+}
+
+table golongan {
+  id int PK
+  kode_golongan varchar
+  gaji_pokok decimal
+  lembur decimal
+}
+
+//pinjaman onprogress
+
+ref: karyawan.user_id > users.id
+
+ref: karyawan.golongan_id > golongan.id
