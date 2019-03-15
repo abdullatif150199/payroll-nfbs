@@ -26,6 +26,10 @@ class DefineMenus
             $menu->add('Users', 'users')->data('icon', 'fe fe-user');
         });
 
+        Menu::make('profile', function ($menu) {
+            $menu->add('Beranda', 'profile')->data('icon', 'fa fa-home');
+        });
+
         return $next($request);
     }
 }
