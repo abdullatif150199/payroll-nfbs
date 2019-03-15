@@ -5,9 +5,9 @@
                 <div class="row">
                   <div class="col-lg-4">
                     <div class="card card-profile">
-                      <div class="card-header" style="background-image: url(demo/photos/eberhard-grossgasteiger-311213-500.jpg);"></div>
+                      <div class="card-header" style="background-image: url(/images/src/eberhard-grossgasteiger-311213-500.jpg);"></div>
                       <div class="card-body text-center">
-                        <img class="card-profile-img" src="demo/faces/male/16.jpg">
+                        <img class="card-profile-img" src="/images/src/18.jpg">
                         <h3 class="mb-3">Peter Richards</h3>
                         <p class="mb-4">
                           Big belly rude boy, million dollar hustler. Unemployed.
@@ -85,7 +85,7 @@
                           <input type="text" class="form-control" placeholder="Message">
                           <div class="input-group-btn">
                             <button type="button" class="btn btn-secondary">
-                              <i class="si si-camera"></i>
+                              <i class="fe fe-camera"></i>
                             </button>
                           </div>
                         </div>
