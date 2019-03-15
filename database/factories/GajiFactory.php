@@ -8,7 +8,7 @@ $factory->define(App\Gaji::class, function (Faker $faker) {
             // get random karyawan id
             return App\Karyawan::inRandomOrder()->first()->id;
         },
-        'bulan' => $faker->month() . '-' . date('Y'),
+        'bulan' => date('Y') . '-' . $faker->month(),
         'gaji_pokok' => $gaji_pokok = mt_rand(1000000, 5000000),
         'tunjangan_jabatan' => $tunjangan_jabatan = mt_rand(1000000, 5000000),
         'tunjangan_pendidikan' => $tunjangan_pendidikan = mt_rand(100000, 500000),

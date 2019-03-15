@@ -101,7 +101,12 @@ $(document).ready(function() {
         serverSide: true,
         processing: true,
         select: true,
-        ajax: '{{ route('getKehadiran') }}',
+        ajax: {
+            url: '{{ route('getKehadiran') }}',
+            data: function (d) {
+                d.
+            }
+        },
         columns: [
             {data: 'no_induk'},
             {data: 'nama_lengkap'},
