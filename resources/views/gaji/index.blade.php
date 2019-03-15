@@ -1,5 +1,4 @@
 @extends('tabler::layouts.main')
-@section('title', 'Daftar Gaji | ' . config('tabler.suffix'))
 @push('styles')
 <link rel="stylesheet" href="{{ asset('css/dataTables.bootstrap4.min.css') }}">
 <link rel="stylesheet" href="{{ asset('css/select.dataTables.min.css') }}">
@@ -36,29 +35,33 @@
             <div class="card-header">
                 <h3 class="card-title">
                     <form class="form-inline" action="{{ route('getGaji') }}" method="post">
-                        <div class="form-group">
-                            <label for="month">Daftar Gaji Bulan </label>
-                            <select name="month" class="form-control custom-select mx-sm-3" onchange="$('#daftarGaji').DataTable().draw()">
-                                <option value="">Bulan</option>
-                                <option {{ date('m') == '01' ? 'selected' : ''}} value="01">Januari</option>
-                                <option {{ date('m') == '02' ? 'selected' : ''}} value="02">Februari</option>
-                                <option {{ date('m') == '03' ? 'selected' : ''}} value="03">Maret</option>
-                                <option {{ date('m') == '04' ? 'selected' : ''}} value="04">April</option>
-                                <option {{ date('m') == '05' ? 'selected' : ''}} value="05">Mei</option>
-                                <option {{ date('m') == '06' ? 'selected' : ''}} value="06">Juni</option>
-                                <option {{ date('m') == '07' ? 'selected' : ''}} value="07">Juli</option>
-                                <option {{ date('m') == '08' ? 'selected' : ''}} value="08">Augustus</option>
-                                <option {{ date('m') == '09' ? 'selected' : ''}} value="09">September</option>
-                                <option {{ date('m') == '10' ? 'selected' : ''}} value="10">Oktober</option>
-                                <option {{ date('m') == '11' ? 'selected' : ''}} value="11">November</option>
-                                <option {{ date('m') == '12' ? 'selected' : ''}} value="12">Desember</option>
-                            </select>
-                            <select name="year" class="form-control custom-select" onchange="$('#daftarGaji').DataTable().draw()">
-                                <option value="">Tahun</option>
-                                @for ($i=2018; $i <= date('Y'); $i++)
-                                    <option {{ date('Y') == $i ? 'selected' : ''}} value="{{$i}}">{{$i}}</option>
-                                @endfor
-                            </select>
+                        <label for="month" class="mr-sm-3">Daftar Gaji Bulan </label>
+                        <div class="row gutters-xs">
+                            <div class="col">
+                                <select name="month" class="form-control custom-select" onchange="$('#daftarGaji').DataTable().draw()">
+                                    <option value="">Bulan</option>
+                                    <option {{ date('m') == '01' ? 'selected' : ''}} value="01">Januari</option>
+                                    <option {{ date('m') == '02' ? 'selected' : ''}} value="02">Februari</option>
+                                    <option {{ date('m') == '03' ? 'selected' : ''}} value="03">Maret</option>
+                                    <option {{ date('m') == '04' ? 'selected' : ''}} value="04">April</option>
+                                    <option {{ date('m') == '05' ? 'selected' : ''}} value="05">Mei</option>
+                                    <option {{ date('m') == '06' ? 'selected' : ''}} value="06">Juni</option>
+                                    <option {{ date('m') == '07' ? 'selected' : ''}} value="07">Juli</option>
+                                    <option {{ date('m') == '08' ? 'selected' : ''}} value="08">Augustus</option>
+                                    <option {{ date('m') == '09' ? 'selected' : ''}} value="09">September</option>
+                                    <option {{ date('m') == '10' ? 'selected' : ''}} value="10">Oktober</option>
+                                    <option {{ date('m') == '11' ? 'selected' : ''}} value="11">November</option>
+                                    <option {{ date('m') == '12' ? 'selected' : ''}} value="12">Desember</option>
+                                </select>
+                            </div>
+                            <div class="col">
+                                <select name="year" class="form-control custom-select" onchange="$('#daftarGaji').DataTable().draw()">
+                                    <option value="">Tahun</option>
+                                    @for ($i=2018; $i <= date('Y'); $i++)
+                                        <option {{ date('Y') == $i ? 'selected' : ''}} value="{{$i}}">{{$i}}</option>
+                                    @endfor
+                                </select>
+                            </div>
                         </div>
                     </form>
                 </h3>

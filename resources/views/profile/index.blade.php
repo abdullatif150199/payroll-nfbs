@@ -1,5 +1,4 @@
 @extends('tabler::layouts.main')
-@section('title', 'Profile')
 @section('content')
     <div class="page-content">
               <div class="container">

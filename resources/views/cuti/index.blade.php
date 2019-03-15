@@ -1,5 +1,4 @@
 @extends('tabler::layouts.main')
-@section('title', 'Cuti | ' . config('tabler.suffix'))
 @push('styles')
 <link rel="stylesheet" href="{{ asset('css/dataTables.bootstrap4.min.css') }}">
 <link rel="stylesheet" href="{{ asset('css/select.dataTables.min.css') }}">

@@ -10,7 +10,8 @@ class CutiController extends Controller
 {
     public function index()
     {
-        return view('cuti.index');
+        $title = 'Cuti';
+        return view('cuti.index', ['title' => $title]);
     }
 
     public function getCuti()

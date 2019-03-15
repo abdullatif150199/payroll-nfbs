@@ -10,10 +10,8 @@ class GajiController extends Controller
 {
     public function index()
     {
-        // $month = date('m');
-        // $data = Gaji::where('bulan', $month)->get();
-        // dd($data);
-        return view('gaji.index');
+        $title = 'Gaji';
+        return view('gaji.index', ['title' => $title]);
     }
 
     public function getGaji(Request $request)

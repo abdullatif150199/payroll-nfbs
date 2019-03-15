@@ -10,7 +10,8 @@ class KaryawanController extends Controller
 {
     public function index()
     {
-        return view('karyawan.index');
+        $title = 'Karyawan';
+        return view('karyawan.index', ['title' => $title]);
     }
 
     public function getKaryawan()
