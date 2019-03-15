@@ -28,6 +28,7 @@ class HomeController extends Controller
      */
     public function index()
     {
+        $title = 'Dashboard';
         $karyawan = Karyawan::count();
         $bidang = Bidang::count();
         $unit = Unit::count();
@@ -42,7 +43,8 @@ class HomeController extends Controller
             'unit' => $unit,
             'golongan' => $golongan,
             'kepala_keluarga' => $kepala_keluarga,
-            'cuti' => $cuti
+            'cuti' => $cuti,
+            'title' => $title
         ]);
     }
 }

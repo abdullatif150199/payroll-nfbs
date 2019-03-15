@@ -35,7 +35,7 @@
             <div class="card-header">
                 <h3 class="card-title">
                     <form class="form-inline" action="{{ route('getGaji') }}" method="post">
-                        <label for="month" class="mr-sm-3">Daftar Gaji Bulan </label>
+                        <label for="month" class="mr-sm-3">Bulan </label>
                         <div class="row gutters-xs">
                             <div class="col">
                                 <select name="month" class="form-control custom-select" onchange="$('#daftarGaji').DataTable().draw()">

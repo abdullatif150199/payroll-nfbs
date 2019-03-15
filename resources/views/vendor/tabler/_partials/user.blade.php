@@ -1,6 +1,6 @@
 <div class="dropdown">
     <a href="#" class="nav-link pr-0 leading-none" data-toggle="dropdown">
-        <span class="avatar"></span>
+        <span class="avatar">{{ strtoupper(substr($user->name, 0, 1)) }}</span>
         <span class="ml-2 d-none d-lg-block">
             <span class="text-default">{{ $user->name }}</span>
             <small class="text-muted d-block mt-1">{{ $user->email }}</small>

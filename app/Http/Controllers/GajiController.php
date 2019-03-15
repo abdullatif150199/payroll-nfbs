@@ -10,7 +10,7 @@ class GajiController extends Controller
 {
     public function index()
     {
-        $title = 'Gaji';
+        $title = 'Daftar Gaji';
         return view('gaji.index', ['title' => $title]);
     }
 

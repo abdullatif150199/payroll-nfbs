@@ -10,7 +10,7 @@ class KehadiranController extends Controller
 {
     public function index()
     {
-        $title = 'Kehadiran';
+        $title = 'Daftar Hadir';
         return view('kehadiran.index', ['title' => $title]);
     }
 
