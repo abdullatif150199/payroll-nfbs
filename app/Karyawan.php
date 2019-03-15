@@ -22,4 +22,14 @@ class Karyawan extends Model
     {
         return $this->belongsTo('App\Bidang');
     }
+
+    public function kehadiran()
+    {
+        return $this->hasMany('App\Kehadiran');
+    }
+
+    public function cuti()
+    {
+        return $this->hasMany('App\Cuti');
+    }
 }

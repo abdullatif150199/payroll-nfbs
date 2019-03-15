@@ -17,13 +17,12 @@ class CreateKehadiranTable extends Migration
             $table->increments('id');
             $table->integer('karyawan_id')->unsigned();
             $table->foreign('karyawan_id')->references('id')->on('karyawan')->onDelete('cascade');
-            $table->time('jam_datang')->nullable();
+            $table->time('jam_masuk')->nullable();
             $table->time('jam_istirahat')->nullable();
             $table->time('jam_kembali')->nullable();
             $table->time('jam_pulang')->nullable();
             $table->date('tanggal');
-            $table->tinyInteger('jumlah_jam')->nullable();
-            $table->tinyInteger('jumlah_jam_ngajar')->nullable();
+            $table->tinyInteger('jumlah_jam_ngajar')->nullable()->comment('Khusus guru');
             $table->timestamps();
         });
     }

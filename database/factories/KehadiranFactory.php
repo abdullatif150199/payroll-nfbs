@@ -7,7 +7,7 @@ $factory->define(App\Kehadiran::class, function (Faker $faker) {
         'karyawan_id' => function () {
             return App\Karyawan::inRandomOrder()->first()->id;
         },
-        'jam_datang' => $faker->time(),
+        'jam_masuk' => $faker->time(),
         'jam_istirahat' => $faker->time(),
         'jam_kembali' => $faker->time(),
         'jam_pulang' => $faker->time(),

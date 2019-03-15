@@ -30,3 +30,11 @@ Route::get('/dashboard/get-karyawan', 'KaryawanController@getKaryawan')->name('g
 // Daftar Gaji
 Route::get('/dashboard/gaji', 'GajiController@index');
 Route::get('/dashboard/get-gaji', 'GajiController@getGaji')->name('getGaji');
+
+// Kehadiran
+Route::get('/dashboard/kehadiran', 'KehadiranController@index');
+Route::get('/dashboard/get-kehadiran', 'KehadiranController@getKehadiran')->name('getKehadiran');
+
+// Cuti
+Route::get('/dashboard/cuti', 'CutiController@index');
+Route::get('/dashboard/get-cuti', 'CutiController@getCuti')->name('getCuti');

@@ -3,8 +3,37 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Yajra\Datatables\Datatables;
+use App\Kehadiran;
 
 class KehadiranController extends Controller
 {
-    //
+    public function index()
+    {
+        return view('kehadiran.index');
+    }
+
+    public function getKehadiran()
+    {
+        $data = Kehadiran::orderBy('created_at', 'desc')->get();
+
+        return Datatables::of($data)
+            ->addColumn('actions', function($data) {
+                return view('kehadiran.actions');
+            })
+            ->editColumn('jumlah_jam', function($data) {
+                return total_time($data->jam_masuk, $data->jam_istirahat, $data->jam_kembali, $data->jam_pulang);
+            })
+            ->editColumn('jumlah_jam_ngajar', function($data) {
+                return $data->jumlah_jam_ngajar . ' jam (Guru)';
+            })
+            ->editColumn('no_induk', function($data) {
+                return $data->karyawan->no_induk;
+            })
+            ->editColumn('nama_lengkap', function($data) {
+                return $data->karyawan->nama_lengkap;
+            })
+            ->rawColumns(['actions', 'jumlah_jam', 'jumlah_jam_ngajar', 'no_induk', 'nama_lengkap'])
+            ->make(true);
+    }
 }

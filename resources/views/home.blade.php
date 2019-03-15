@@ -6,8 +6,7 @@
         <div class="card">
             <div class="card-body p-3 text-center">
                 <div class="text-right text-green">
-                    6%
-                    <i class="fe fe-chevron-up"></i>
+                    <i class="fe fe-activity"></i>
                 </div>
                 <div class="h1 m-0">{{ $karyawan }}</div>
                 <div class="text-muted mb-4">Karyawan</div>
@@ -17,9 +16,8 @@
     <div class="col-6 col-sm-4 col-lg-2">
         <div class="card">
             <div class="card-body p-3 text-center">
-                <div class="text-right text-red">
-                    -3%
-                    <i class="fe fe-chevron-down"></i>
+                <div class="text-right text-green">
+                    <i class="fe fe-activity"></i>
                 </div>
                 <div class="h1 m-0">{{ $bidang }}</div>
                 <div class="text-muted mb-4">Bidang</div>
@@ -30,8 +28,7 @@
         <div class="card">
             <div class="card-body p-3 text-center">
                 <div class="text-right text-green">
-                    9%
-                    <i class="fe fe-chevron-up"></i>
+                    <i class="fe fe-activity"></i>
                 </div>
                 <div class="h1 m-0">{{ $unit }}</div>
                 <div class="text-muted mb-4">Unit</div>
@@ -42,8 +39,7 @@
         <div class="card">
             <div class="card-body p-3 text-center">
                 <div class="text-right text-green">
-                    3%
-                    <i class="fe fe-chevron-up"></i>
+                    <i class="fe fe-activity"></i>
                 </div>
                 <div class="h1 m-0">{{ $golongan }}</div>
                 <div class="text-muted mb-4">Golongan</div>
@@ -53,9 +49,8 @@
     <div class="col-6 col-sm-4 col-lg-2">
         <div class="card">
             <div class="card-body p-3 text-center">
-                <div class="text-right text-red">
-                    -2%
-                    <i class="fe fe-chevron-down"></i>
+                <div class="text-right text-green">
+                    <i class="fe fe-activity"></i>
                 </div>
                 <div class="h1 m-0">{{ $kepala_keluarga }}</div>
                 <div class="text-muted mb-4">Kepala Keluarga</div>
@@ -65,12 +60,11 @@
     <div class="col-6 col-sm-4 col-lg-2">
         <div class="card">
             <div class="card-body p-3 text-center">
-                <div class="text-right text-red">
-                    -1%
-                    <i class="fe fe-chevron-down"></i>
+                <div class="text-right text-green">
+                    <i class="fe fe-activity"></i>
                 </div>
-                <div class="h1 m-0">621</div>
-                <div class="text-muted mb-4">Products</div>
+                <div class="h1 m-0">{{ $cuti }}</div>
+                <div class="text-muted mb-4">Sedang Cuti</div>
             </div>
         </div>
     </div>
