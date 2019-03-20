@@ -244,7 +244,9 @@
                         <h3 class="card-title">Data Filled</h3>
                     </div>
                     <div class="card-body">
+                        <div id="chart-donut" style="height: 12rem;">
 
+                        </div>
                     </div>
                 </div>
             </div>
@@ -254,7 +256,9 @@
                         <h3 class="card-title">Status Pegawai</h3>
                     </div>
                     <div class="card-body">
+                        <div id="chart-pie" style="height: 12rem;">
 
+                        </div>
                     </div>
                 </div>
             </div>
@@ -459,3 +463,66 @@
     </div>
 </div>
 @stop
+
+@push('scripts')
+<script>
+var chartPie = c3.generate({
+    bindto: '#chart-pie',
+    data: {
+        columns: [
+            // each columns data
+            ['data1', 40],
+            ['data2', 50],
+            ['data3', 30]
+        ],
+        type: 'pie', // default type of chart
+        colors: {
+            'data1': '#5e75e6',
+            'data2': '#44d49f',
+            'data3': '#49a5e4'
+        },
+        names: {
+            // name of each serie
+            'data1': 'PTY',
+            'data2': 'GTY',
+            'data3': 'Kontrak'
+        }
+    },
+    legend: {
+          show: false, //hide legend
+    },
+    padding: {
+        bottom: 0,
+        top: 0
+    }
+});
+
+var chartDonut = c3.generate({
+    bindto: '#chart-donut',
+    data: {
+        columns: [
+            // each columns data
+            ['data1', 63],
+            ['data2', 37]
+        ],
+        type: 'donut', // default type of chart
+        colors: {
+            'data1': '#5eba00',
+            'data2': '#e5e6e4'
+        },
+        names: {
+            // name of each serie
+            'data1': 'Maximum',
+            'data2': 'Minimum'
+        }
+    },
+    legend: {
+          show: false, //hide legend
+    },
+    padding: {
+        bottom: 0,
+        top: 0
+    }
+});
+</script>
+@endpush

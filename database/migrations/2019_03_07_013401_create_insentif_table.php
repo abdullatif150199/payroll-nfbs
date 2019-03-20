@@ -19,7 +19,7 @@ class CreateInsentifTable extends Migration
             $table->foreign('karyawan_id')->references('id')->on('karyawan')->onDelete('cascade');
             $table->string('jenis_insentif', 10);
             $table->char('bulan', 2);
-            $table->decimal('jumlah_insentif', 10);
+            $table->decimal('jumlah_insentif', 10, 0);
             $table->string('keterangan', 225)->nullable();
             $table->timestamps();
         });

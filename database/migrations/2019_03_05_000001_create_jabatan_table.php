@@ -16,8 +16,8 @@ class CreateJabatanTable extends Migration
         Schema::create('jabatan', function (Blueprint $table) {
             $table->increments('id');
             $table->string('nama_jabatan', 100);
-            $table->decimal('tunjangan_jabatan', 10);
-            $table->decimal('load', 10);
+            $table->decimal('tunjangan_jabatan', 10, 0);
+            $table->decimal('load', 10, 0);
             $table->tinyInteger('maksimal_jam')->nullable();
             $table->timestamps();
         });

@@ -105,7 +105,7 @@
             ajax: {
                 url: '{{ route('getGaji') }}',
                 data: function (d) {
-                    d.month = $('select[name=month]').val() + '-' + $('select[name=year]').val();
+                    d.month = $('select[name=year]').val() + '-' + $('select[name=month]').val();
                 }
             },
             columns: [

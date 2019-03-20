@@ -14,9 +14,14 @@ class KehadiranController extends Controller
         return view('kehadiran.index', ['title' => $title]);
     }
 
-    public function getKehadiran()
+    public function getKehadiran(Request $request)
     {
-        $data = Kehadiran::orderBy('created_at', 'desc')->get();
+        if (!$request->tanggal) {
+            $tanggal = date('Y-m-d');
+            $data = Kehadiran::where('tanggal', $tanggal)->orderBy('created_at', 'desc')->get();
+        } else {
+            $data = Kehadiran::where('tanggal', $request->tanggal)->orderBy('created_at', 'desc')->get();
+        }
 
         return Datatables::of($data)
             ->addColumn('actions', function($data) {

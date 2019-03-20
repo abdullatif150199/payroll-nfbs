@@ -22,8 +22,7 @@ class DefineMenus
             $menu->add('Daftar Gaji', 'dashboard/gaji')->data('icon', 'fa fa-briefcase');
             $menu->add('Kehadiran', 'dashboard/kehadiran')->data('icon', 'fa fa-calendar-check-o');
             $menu->add('Cuti', 'dashboard/cuti')->data('icon', 'fa fa-calendar-times-o');
-            $menu->add('Pinjaman', 'dashboard/pinjaman')->data('icon', 'fa fa-paypal');
-            $menu->add('Users', 'users')->data('icon', 'fe fe-user');
+            $menu->add('Potongan', 'dashboard/potongan')->data('icon', 'fa fa-paypal');
         });
 
         Menu::make('profile', function ($menu) {

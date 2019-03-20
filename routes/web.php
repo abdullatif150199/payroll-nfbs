@@ -38,3 +38,11 @@ Route::get('/dashboard/get-kehadiran', 'KehadiranController@getKehadiran')->name
 // Cuti
 Route::get('/dashboard/cuti', 'CutiController@index');
 Route::get('/dashboard/get-cuti', 'CutiController@getCuti')->name('getCuti');
+
+// Potongan
+Route::get('/dashboard/potongan', 'PotonganController@index');
+Route::get('/dashboard/get-potongan', 'PotonganController@getPotongan')->name('getPotongan');
+Route::post('/dashboard/potongan', 'PotonganController@store')->name('storePotongan');
+Route::get('/dashboard/potongan/{id}/edit', 'PotonganController@edit')->name('editPotongan');
+Route::put('/dashboard/potongan/{id}', 'PotonganController@update')->name('updatePotongan');
+Route::delete('/dashboard/potongan/{id}', 'PotonganController@delete')->name('deletePotongan');

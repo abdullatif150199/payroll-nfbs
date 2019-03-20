@@ -18,7 +18,7 @@ class CreatePotonganTable extends Migration
             $table->integer('karyawan_id')->unsigned();
             $table->foreign('karyawan_id')->references('id')->on('karyawan')->onDelete('cascade');
             $table->string('nama_potongan', 10);
-            $table->decimal('jumlah_potongan', 10);
+            $table->decimal('jumlah_potongan', 10, 0);
             $table->timestamps();
         });
     }

@@ -17,7 +17,7 @@ class GajiController extends Controller
     public function getGaji(Request $request)
     {
         if (!$request->month) {
-            $month = date('m-Y');
+            $month = date('Y-m');
             $data = Gaji::where('bulan', $month)->get();
         } else {
             $data = Gaji::where('bulan', $request->month)->get();

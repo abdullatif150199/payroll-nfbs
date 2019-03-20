@@ -13,6 +13,7 @@
     <link rel="stylesheet"
           href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,300i,400,400i,500,500i,600,600i,700,700i&amp;subset=latin-ext">
     <link href="{{ asset('css/dashboard.css') }}" rel="stylesheet"/>
+    <link href="{{ asset('css/chart.css') }}" rel="stylesheet"/>
     @stack('styles')
 </head>
 <body>
@@ -66,6 +67,18 @@
                         {{ isset($title) ? $title : '' }}
                     </h1>
                 </div>
+                @if ($message = Session::get('success'))
+                    <div class="alert alert-success alert-dismissible">
+                        <button type="button" class="close" data-dismiss="alert"></button>
+                        {{$message}}
+                    </div>
+                @endif
+                @if ($message = Session::get('error'))
+                    <div class="alert alert-success alert-dismissible">
+                        <button type="button" class="close" data-dismiss="alert"></button>
+                        {{$message}}
+                    </div>
+                @endif
                 @yield('content')
             </div>
         </div>
@@ -99,6 +112,9 @@
 <script src="{{ asset('js/jquery-3.2.1.min.js') }}"></script>
 <script src="{{ asset('js/bootstrap.bundle.min.js') }}"></script>
 <script src="{{ asset('js/chart.bundle.min.js') }}"></script>
+<script src="{{ asset('js/d3.v3.min.js') }}"></script>
+<script src="{{ asset('js/c3.min.js') }}"></script>
+<script src="{{ asset('js/jquery.mask.min.js') }}"></script>
 <script src="{{ asset('js/jquery.dataTables.min.js') }}"></script>
 <script src="{{ asset('js/dataTables.bootstrap4.min.js') }}"></script>
 <script src="{{ asset('js/dataTables.select.min.js') }}"></script>

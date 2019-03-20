@@ -33,11 +33,11 @@
     <div class="col-12">
         <div class="card">
             <div class="card-header">
-                <form class="form-inline" action="{{ route('getGaji') }}" method="post">
+                <form class="form-inline" action="{{ route('getKehadiran') }}" method="post">
                     <label for="month" class="mr-sm-3">Tanggal</label>
                     <div class="row gutters-xs">
                         <div class="col">
-                            <select name="user[day]" class="form-control custom-select" onchange="$('#kehadiranTable').DataTable().draw()">
+                            <select name="day" class="form-control custom-select" onchange="$('#kehadiranTable').DataTable().draw()">
                                 <option value="">Tahun</option>
                                 @for ($i=1; $i <= 31; $i++)
                                     <option {{ date('d') == $i ? 'selected' : ''}} value="{{$i}}">{{$i}}</option>
@@ -45,7 +45,7 @@
                             </select>
                         </div>
                         <div class="col">
-                            <select name="user[month]" class="form-control custom-select" onchange="$('#kehadiranTable').DataTable().draw()">
+                            <select name="month" class="form-control custom-select" onchange="$('#kehadiranTable').DataTable().draw()">
                                 <option value="">Bulan</option>
                                 <option {{ date('m') == '01' ? 'selected' : ''}} value="01">Januari</option>
                                 <option {{ date('m') == '02' ? 'selected' : ''}} value="02">Februari</option>
@@ -62,7 +62,7 @@
                             </select>
                         </div>
                         <div class="col">
-                            <select name="user[year]" class="form-control custom-select" onchange="$('#kehadiranTable').DataTable().draw()">
+                            <select name="year" class="form-control custom-select" onchange="$('#kehadiranTable').DataTable().draw()">
                                 <option value="">Tahun</option>
                                 @for ($i=2018; $i <= date('Y'); $i++)
                                     <option {{ date('Y') == $i ? 'selected' : ''}} value="{{$i}}">{{$i}}</option>
@@ -104,7 +104,7 @@ $(document).ready(function() {
         ajax: {
             url: '{{ route('getKehadiran') }}',
             data: function (d) {
-                d.
+                d.tanggal = $('select[name=year]').val() + '-' + $('select[name=month]').val() + '-' + $('select[name=day]').val();
             }
         },
         columns: [

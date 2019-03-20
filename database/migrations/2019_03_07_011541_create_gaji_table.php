@@ -18,16 +18,16 @@ class CreateGajiTable extends Migration
             $table->integer('karyawan_id')->unsigned();
             $table->foreign('karyawan_id')->references('id')->on('karyawan')->onDelete('cascade');
             $table->char('bulan', 7);
-            $table->decimal('gaji_pokok', 10);
-            $table->decimal('tunjangan_jabatan', 10)->nullable();
-            $table->decimal('tunjangan_pendidikan', 10)->nullable();
-            $table->decimal('tunjangan_istri', 10)->nullable();
-            $table->decimal('tunjangan_anak', 10)->nullable();
-            $table->decimal('lembur', 10)->nullable();
-            $table->decimal('lain_lain', 10)->nullable();
-            $table->decimal('insentif', 10)->nullable();
-            $table->decimal('potongan', 10)->nullable();
-            $table->decimal('gaji_akhir', 10);
+            $table->decimal('gaji_pokok', 10, 0);
+            $table->decimal('tunjangan_jabatan', 10, 0)->nullable();
+            $table->decimal('tunjangan_pendidikan', 10, 0)->nullable();
+            $table->decimal('tunjangan_istri', 10, 0)->nullable();
+            $table->decimal('tunjangan_anak', 10, 0)->nullable();
+            $table->decimal('lembur', 10, 0)->nullable();
+            $table->decimal('lain_lain', 10, 0)->nullable();
+            $table->decimal('insentif', 10, 0)->nullable();
+            $table->decimal('potongan', 10, 0)->nullable();
+            $table->decimal('gaji_akhir', 10, 0);
             $table->timestamps();
         });
     }

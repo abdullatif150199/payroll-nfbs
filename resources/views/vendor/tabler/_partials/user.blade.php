@@ -1,3 +1,17 @@
+<div class="dropdown d-none d-md-flex">
+    <a class="nav-link icon" data-toggle="dropdown">
+        <i class="fe fe-bell"></i>
+        <span class="nav-unread"></span>
+    </a>
+    <div class="dropdown-menu dropdown-menu-right dropdown-menu-arrow">
+        <a href="javascript:void(0)" class="dropdown-item">Lorem ipsum dolor sit amet, consectetur </a>
+        <div class="dropdown-divider"></div>
+        <a href="javascript:void(0)" class="dropdown-item">Lorem ipsum dolor sit amet, consectetur </a>
+        <div class="dropdown-divider"></div>
+        <a href="javascript:void(0)" class="dropdown-item text-center">Lihat lainnya...</a>
+    </div>
+</div>
+
 <div class="dropdown">
     <a href="#" class="nav-link pr-0 leading-none" data-toggle="dropdown">
         <span class="avatar">{{ strtoupper(substr($user->name, 0, 1)) }}</span>

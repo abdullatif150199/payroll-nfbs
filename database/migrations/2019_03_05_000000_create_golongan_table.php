@@ -16,8 +16,8 @@ class CreateGolonganTable extends Migration
         Schema::create('golongan', function (Blueprint $table) {
             $table->increments('id');
             $table->string('kode_golongan', 10);
-            $table->decimal('gaji_pokok', 10);
-            $table->decimal('lembur', 10);
+            $table->decimal('gaji_pokok', 10, 0);
+            $table->decimal('lembur', 10, 0);
             $table->timestamps();
         });
     }

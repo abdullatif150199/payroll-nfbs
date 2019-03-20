@@ -32,4 +32,9 @@ class Karyawan extends Model
     {
         return $this->hasMany('App\Cuti');
     }
+
+    public function potongan()
+    {
+        return $this->hasMany('App\Potongan');
+    }
 }
