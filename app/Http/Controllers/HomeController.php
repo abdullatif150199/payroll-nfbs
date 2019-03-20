@@ -8,7 +8,6 @@ use App\Bidang;
 use App\Unit;
 use App\Golongan;
 use App\Cuti;
-use App\Charts\KaryawanChart;
 
 class HomeController extends Controller
 {
@@ -38,10 +37,6 @@ class HomeController extends Controller
         $now = date('Y-m-d H:i:s');
         $cuti = Cuti::where('end_at', '>', $now)->count();
 
-        $chart = new KaryawanChart;
-        $chart->dataset('My dataset', 'pie', [1, 2, 3, 4]);
-        $chart->labels(['One', 'Two', 'Three', 'Four']);
-
         return view('home', [
             'karyawan' => $karyawan,
             'bidang' => $bidang,
@@ -49,8 +44,7 @@ class HomeController extends Controller
             'golongan' => $golongan,
             'kepala_keluarga' => $kepala_keluarga,
             'cuti' => $cuti,
-            'title' => $title,
-            'chart' => $chart
+            'title' => $title
         ]);
     }
 }
