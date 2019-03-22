@@ -1,5 +1,5 @@
 {{-- Modal Form --}}
-<div class="modal" id="modalForm">
+<div class="modal fade" id="modalForm">
   <div class="modal-dialog">
     <div class="modal-content">
 
@@ -42,7 +42,7 @@
 </div>
 
 {{-- Modal delete --}}
-<div class="modal" id="modalDelete">
+<div class="modal fade" id="modalDelete">
     <div class="modal-dialog">
         <div class="modal-content">
 

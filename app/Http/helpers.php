@@ -50,3 +50,13 @@ function percent_time($end, $start) {
 
     return $percent;
 }
+
+function percent($part, $total) {
+    if ($total === 0) {
+        return 'Error';
+    }
+
+    $percent = $part / $total * 100;
+
+    return $percent;
+}

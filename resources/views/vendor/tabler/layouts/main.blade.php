@@ -111,7 +111,7 @@
 
 <script src="{{ asset('js/jquery-3.2.1.min.js') }}"></script>
 <script src="{{ asset('js/bootstrap.bundle.min.js') }}"></script>
-<script src="{{ asset('js/chart.bundle.min.js') }}"></script>
+<script src="{{ asset('js/circle-progress.min.js') }}"></script>
 <script src="{{ asset('js/d3.v3.min.js') }}"></script>
 <script src="{{ asset('js/c3.min.js') }}"></script>
 <script src="{{ asset('js/jquery.mask.min.js') }}"></script>

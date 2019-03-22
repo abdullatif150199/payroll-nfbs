@@ -34,6 +34,9 @@
         <div class="card">
             <div class="card-header">
                 <h3 class="card-title">Daftar Karyawan</h3>
+                <div class="card-options">
+                    <a href="#modalCreate" data-toggle="modal" data-backdrop="static" class="btn btn-primary"><i class="fe fe-plus"></i> Tambah</a>
+                </div>
             </div>
             <div class="table-responsive">
                 <table class="table card-table table-vcenter text-nowra" id="karyawanTable">
@@ -56,6 +59,8 @@
     </div>
 </div>
 @endsection
+
+@include('karyawan.modals')
 
 @push('scripts')
 <script>
