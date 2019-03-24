@@ -3,8 +3,10 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Http\Requests\KaryawanFormRequest;
 use Yajra\Datatables\Datatables;
 use App\Karyawan;
+use App\User;
 
 class KaryawanController extends Controller
 {
@@ -36,5 +38,13 @@ class KaryawanController extends Controller
             })
             ->rawColumns(['actions', 'jabatan', 'golongan', 'no_induk'])
             ->make(true);
+    }
+
+    public function store(KaryawanFormRequest $request)
+    {
+        $check = User::where('name', $request->nama_lengkap)->where('email', $request->email)->first();
+        $modif = $request->merge([
+            'user_id'
+        ]);
     }
 }

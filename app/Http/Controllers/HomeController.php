@@ -39,7 +39,7 @@ class HomeController extends Controller
 
         $barChart = $karyawan->groupBy('status_kerja');
         $pieChart = $karyawan->groupBy('golongan_id');
-        
+
         return view('home', [
             'karyawan' => $karyawan,
             'bidang' => $bidang,

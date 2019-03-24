@@ -3603,7 +3603,6 @@ input[type="button"].btn-block {
   display: inline-block;
   width: 100%;
   height: 2.375rem;
-  padding: 0.5rem 1.75rem 0.5rem 0.75rem;
   line-height: 1.5;
   color: #495057;
   vertical-align: middle;
@@ -9839,7 +9838,7 @@ a.text-dark:hover, a.text-dark:focus {
   .table, .text-wrap table {
     border-collapse: collapse !important;
   }
-  
+
   .table td,
   .text-wrap table td, .table th, .text-wrap table th {
     background-color: #fff !important;

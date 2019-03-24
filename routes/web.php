@@ -26,6 +26,7 @@ Route::get('/dashboard', 'HomeController@index')->name('home');
 // Karyawan
 Route::get('/dashboard/karyawan', 'KaryawanController@index');
 Route::get('/dashboard/get-karyawan', 'KaryawanController@getKaryawan')->name('getKaryawan');
+Route::post('/dashboard/karyawan', 'KaryawanController@store')->name('storeKaryawan');
 
 // Daftar Gaji
 Route::get('/dashboard/gaji', 'GajiController@index');
