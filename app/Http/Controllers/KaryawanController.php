@@ -9,6 +9,7 @@ use App\Karyawan;
 use App\Golongan;
 use App\Jabatan;
 use App\Bidang;
+use App\Unit;
 use App\User;
 
 class KaryawanController extends Controller
@@ -16,8 +17,19 @@ class KaryawanController extends Controller
     public function index()
     {
         $title = 'Karyawan';
-        // $golongan =
-        return view('karyawan.index', ['title' => $title]);
+        $golongan = Golongan::select('id', 'kode_golongan')->get();
+        $jabatan = Jabatan::select('id', 'nama_jabatan')->get();
+        $bidang = Bidang::select('id', 'nama_bidang')->get();
+        $unit = Unit::select('id', 'nama_unit')->get();
+        // $a = Karyawan::find(1);
+        // dd($a->unit);
+        return view('karyawan.index', [
+            'title' => $title,
+            'golongan' => $golongan,
+            'jabatan' => $jabatan,
+            'bidang' => $bidang,
+            'unit' => $unit
+        ]);
     }
 
     public function getKaryawan()
@@ -34,13 +46,13 @@ class KaryawanController extends Controller
             ->editColumn('golongan', function($data) {
                 return $data->golongan->kode_golongan;
             })
-            ->editColumn('bidang', function($data) {
-                return $data->bidang->nama_bidang;
+            ->editColumn('unit', function($data) {
+                return view('karyawan.unit', ['unit' => $data->unit]);
             })
             ->addColumn('actions', function($data) {
                 return view('karyawan.actions', ['data' => $data]);
             })
-            ->rawColumns(['actions', 'jabatan', 'golongan', 'no_induk'])
+            ->rawColumns(['actions', 'jabatan', 'golongan', 'no_induk', 'unit'])
             ->make(true);
     }
 
@@ -65,8 +77,7 @@ class KaryawanController extends Controller
         ]);
 
         $modif = $request->merge([
-            'user_id' => $user->id,
-            'golongan_id' => $golo
+            'golongan_id' => $golongan
         ]);
     }
 }

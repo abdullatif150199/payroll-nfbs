@@ -46,8 +46,8 @@
                             <th>Nama Lengkap</th>
                             <th>JK</th>
                             <th>Jabatan</th>
-                            <th>Golongan</th>
-                            <th>Bidang</th>
+                            <th>Gol</th>
+                            <th>Unit</th>
                             <th>No. HP</th>
                             <th>Status Kerja</th>
                             <th>Option</th>
@@ -76,7 +76,7 @@
                 {data: 'jenis_kelamin'},
                 {data: 'jabatan'},
                 {data: 'golongan'},
-                {data: 'bidang'},
+                {data: 'unit'},
                 {data: 'no_hp'},
                 {data: 'status_kerja'},
                 {data: 'actions', orderable: false, searchable: false}

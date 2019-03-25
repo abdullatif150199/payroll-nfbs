@@ -217,13 +217,8 @@
                                 <label class="form-label">Golongan</label>
                                 <select class="form-control custom-select" name="golongan" required>
                                     <option value="">Pilih</option>
-                                    @php
-                                    $a = ['A', 'B', 'C', 'D', 'E', 'F'];
-                                    @endphp
-                                    @foreach ($a as $b)
-                                        @for ($i=1; $i < 10; $i++)
-                                            <option value="{{ $i.$b }}">{{ $i.$b }}</option>
-                                        @endfor
+                                    @foreach ($golongan as $gol)
+                                        <option value="{{ $gol->id }}">{{ $gol->kode_golongan }}</option>
                                     @endforeach
                                 </select>
                             </div>
@@ -233,13 +228,9 @@
                                 <label class="form-label">Jabatan</label>
                                 <select class="form-control custom-select" name="jabatan" required>
                                     <option value="">Pilih</option>
-                                    <option value="guru">Guru</option>
-                                    <option value="web developer">Web Developer</option>
-                                    <option value="perawatan">Perawatan</option>
-                                    <option value="SDA">SDA</option>
-                                    <option value="security">Security</option>
-                                    <option value="keuangan">Keuangan</option>
-                                    <option value="kepala bidang">Kepala Bidang</option>
+                                    @foreach ($jabatan as $jab)
+                                        <option value="{{ $jab->id }}">{{ $jab->nama_jabatan }}</option>
+                                    @endforeach
                                 </select>
                             </div>
                         </div>
@@ -248,13 +239,9 @@
                                 <label class="form-label">Bidang</label>
                                 <select class="form-control custom-select selectize-select" name="bidang[]" required>
                                     <option value="">Pilih</option>
-                                    <option value="HRD">HRD</option>
-                                    <option value="LRC">LRC</option>
-                                    <option value="SMP">SMP</option>
-                                    <option value="SMA">SMA</option>
-                                    <option value="SEKUM">SEKUM</option>
-                                    <option value="RT">RT</option>
-                                    <option value="BINSAN">BINSAN</option>
+                                    @foreach ($bidang as $bid)
+                                        <option value="{{ $bid->id }}">{{ $bid->nama_bidang }}</option>
+                                    @endforeach
                                 </select>
                             </div>
                         </div>
@@ -263,10 +250,9 @@
                                 <label class="form-label">Unit</label>
                                 <select class="form-control custom-select selectize-select" name="unit[]" required>
                                     <option value="">Pilih</option>
-                                    <option value="humas">Humas</option>
-                                    <option value="bahasa">bahasa</option>
-                                    <option value="SDA">SDA</option>
-                                    <option value="PPG">PPG</option>
+                                    @foreach ($unit as $uni)
+                                        <option value="{{ $uni->id }}">{{ $uni->nama_unit }}</option>
+                                    @endforeach
                                 </select>
                             </div>
                         </div>
@@ -548,13 +534,8 @@
                                 <label class="form-label">Golongan</label>
                                 <select class="form-control custom-select" name="golongan" required>
                                     <option value="">Pilih</option>
-                                    @php
-                                    $a = ['A', 'B', 'C', 'D', 'E', 'F'];
-                                    @endphp
-                                    @foreach ($a as $b)
-                                        @for ($i=1; $i < 10; $i++)
-                                            <option value="{{ $i.$b }}">{{ $i.$b }}</option>
-                                        @endfor
+                                    @foreach ($golongan as $gol)
+                                        <option value="{{ $gol->id }}">{{ $gol->kode_golongan }}</option>
                                     @endforeach
                                 </select>
                             </div>
@@ -564,13 +545,9 @@
                                 <label class="form-label">Jabatan</label>
                                 <select class="form-control custom-select" name="jabatan" required>
                                     <option value="">Pilih</option>
-                                    <option value="guru">Guru</option>
-                                    <option value="web developer">Web Developer</option>
-                                    <option value="perawatan">Perawatan</option>
-                                    <option value="SDA">SDA</option>
-                                    <option value="security">Security</option>
-                                    <option value="keuangan">Keuangan</option>
-                                    <option value="kepala bidang">Kepala Bidang</option>
+                                    @foreach ($jabatan as $jab)
+                                        <option value="{{ $jab->id }}">{{ $jab->nama_jabatan }}</option>
+                                    @endforeach
                                 </select>
                             </div>
                         </div>
@@ -579,13 +556,9 @@
                                 <label class="form-label">Bidang</label>
                                 <select class="form-control custom-select selectize-select" name="bidang[]" required>
                                     <option value="">Pilih</option>
-                                    <option value="HRD">HRD</option>
-                                    <option value="LRC">LRC</option>
-                                    <option value="SMP">SMP</option>
-                                    <option value="SMA">SMA</option>
-                                    <option value="SEKUM">SEKUM</option>
-                                    <option value="RT">RT</option>
-                                    <option value="BINSAN">BINSAN</option>
+                                    @foreach ($bidang as $bid)
+                                        <option value="{{ $bid->id }}">{{ $bid->nama_bidang }}</option>
+                                    @endforeach
                                 </select>
                             </div>
                         </div>
@@ -594,10 +567,9 @@
                                 <label class="form-label">Unit</label>
                                 <select class="form-control custom-select selectize-select" name="unit[]" required>
                                     <option value="">Pilih</option>
-                                    <option value="humas">Humas</option>
-                                    <option value="bahasa">bahasa</option>
-                                    <option value="SDA">SDA</option>
-                                    <option value="PPG">PPG</option>
+                                    @foreach ($unit as $uni)
+                                        <option value="{{ $uni->id }}">{{ $uni->nama_unit }}</option>
+                                    @endforeach
                                 </select>
                             </div>
                         </div>
