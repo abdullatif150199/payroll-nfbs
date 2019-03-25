@@ -53,7 +53,7 @@
                                         <select name="birth[day]" class="form-control custom-select" required>
                                             <option value="">Hari</option>
                                             @for ($i=1; $i <= 31; $i++)
-                                                <option value="{{$i}}">{{$i}}</option>
+                                                <option value="{{sprintf('%02d', $i)}}">{{sprintf('%02d', $i)}}</option>
                                             @endfor
                                         </select>
                                     </div>
@@ -91,7 +91,7 @@
                         <div class="col-md-3">
                             <div class="form-group">
                                 <label class="form-label">Pendidikan Terakhir</label>
-                                <select class="form-control custom-select" name="pendidikan_terakhir" required>
+                                <select class="form-control custom-select" name="pendidikan_terakhir">
                                     <option value="">Pilih</option>
                                     <option value="TS">Tidak Sekolah</option>
                                     <option value="SD">SD</option>
@@ -124,7 +124,7 @@
                         <div class="col-md-4">
                             <div class="form-group">
                                 <label class="form-label">Nama Pendidikan</label>
-                                <input type="text" name="nama_pendidikan" class="form-control" required>
+                                <input type="text" name="nama_pendidikan" class="form-control">
                             </div>
                         </div>
                     </div>
@@ -166,7 +166,7 @@
                                         <select name="tanggal_masuk[day]" class="form-control custom-select" required>
                                             <option value="">Hari</option>
                                             @for ($i=1; $i <= 31; $i++)
-                                                <option value="{{$i}}">{{$i}}</option>
+                                                <option value="{{sprintf('%02d', $i)}}">{{sprintf('%02d', $i)}}</option>
                                             @endfor
                                         </select>
                                     </div>
@@ -246,7 +246,7 @@
                         <div class="col-md-3">
                             <div class="form-group">
                                 <label class="form-label">Bidang</label>
-                                <select class="form-control custom-select" name="bidang" required>
+                                <select class="form-control custom-select selectize-select" name="bidang[]" required>
                                     <option value="">Pilih</option>
                                     <option value="HRD">HRD</option>
                                     <option value="LRC">LRC</option>
@@ -261,7 +261,7 @@
                         <div class="col-md-3">
                             <div class="form-group">
                                 <label class="form-label">Unit</label>
-                                <select class="form-control custom-select" name="unit" required>
+                                <select class="form-control custom-select selectize-select" name="unit[]" required>
                                     <option value="">Pilih</option>
                                     <option value="humas">Humas</option>
                                     <option value="bahasa">bahasa</option>
@@ -355,7 +355,7 @@
                                         <select name="birth[day]" class="form-control custom-select" required>
                                             <option value="">Hari</option>
                                             @for ($i=1; $i <= 31; $i++)
-                                                <option value="{{$i}}">{{$i}}</option>
+                                                <option value="{{sprintf('%02d', $i)}}">{{sprintf('%02d', $i)}}</option>
                                             @endfor
                                         </select>
                                     </div>
@@ -393,7 +393,7 @@
                         <div class="col-md-3">
                             <div class="form-group">
                                 <label class="form-label">Pendidikan Terakhir</label>
-                                <select class="form-control custom-select" name="pendidikan_terakhir" required>
+                                <select class="form-control custom-select" name="pendidikan_terakhir">
                                     <option value="">Pilih</option>
                                     <option value="TS">Tidak Sekolah</option>
                                     <option value="SD">SD</option>
@@ -426,7 +426,7 @@
                         <div class="col-md-4">
                             <div class="form-group">
                                 <label class="form-label">Nama Pendidikan</label>
-                                <input type="text" name="nama_pendidikan" class="form-control" required>
+                                <input type="text" name="nama_pendidikan" class="form-control">
                             </div>
                         </div>
                     </div>
@@ -468,7 +468,7 @@
                                         <select name="tanggal_masuk[day]" class="form-control custom-select" required>
                                             <option value="">Hari</option>
                                             @for ($i=1; $i <= 31; $i++)
-                                                <option value="{{$i}}">{{$i}}</option>
+                                                <option value="{{sprintf('%02d', $i)}}">{{sprintf('%02d', $i)}}</option>
                                             @endfor
                                         </select>
                                     </div>
@@ -508,7 +508,7 @@
                                         <select name="tanggal_keluar[day]" class="form-control custom-select">
                                             <option value="">Hari</option>
                                             @for ($i=1; $i <= 31; $i++)
-                                                <option value="{{$i}}">{{$i}}</option>
+                                                <option value="{{sprintf('%02d', $i)}}">{{sprintf('%02d', $i)}}</option>
                                             @endfor
                                         </select>
                                     </div>
@@ -577,7 +577,7 @@
                         <div class="col-md-3">
                             <div class="form-group">
                                 <label class="form-label">Bidang</label>
-                                <select class="form-control custom-select" name="bidang" required>
+                                <select class="form-control custom-select selectize-select" name="bidang[]" required>
                                     <option value="">Pilih</option>
                                     <option value="HRD">HRD</option>
                                     <option value="LRC">LRC</option>
@@ -592,7 +592,7 @@
                         <div class="col-md-3">
                             <div class="form-group">
                                 <label class="form-label">Unit</label>
-                                <select class="form-control custom-select" name="unit" required>
+                                <select class="form-control custom-select selectize-select" name="unit[]" required>
                                     <option value="">Pilih</option>
                                     <option value="humas">Humas</option>
                                     <option value="bahasa">bahasa</option>

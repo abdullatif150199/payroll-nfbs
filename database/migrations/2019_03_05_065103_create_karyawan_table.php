@@ -21,10 +21,6 @@ class CreateKaryawanTable extends Migration
             $table->foreign('golongan_id')->references('id')->on('golongan')->onDelete('cascade');
             $table->integer('jabatan_id')->unsigned();
             $table->foreign('jabatan_id')->references('id')->on('jabatan')->onDelete('cascade');
-            $table->integer('bidang_id')->unsigned();
-            $table->foreign('bidang_id')->references('id')->on('bidang')->onDelete('cascade');
-            $table->integer('unit_id')->unsigned();
-            $table->foreign('unit_id')->references('id')->on('unit')->onDelete('cascade');
             $table->char('no_induk', 6)->nullable();
             $table->char('nik', 16)->nullable();
             $table->string('nama_lengkap', 100);
@@ -40,7 +36,7 @@ class CreateKaryawanTable extends Migration
             $table->char('tahun_lulus', 4)->nullable();
             $table->date('tanggal_masuk')->nullable();
             $table->date('tanggal_keluar')->nullable();
-            $table->enum('status_kerja', ['GTY', 'PTY', 'PTTY']);
+            $table->enum('status_kerja', ['GTY', 'GTTY', 'PTY', 'PTTY', 'HARIAN', 'HONORER']);
             $table->string('nama_bank', 100)->nullable();
             $table->string('no_rekening', 20)->nullable();
             $table->string('rekening_atas_nama', 150)->nullable();

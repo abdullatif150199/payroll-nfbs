@@ -10,6 +10,11 @@ class Unit extends Model
 
     public function karyawan()
     {
-        return $this->hasMany('App\Karyawan');
+        return $this->belongsToMany('App\Karyawan', 'karyawan_unit');
+    }
+
+    public function bidang()
+    {
+        return $this->belongsTo('App\Bidang');
     }
 }

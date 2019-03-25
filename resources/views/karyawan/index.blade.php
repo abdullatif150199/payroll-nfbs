@@ -82,6 +82,10 @@
                 {data: 'actions', orderable: false, searchable: false}
             ]
         });
+
+        $('.selectize-select').selectize({
+            maxItems: 3
+        });
     });
 </script>
 @endpush

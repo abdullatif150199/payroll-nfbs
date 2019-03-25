@@ -25,7 +25,12 @@ class Karyawan extends Model
 
     public function bidang()
     {
-        return $this->belongsTo('App\Bidang');
+        return $this->belongsToMany('App\Bidang', 'bidang_karyawan');
+    }
+
+    public function unit()
+    {
+        return $this->belongsToMany('App\Unit', 'karyawan_unit');
     }
 
     public function kehadiran()
@@ -41,5 +46,25 @@ class Karyawan extends Model
     public function potongan()
     {
         return $this->hasMany('App\Potongan');
+    }
+
+    public function lembur()
+    {
+        return $this->hasMany('App\Lembur');
+    }
+
+    public function keluarga()
+    {
+        return $this->hasMany('App\Keluarga');
+    }
+
+    public function insentif()
+    {
+        return $this->hasMany('App\Insentif');
+    }
+
+    public function gaji()
+    {
+        return $this->hasMany('App\Gaji');
     }
 }

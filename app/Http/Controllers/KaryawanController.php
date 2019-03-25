@@ -6,6 +6,9 @@ use Illuminate\Http\Request;
 use App\Http\Requests\KaryawanFormRequest;
 use Yajra\Datatables\Datatables;
 use App\Karyawan;
+use App\Golongan;
+use App\Jabatan;
+use App\Bidang;
 use App\User;
 
 class KaryawanController extends Controller
@@ -13,6 +16,7 @@ class KaryawanController extends Controller
     public function index()
     {
         $title = 'Karyawan';
+        // $golongan =
         return view('karyawan.index', ['title' => $title]);
     }
 
@@ -42,9 +46,27 @@ class KaryawanController extends Controller
 
     public function store(KaryawanFormRequest $request)
     {
-        $check = User::where('name', $request->nama_lengkap)->where('email', $request->email)->first();
+        dd($request->bidang);
+        $username = strtok($request->nama_lengkap, ' ') . $request->birth['day'];
+        $check = User::where('username', $username)->first();
+
+        if ($check) {
+            $username = strtok($request->nama_lengkap, ' ') . $request->birth['month'];
+            if (User::where('username', $username)->first()) {
+                $username = strtok($request->nama_lengkap, ' ') . substr($request->birth['year'], -2);
+            }
+        }
+
+        $user = User::create([
+            'name' => $request->nama_lengkap,
+            'username' => $username,
+            'email' => $request->nama_lengkap . '@example.com',
+            'password' => $request->birth['day'] . $request->birth['month'] . $request->birth['year'], // secret
+        ]);
+
         $modif = $request->merge([
-            'user_id'
+            'user_id' => $user->id,
+            'golongan_id' => $golo
         ]);
     }
 }

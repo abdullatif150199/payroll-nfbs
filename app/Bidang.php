@@ -10,6 +10,11 @@ class Bidang extends Model
 
     public function karyawan()
     {
-        return $this->hasMany('App\Karyawan');
+        return $this->belongsToMany('App\Karyawan', 'bidang_karyawan');
+    }
+
+    public function unit()
+    {
+        return $this->hasMany('App\Unit');
     }
 }

@@ -4,10 +4,10 @@ use Faker\Generator as Faker;
 
 $factory->define(App\Gaji::class, function (Faker $faker) {
     return [
-        'karyawan_id' => function() {
-            // get random karyawan id
-            return App\Karyawan::inRandomOrder()->first()->id;
-        },
+        // 'karyawan_id' => function() {
+        //     // get random karyawan id
+        //     return App\Karyawan::inRandomOrder()->first()->id;
+        // },
         'bulan' => date('Y') . '-' . $faker->month(),
         'gaji_pokok' => $gaji_pokok = mt_rand(1000000, 5000000),
         'tunjangan_jabatan' => $tunjangan_jabatan = mt_rand(1000000, 5000000),
