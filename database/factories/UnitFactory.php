@@ -7,6 +7,6 @@ $factory->define(App\Unit::class, function (Faker $faker) {
         // 'bidang_id' => function () {
         //     return  App\Bidang::inRandomOrder()->first()->id;
         // },
-        'nama_unit' => $faker->company,
+        'nama_unit' => $faker->word,
     ];
 });

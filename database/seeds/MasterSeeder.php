@@ -28,7 +28,7 @@ class MasterSeeder extends Seeder
             $karyawan->potongan()->save(factory(App\Potongan::class)->make());
             $karyawan->lembur()->save(factory(App\Lembur::class)->make());
             $karyawan->bidang()->attach(App\Bidang::inRandomOrder()->first()->id);
-            $karyawan->unit()->attach(App\Unit::inRandomOrder()->first()->id);
+            $karyawan->unit()->attach([App\Unit::inRandomOrder()->first()->id, App\Unit::inRandomOrder()->first()->id]);
         });
     }
 }
