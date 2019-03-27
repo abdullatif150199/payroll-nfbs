@@ -13,6 +13,9 @@ $factory->define(App\Karyawan::class, function (Faker $faker) {
         'jabatan_id' => function () {
             return App\Jabatan::inRandomOrder()->first()->id;
         },
+        'status_kerja_id' => function () {
+            return App\StatusKerja::inRandomOrder()->first()->id;
+        },
         'no_induk' => mt_rand(100000, 300000),
         'nik' => mt_rand(1000000000000000, 3000000000000000),
         'nama_lengkap' => $faker->name,
@@ -28,7 +31,6 @@ $factory->define(App\Karyawan::class, function (Faker $faker) {
         'tahun_lulus' => $faker->year(),
         'tanggal_masuk' => $faker->date(),
         'tanggal_keluar' => $faker->date(),
-        'status_kerja' => $faker->randomElement(['GTY', 'GTTY', 'PTY', 'PTTY', 'HARIAN', 'HONORER']),
         'nama_bank' => $faker->randomElement(['BNI', 'Mandiri', 'BCA', 'BRI']),
         'no_rekening' => $faker->bankAccountNumber,
         'rekening_atas_nama' => $faker->name,

@@ -142,8 +142,8 @@
                         </div>
                         <div class="col-md-6">
                             <div class="form-group">
-                                <label class="form-label">No HP dg Code Area</label>
-                                <input type="text" name="no_hp" class="form-control" data-mask="(00) 0000 0000 000" data-mask-clearifnotmatch="true" autocomplete="off" maxlength="14">
+                                <label class="form-label">No HP</label>
+                                <input type="text" name="no_hp" class="form-control" data-mask="0000 0000 0000" maxlength="14">
                             </div>
                         </div>
                     </div>
@@ -152,7 +152,7 @@
                         <div class="col-md-12">
                             <div class="form-group">
                                 <label class="form-label">Alamat Lengkap</label>
-                                <textarea name="alamat" class="form-control" required>Masukan Alamat di Sini...</textarea>
+                                <textarea name="alamat" class="form-control" placeholder="Masukan Alamat di Sini..." required></textarea>
                             </div>
                         </div>
                     </div>
@@ -203,9 +203,9 @@
                                 <label class="form-label">Status Kerja</label>
                                 <select name="status_kerja" class="form-control custom-select" required>
                                     <option value="">Pilih</option>
-                                    <option value="GTY">GTY</option>
-                                    <option value="PTY">PTY</option>
-                                    <option value="PPTY">PPTY</option>
+                                    @foreach ($status_kerja as $stat)
+                                        <option value="{{ $stat->id }}">{{ $stat->nama_status_kerja }}</option>
+                                    @endforeach
                                 </select>
                             </div>
                         </div>
@@ -311,13 +311,13 @@
                         <div class="col-md-6">
                             <div class="form-group">
                                 <label class="form-label">Nama Lengkap</label>
-                                <input type="text" name="nama_lengkap" class="form-control" required>
+                                <input type="text" name="nama_lengkap" class="form-control" id="nama_lengkap" required>
                             </div>
                         </div>
                         <div class="col-md-6">
                             <div class="form-group">
                                 <label class="form-label">Jenis Kelamin</label>
-                                <select class="form-control custom-select" name="jenis_kelamin" required>
+                                <select class="form-control custom-select" name="jenis_kelamin" id="jenis_kelamin" required>
                                     <option value="">Pilih</option>
                                     <option value="L">Laki-Laki</option>
                                     <option value="P">Perempuan</option>
@@ -330,7 +330,7 @@
                         <div class="col-md-6">
                             <div class="form-group">
                                 <label class="form-label">Tempat Lahir</label>
-                                <input type="text" name="tempat_lahir" class="form-control" required>
+                                <input type="text" name="tempat_lahir" class="form-control" id="tempat_lahir" required>
                             </div>
                         </div>
                         <div class="col-md-6">
@@ -338,7 +338,7 @@
                                 <label class="form-label">Tanggal Lahir</label>
                                 <div class="row gutters-xs">
                                     <div class="col-3">
-                                        <select name="birth[day]" class="form-control custom-select" required>
+                                        <select name="birth[day]" class="form-control custom-select" id="day" required>
                                             <option value="">Hari</option>
                                             @for ($i=1; $i <= 31; $i++)
                                                 <option value="{{sprintf('%02d', $i)}}">{{sprintf('%02d', $i)}}</option>
@@ -346,7 +346,7 @@
                                         </select>
                                     </div>
                                     <div class="col-5">
-                                        <select name="birth[month]" class="form-control custom-select" required>
+                                        <select name="birth[month]" class="form-control custom-select" id="month" required>
                                             <option value="">Bulan</option>
                                             <option value="01">Januari</option>
                                             <option value="02">Februari</option>
@@ -363,7 +363,7 @@
                                         </select>
                                     </div>
                                     <div class="col-4">
-                                        <select name="birth[year]" class="form-control custom-select" required>
+                                        <select name="birth[year]" class="form-control custom-select" id="year" required>
                                             <option value="">Tahun</option>
                                             @for ($i=date('Y'); $i >= date('Y') - 100; $i--)
                                                 <option value="{{$i}}">{{$i}}</option>
@@ -379,7 +379,7 @@
                         <div class="col-md-3">
                             <div class="form-group">
                                 <label class="form-label">Pendidikan Terakhir</label>
-                                <select class="form-control custom-select" name="pendidikan_terakhir">
+                                <select class="form-control custom-select" name="pendidikan_terakhir" id="pendidikan_terakhir">
                                     <option value="">Pilih</option>
                                     <option value="TS">Tidak Sekolah</option>
                                     <option value="SD">SD</option>
@@ -395,13 +395,13 @@
                         <div class="col-md-3">
                             <div class="form-group">
                                 <label class="form-label">Jurusan</label>
-                                <input type="text" name="jurusan" class="form-control">
+                                <input type="text" name="jurusan" class="form-control" id="jurusan">
                             </div>
                         </div>
                         <div class="col-md-2">
                             <div class="form-group">
                                 <label class="form-label">Tahun Lulus</label>
-                                <select name="tahun_lulus" class="form-control custom-select">
+                                <select name="tahun_lulus" class="form-control custom-select" id="tahun_lulus">
                                     <option value="">Tahun</option>
                                     @for ($i=date('Y'); $i >= date('Y') - 100; $i--)
                                         <option value="{{$i}}">{{$i}}</option>
@@ -412,7 +412,7 @@
                         <div class="col-md-4">
                             <div class="form-group">
                                 <label class="form-label">Nama Pendidikan</label>
-                                <input type="text" name="nama_pendidikan" class="form-control">
+                                <input type="text" name="nama_pendidikan" class="form-control" id="nama_pendidikan">
                             </div>
                         </div>
                     </div>
@@ -421,7 +421,7 @@
                         <div class="col-md-6">
                             <div class="form-group">
                                 <label class="form-label">Status Pernikahan</label>
-                                <select class="form-control custom-select" name="status_pernikahan">
+                                <select class="form-control custom-select" name="status_pernikahan" id="status_pernikahan">
                                     <option value="">Pilih</option>
                                     <option value="B">Belum Menikah</option>
                                     <option value="M">Menikah</option>
@@ -430,8 +430,8 @@
                         </div>
                         <div class="col-md-6">
                             <div class="form-group">
-                                <label class="form-label">No HP dg Code Area</label>
-                                <input type="text" name="no_hp" class="form-control" data-mask="(00) 0000 0000 000" data-mask-clearifnotmatch="true" autocomplete="off" maxlength="14">
+                                <label class="form-label">No HP</label>
+                                <input type="text" name="no_hp" class="form-control" data-mask="0000 0000 0000" maxlength="14" id="no_hp">
                             </div>
                         </div>
                     </div>
@@ -440,7 +440,7 @@
                         <div class="col-md-12">
                             <div class="form-group">
                                 <label class="form-label">Alamat Lengkap</label>
-                                <textarea name="alamat" class="form-control" required>Masukan Alamat di Sini...</textarea>
+                                <textarea name="alamat" class="form-control" placeholder="Masukan Alamat di Sini..." id="alamat" required></textarea>
                             </div>
                         </div>
                     </div>
@@ -451,7 +451,7 @@
                                 <label class="form-label">Tanggal Masuk Kerja</label>
                                 <div class="row gutters-xs">
                                     <div class="col-3">
-                                        <select name="tanggal_masuk[day]" class="form-control custom-select" required>
+                                        <select name="tanggal_masuk[day]" class="form-control custom-select" id="tm_day" required>
                                             <option value="">Hari</option>
                                             @for ($i=1; $i <= 31; $i++)
                                                 <option value="{{sprintf('%02d', $i)}}">{{sprintf('%02d', $i)}}</option>
@@ -459,7 +459,7 @@
                                         </select>
                                     </div>
                                     <div class="col-5">
-                                        <select name="tanggal_masuk[month]" class="form-control custom-select" required>
+                                        <select name="tanggal_masuk[month]" class="form-control custom-select" id="tm_month" required>
                                             <option value="">Bulan</option>
                                             <option value="01">Januari</option>
                                             <option value="02">Februari</option>
@@ -476,7 +476,7 @@
                                         </select>
                                     </div>
                                     <div class="col-4">
-                                        <select name="tanggal_masuk[year]" class="form-control custom-select" required>
+                                        <select name="tanggal_masuk[year]" class="form-control custom-select" id="tm_year" required>
                                             <option value="">Tahun</option>
                                             @for ($i=date('Y'); $i >= date('Y') - 100; $i--)
                                                 <option value="{{$i}}">{{$i}}</option>
@@ -491,7 +491,7 @@
                                 <label class="form-label">Tanggal Berhenti Kerja</label>
                                 <div class="row gutters-xs">
                                     <div class="col-3">
-                                        <select name="tanggal_keluar[day]" class="form-control custom-select">
+                                        <select name="tanggal_keluar[day]" class="form-control custom-select" id="tk_day">
                                             <option value="">Hari</option>
                                             @for ($i=1; $i <= 31; $i++)
                                                 <option value="{{sprintf('%02d', $i)}}">{{sprintf('%02d', $i)}}</option>
@@ -499,7 +499,7 @@
                                         </select>
                                     </div>
                                     <div class="col-5">
-                                        <select name="tanggal_keluar[month]" class="form-control custom-select">
+                                        <select name="tanggal_keluar[month]" class="form-control custom-select" id="tk_month">
                                             <option value="">Bulan</option>
                                             <option value="01">Januari</option>
                                             <option value="02">Februari</option>
@@ -516,7 +516,7 @@
                                         </select>
                                     </div>
                                     <div class="col-4">
-                                        <select name="tanggal_keluar[year]" class="form-control custom-select">
+                                        <select name="tanggal_keluar[year]" class="form-control custom-select" id="tk_year">
                                             <option value="">Tahun</option>
                                             @for ($i=date('Y'); $i >= date('Y') - 100; $i--)
                                                 <option value="{{$i}}">{{$i}}</option>
@@ -532,7 +532,7 @@
                         <div class="col-md-3">
                             <div class="form-group">
                                 <label class="form-label">Golongan</label>
-                                <select class="form-control custom-select" name="golongan" required>
+                                <select class="form-control custom-select" name="golongan" id="golongan" required>
                                     <option value="">Pilih</option>
                                     @foreach ($golongan as $gol)
                                         <option value="{{ $gol->id }}">{{ $gol->kode_golongan }}</option>
@@ -543,7 +543,7 @@
                         <div class="col-md-3">
                             <div class="form-group">
                                 <label class="form-label">Jabatan</label>
-                                <select class="form-control custom-select" name="jabatan" required>
+                                <select class="form-control custom-select" name="jabatan" id="jabatan" required>
                                     <option value="">Pilih</option>
                                     @foreach ($jabatan as $jab)
                                         <option value="{{ $jab->id }}">{{ $jab->nama_jabatan }}</option>
@@ -554,7 +554,7 @@
                         <div class="col-md-3">
                             <div class="form-group">
                                 <label class="form-label">Bidang</label>
-                                <select class="form-control custom-select selectize-select" name="bidang[]" required>
+                                <select class="form-control custom-select selectize-select" name="bidang[]" id="bidang" required>
                                     <option value="">Pilih</option>
                                     @foreach ($bidang as $bid)
                                         <option value="{{ $bid->id }}">{{ $bid->nama_bidang }}</option>
@@ -565,7 +565,7 @@
                         <div class="col-md-3">
                             <div class="form-group">
                                 <label class="form-label">Unit</label>
-                                <select class="form-control custom-select selectize-select" name="unit[]" required>
+                                <select class="form-control custom-select selectize-select" name="unit[]" id="unit" required>
                                     <option value="">Pilih</option>
                                     @foreach ($unit as $uni)
                                         <option value="{{ $uni->id }}">{{ $uni->nama_unit }}</option>
@@ -579,19 +579,19 @@
                         <div class="col-md-4">
                             <div class="form-group">
                                 <label class="form-label">Nama Bank</label>
-                                <input type="text" name="nama_bank" class="form-control">
+                                <input type="text" name="nama_bank" class="form-control" id="nama_bank">
                             </div>
                         </div>
                         <div class="col-md-4">
                             <div class="form-group">
                                 <label class="form-label">No Rekening</label>
-                                <input type="text" name="no_rekening" class="form-control" data-mask="0000 0000 0000 0000" data-mask-clearifnotmatch="true" autocomplete="off" maxlength="14">
+                                <input type="text" name="no_rekening" class="form-control" data-mask="0000 0000 0000 0000" maxlength="14" id="no_rekening">
                             </div>
                         </div>
                         <div class="col-md-4">
                             <div class="form-group">
                                 <label class="form-label">Rekening Atas Nama</label>
-                                <input type="text" name="rekening_atas_nama" class="form-control">
+                                <input type="text" name="rekening_atas_nama" class="form-control" id="rekening_atas_nama">
                             </div>
                         </div>
                     </div>
@@ -600,18 +600,18 @@
                         <div class="col-md-6">
                             <div class="form-group">
                                 <label class="form-label">Status Kerja</label>
-                                <select name="status_kerja" class="form-control custom-select" required>
+                                <select name="status_kerja" class="form-control custom-select" id="status_kerja" required>
                                     <option value="">Pilih</option>
-                                    <option value="GTY">GTY</option>
-                                    <option value="PTY">PTY</option>
-                                    <option value="PPTY">PPTY</option>
+                                    @foreach ($status_kerja as $stat)
+                                        <option value="{{ $stat->id }}">{{ $stat->nama_status_kerja }}</option>
+                                    @endforeach
                                 </select>
                             </div>
                         </div>
                         <div class="col-md-6">
                             <div class="form-group">
                                 <label class="form-label">Status</label>
-                                <select name="status" class="form-control custom-select">
+                                <select name="status" class="form-control custom-select" id="status">
                                     <option value="">Pilih</option>
                                     <option value="1">Guru</option>
                                     <option value="2">Non Guru</option>

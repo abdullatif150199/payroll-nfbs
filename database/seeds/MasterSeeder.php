@@ -13,6 +13,7 @@ class MasterSeeder extends Seeder
     {
         factory(App\Jabatan::class, 10)->create();
         factory(App\Golongan::class, 10)->create();
+        factory(App\StatusKerja::class, 6)->create();
 
         factory(App\Bidang::class, 5)->create()->each(function ($bidang) {
             $bidang->unit()->save(factory(App\Unit::class)->make());

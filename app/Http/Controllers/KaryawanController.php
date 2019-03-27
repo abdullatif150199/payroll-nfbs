@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Http\Requests\KaryawanFormRequest;
 use Yajra\Datatables\Datatables;
 use App\Karyawan;
+use App\StatusKerja;
 use App\Golongan;
 use App\Jabatan;
 use App\Bidang;
@@ -21,6 +22,7 @@ class KaryawanController extends Controller
         $jabatan = Jabatan::select('id', 'nama_jabatan')->get();
         $bidang = Bidang::select('id', 'nama_bidang')->get();
         $unit = Unit::select('id', 'nama_unit')->get();
+        $status_kerja = StatusKerja::select('id', 'nama_status_kerja')->get();
         // $a = Karyawan::find(1);
         // dd($a->unit);
         return view('karyawan.index', [
@@ -28,7 +30,8 @@ class KaryawanController extends Controller
             'golongan' => $golongan,
             'jabatan' => $jabatan,
             'bidang' => $bidang,
-            'unit' => $unit
+            'unit' => $unit,
+            'status_kerja' => $status_kerja
         ]);
     }
 
@@ -37,6 +40,9 @@ class KaryawanController extends Controller
         $data = Karyawan::all();
 
         return Datatables::of($data)
+            ->addColumn('actions', function($data) {
+                return view('karyawan.actions', ['data' => $data]);
+            })
             ->editColumn('no_induk', function($data) {
                 return '<span class="text-muted">'. $data->no_induk .'</span>';
             })
@@ -49,23 +55,22 @@ class KaryawanController extends Controller
             ->editColumn('unit', function($data) {
                 return view('karyawan.unit', ['unit' => $data->unit]);
             })
-            ->addColumn('actions', function($data) {
-                return view('karyawan.actions', ['data' => $data]);
+            ->editColumn('status_kerja', function($data) {
+                return $data->statusKerja->nama_status_kerja;
             })
-            ->rawColumns(['actions', 'jabatan', 'golongan', 'no_induk', 'unit'])
+            ->rawColumns(['actions', 'jabatan', 'golongan', 'no_induk', 'unit', 'status_kerja'])
             ->make(true);
     }
 
     public function store(KaryawanFormRequest $request)
     {
-        dd($request->bidang);
-        $username = strtok($request->nama_lengkap, ' ') . $request->birth['day'];
+        $username = strtok($request->nama_lengkap, ' ') . substr($request->birth['year'], -2);
         $check = User::where('username', $username)->first();
 
         if ($check) {
             $username = strtok($request->nama_lengkap, ' ') . $request->birth['month'];
             if (User::where('username', $username)->first()) {
-                $username = strtok($request->nama_lengkap, ' ') . substr($request->birth['year'], -2);
+                $username = strtok($request->nama_lengkap, ' ') . $request->birth['day'];
             }
         }
 
@@ -73,11 +78,33 @@ class KaryawanController extends Controller
             'name' => $request->nama_lengkap,
             'username' => $username,
             'email' => $request->nama_lengkap . '@example.com',
-            'password' => $request->birth['day'] . $request->birth['month'] . $request->birth['year'], // secret
+            'password' => bcrypt($request->birth['day'] . $request->birth['month'] . $request->birth['year']),
         ]);
 
-        $modif = $request->merge([
-            'golongan_id' => $golongan
+        $request->merge([
+            'user_id' => $user->id,
+            'golongan_id' => $request->golongan,
+            'jabatan_id' => $request->jabatan,
+            'status_kerja_id' => $request->status_kerja,
+            'tanggal_lahir' => $request->birth['year'].'-'.$request->birth['month'].'-'.$request->birth['day'],
+            'tanggal_masuk' => $request->tanggal_masuk['year'].'-'.$request->tanggal_masuk['month'].'-'.$request->tanggal_masuk['day'],
+            'no_hp' => str_replace(' ', '', $request->no_hp)
         ]);
+
+        $karyawan = Karyawan::create($request->all());
+        $karyawan->bidang()->attach($request->bidang);
+        $karyawan->unit()->attach($request->unit);
+
+        return redirect()->back()->withSuccess(sprintf('Karyawan %s berhasil di tambahkan.', $karyawan->nama_lengkap));
+    }
+
+    public function edit($id)
+    {
+        $data = Karyawan::find($id);
+
+        $data['bidang'] = $data->bidang;
+        $data['unit'] = $data->unit;
+
+        return $data;
     }
 }
