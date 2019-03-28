@@ -303,9 +303,9 @@
                 <button type="button" class="close" data-dismiss="modal"></button>
             </div>
 
-            <form method="post">
+            <form method="post" id="formEdit">
                 <div class="modal-body">
-                    {{ csrf_field() }} {{ method_field('POST') }}
+                    {{ csrf_field() }} {{ method_field('PUT') }}
                     <input type="hidden" name="id">
                     <div class="row">
                         <div class="col-md-6">

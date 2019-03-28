@@ -103,6 +103,9 @@
             dataType: "JSON",
             success: function(data) {
                 // console.log(JSON.stringify(data.bidang, null, 2));
+                var url_update = '{{ route("updateKaryawan", ":id") }}';
+                url = url_update.replace(':id', id);
+                $('#formEdit').attr('action', url);
                 $('#nama_lengkap').val(data.nama_lengkap);
                 $('#jenis_kelamin').val(data.jenis_kelamin);
                 $('#tempat_lahir').val(data.tempat_lahir);

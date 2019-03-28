@@ -95,7 +95,7 @@ class KaryawanController extends Controller
         $karyawan->bidang()->attach($request->bidang);
         $karyawan->unit()->attach($request->unit);
 
-        return redirect()->back()->withSuccess(sprintf('Karyawan %s berhasil di tambahkan.', $karyawan->nama_lengkap));
+        return redirect()->back()->withSuccess(sprintf('Karyawan %s berhasil di tambahkan', $karyawan->nama_lengkap));
     }
 
     public function edit($id)
@@ -106,5 +106,26 @@ class KaryawanController extends Controller
         $data['unit'] = $data->unit;
 
         return $data;
+    }
+
+    public function update(KaryawanFormRequest $request, $id)
+    {
+        $request->merge([
+            'golongan_id' => $request->golongan,
+            'jabatan_id' => $request->jabatan,
+            'status_kerja_id' => $request->status_kerja,
+            'tanggal_lahir' => $request->birth['year'].'-'.$request->birth['month'].'-'.$request->birth['day'],
+            'tanggal_masuk' => $request->tanggal_masuk['year'].'-'.$request->tanggal_masuk['month'].'-'.$request->tanggal_masuk['day'],
+            'tanggal_keluar' => $request->tanggal_keluar['year'].'-'.$request->tanggal_keluar['month'].'-'.$request->tanggal_keluar['day'],
+            'no_hp' => str_replace(' ', '', $request->no_hp)
+        ]);
+
+        $karyawan = Karyawan::findOrFail($id);
+        $karyawan->fill($request->all());
+        $karyawan->save();
+        $karyawan->bidang()->sync($request->bidang);
+        $karyawan->unit()->sync($request->unit);
+
+        return redirect()->back()->withSuccess(sprintf('Karyawan %s berhasil di update', $karyawan->nama_lengkap));
     }
 }
