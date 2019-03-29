@@ -69,10 +69,11 @@ class PotonganController extends Controller
         return redirect()->back()->withSuccess(sprintf('Potongan %s berhasil di update.', $pot->nama_potongan));
     }
 
-    public function delete($id)
+    public function detach($id, $name_id)
     {
         $pot = Potongan::findOrFail($id);
-        $pot->delete();
+        $karyawan = Karyawan::findOrFail($name_id);
+        $karyawan->potongan()->detach($id);
 
         return redirect()->back()->withSuccess(sprintf('Potongan %s berhasil di hapus.', $pot->nama_potongan));
     }

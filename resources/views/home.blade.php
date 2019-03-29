@@ -551,7 +551,8 @@
             type: 'bar', // default type of chart
             colors: {
                 @php
-                    $colors = ['#e4704d', '#44d49f', '#e2e44d', '#e24de4', '#3e2ae4', '#6e7687', '#7aab3a', '#49a5e4', '#5e75e6', '#e44d4d'];
+                    $colors = ['#e4704d', '#44d49f', '#e2e44d', '#e24de4', '#3e2ae4', '#6e7687', '#7aab3a', '#49a5e4', '#5e75e6',
+                    '#5e75e6', '#44d49f', '#49a5e4', '#e2e44d', '#e24de4', '#e44d4d', '#e4704d', '#6e7687', '#7aab3a', '#3e2ae4', '#e44d4d'];
                 @endphp
                 @foreach ($colors as $key => $value)
                     'data{{$key}}': '{{$value}}',
@@ -563,7 +564,7 @@
                     $i = 0;
                 @endphp
                 @foreach ($barChart as $key => $value)
-                    'data{{$i++}}': '{{$key}}',
+                    'data{{$i++}}': '{{App\StatusKerja::find($key)->nama_status_kerja}}',
                 @endforeach
             }
         },
@@ -588,7 +589,8 @@
             type: 'pie', // default type of chart
             colors: {
                 @php
-                    $colors = ['#5e75e6', '#44d49f', '#49a5e4', '#e2e44d', '#e24de4', '#e44d4d', '#e4704d', '#6e7687', '#7aab3a', '#3e2ae4'];
+                    $colors = ['#5e75e6', '#44d49f', '#49a5e4', '#e2e44d', '#e24de4', '#e44d4d', '#e4704d', '#6e7687', '#7aab3a', '#3e2ae4', '#5e75e6', '#44d49f', '#49a5e4', '#e2e44d', '#e24de4', '#e44d4d', '#e4704d',
+                    '#6e7687', '#7aab3a', '#3e2ae4'];
                 @endphp
                 @foreach ($colors as $key => $value)
                     'data{{$key}}': '{{$value}}',

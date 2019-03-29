@@ -18,6 +18,7 @@ Route::get('/', function () {
 Auth::routes();
 
 Route::get('/profile', function () {
+    dd(App\Bidang::all()->random(2)->pluck('id')->toArray());
     return view('profile.index');
 });
 
@@ -49,3 +50,4 @@ Route::post('/dashboard/potongan', 'PotonganController@store')->name('storePoton
 Route::get('/dashboard/potongan/{id}/edit', 'PotonganController@edit')->name('editPotongan');
 Route::put('/dashboard/potongan/{id}', 'PotonganController@update')->name('updatePotongan');
 Route::delete('/dashboard/potongan/{id}', 'PotonganController@delete')->name('deletePotongan');
+Route::delete('/dashboard/potongan/{id}/{name_id}', 'PotonganController@detach')->name('detachPotongan');

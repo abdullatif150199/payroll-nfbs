@@ -45,7 +45,7 @@ class Karyawan extends Model
 
     public function potongan()
     {
-        return $this->hasMany('App\Potongan');
+        return $this->belongsToMany('App\Potongan', 'karyawan_potongan');
     }
 
     public function lembur()

@@ -10,6 +10,6 @@ class Potongan extends Model
 
     public function karyawan()
     {
-        return $this->belongsTo('App\Karyawan');
+        return $this->belongsToMany('App\Karyawan', 'karyawan_potongan');
     }
 }

@@ -42,8 +42,6 @@
                             <th>No. Induk</th>
                             <th>Nama Lengkap</th>
                             <th>Jenis Potongan</th>
-                            {{-- <th>Bidang</th> --}}
-                            {{-- <th>Masa Cuti</th> --}}
                             <th></th>
                         </tr>
                     </thead>
@@ -68,9 +66,7 @@
             columns: [
                 {data: 'no_induk'},
                 {data: 'nama_lengkap'},
-                {data: 'jenis_potongan'},
-                // {data: 'bidang'},
-                // {data: 'progress'},
+                {data: 'jenis_potongan', orderable: false, searchable: false},
                 {data: 'actions', orderable: false, searchable: false}
             ],
             columnDefs: [
@@ -116,13 +112,27 @@
         });
     }
 
-    function deleteForm(id, name, potongan) {
-        var url = '{{ route("deletePotongan", ":id") }}';
+    function deleteModal(id, name, name_id) {
+        var url = '{{ route("editPotongan", ":id") }}';
         url = url.replace(':id', id);
+        var url_delete = '{{ route("detachPotongan", ["id" => ":id", "name_id" => ":name_id"]) }}';
+        url_delete = url_delete.replace(':id', id);
+        url_delete = url_delete.replace(':name_id', name_id);
         $('.modal-title').text('Warning!');
-        $('.modal-body').prepend('Yakin ingin menghapus potongan <strong>' + potongan + '</strong> dari <strong>' + name + '</strong>');
-        $('#modalDelete form').attr('action', url);
-        $('#modalDelete').modal('show');
+        $.ajax({
+            url: url,
+            type: "GET",
+            dataType: "JSON",
+            success: function(data) {
+                $('.modal-body').html('Yakin ingin menghapus potongan <strong>' + data.nama_potongan + '</strong> dari <strong>' + name + '</strong>');
+                $('#modalDelete form').attr('action', url_delete);
+                $('#modalDelete').modal('show');
+            },
+            error: function() {
+                alert('Data tidak ditemukan');
+            }
+        });
+
     }
 </script>
 @endpush

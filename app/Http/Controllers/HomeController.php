@@ -37,7 +37,7 @@ class HomeController extends Controller
         $now = date('Y-m-d H:i:s');
         $cuti = Cuti::where('end_at', '>', $now)->count();
 
-        $barChart = $karyawan->groupBy('status_kerja');
+        $barChart = $karyawan->groupBy('status_kerja_id');
         $pieChart = $karyawan->groupBy('golongan_id');
 
         return view('home', [
