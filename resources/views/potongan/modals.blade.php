@@ -1,44 +1,182 @@
 {{-- Modal Form --}}
-<div class="modal fade" id="modalForm">
-  <div class="modal-dialog">
-    <div class="modal-content">
+<div class="modal fade" id="tambahPotongan">
+    <div class="modal-dialog">
+        <div class="modal-content">
 
-      <!-- Modal Header -->
-      <div class="modal-header">
-        <h4 class="modal-title"></h4>
-        <button type="button" class="close" data-dismiss="modal"></button>
-      </div>
+            <!-- Modal Header -->
+            <div class="modal-header">
+                <h4 class="modal-title"></h4>
+                <button type="button" class="close" data-dismiss="modal"></button>
+            </div>
 
-      <form method="post">
-          <div class="modal-body">
-              {{ csrf_field() }} {{ method_field('POST') }}
-              <input type="hidden" name="id">
-              <div class="row">
-                  <div class="col-md-6">
-                      <div class="form-group">
-                          <label class="form-label">Nama Potongan</label>
-                          <input type="text" id="nama_potongan" name="nama_potongan" class="form-control" required>
-                      </div>
-                  </div>
-                  <div class="col-md-6">
-                    <div class="form-group">
-                        <label class="form-label">Jumlah Potongan</label>
-                        <input type="text" id="jumlah_potongan" name="jumlah_potongan" class="form-control" data-mask="000.000.000.000.000" data-mask-reverse="true" autocomplete="off" maxlength="22" required>
+            <form method="post">
+                <div class="modal-body">
+                    {{ csrf_field() }} {{ method_field('POST') }}
+                    <input type="hidden" name="id">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="form-group">
+                                <label class="form-label">Potongan</label>
+                                <select class="form-control custom-select selectize-select" name="potongan[]" id="potongan-karyawan" required>
+                                    <option value="">Pilih</option>
+                                    @foreach ($potongan as $pot)
+                                    <option value="{{ $pot->id }}">{{ $pot->nama_potongan }}</option>
+                                    @endforeach
+                                </select>
+                            </div>
+                        </div>
                     </div>
-                  </div>
-              </div>
 
-          </div>
-          <div class="modal-footer">
+                </div>
+                <div class="modal-footer">
 
-              <button type="button" class="btn btn-secondary" data-dismiss="modal">Batal</button>
-              <button type="submit" class="btn btn-primary">Tambah</button>
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Batal</button>
+                    <button type="submit" class="btn btn-primary">Tambah</button>
 
-          </div>
-      </form>
+                </div>
+            </form>
 
+        </div>
     </div>
-  </div>
+</div>
+
+{{-- Modal daftarPotongan --}}
+<div class="modal fade" id="daftarPotongan">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="card">
+                            <div class="card-header">
+                                <h3 class="card-title">Daftar Potongan</h3>
+                                <div class="card-options">
+                                    <a onclick="newPotongan()" class="btn btn-outline-primary btn-sm"><i class="fe fe-plus"></i> Tambah</a>
+                                </div>
+                            </div>
+                            <div class="card-body">
+                                <div class="table-responsive">
+                                    <table class="table card-table table-vcenter text-nowra table-hover">
+                                        <thead>
+                                            <tr>
+                                                <th>No.</th>
+                                                <th>Nama Potongan</th>
+                                                <th>Jumlah Potongan</th>
+                                                <th>Type</th>
+                                                <th></th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            @php
+                                                $no = 1;
+                                            @endphp
+                                            @foreach ($potongan as $pot)
+                                                <tr>
+                                                    <td>{{ $no++ }}</td>
+                                                    <td>{{ $pot->nama_potongan }}</td>
+                                                    <td>{{ $pot->type === 'decimal' ? number_format($pot->jumlah_potongan) : $pot->jumlah_potongan }}</td>
+                                                    <td>{{ $pot->type }}</td>
+                                                    <td class="text-center">
+                                                        <a class="icon mr-2" href="javascript:void(0)" data-toggle="tooltip" title="edit">
+                                                            <i class="fe fe-edit"></i>
+                                                        </a>
+                                                        <a class="icon" href="javascript:void(0)" data-toggle="tooltip" title="hapus">
+                                                            <i class="fe fe-trash"></i>
+                                                        </a>
+                                                    </td>
+                                                </tr>
+                                            @endforeach
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+{{-- Modal Form --}}
+<div class="modal fade" id="newPotongan">
+    <div class="modal-dialog">
+        <div class="modal-content">
+
+            <!-- Modal Header -->
+            <div class="modal-header">
+                <h4 class="modal-title">Buat Potongan Baru</h4>
+                <button type="button" class="close" data-dismiss="modal"></button>
+            </div>
+
+            <form method="post">
+                <div class="modal-body">
+                    {{ csrf_field() }} {{ method_field('POST') }}
+                    <input type="hidden" name="id">
+                    <div class="row">
+                        <div class="col">
+                            <div class="form-group">
+                                <label class="form-label">Nama Potongan</label>
+                                <input type="text" id="nama_potongan" name="nama_potongan" class="form-control" required>
+                            </div>
+                        </div>
+                        <div class="col">
+                            <div class="form-group">
+                                <label class="form-label">Jenis</label>
+                                <select class="form-control custom-select" name="type" id="type" required>
+                                    <option value="">Pilih</option>
+                                    <option value="percent">Percent</option>
+                                    <option value="decimal">Desimal</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row" id="decimal" style="display:none;">
+                        <div class="col">
+                            <div class="form-group">
+                                <label class="form-label">Jumlah Potongan</label>
+                                <input type="text" id="jumlah_potongan" name="jumlah_potongan" class="form-control" data-mask="000.000.000.000.000" data-mask-reverse="true" autocomplete="off" maxlength="22" required>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row" id="percent" style="display:none;">
+                        <div class="col">
+                            <div class="form-group">
+                                <label class="form-label">Jumlah Potongan</label>
+                                <div class="input-group">
+                                    <input type="text" id="jumlah_potongan" name="jumlah_potongan" class="form-control text-right" data-mask="000" data-mask-reverse="true" autocomplete="off" maxlength="3" required>
+                                    <span class="input-group-append">
+                                        <span class="input-group-text">%</span>
+                                    </span>
+                                    <span class="input-group-prepend">
+                                        <span class="input-group-text">dari</span>
+                                    </span>
+                                    <select class="form-control" name="jenis_persentase">
+                                        <option value="">Pilih</option>
+                                        <option value="&GAPOK">Gaji Pokok</option>
+                                        <option value="&TOTALGAPOK">Total Gaji Pokok</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Batal</button>
+                    <button type="submit" class="btn btn-primary">Tambah</button>
+
+                </div>
+            </form>
+
+        </div>
+    </div>
 </div>
 
 {{-- Modal delete --}}

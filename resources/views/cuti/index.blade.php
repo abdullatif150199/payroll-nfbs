@@ -42,7 +42,7 @@
                             <th>No. Induk</th>
                             <th>Nama Lengkap</th>
                             <th>JK</th>
-                            <th>Bidang</th>
+                            <th>Unit</th>
                             <th>Masa Cuti</th>
                             <th></th>
                         </tr>
@@ -66,7 +66,7 @@
                 {data: 'no_induk'},
                 {data: 'nama_lengkap'},
                 {data: 'jenis_kelamin'},
-                {data: 'bidang'},
+                {data: 'unit'},
                 {data: 'progress'},
                 {data: 'actions', orderable: false, searchable: false}
             ]

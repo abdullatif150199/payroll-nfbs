@@ -33,7 +33,10 @@
     <div class="col-12">
         <div class="card">
             <div class="card-header">
-                <h3 class="card-title" data-toggle="tooltip" title="test">Daftar Potongan</h3>
+                <h3 class="card-title">Daftar Potongan</h3>
+                <div class="card-options">
+                    <a href="#daftarPotongan" data-toggle="modal" data-backdrop="static" class="btn btn-primary"><i class="fe fe-list"></i> Daftar Potongan</a>
+                </div>
             </div>
             <div class="table-responsive">
                 <table class="table card-table table-vcenter text-nowra" id="pinjamanTable">
@@ -76,16 +79,54 @@
                 }
             ]
         });
+
+        $('body').tooltip({selector: '[data-toggle="tooltip"]'});
+
+        $('.selectize-select').selectize({
+            maxItems: 10
+        });
     });
 
-    $('body').tooltip({selector: '[data-toggle="tooltip"]'});
+    function newPotongan() {
+        $('#daftarPotongan').modal('hide');
+        $('#newPotongan form').attr('action', '{{ route('storePotongan') }}');
+        $('#newPotongan').modal('show');
+        $('#type').change(function () {
+            var val = $(this).val();
+            if (val === 'percent') {
+                $('#percent').show();
+                $('#decimal').hide();
+            } else {
+                $('#percent').hide();
+                $('#decimal').show();
+            }
+        });
+    }
 
-    function tambahForm(id, name) {
-        $('.modal-title').text('Tambah Potongan ' + name);
-        $('#modalForm form').attr('action', '{{ route('storePotongan') }}');
-        $('input[name=id]').val(id);
-        $('#modalForm').modal('show');
-        $('#modalForm form')[0].reset();
+    function tambahPotongan(id_karyawan) {
+        var url = '{{ route("showPotonganKaryawan", ":id") }}';
+        url = url.replace(':id', id_karyawan);
+        $.ajax({
+            url: url,
+            type: 'GET',
+            dataType: 'JSON',
+            success: function(data) {
+                var urlp = '{{ route("attachPotongan", ":id") }}';
+                url = urlp.replace(':id', data.id);
+                $('.modal-title').text('Tambah Potongan ' + data.nama_lengkap);
+                $('#tambahPotongan form').attr('action', url);
+                $('#potongan-karyawan')[0].selectize.clear();
+                $.each(data.potongan, function(k, v) {
+                    var $select = $('#potongan-karyawan');
+                    var selectize = $select[0].selectize;
+                    selectize.addItem(v.id);
+                });
+                $('#tambahPotongan').modal('show');
+            },
+            error: function() {
+                alert('Data tidak ditemukan');
+            }
+        });
     }
 
     function editForm(id, name) {
@@ -112,12 +153,12 @@
         });
     }
 
-    function deleteModal(id, name, name_id) {
-        var url = '{{ route("editPotongan", ":id") }}';
-        url = url.replace(':id', id);
-        var url_delete = '{{ route("detachPotongan", ["id" => ":id", "name_id" => ":name_id"]) }}';
-        url_delete = url_delete.replace(':id', id);
-        url_delete = url_delete.replace(':name_id', name_id);
+    function deleteModal(id_potongan, name, id_karyawan) {
+        var url = '{{ route("editPotongan", ":id_potongan") }}';
+        url = url.replace(':id_potongan', id_potongan);
+        var url_delete = '{{ route("detachPotongan", ["id_potongan" => ":id_potongan", "id_karyawan" => ":id_karyawan"]) }}';
+        url_delete = url_delete.replace(':id_potongan', id_potongan);
+        url_delete = url_delete.replace(':id_karyawan', id_karyawan);
         $('.modal-title').text('Warning!');
         $.ajax({
             url: url,

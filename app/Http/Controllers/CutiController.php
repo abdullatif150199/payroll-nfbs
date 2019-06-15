@@ -16,7 +16,9 @@ class CutiController extends Controller
 
     public function getCuti()
     {
-        $data = Cuti::orderby('created_at', 'desc')->get();
+        $data = Cuti::with(['karyawan' => function($query) {
+            $query->with('unit');
+        }])->orderby('created_at', 'desc')->get();
 
         return Datatables::of($data)
             ->addColumn('actions', function($data) {
@@ -34,10 +36,10 @@ class CutiController extends Controller
             ->editColumn('jenis_kelamin', function($data) {
                 return $data->karyawan->jenis_kelamin;
             })
-            ->editColumn('bidang', function($data) {
-                return $data->karyawan->bidang->nama_bidang;
+            ->editColumn('unit', function($data) {
+                return view('cuti.unit', ['unit' => $data->karyawan->unit]);
             })
-            ->rawColumns(['actions', 'progress', 'no_induk', 'nama_lengkap', 'jenis_kelamin', 'bidang'])
+            ->rawColumns(['actions', 'progress', 'no_induk', 'nama_lengkap', 'jenis_kelamin', 'unit'])
             ->make(true);
     }
 }

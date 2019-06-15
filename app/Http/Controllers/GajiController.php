@@ -18,9 +18,9 @@ class GajiController extends Controller
     {
         if (!$request->month) {
             $month = date('Y-m');
-            $data = Gaji::where('bulan', $month)->get();
+            $data = Gaji::with('karyawan')->where('bulan', $month)->get();
         } else {
-            $data = Gaji::where('bulan', $request->month)->get();
+            $data = Gaji::with('karyawan')->where('bulan', $request->month)->get();
         }
 
         return Datatables::of($data)

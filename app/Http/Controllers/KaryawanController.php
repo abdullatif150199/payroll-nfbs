@@ -18,9 +18,9 @@ class KaryawanController extends Controller
     public function index()
     {
         $title = 'Karyawan';
+        $bidang = Bidang::select('id', 'nama_bidang')->get();
         $golongan = Golongan::select('id', 'kode_golongan')->get();
         $jabatan = Jabatan::select('id', 'nama_jabatan')->get();
-        $bidang = Bidang::select('id', 'nama_bidang')->get();
         $unit = Unit::select('id', 'nama_unit')->get();
         $status_kerja = StatusKerja::select('id', 'nama_status_kerja')->get();
         // $a = Karyawan::find(1);
@@ -37,7 +37,7 @@ class KaryawanController extends Controller
 
     public function getKaryawan()
     {
-        $data = Karyawan::all();
+        $data = Karyawan::with(['jabatan', 'golongan', 'statusKerja', 'unit'])->get();
 
         return Datatables::of($data)
             ->addColumn('actions', function($data) {
@@ -100,7 +100,7 @@ class KaryawanController extends Controller
 
     public function edit($id)
     {
-        $data = Karyawan::find($id);
+        $data = Karyawan::with(['bidang', 'unit'])->find($id);
 
         $data['bidang'] = $data->bidang;
         $data['unit'] = $data->unit;

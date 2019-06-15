@@ -69,7 +69,7 @@
             'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
         }
     });
-    
+
     $(document).ready(function() {
         $('#karyawanTable').DataTable({
             serverSide: true,
@@ -95,6 +95,7 @@
     });
 
     function editKaryawan(id) {
+        $('#formEdit')[0].reset();
         var url = '{{ route("editKaryawan", ":id") }}';
         url = url.replace(':id', id);
         $.ajax({
@@ -130,12 +131,14 @@
                 }
                 $('#golongan').val(data.golongan_id);
                 $('#jabatan').val(data.jabatan_id);
+                $('#bidang')[0].selectize.clear();
                 $.each(data.bidang, function(k,v) {
                     // console.log($('#bidang').val(v.id));
                     var $select = $('#bidang');
                     var selectize = $select[0].selectize;
                     selectize.addItem(v.id);
                 });
+                $('#unit')[0].selectize.clear();
                 $.each(data.unit, function(k,v) {
                     // console.log($('#unit').val(v.id));
                     var $select = $('#unit');

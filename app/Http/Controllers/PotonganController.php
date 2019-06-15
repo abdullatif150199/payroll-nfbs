@@ -12,12 +12,13 @@ class PotonganController extends Controller
     public function index()
     {
         $title = 'Potongan';
-        return view('potongan.index', ['title' => $title]);
+        $potongan = Potongan::all();
+        return view('potongan.index', ['title' => $title, 'potongan' => $potongan]);
     }
 
     public function getPotongan()
     {
-        $data = Karyawan::orderBy('created_at', 'desc');
+        $data = Karyawan::with('potongan')->latest();
 
         return Datatables::of($data)
             ->addColumn('actions', function ($data) {
@@ -46,9 +47,16 @@ class PotonganController extends Controller
         return redirect()->back()->withSuccess(sprintf('Potongan %s berhasil di buat.', $pot->nama_potongan));
     }
 
+    public function showPotonganKaryawan($id)
+    {
+        $get = karyawan::with('potongan')->findOrFail($id);
+
+        return $get;
+    }
+
     public function edit($id)
     {
-        $get = Potongan::find($id);
+        $get = Potongan::with('karyawan')->find($id);
 
         return $get;
     }
@@ -69,12 +77,20 @@ class PotonganController extends Controller
         return redirect()->back()->withSuccess(sprintf('Potongan %s berhasil di update.', $pot->nama_potongan));
     }
 
-    public function detach($id, $name_id)
+    public function attach(Request $request, $id)
     {
-        $pot = Potongan::findOrFail($id);
-        $karyawan = Karyawan::findOrFail($name_id);
-        $karyawan->potongan()->detach($id);
+        $karyawan = Karyawan::with('potongan')->findOrFail($id);
+        $karyawan->potongan()->detach();
+        $karyawan->potongan()->attach($request->potongan);
 
-        return redirect()->back()->withSuccess(sprintf('Potongan %s berhasil di hapus.', $pot->nama_potongan));
+        return redirect()->back()->withSuccess("Potongan berhasil di tambahkan ke {$karyawan->nama_lengkap}.");
+    }
+
+    public function detach($id_potongan, $id_karyawan)
+    {
+        $potongan = Potongan::with('karyawan')->findOrFail($id_potongan);
+        $potongan->karyawan()->detach($id_karyawan);
+
+        return redirect()->back()->withSuccess(sprintf('Potongan %s berhasil di hapus.', $potongan->nama_potongan));
     }
 }

@@ -198,7 +198,7 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="col-md-6">
+                        <div class="col-md-3">
                             <div class="form-group">
                                 <label class="form-label">Status Kerja</label>
                                 <select name="status_kerja" class="form-control custom-select" required>
@@ -206,6 +206,16 @@
                                     @foreach ($status_kerja as $stat)
                                         <option value="{{ $stat->id }}">{{ $stat->nama_status_kerja }}</option>
                                     @endforeach
+                                </select>
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                            <div class="form-group">
+                                <label class="form-label">Status</label>
+                                <select name="status" class="form-control custom-select">
+                                    <option value="">Pilih</option>
+                                    <option value="1">Guru</option>
+                                    <option value="2">Non Guru</option>
                                 </select>
                             </div>
                         </div>
