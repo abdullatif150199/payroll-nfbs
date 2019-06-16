@@ -89,7 +89,7 @@
                                                         <a class="icon mr-2" onclick="editPotongan({{ $pot->id }})" data-toggle="tooltip" title="edit">
                                                             <i class="fe fe-edit"></i>
                                                         </a>
-                                                        <a class="icon" onclick="hapusPotongan({{ $pot->id }})" data-toggle="tooltip" title="hapus">
+                                                        <a class="icon" onclick="hapusPotongan({{ $pot->id .",'". $pot->nama_potongan ."'" }})" data-toggle="tooltip" title="hapus">
                                                             <i class="fe fe-trash"></i>
                                                         </a>
                                                     </td>

@@ -98,6 +98,7 @@
         $('#daftarPotongan').modal('hide');
         $('#formPotongan').modal('show');
         $('.modal-title').text('Tambah Potongan Baru');
+        $('#formPotongan form')[0].reset();
         $('#type').change(function () {
             var val = $(this).val();
             if (val === 'percent') {
@@ -132,17 +133,17 @@
     function editPotongan(id) {
         var url = '{{ route("editPotongan", ":id") }}';
         url = url.replace(':id', id);
-        var url2 = '{{ route("updatePotongan", ":id") }}';
-        url2 = url2.replace(':id', id);
-        $('.modal-title').text('Edit Potongan');
-        $('#formPotongan form').attr('action', url2);
-        $('input[name=_method]').val('PUT');
         $('#formPotongan form')[0].reset();
         $.ajax({
             url: url,
             type: "GET",
             dataType: "JSON",
             success: function(data) {
+                var url2 = '{{ route("updatePotongan", ":id") }}';
+                url2 = url2.replace(':id', id);
+                $('.modal-title').text('Edit Potongan');
+                $('#formPotongan form').attr('action', url2);
+                $('input[name=_method]').val('PUT');
                 $('#formPotongan').modal('show');
                 $('input[name=nama_potongan]').val(data.nama_potongan);
                 $('#type').change(function () {
@@ -150,15 +151,31 @@
                     if (val === 'percent') {
                         $('#decimal').hide();
                         $('#percent').show();
-                        $('select[name=type]').val(data.type);
-                        $('input[name=jumlah_persentase]').val(data.jumlah_persentase);
-                        $('input[name=jenis_persentase]').val(data.jenis_persentase);
-
+                        var str = data.jumlah_potongan;
+                        var ex = str.split('*');
+                        // console.log(ex[0]);
+                        $('input[name=jumlah_persentase]').val(ex[0] * 100);
+                        $('input[name=jenis_persentase]').val(ex[1]);
+                        $(this).change(function () {
+                            val = $(this).val();
+                            if (val === 'decimal') {
+                                $('#percent').hide();
+                                $('#decimal').show();
+                            }
+                        });
                     } else {
                         $('#percent').hide();
                         $('#decimal').show();
-                        $('select[name=type]').val(data.type);
-                        $('input[name=jumlah_potongan]').val(data.jumlah_potongan);
+                        if (data.type !== 'percent') {
+                            $('input[name=jumlah_potongan]').val(data.jumlah_potongan);
+                        }
+                        $(this).change(function () {
+                            val = $(this).val();
+                            if (val === 'percent') {
+                                $('#percent').show();
+                                $('#decimal').hide();
+                            }
+                        });
                     }
                 });
             },
@@ -168,9 +185,11 @@
         });
     }
 
-    function hapusPotongan(id) {
+    function hapusPotongan(id, name) {
         var url = '{{ route("hapusPotongan", ":id") }}';
         url = url.replace(':id', id);
+        $('.modal-title').text('Hapus Potongan ' + name);
+        $('input[name=_method]').val('DELETE');
         $('#hapusPotongan').modal('show');
         $('#hapusPotongan form').submit(function(e) {
             e.preventDefault();
@@ -192,6 +211,7 @@
     function tambahPotongan(id_karyawan) {
         var url = '{{ route("showPotonganKaryawan", ":id") }}';
         url = url.replace(':id', id_karyawan);
+        $('#tambahPotongan form')[0].reset();
         $.ajax({
             url: url,
             type: 'GET',
@@ -201,6 +221,7 @@
                 url = urlp.replace(':id', data.id);
                 $('.modal-title').text('Tambah Potongan ' + data.nama_lengkap);
                 $('#tambahPotongan form').attr('action', url);
+                $('input[name=_method]').val('POST');
                 $('#potongan-karyawan')[0].selectize.clear();
                 $.each(data.potongan, function(k, v) {
                     var $select = $('#potongan-karyawan');
