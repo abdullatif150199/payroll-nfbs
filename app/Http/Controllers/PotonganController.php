@@ -34,17 +34,23 @@ class PotonganController extends Controller
     public function store(Request $request)
     {
         $this->validate($request, [
-            'nama_potongan' => 'min:2|max:50',
+            'nama_potongan' => 'min:2|max:20',
             'jumlah_potongan' => 'max:22'
         ]);
 
-        $pot = new Potongan;
-        $pot->karyawan_id = $request->id;
-        $pot->nama_potongan = $request->nama_potongan;
-        $pot->jumlah_potongan = str_replace('.', '', $request->jumlah_potongan);
-        $pot->save();
+        if ($request->type === 'decimal') {
+            $jumlah_potongan = str_replace('.', '', $request->jumlah_potongan);
+        } else {
+            $jumlah_potongan = substr($request->jumlah_persentase/100, 0, 4) . '*' . $request->jenis_persentase;
+        }
 
-        return redirect()->back()->withSuccess(sprintf('Potongan %s berhasil di buat.', $pot->nama_potongan));
+        $data = [
+            'nama_potongan' => $request->nama_potongan,
+            'jumlah_potongan' => $jumlah_potongan,
+            'type' => $request->type
+        ];
+
+        return Potongan::create($data);
     }
 
     public function showPotonganKaryawan($id)
@@ -92,5 +98,10 @@ class PotonganController extends Controller
         $potongan->karyawan()->detach($id_karyawan);
 
         return redirect()->back()->withSuccess(sprintf('Potongan %s berhasil di hapus.', $potongan->nama_potongan));
+    }
+
+    public function delete($id)
+    {
+        Potongan::destroy($id);
     }
 }

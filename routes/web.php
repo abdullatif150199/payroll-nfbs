@@ -51,5 +51,5 @@ Route::get('/dashboard/potongan/{id}/edit', 'PotonganController@edit')->name('ed
 Route::post('/dashboard/potongan/{id}/attach', 'PotonganController@attach')->name('attachPotongan');
 Route::get('/dashboard/potongan-karyawan/{id}', 'PotonganController@showPotonganKaryawan')->name('showPotonganKaryawan');
 Route::put('/dashboard/potongan/{id}', 'PotonganController@update')->name('updatePotongan');
-Route::delete('/dashboard/potongan/{id}', 'PotonganController@delete')->name('deletePotongan');
+Route::delete('/dashboard/potongan/{id}', 'PotonganController@delete')->name('hapusPotongan');
 Route::delete('/dashboard/potongan/{potongan_id}/{karyawan_id}', 'PotonganController@detach')->name('detachPotongan');

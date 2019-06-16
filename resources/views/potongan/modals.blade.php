@@ -1,4 +1,4 @@
-{{-- Modal Form --}}
+{{-- Modal tambahPotongan --}}
 <div class="modal fade" id="tambahPotongan">
     <div class="modal-dialog">
         <div class="modal-content">
@@ -26,7 +26,6 @@
                             </div>
                         </div>
                     </div>
-
                 </div>
                 <div class="modal-footer">
 
@@ -57,7 +56,7 @@
                             </div>
                             <div class="card-body">
                                 <div class="table-responsive">
-                                    <table class="table card-table table-vcenter text-nowra table-hover">
+                                    <table class="table card-table table-vcenter text-nowra table-hover" id="tableDaftarPotongan">
                                         <thead>
                                             <tr>
                                                 <th>No.</th>
@@ -75,13 +74,22 @@
                                                 <tr>
                                                     <td>{{ $no++ }}</td>
                                                     <td>{{ $pot->nama_potongan }}</td>
-                                                    <td>{{ $pot->type === 'decimal' ? number_format($pot->jumlah_potongan) : $pot->jumlah_potongan }}</td>
+                                                    <td>
+                                                        @if ($pot->type === 'decimal')
+                                                            {{ number_format($pot->jumlah_potongan) }}
+                                                        @else
+                                                            @php
+                                                                $ex = explode('*&', $pot->jumlah_potongan)
+                                                            @endphp
+                                                            {{ $ex[0]*100 . '% ' . $ex[1] }}
+                                                        @endif
+                                                    </td>
                                                     <td>{{ $pot->type }}</td>
                                                     <td class="text-center">
-                                                        <a class="icon mr-2" href="javascript:void(0)" data-toggle="tooltip" title="edit">
+                                                        <a class="icon mr-2" onclick="editPotongan({{ $pot->id }})" data-toggle="tooltip" title="edit">
                                                             <i class="fe fe-edit"></i>
                                                         </a>
-                                                        <a class="icon" href="javascript:void(0)" data-toggle="tooltip" title="hapus">
+                                                        <a class="icon" onclick="hapusPotongan({{ $pot->id }})" data-toggle="tooltip" title="hapus">
                                                             <i class="fe fe-trash"></i>
                                                         </a>
                                                     </td>
@@ -104,26 +112,25 @@
     </div>
 </div>
 
-{{-- Modal Form --}}
-<div class="modal fade" id="newPotongan">
+{{-- Modal formPotongan --}}
+<div class="modal fade" id="formPotongan">
     <div class="modal-dialog">
         <div class="modal-content">
 
             <!-- Modal Header -->
             <div class="modal-header">
-                <h4 class="modal-title">Buat Potongan Baru</h4>
+                <h4 class="modal-title"></h4>
                 <button type="button" class="close" data-dismiss="modal"></button>
             </div>
 
-            <form method="post">
+            <form method="post" id="formNewPotongan">
                 <div class="modal-body">
                     {{ csrf_field() }} {{ method_field('POST') }}
-                    <input type="hidden" name="id">
                     <div class="row">
                         <div class="col">
                             <div class="form-group">
                                 <label class="form-label">Nama Potongan</label>
-                                <input type="text" id="nama_potongan" name="nama_potongan" class="form-control" required>
+                                <input type="text" name="nama_potongan" class="form-control" required>
                             </div>
                         </div>
                         <div class="col">
@@ -141,7 +148,7 @@
                         <div class="col">
                             <div class="form-group">
                                 <label class="form-label">Jumlah Potongan</label>
-                                <input type="text" id="jumlah_potongan" name="jumlah_potongan" class="form-control" data-mask="000.000.000.000.000" data-mask-reverse="true" autocomplete="off" maxlength="22" required>
+                                <input type="text" name="jumlah_potongan" class="form-control" data-mask="000.000.000" data-mask-reverse="true" autocomplete="off">
                             </div>
                         </div>
                     </div>
@@ -150,7 +157,7 @@
                             <div class="form-group">
                                 <label class="form-label">Jumlah Potongan</label>
                                 <div class="input-group">
-                                    <input type="text" id="jumlah_potongan" name="jumlah_potongan" class="form-control text-right" data-mask="000" data-mask-reverse="true" autocomplete="off" maxlength="3" required>
+                                    <input type="text" name="jumlah_persentase" class="form-control text-right" data-mask="000" data-mask-reverse="true" autocomplete="off">
                                     <span class="input-group-append">
                                         <span class="input-group-text">%</span>
                                     </span>
@@ -174,6 +181,35 @@
 
                 </div>
             </form>
+
+        </div>
+    </div>
+</div>
+
+{{-- Modal hapusPotongan --}}
+<div class="modal fade" id="hapusPotongan">
+    <div class="modal-dialog">
+        <div class="modal-content">
+
+            <!-- Modal Header -->
+            <div class="modal-header">
+                <h4 class="modal-title">Hapus Potongan</h4>
+                <button type="button" class="close" data-dismiss="modal"></button>
+            </div>
+
+            <div class="modal-body">
+                <strong>Yakin ingin menghapus?</strong>
+            </div>
+
+            <div class="modal-footer">
+                <button class="btn btn-secondary" data-dismiss="modal">Batal</button>
+                <form method="post">
+                    {{ csrf_field() }}
+                    {{ method_field('DELETE') }}
+
+                    <button type="submit" class="btn btn-primary">Ya</button>
+                </form>
+            </div>
 
         </div>
     </div>

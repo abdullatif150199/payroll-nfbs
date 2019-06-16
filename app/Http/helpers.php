@@ -60,3 +60,12 @@ function percent($part, $total) {
 
     return $percent;
 }
+
+function sumType($sum, $type) {
+    if ($type === 'decimal') {
+        return number_format($sum);
+    } else {
+        $ex = explode('*&', $sum);
+        return $ex[0]*100 . '% ' . $ex[1];
+    }
+}

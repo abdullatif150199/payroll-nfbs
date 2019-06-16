@@ -39,7 +39,7 @@
                 </div>
             </div>
             <div class="table-responsive">
-                <table class="table card-table table-vcenter text-nowra" id="pinjamanTable">
+                <table class="table card-table table-vcenter text-nowra" id="potonganTable">
                     <thead>
                         <tr>
                             <th>No. Induk</th>
@@ -61,7 +61,7 @@
 @push('scripts')
 <script>
     $(document).ready(function() {
-        $('#pinjamanTable').DataTable({
+        $('#potonganTable').DataTable({
             serverSide: true,
             processing: true,
             select: true,
@@ -87,10 +87,17 @@
         });
     });
 
+    $(function() {
+        if (sessionStorage.reloadAfterPageLoad == 1) {
+            $('#daftarPotongan').modal('show');
+            sessionStorage.reloadAfterPageLoad = '';
+        }
+    });
+
     function newPotongan() {
         $('#daftarPotongan').modal('hide');
-        $('#newPotongan form').attr('action', '{{ route('storePotongan') }}');
-        $('#newPotongan').modal('show');
+        $('#formPotongan').modal('show');
+        $('.modal-title').text('Tambah Potongan Baru');
         $('#type').change(function () {
             var val = $(this).val();
             if (val === 'percent') {
@@ -101,6 +108,85 @@
                 $('#decimal').show();
             }
         });
+
+        $('#formPotongan form').submit(function(e) {
+            e.preventDefault();
+            // console.log($('#newPotongan form').serialize());
+
+            $.ajax({
+                url : '{{ route('storePotongan') }}',
+                type: 'POST',
+                data: $('#formPotongan form').serialize(),
+                success: function(data) {
+                    $('#formPotongan').modal('hide');
+                    sessionStorage.reloadAfterPageLoad = 1;
+                    location.reload(); // refresh page
+                },
+                error: function() {
+                    alert('Gagal menyimpan data');
+                }
+            });
+        });
+    }
+
+    function editPotongan(id) {
+        var url = '{{ route("editPotongan", ":id") }}';
+        url = url.replace(':id', id);
+        var url2 = '{{ route("updatePotongan", ":id") }}';
+        url2 = url2.replace(':id', id);
+        $('.modal-title').text('Edit Potongan');
+        $('#formPotongan form').attr('action', url2);
+        $('input[name=_method]').val('PUT');
+        $('#formPotongan form')[0].reset();
+        $.ajax({
+            url: url,
+            type: "GET",
+            dataType: "JSON",
+            success: function(data) {
+                $('#formPotongan').modal('show');
+                $('input[name=nama_potongan]').val(data.nama_potongan);
+                $('#type').change(function () {
+                    var val = data.type;
+                    if (val === 'percent') {
+                        $('#decimal').hide();
+                        $('#percent').show();
+                        $('select[name=type]').val(data.type);
+                        $('input[name=jumlah_persentase]').val(data.jumlah_persentase);
+                        $('input[name=jenis_persentase]').val(data.jenis_persentase);
+
+                    } else {
+                        $('#percent').hide();
+                        $('#decimal').show();
+                        $('select[name=type]').val(data.type);
+                        $('input[name=jumlah_potongan]').val(data.jumlah_potongan);
+                    }
+                });
+            },
+            error: function() {
+                alert('Data tidak ditemukan');
+            }
+        });
+    }
+
+    function hapusPotongan(id) {
+        var url = '{{ route("hapusPotongan", ":id") }}';
+        url = url.replace(':id', id);
+        $('#hapusPotongan').modal('show');
+        $('#hapusPotongan form').submit(function(e) {
+            e.preventDefault();
+
+            $.ajax({
+                url: url,
+                type: 'POST',
+                data: $('#hapusPotongan form').serialize(),
+                success: function(data) {
+                    $('#hapusPotongan').modal('hide');
+                    sessionStorage.reloadAfterPageLoad = 1;
+                    location.reload(); // refresh page
+                }
+            });
+
+        })
     }
 
     function tambahPotongan(id_karyawan) {
@@ -122,30 +208,6 @@
                     selectize.addItem(v.id);
                 });
                 $('#tambahPotongan').modal('show');
-            },
-            error: function() {
-                alert('Data tidak ditemukan');
-            }
-        });
-    }
-
-    function editForm(id, name) {
-        var url = '{{ route("editPotongan", ":id") }}';
-        url = url.replace(':id', id);
-        var url2 = '{{ route("updatePotongan", ":id") }}';
-        url2 = url2.replace(':id', id);
-        $('#modalForm form').attr('action', url2);
-        $('input[name=_method]').val('PUT');
-        $('.modal-title').text('Edit potongan ' + name);
-        $('#modalForm form')[0].reset();
-        $.ajax({
-            url: url,
-            type: "GET",
-            dataType: "JSON",
-            success: function(data) {
-                $('input[name=nama_potongan]').val(data.nama_potongan);
-                $('input[name=jumlah_potongan]').val(data.jumlah_potongan);
-                $('#modalForm').modal('show');
             },
             error: function() {
                 alert('Data tidak ditemukan');
