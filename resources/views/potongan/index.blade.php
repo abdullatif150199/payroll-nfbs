@@ -96,8 +96,9 @@
 
     function newPotongan() {
         $('#daftarPotongan').modal('hide');
-        $('#formPotongan').modal('show');
         $('.modal-title').text('Tambah Potongan Baru');
+        $('#formPotongan').modal('show');
+        $('input[name=_method]').val('POST');
         $('#formPotongan form')[0].reset();
         $('#type').change(function () {
             var val = $(this).val();
@@ -109,42 +110,21 @@
                 $('#decimal').show();
             }
         });
-
-        $('#formPotongan form').submit(function(e) {
-            e.preventDefault();
-            // console.log($('#newPotongan form').serialize());
-
-            $.ajax({
-                url : '{{ route('storePotongan') }}',
-                type: 'POST',
-                data: $('#formPotongan form').serialize(),
-                success: function(data) {
-                    $('#formPotongan').modal('hide');
-                    sessionStorage.reloadAfterPageLoad = 1;
-                    location.reload(); // refresh page
-                },
-                error: function() {
-                    alert('Gagal menyimpan data');
-                }
-            });
-        });
     }
 
     function editPotongan(id) {
         var url = '{{ route("editPotongan", ":id") }}';
         url = url.replace(':id', id);
+        $('input[name=_method]').val('PUT');
         $('#formPotongan form')[0].reset();
         $.ajax({
             url: url,
             type: "GET",
             dataType: "JSON",
             success: function(data) {
-                var url2 = '{{ route("updatePotongan", ":id") }}';
-                url2 = url2.replace(':id', id);
                 $('.modal-title').text('Edit Potongan');
-                $('#formPotongan form').attr('action', url2);
-                $('input[name=_method]').val('PUT');
                 $('#formPotongan').modal('show');
+                $('input[name=id]').val(data.id);
                 $('input[name=nama_potongan]').val(data.nama_potongan);
                 $('#type').change(function () {
                     var val = data.type;
@@ -184,6 +164,34 @@
             }
         });
     }
+
+    $('#formPotongan form').submit(function(e) {
+        e.preventDefault();
+        var id = $('input[name=id]').val();
+        var save_method = $('input[name=_method]').val();
+
+        if (save_method == 'POST') {
+            url = '{{ route('storePotongan') }}';
+        } else {
+            url_raw = '{{ route('updatePotongan', ':id') }}';
+            url = url_raw.replace(':id', id);
+            console.log(id);
+        }
+
+        $.ajax({
+            url : url,
+            type: 'POST',
+            data: $('#formPotongan form').serialize(),
+            success: function(data) {
+                $('#formPotongan').modal('hide');
+                sessionStorage.reloadAfterPageLoad = 1;
+                location.reload(); // refresh page
+            },
+            error: function() {
+                alert('Gagal menyimpan data');
+            }
+        });
+    });
 
     function hapusPotongan(id, name) {
         var url = '{{ route("hapusPotongan", ":id") }}';

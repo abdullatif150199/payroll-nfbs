@@ -53,3 +53,10 @@ Route::get('/dashboard/potongan-karyawan/{id}', 'PotonganController@showPotongan
 Route::put('/dashboard/potongan/{id}', 'PotonganController@update')->name('updatePotongan');
 Route::delete('/dashboard/potongan/{id}', 'PotonganController@delete')->name('hapusPotongan');
 Route::delete('/dashboard/potongan/{potongan_id}/{karyawan_id}', 'PotonganController@detach')->name('detachPotongan');
+
+// Golongan
+Route::get('/dashboard/golongan', 'GolonganController@index');
+Route::get('/dashboard/get-golongan', 'GolonganController@getGolongan')->name('getGolongan');
+Route::post('/dashboard/golongan', 'GolonganController@store')->name('storeGolongan');
+Route::get('dashboard/golongan/{id}/edit', 'GolonganController@edit')->name('editGolongan');
+Route::put('dashboard/golongan/{id}', 'GolonganController@update')->name('updateGolongan');

@@ -126,6 +126,7 @@
             <form method="post" id="formNewPotongan">
                 <div class="modal-body">
                     {{ csrf_field() }} {{ method_field('POST') }}
+                    <input type="hidden" name="id">
                     <div class="row">
                         <div class="col">
                             <div class="form-group">

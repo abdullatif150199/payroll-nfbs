@@ -23,6 +23,7 @@ class DefineMenus
             $menu->add('Kehadiran', 'dashboard/kehadiran')->data('icon', 'fa fa-calendar-check-o');
             $menu->add('Cuti', 'dashboard/cuti')->data('icon', 'fa fa-calendar-times-o');
             $menu->add('Potongan', 'dashboard/potongan')->data('icon', 'fa fa-paypal');
+            $menu->add('Golongan', 'dashboard/golongan')->data('icon', 'fa fa-users');
         });
 
         Menu::make('profile', function ($menu) {

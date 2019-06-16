@@ -33,14 +33,20 @@ class PotonganController extends Controller
 
     public function store(Request $request)
     {
-        $this->validate($request, [
-            'nama_potongan' => 'min:2|max:20',
-            'jumlah_potongan' => 'max:22'
-        ]);
-
         if ($request->type === 'decimal') {
+            $this->validate($request, [
+                'nama_potongan' => 'min:2|max:20',
+                'jumlah_potongan' => 'required|max:22'
+            ]);
+
             $jumlah_potongan = str_replace('.', '', $request->jumlah_potongan);
         } else {
+            $this->validate($request, [
+                'nama_potongan' => 'min:2|max:20',
+                'jumlah_persentase' => 'required|max:3',
+                'jenis_persentase' => 'required'
+            ]);
+
             $jumlah_potongan = substr($request->jumlah_persentase/100, 0, 4) . '*' . $request->jenis_persentase;
         }
 
@@ -69,18 +75,30 @@ class PotonganController extends Controller
 
     public function update(Request $request, $id)
     {
-        $this->validate($request, [
-            'nama_potongan' => 'min:2|max:50',
-            'jumlah_potongan' => 'max:22'
-        ]);
+        if ($request->type === 'decimal') {
+            $this->validate($request, [
+                'nama_potongan' => 'min:2|max:20',
+                'jumlah_potongan' => 'required|max:22'
+            ]);
+
+            $jumlah_potongan = str_replace('.', '', $request->jumlah_potongan);
+        } else {
+            $this->validate($request, [
+                'nama_potongan' => 'min:2|max:20',
+                'jumlah_persentase' => 'required|max:3',
+                'jenis_persentase' => 'required'
+            ]);
+
+            $jumlah_potongan = substr($request->jumlah_persentase/100, 0, 4) . '*' . $request->jenis_persentase;
+        }
 
         $pot = Potongan::findOrFail($id);
-        $pot->karyawan_id = $request->id;
         $pot->nama_potongan = $request->nama_potongan;
-        $pot->jumlah_potongan = str_replace('.', '', $request->jumlah_potongan);
-        $pot->save();
+        $pot->jumlah_potongan = $jumlah_potongan;
+        $pot->type = $request->type;
+        $pot->update();
 
-        return redirect()->back()->withSuccess(sprintf('Potongan %s berhasil di update.', $pot->nama_potongan));
+        return $pot;
     }
 
     public function attach(Request $request, $id)
