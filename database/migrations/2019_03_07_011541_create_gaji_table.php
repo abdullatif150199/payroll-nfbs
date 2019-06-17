@@ -20,9 +20,12 @@ class CreateGajiTable extends Migration
             $table->char('bulan', 7);
             $table->decimal('gaji_pokok', 10, 0);
             $table->decimal('tunjangan_jabatan', 10, 0)->nullable();
+            $table->decimal('tunjangan_fungsional', 10, 0)->nullable();
+            $table->decimal('tunjangan_kinerja', 10, 0)->nullable();
             $table->decimal('tunjangan_pendidikan', 10, 0)->nullable();
             $table->decimal('tunjangan_istri', 10, 0)->nullable();
             $table->decimal('tunjangan_anak', 10, 0)->nullable();
+            $table->decimal('tunjangan_hari_raya', 10, 0)->nullable();
             $table->decimal('lembur', 10, 0)->nullable();
             $table->decimal('lain_lain', 10, 0)->nullable();
             $table->decimal('insentif', 10, 0)->nullable();
