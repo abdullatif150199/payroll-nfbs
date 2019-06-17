@@ -37,10 +37,15 @@ class KaryawanController extends Controller
 
     public function getKaryawan(Request $request)
     {
-        $data = Karyawan::with(['jabatan', 'golongan', 'statusKerja', 'unit'])
-            ->when($request->statuskerja, function($q) use($request) {
-                $q->where('status_kerja_id', $request->statuskerja);
-            })->get();
+        if ($request->statuskerja != 'berhenti') {
+            $data = Karyawan::with(['jabatan', 'golongan', 'statusKerja', 'unit'])
+                ->when($request->statuskerja, function($q) use($request) {
+                    $q->where('status_kerja_id', $request->statuskerja);
+                })->where('status', '<>', 3)->get();
+        } else {
+            $data = Karyawan::with(['jabatan', 'golongan', 'statusKerja', 'unit'])
+                ->where('status', 3)->get();
+        }
 
         return Datatables::of($data)
             ->addColumn('actions', function($data) {
@@ -130,5 +135,14 @@ class KaryawanController extends Controller
         $karyawan->unit()->sync($request->unit);
 
         return redirect()->back()->withSuccess(sprintf('Karyawan %s berhasil di update', $karyawan->nama_lengkap));
+    }
+
+    public function resign($id)
+    {
+        $karyawan = Karyawan::findOrFail($id);
+        $karyawan->status = 3;
+        $karyawan->save();
+
+        return redirect()->back()->withSuccess(sprintf('Karyawan %s telah resign :(', $karyawan->nama_lengkap));
     }
 }

@@ -30,6 +30,7 @@ Route::get('/dashboard/get-karyawan', 'KaryawanController@getKaryawan')->name('g
 Route::post('/dashboard/karyawan', 'KaryawanController@store')->name('storeKaryawan');
 Route::get('/dashboard/karyawan/{id}/edit', 'KaryawanController@edit')->name('editKaryawan');
 Route::put('/dashboard/karyawan/{id}', 'KaryawanController@update')->name('updateKaryawan');
+Route::put('/dashboard/karyawan/{id}/resign', 'KaryawanController@resign')->name('resignKaryawan');
 
 // Daftar Gaji
 Route::get('/dashboard/gaji', 'GajiController@index');

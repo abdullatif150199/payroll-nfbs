@@ -39,7 +39,7 @@
                         <div class="row gutters-xs">
                             <div class="col">
                                 <select id="statuskerja" class="form-control" onchange="$('#karyawanTable').DataTable().draw()">
-                                    <option value="">Choose</option>
+                                    <option value="">Aktif</option>
                                     @foreach ($status_kerja as $item)
                                         <option value="{{ $item->id }}">{{ $item->nama_status_kerja }}</option>
                                     @endforeach
@@ -176,6 +176,14 @@
                 alert('Data tidak ditemukan');
             }
         });
+    }
+
+    function resignKaryawan(id, name) {
+        var url = '{{ route("resignKaryawan", ":id") }}';
+        url = url.replace(':id', id);
+        $('#resignKaryawan .modal-body').text('Apakah yakin ' + name + ' berhenti kerja?');
+        $('#resignKaryawan form').attr('action', url);
+        $('#resignKaryawan').modal('show');
     }
 </script>
 @endpush
