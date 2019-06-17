@@ -65,6 +65,19 @@
                         </div>
                     </form>
                 </h3>
+                <div class="card-options">
+                    <div class="dropdown">
+                        <button type="button" class="btn btn-secondary dropdown-toggle" data-toggle="dropdown">
+                            <i class="fe fe-list"></i> List Pilihan
+                        </button>
+                        <div class="dropdown-menu dropdown-menu-right">
+                            <a class="dropdown-item" href="#">Tunjangan</a>
+                            <a class="dropdown-item" href="#">Lembur</a>
+                            <a class="dropdown-item" href="#">Insentif</a>
+                            <a class="dropdown-item" href="#">Lain-lain</a>
+                        </div>
+                    </div>
+                </div>
             </div>
             <div class="table-responsive">
                 <table class="table card-table table-vcenter text-nowra" id="daftarGaji">

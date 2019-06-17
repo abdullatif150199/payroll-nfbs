@@ -41,7 +41,7 @@ class CreateKaryawanTable extends Migration
             $table->string('nama_bank', 100)->nullable();
             $table->string('no_rekening', 20)->nullable();
             $table->string('rekening_atas_nama', 150)->nullable();
-            $table->enum('status', ['1', '2', '3'])->comment('1 == guru, 2 == non guru, 3 == berhenti');
+            $table->enum('status', ['1', '2'])->comment('1 == guru, 2 == non guru');
             $table->timestamps();
         });
     }

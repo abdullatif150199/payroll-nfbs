@@ -126,38 +126,44 @@
                 $('#formPotongan').modal('show');
                 $('input[name=id]').val(data.id);
                 $('input[name=nama_potongan]').val(data.nama_potongan);
-                $('#type').change(function () {
-                    var val = data.type;
-                    if (val === 'percent') {
-                        $('#decimal').hide();
-                        $('#percent').show();
-                        var str = data.jumlah_potongan;
-                        var ex = str.split('*');
-                        // console.log(ex[0]);
-                        $('input[name=jumlah_persentase]').val(ex[0] * 100);
-                        $('input[name=jenis_persentase]').val(ex[1]);
-                        $(this).change(function () {
-                            val = $(this).val();
-                            if (val === 'decimal') {
-                                $('#percent').hide();
-                                $('#decimal').show();
-                            }
-                        });
-                    } else {
-                        $('#percent').hide();
-                        $('#decimal').show();
-                        if (data.type !== 'percent') {
-                            $('input[name=jumlah_potongan]').val(data.jumlah_potongan);
+                $('select[name=type]').val(data.type);
+                // $('select[name=type] option[value='+ data.type +']').attr('selected', true);
+                var val = data.type;
+                if (val === 'percent') {
+                    $('#decimal').hide();
+                    $('#percent').show();
+                    var str = data.jumlah_potongan;
+                    var ex = str.split('*');
+                    // console.log(ex[0]);
+                    $('input[name=jumlah_persentase]').val(ex[0] * 100);
+                    $('select[name=jenis_persentase]').val(ex[1]);
+                    $('#type').change(function () {
+                        val = $(this).val();
+                        if (val === 'decimal') {
+                            $('#percent').hide();
+                            $('#decimal').show();
+                        }else {
+                            $('#percent').show();
+                            $('#decimal').hide();
                         }
-                        $(this).change(function () {
-                            val = $(this).val();
-                            if (val === 'percent') {
-                                $('#percent').show();
-                                $('#decimal').hide();
-                            }
-                        });
+                    });
+                } else {
+                    $('#percent').hide();
+                    $('#decimal').show();
+                    if (data.type !== 'percent') {
+                        $('input[name=jumlah_potongan]').val(data.jumlah_potongan);
                     }
-                });
+                    $('#type').change(function () {
+                        val = $(this).val();
+                        if (val === 'percent') {
+                            $('#percent').show();
+                            $('#decimal').hide();
+                        }else {
+                            $('#percent').hide();
+                            $('#decimal').show();
+                        }
+                    });
+                }
             },
             error: function() {
                 alert('Data tidak ditemukan');

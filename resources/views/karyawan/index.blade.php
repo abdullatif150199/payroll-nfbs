@@ -33,7 +33,22 @@
     <div class="col-12">
         <div class="card">
             <div class="card-header">
-                <h3 class="card-title">Daftar Karyawan</h3>
+                <h3 class="card-title">
+                    <form class="form-inline mb-0" action="{{ route('getKaryawan') }}" method="post">
+                        <label for="status_kerja" class="mr-sm-3">Daftar Karyawan </label>
+                        <div class="row gutters-xs">
+                            <div class="col">
+                                <select id="statuskerja" class="form-control" onchange="$('#karyawanTable').DataTable().draw()">
+                                    <option value="">Choose</option>
+                                    @foreach ($status_kerja as $item)
+                                        <option value="{{ $item->id }}">{{ $item->nama_status_kerja }}</option>
+                                    @endforeach
+                                    <option value="berhenti">Resign/Berhenti</option>
+                                </select>
+                            </div>
+                        </div>
+                    </form>
+                </h3>
                 <div class="card-options">
                     <a href="#modalCreate" data-toggle="modal" data-backdrop="static" class="btn btn-primary"><i class="fe fe-plus"></i> Tambah</a>
                 </div>
@@ -71,11 +86,16 @@
     });
 
     $(document).ready(function() {
-        $('#karyawanTable').DataTable({
+        var oTable = $('#karyawanTable').DataTable({
             serverSide: true,
             processing: true,
             select: true,
-            ajax: '{{ route('getKaryawan') }}',
+            ajax: {
+                url: '{{ route('getKaryawan') }}',
+                data: function (d) {
+                    d.statuskerja = $('#statuskerja').val();
+                }
+            },
             columns: [
                 {data: 'no_induk'},
                 {data: 'nama_lengkap'},

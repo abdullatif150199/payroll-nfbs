@@ -35,9 +35,12 @@ class KaryawanController extends Controller
         ]);
     }
 
-    public function getKaryawan()
+    public function getKaryawan(Request $request)
     {
-        $data = Karyawan::with(['jabatan', 'golongan', 'statusKerja', 'unit'])->get();
+        $data = Karyawan::with(['jabatan', 'golongan', 'statusKerja', 'unit'])
+            ->when($request->statuskerja, function($q) use($request) {
+                $q->where('status_kerja_id', $request->statuskerja);
+            })->get();
 
         return Datatables::of($data)
             ->addColumn('actions', function($data) {
