@@ -35,6 +35,20 @@
             </div>
             <div class="col-lg-8">
                 <div class="card">
+                    <div class="card-status bg-teal"></div>
+                    <div class="card-header">
+                        <h3 class="card-title">Info</h3>
+                        <div class="card-options">
+                            <a href="#" class="card-options-collapse" data-toggle="card-collapse"><i class="fe fe-chevron-up"></i></a>
+                            <a href="#" class="card-options-remove" data-toggle="card-remove"><i class="fe fe-x"></i></a>
+                        </div>
+                    </div>
+                    <div class="card-body">
+                        Donec id elit non mi porta gravida at eget metus. Integer posuere erat a ante venenatis dapibus posuere velit aliquet. Cum sociis natoque penatibus et magnis dis
+                        parturient montes, nascetur ridiculus mus. Morbi leo risus, porta ac consectetur ac, vestibulum at eros. Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+                    </div>
+                </div>
+                <div class="card">
                     <div class="card-header">
                         <div class="input-group">
                             <input type="text" class="form-control" placeholder="Message">

@@ -18,7 +18,7 @@ Route::get('/', function () {
 Auth::routes();
 
 Route::get('/profile', function () {
-    dd(App\Bidang::all()->random(2)->pluck('id')->toArray());
+    // dd(App\Bidang::all()->random(3)->pluck('nama_bidang')->toArray());
     return view('profile.index');
 });
 

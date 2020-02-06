@@ -1,8 +1,8 @@
 <?php
 
 return [
-    'suffix' => 'Tabler',
-    'logo' => 'https://tabler.github.io/tabler/demo/brand/tabler.svg',
+    'suffix' => 'Payroll NFBS Serang',
+    'logo' => '/images/logo.png',
     'urls' => [
         'logout' => 'logout',
         'profile' => 'profile',
