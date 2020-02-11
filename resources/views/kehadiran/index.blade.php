@@ -33,7 +33,7 @@
     <div class="col-12">
         <div class="card">
             <div class="card-header">
-                <form class="form-inline" action="{{ route('getKehadiran') }}" method="post">
+                <form class="form-inline" action="{{ route('dash.getKehadiran') }}" method="post">
                     <label for="month" class="mr-sm-3">Tanggal</label>
                     <div class="row gutters-xs">
                         <div class="col">
@@ -102,7 +102,7 @@ $(document).ready(function() {
         processing: true,
         select: true,
         ajax: {
-            url: '{{ route('getKehadiran') }}',
+            url: '{{ route('dash.getKehadiran') }}',
             data: function (d) {
                 d.tanggal = $('select[name=year]').val() + '-' + $('select[name=month]').val() + '-' + $('select[name=day]').val();
             }

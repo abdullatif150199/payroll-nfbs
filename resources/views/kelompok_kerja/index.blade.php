@@ -32,20 +32,19 @@
 <div class="card">
     <div class="card-header">
         <h3 class="card-title">
-            Daftar Golongan
+            Daftar Kelompok Kerja
         </h3>
         <div class="card-options">
-            <button type="button" id="newGolongan" class="btn btn-primary"><i class="fe fe-plus"></i> Tambah</button>
+            <button type="button" id="newKelompok" class="btn btn-primary"><i class="fe fe-plus"></i> Tambah</button>
         </div>
     </div>
     <div class="table-responsive">
-        <table class="table card-table table-vcenter text-nowra" id="daftarGolongan">
+        <table class="table card-table table-vcenter text-nowra" id="daftarKelompok">
             <thead>
                 <tr>
-                    <th>Gol</th>
+                    <th>Grade</th>
                     <th>Jml Peserta</th>
-                    <th>Gaji Pokok</th>
-                    <th>Lembur</th>
+                    <th>Tunj Fungsional</th>
                     <th>Opsi</th>
                 </tr>
             </thead>
@@ -53,7 +52,7 @@
     </div>
 </div>
 
-@include('golongan.modals')
+@include('kelompok_kerja.modals')
 
 @endsection
 
@@ -66,16 +65,15 @@
     });
 
     // $(document).ready(function() {
-        var oTable = $('#daftarGolongan').DataTable({
+        var oTable = $('#daftarKelompok').DataTable({
             serverSide: true,
             processing: true,
             // select: true,
-            ajax: '{{ route('dash.getGolongan') }}',
+            ajax: '{{ route('dash.getKelompokKerja') }}',
             columns: [
-                {data: 'kode_golongan'},
+                {data: 'grade'},
                 {data: 'peserta'},
-                {data: 'gaji_pokok'},
-                {data: 'lembur'},
+                {data: 'persen'},
                 {data: 'actions', orderable: false, searchable: false}
             ]
         });
@@ -84,51 +82,50 @@
         //     e.preventDefault();
         // });
 
-        $('#newGolongan').click(function () {
-            $('.modal-title').text('Create Golongan');
-            $('#formGolongan').modal('show');
+        $('#newKelompok').click(function () {
+            $('.modal-title').text('Create Kelompok Kerja');
+            $('#formKelompok').modal('show');
             $('input[name=_method]').val('POST');
         });
 
-        function editGolongan(id) {
-            var url = '{{ route('dash.editGolongan', ':id') }}';
+        function editKelompok(id) {
+            var url = '{{ route('dash.editKelompokKerja', ':id') }}';
             url = url.replace(':id', id);
             $('input[name=_method]').val('PUT');
-            $('#formGolongan form')[0].reset();
+            $('#formKelompok form')[0].reset();
             $.ajax({
                 url: url,
                 type: 'GET',
                 dataType: 'JSON',
                 success: function (data) {
-                    $('.modal-title').text('Edit Golongan');
-                    $('#formGolongan').modal('show');
+                    $('.modal-title').text('Edit Kelompok Kerja');
+                    $('#formKelompok').modal('show');
 
                     $('input[name=id]').val(data.id);
-                    $('input[name=kode_golongan]').val(data.kode_golongan);
-                    $('input[name=gaji_pokok]').val(data.gaji_pokok);
-                    $('input[name=lembur]').val(data.lembur);
+                    $('input[name=grade]').val(data.grade);
+                    $('input[name=persen]').val(data.persen);
                 }
             });
         }
 
-        $('#formGolongan form').submit(function(e) {
+        $('#formKelompok form').submit(function(e) {
             e.preventDefault();
             var id = $('input[name=id]').val();
             var save_method = $('input[name=_method]').val();
 
             if (save_method == 'POST') {
-                url = '{{ route('dash.storeGolongan') }}';
+                url = '{{ route('dash.storeKelompokKerja') }}';
             } else {
-                url_raw = '{{ route('dash.updateGolongan', ':id') }}';
+                url_raw = '{{ route('dash.updateKelompokKerja', ':id') }}';
                 url = url_raw.replace(':id', id);
             }
 
             $.ajax({
                 url: url,
                 type: 'POST',
-                data: $('#formGolongan form').serialize(),
+                data: $('#formKelompok form').serialize(),
                 success: function (data) {
-                    $('#formGolongan').modal('hide');
+                    $('#formKelompok').modal('hide');
                     oTable.ajax.reload();
                 },
                 error: function () {

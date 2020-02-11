@@ -17,13 +17,13 @@ class DefineMenus
     public function handle($request, Closure $next)
     {
         Menu::make('primary', function ($menu) {
-            $menu->add('Home', 'dashboard')->data('icon', 'fe fe-home');
-            $menu->add('Karyawan', 'dashboard/karyawan')->data('icon', 'fe fe-user-plus');
-            $menu->add('Daftar Gaji', 'dashboard/gaji')->data('icon', 'fa fa-briefcase');
-            $menu->add('Kehadiran', 'dashboard/kehadiran')->data('icon', 'fa fa-calendar-check-o');
-            $menu->add('Cuti', 'dashboard/cuti')->data('icon', 'fa fa-calendar-times-o');
-            $menu->add('Potongan', 'dashboard/potongan')->data('icon', 'fa fa-paypal');
-            $menu->add('Golongan', 'dashboard/golongan')->data('icon', 'fa fa-users');
+            $menu->add('Home', 'dashboard')->data('icon', 'fe fe-grid');
+            $menu->add('Karyawan', 'dashboard/karyawan')->data('icon', 'fe fe-users');
+            $menu->add('Daftar Gaji', 'dashboard/gaji')->data('icon', 'fe fe-shopping-bag');
+            $menu->add('Kehadiran', 'dashboard/kehadiran')->data('icon', 'fe fe-user-check');
+            $menu->add('Cuti', 'dashboard/cuti')->data('icon', 'fe fe-user-x');
+            $menu->add('Potongan', 'dashboard/potongan')->data('icon', 'fe fe-scissors');
+            $menu->add('Setting', 'dashboard/setting')->data('icon', 'fe fe-settings');
         });
 
         Menu::make('profile', function ($menu) {

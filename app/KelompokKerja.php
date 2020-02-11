@@ -4,11 +4,13 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 
-class Golongan extends Model
+class KelompokKerja extends Model
 {
-    protected $table = 'golongan';
+    protected $table = 'kelompok_kerja';
 
-    protected $fillable = ['kode_golongan', 'gaji_pokok', 'lembur'];
+    protected $fillable = [
+        'grade', 'persen',
+    ];
 
     public function karyawans()
     {

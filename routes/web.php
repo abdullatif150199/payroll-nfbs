@@ -22,42 +22,58 @@ Route::get('/profile', function () {
     return view('profile.index');
 });
 
-Route::get('/dashboard', 'HomeController@index')->name('home');
+Route::group(['prefix' => 'dashboard', 'as' => 'dash.', 'middleware' => ['auth']], function () {
+    Route::group(['middleware' => ['role:root|admin']], function () {
+        Route::get('/', 'HomeController@index')->name('home');
 
-// Karyawan
-Route::get('/dashboard/karyawan', 'KaryawanController@index');
-Route::get('/dashboard/get-karyawan', 'KaryawanController@getKaryawan')->name('getKaryawan');
-Route::post('/dashboard/karyawan', 'KaryawanController@store')->name('storeKaryawan');
-Route::get('/dashboard/karyawan/{id}/edit', 'KaryawanController@edit')->name('editKaryawan');
-Route::put('/dashboard/karyawan/{id}', 'KaryawanController@update')->name('updateKaryawan');
-Route::put('/dashboard/karyawan/{id}/resign', 'KaryawanController@resign')->name('resignKaryawan');
+        // Karyawan
+        Route::get('karyawan', 'KaryawanController@index');
+        Route::get('get-karyawan', 'KaryawanController@getKaryawan')->name('getKaryawan');
+        Route::post('karyawan', 'KaryawanController@store')->name('storeKaryawan');
+        Route::get('karyawan/{id}/edit', 'KaryawanController@edit')->name('editKaryawan');
+        Route::put('karyawan/{id}', 'KaryawanController@update')->name('updateKaryawan');
+        Route::put('karyawan/{id}/resign', 'KaryawanController@resign')->name('resignKaryawan');
 
-// Daftar Gaji
-Route::get('/dashboard/gaji', 'GajiController@index');
-Route::get('/dashboard/get-gaji', 'GajiController@getGaji')->name('getGaji');
+        // Daftar Gaji
+        Route::get('gaji', 'GajiController@index');
+        Route::get('get-gaji', 'GajiController@getGaji')->name('getGaji');
 
-// Kehadiran
-Route::get('/dashboard/kehadiran', 'KehadiranController@index');
-Route::get('/dashboard/get-kehadiran', 'KehadiranController@getKehadiran')->name('getKehadiran');
+        // Kehadiran
+        Route::get('kehadiran', 'KehadiranController@index');
+        Route::get('get-kehadiran', 'KehadiranController@getKehadiran')->name('getKehadiran');
 
-// Cuti
-Route::get('/dashboard/cuti', 'CutiController@index');
-Route::get('/dashboard/get-cuti', 'CutiController@getCuti')->name('getCuti');
+        // Cuti
+        Route::get('cuti', 'CutiController@index');
+        Route::get('get-cuti', 'CutiController@getCuti')->name('getCuti');
 
-// Potongan
-Route::get('/dashboard/potongan', 'PotonganController@index');
-Route::get('/dashboard/get-potongan', 'PotonganController@getPotongan')->name('getPotongan');
-Route::post('/dashboard/potongan', 'PotonganController@store')->name('storePotongan');
-Route::get('/dashboard/potongan/{id}/edit', 'PotonganController@edit')->name('editPotongan');
-Route::post('/dashboard/potongan/{id}/attach', 'PotonganController@attach')->name('attachPotongan');
-Route::get('/dashboard/potongan-karyawan/{id}', 'PotonganController@showPotonganKaryawan')->name('showPotonganKaryawan');
-Route::put('/dashboard/potongan/{id}', 'PotonganController@update')->name('updatePotongan');
-Route::delete('/dashboard/potongan/{id}', 'PotonganController@delete')->name('hapusPotongan');
-Route::delete('/dashboard/potongan/{potongan_id}/{karyawan_id}', 'PotonganController@detach')->name('detachPotongan');
+        // Potongan
+        Route::get('potongan', 'PotonganController@index');
+        Route::get('get-potongan', 'PotonganController@getPotongan')->name('getPotongan');
+        Route::post('potongan', 'PotonganController@store')->name('storePotongan');
+        Route::get('potongan/{id}/edit', 'PotonganController@edit')->name('editPotongan');
+        Route::post('potongan/{id}/attach', 'PotonganController@attach')->name('attachPotongan');
+        Route::get('potongan-karyawan/{id}', 'PotonganController@showPotonganKaryawan')->name('showPotonganKaryawan');
+        Route::put('potongan/{id}', 'PotonganController@update')->name('updatePotongan');
+        Route::delete('potongan/{id}', 'PotonganController@delete')->name('hapusPotongan');
+        Route::delete('potongan/{potongan_id}/{karyawan_id}', 'PotonganController@detach')->name('detachPotongan');
 
-// Golongan
-Route::get('/dashboard/golongan', 'GolonganController@index');
-Route::get('/dashboard/get-golongan', 'GolonganController@getGolongan')->name('getGolongan');
-Route::post('/dashboard/golongan', 'GolonganController@store')->name('storeGolongan');
-Route::get('dashboard/golongan/{id}/edit', 'GolonganController@edit')->name('editGolongan');
-Route::put('dashboard/golongan/{id}', 'GolonganController@update')->name('updateGolongan');
+        Route::group(['prefix' => 'setting'], function () {
+            // Setting
+            Route::get('/', 'SettingController@index')->name('setting');
+
+            // Golongan
+            Route::get('golongan', 'GolonganController@index')->name('golongan');
+            Route::get('get-golongan', 'GolonganController@getGolongan')->name('getGolongan');
+            Route::post('golongan', 'GolonganController@store')->name('storeGolongan');
+            Route::get('golongan/{id}/edit', 'GolonganController@edit')->name('editGolongan');
+            Route::put('golongan/{id}', 'GolonganController@update')->name('updateGolongan');
+
+            // Kelompok Kerja
+            Route::get('kelompok-kerja', 'KelompokKerjaController@index')->name('kelompokKerja');
+            Route::get('get-kelompok-kerja', 'KelompokKerjaController@getKelompokKerja')->name('getKelompokKerja');
+            Route::post('kelompok-kerja', 'KelompokKerjaController@store')->name('storeKelompokKerja');
+            Route::get('kelompok-kerja/{id}/edit', 'KelompokKerjaController@edit')->name('editKelompokKerja');
+            Route::put('kelompok-kerja/{id}', 'KelompokKerjaController@update')->name('updateKelompokKerja');
+        });
+    });
+});

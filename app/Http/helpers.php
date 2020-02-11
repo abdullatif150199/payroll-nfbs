@@ -69,3 +69,31 @@ function sumType($sum, $type) {
         return $ex[0]*100 . '% ' . $ex[1];
     }
 }
+
+// for Route name
+function set_active($uri, $output = 'active')
+{
+    if (is_array($uri)) {
+        foreach ($uri as $u) {
+            if (Route::is($u)) {
+                return $output;
+            }
+        }
+    } else {
+        if (Route::is($uri)) {
+            return $output;
+        }
+    }
+}
+
+// for path URI
+function setActive($uri, $output = 'active')
+{
+    if (is_array($uri)) {
+        foreach ($uri as $u) {
+            return Request::path() === $u ? $output : "";
+        }
+    } else {
+        return Request::path() === $uri ? $output : "";
+    }
+}

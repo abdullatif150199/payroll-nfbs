@@ -1,5 +1,5 @@
-{{-- Modal formGolongan --}}
-<div class="modal fade" id="formGolongan">
+{{-- Modal formKelompok --}}
+<div class="modal fade" id="formKelompok">
     <div class="modal-dialog">
         <div class="modal-content">
 
@@ -16,24 +16,21 @@
                     <div class="row">
                         <div class="col">
                             <div class="form-group">
-                                <label class="form-label">Kode Golongan</label>
-                                <input type="text" name="kode_golongan" class="form-control" required>
+                                <label class="form-label">Grade</label>
+                                <input type="text" name="grade" class="form-control">
                             </div>
                         </div>
                     </div>
                     <div class="row">
                         <div class="col">
                             <div class="form-group">
-                                <label class="form-label">Gaji Pokok</label>
-                                <input type="text" name="gaji_pokok" class="form-control" data-mask="000,000,000" data-mask-reverse="true" autocomplete="off">
-                            </div>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col">
-                            <div class="form-group">
-                                <label class="form-label">Lembur</label>
-                                <input type="text" name="lembur" class="form-control" data-mask="000,000,000" data-mask-reverse="true" autocomplete="off">
+                                <label class="form-label">Persen</label>
+                                <div class="input-group">
+                                    <input type="number" name="persen" class="form-control" placeholder="Persentase" aria-describedby="basic-addon2">
+                                    <span class="input-group-append" id="basic-addon2">
+                                        <span class="input-group-text">&percnt; dari GAPOK</span>
+                                    </span>
+                                </div>
                             </div>
                         </div>
                     </div>

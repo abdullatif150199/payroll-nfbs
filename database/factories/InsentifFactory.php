@@ -9,7 +9,7 @@ $factory->define(App\Insentif::class, function (Faker $faker) {
         // },
         'jenis_insentif' => $faker->randomElement(['SMA', 'SMP', 'HRD', 'PSB']),
         'bulan' => $faker->month(),
-        'jumlah_insentif' => mt_rand(100000, 500000),
+        'jumlah' => mt_rand(100000, 500000),
         'keterangan' => $faker->sentence(3),
     ];
 });

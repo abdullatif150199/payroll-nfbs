@@ -19,6 +19,15 @@ class GolonganController extends Controller
         $data = Golongan::all();
 
         return Datatables::of($data)
+            ->editColumn('peserta', function($data) {
+                    return $data->karyawans()->count();
+            })
+            ->editColumn('gaji_pokok', function($data) {
+                return number_format($data->gaji_pokok);
+            })
+            ->editColumn('lembur', function($data) {
+                return number_format($data->lembur);
+            })
             ->addColumn('actions', function($data) {
                 return view('golongan.actions', ['data' => $data]);
             })
@@ -36,8 +45,8 @@ class GolonganController extends Controller
 
         $data = [
             'kode_golongan' => $request->kode_golongan,
-            'gaji_pokok' => str_replace('.', '', $request->gaji_pokok),
-            'lembur' => str_replace('.', '', $request->lembur)
+            'gaji_pokok' => preg_replace('/\D/', '', $request->gaji_pokok),
+            'lembur' => preg_replace('/\D/', '', $request->lembur)
         ];
 
         $store = Golongan::create($data);
@@ -61,8 +70,8 @@ class GolonganController extends Controller
 
         $update = Golongan::find($id);
         $update->kode_golongan = $request->kode_golongan;
-        $update->gaji_pokok = str_replace('.', '', $request->gaji_pokok);
-        $update->lembur = str_replace('.', '', $request->lembur);
+        $update->gaji_pokok = preg_replace('/\D/', '', $request->gaji_pokok);
+        $update->lembur = preg_replace('/\D/', '', $request->lembur);
         $update->update();
 
         return $update;

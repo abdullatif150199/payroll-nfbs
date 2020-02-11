@@ -34,7 +34,7 @@
         <div class="card">
             <div class="card-header">
                 <h3 class="card-title">
-                    <form class="form-inline mb-0" action="{{ route('getKaryawan') }}" method="post">
+                    <form class="form-inline mb-0" action="{{ route('dash.getKaryawan') }}" method="post">
                         <label for="status_kerja" class="mr-sm-3">Daftar Karyawan </label>
                         <div class="row gutters-xs">
                             <div class="col">
@@ -91,7 +91,7 @@
             processing: true,
             select: true,
             ajax: {
-                url: '{{ route('getKaryawan') }}',
+                url: '{{ route('dash.getKaryawan') }}',
                 data: function (d) {
                     d.statuskerja = $('#statuskerja').val();
                 }
@@ -116,7 +116,7 @@
 
     function editKaryawan(id) {
         $('#formEdit')[0].reset();
-        var url = '{{ route("editKaryawan", ":id") }}';
+        var url = '{{ route("dash.editKaryawan", ":id") }}';
         url = url.replace(':id', id);
         $.ajax({
             url: url,
@@ -124,7 +124,7 @@
             dataType: "JSON",
             success: function(data) {
                 // console.log(JSON.stringify(data.bidang, null, 2));
-                var url_update = '{{ route("updateKaryawan", ":id") }}';
+                var url_update = '{{ route("dash.updateKaryawan", ":id") }}';
                 url = url_update.replace(':id', id);
                 $('#formEdit').attr('action', url);
                 $('#nama_lengkap').val(data.nama_lengkap);
@@ -179,7 +179,7 @@
     }
 
     function resignKaryawan(id, name) {
-        var url = '{{ route("resignKaryawan", ":id") }}';
+        var url = '{{ route("dash.resignKaryawan", ":id") }}';
         url = url.replace(':id', id);
         $('#resignKaryawan .modal-body').text('Apakah yakin ' + name + ' berhenti kerja?');
         $('#resignKaryawan form').attr('action', url);

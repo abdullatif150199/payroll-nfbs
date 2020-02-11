@@ -34,7 +34,7 @@
         <div class="card">
             <div class="card-header">
                 <h3 class="card-title">
-                    <form class="form-inline" action="{{ route('getGaji') }}" method="post">
+                    <form class="form-inline" action="{{ route('dash.getGaji') }}" method="post">
                         <label for="month" class="mr-sm-3">Bulan </label>
                         <div class="row gutters-xs">
                             <div class="col">
@@ -116,7 +116,7 @@
             processing: true,
             select: true,
             ajax: {
-                url: '{{ route('getGaji') }}',
+                url: '{{ route('dash.getGaji') }}',
                 data: function (d) {
                     d.month = $('select[name=year]').val() + '-' + $('select[name=month]').val();
                 }

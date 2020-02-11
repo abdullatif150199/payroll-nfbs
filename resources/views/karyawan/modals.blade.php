@@ -9,7 +9,7 @@
                 <button type="button" class="close" data-dismiss="modal"></button>
             </div>
 
-            <form action="{{ route('storeKaryawan') }}" method="post">
+            <form action="{{ route('dash.storeKaryawan') }}" method="post">
                 <div class="modal-body">
                     {{ csrf_field() }}
                     <input type="hidden" name="id">

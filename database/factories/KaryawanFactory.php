@@ -16,6 +16,9 @@ $factory->define(App\Karyawan::class, function (Faker $faker) {
         'status_kerja_id' => function () {
             return App\StatusKerja::inRandomOrder()->first()->id;
         },
+        'kelompok_kerja_id' => function () {
+            return App\KelompokKerja::inRandomOrder()->first()->id;
+        },
         'no_induk' => mt_rand(100000, 300000),
         'nik' => mt_rand(1000000000000000, 3000000000000000),
         'nama_lengkap' => $faker->name,
