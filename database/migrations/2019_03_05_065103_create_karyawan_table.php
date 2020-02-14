@@ -15,6 +15,7 @@ class CreateKaryawanTable extends Migration
     {
         Schema::create('karyawan', function (Blueprint $table) {
             $table->increments('id');
+            $table->string('pin', 11)->nullable();
             $table->integer('user_id')->unsigned();
             $table->foreign('user_id')->references('id')->on('users')->onDelete('restrict');
             $table->integer('golongan_id')->unsigned();
