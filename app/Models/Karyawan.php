@@ -1,6 +1,6 @@
 <?php
 
-namespace App;
+namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 
@@ -15,66 +15,71 @@ class Karyawan extends Model
 
     public function jabatan()
     {
-        return $this->belongsTo('App\Jabatan');
+        return $this->belongsTo(Jabatan::class);
     }
 
     public function golongan()
     {
-        return $this->belongsTo('App\Golongan');
+        return $this->belongsTo(Golongan::class);
     }
 
     public function bidang()
     {
-        return $this->belongsToMany('App\Bidang', 'bidang_karyawan');
+        return $this->belongsToMany(Bidang::class, 'bidang_karyawan');
     }
 
     public function unit()
     {
-        return $this->belongsToMany('App\Unit', 'karyawan_unit');
+        return $this->belongsToMany(Unit::class, 'karyawan_unit');
     }
 
     public function kehadiran()
     {
-        return $this->hasMany('App\Kehadiran');
+        return $this->hasMany(Kehadiran::class);
     }
 
     public function cuti()
     {
-        return $this->hasMany('App\Cuti');
+        return $this->hasMany(Cuti::class);
     }
 
     public function potongan()
     {
-        return $this->belongsToMany('App\Potongan', 'karyawan_potongan');
+        return $this->belongsToMany(Potongan::class, 'karyawan_potongan');
     }
 
     public function lembur()
     {
-        return $this->hasMany('App\Lembur');
+        return $this->hasMany(Lembur::class);
     }
 
     public function keluarga()
     {
-        return $this->hasMany('App\Keluarga');
+        return $this->hasMany(Keluarga::class);
     }
 
     public function insentif()
     {
-        return $this->hasMany('App\Insentif');
+        return $this->hasMany(Insentif::class);
     }
 
     public function gaji()
     {
-        return $this->hasMany('App\Gaji');
+        return $this->hasMany(Gaji::class);
     }
 
     public function user()
     {
-        return $this->belongsTo('App\User');
+        return $this->belongsTo(User::class);
     }
 
     public function statusKerja()
     {
-        return $this->belongsTo('App\StatusKerja');
+        return $this->belongsTo(StatusKerja::class);
+    }
+
+    public function persentaseKinerjas()
+    {
+        return $this->belongsToMany(PersentaseKinerja::class, 'karyawan_persentase_kinerja');
     }
 }

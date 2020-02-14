@@ -19,11 +19,11 @@ class StatusKeluargaTableSeeder extends Seeder
             ],
             [
                 'status' => "istri",
-                'persen' => 0.15
+                'persen' => 15
             ],
             [
                 'status' => "anak",
-                'persen' => 0.05
+                'persen' => 5.25
             ]
         ]);
     }

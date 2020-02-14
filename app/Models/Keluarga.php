@@ -1,6 +1,6 @@
 <?php
 
-namespace App;
+namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 
@@ -10,6 +10,6 @@ class Keluarga extends Model
 
     public function karyawan()
     {
-        return $this->belongsTo('App\Karyawan');
+        return $this->belongsTo(Karyawan::class);
     }
 }

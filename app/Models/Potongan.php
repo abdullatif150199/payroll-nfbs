@@ -1,6 +1,6 @@
 <?php
 
-namespace App;
+namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 
@@ -12,6 +12,6 @@ class Potongan extends Model
 
     public function karyawan()
     {
-        return $this->belongsToMany('App\Karyawan', 'karyawan_potongan');
+        return $this->belongsToMany(Karyawan::class, 'karyawan_potongan');
     }
 }

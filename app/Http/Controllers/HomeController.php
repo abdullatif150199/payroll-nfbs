@@ -3,11 +3,12 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Karyawan;
-use App\Bidang;
-use App\Unit;
-use App\Golongan;
-use App\Cuti;
+use App\Models\Karyawan;
+use App\Models\Bidang;
+use App\Models\Unit;
+use App\Models\Golongan;
+use App\Models\Cuti;
+use App\Libraries\EasyLink;
 
 class HomeController extends Controller
 {
@@ -28,6 +29,13 @@ class HomeController extends Controller
      */
     public function index()
     {
+        $finger = new EasyLink;
+        $serial = '61627018331031';
+        $port = '8080';
+        $ip = '192.168.4.90';
+        $test = $finger->newScan($serial, $port, $ip);
+        dd($test);
+
         $title = 'Dashboard';
         $karyawan = Karyawan::all();
         $bidang = Bidang::count();

@@ -1,6 +1,6 @@
 <?php
 
-namespace App;
+namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 
@@ -10,6 +10,6 @@ class StatusKerja extends Model
 
     public function karyawan()
     {
-        return $this->hasMany('App\Karyawan');
+        return $this->hasMany(Karyawan::class);
     }
 }

@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateKelompokKerjaTable extends Migration
+class CreateDevicesTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,11 +13,8 @@ class CreateKelompokKerjaTable extends Migration
      */
     public function up()
     {
-        Schema::create('kelompok_kerja', function (Blueprint $table) {
-            $table->increments('id');
-            $table->char('grade');
-            $table->decimal('persen', 5,2)->comment('dari gapok');
-            $table->decimal('kinerja_normal', 14,0);
+        Schema::create('devices', function (Blueprint $table) {
+            $table->bigIncrements('id');
             $table->timestamps();
         });
     }
@@ -29,6 +26,6 @@ class CreateKelompokKerjaTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('kelompok_kerja');
+        Schema::dropIfExists('devices');
     }
 }

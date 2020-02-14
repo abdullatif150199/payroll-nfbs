@@ -1,6 +1,6 @@
 <?php
 
-namespace App;
+namespace App\Models;
 
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
@@ -31,6 +31,6 @@ class User extends Authenticatable
 
     public function karyawan()
     {
-        return $this->hasOne('App\Karyawan');
+        return $this->hasOne(Karyawan::class);
     }
 }

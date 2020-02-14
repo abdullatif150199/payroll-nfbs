@@ -16,7 +16,7 @@ class CreateStatusKeluargaTable extends Migration
         Schema::create('status_keluarga', function (Blueprint $table) {
             $table->increments('id');
             $table->string('status');
-            $table->decimal('persen', 10,2)->comment('dari gapok');
+            $table->decimal('persen', 5,2)->comment('dari gapok');
             $table->timestamps();
         });
     }

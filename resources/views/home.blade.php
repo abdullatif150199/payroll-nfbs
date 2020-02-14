@@ -564,7 +564,7 @@
                     $i = 0;
                 @endphp
                 @foreach ($barChart as $key => $value)
-                    'data{{$i++}}': '{{App\StatusKerja::find($key)->nama_status_kerja}}',
+                    'data{{$i++}}': '{{App\Models\StatusKerja::find($key)->nama_status_kerja}}',
                 @endforeach
             }
         },
@@ -602,7 +602,7 @@
                     $i = 0;
                 @endphp
                 @foreach ($pieChart as $key => $value)
-                    'data{{$i++}}': '{{App\Golongan::find($key)->kode_golongan}}',
+                    'data{{$i++}}': '{{App\Models\Golongan::find($key)->kode_golongan}}',
                 @endforeach
             }
         },

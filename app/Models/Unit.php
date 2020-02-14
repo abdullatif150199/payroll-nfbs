@@ -1,6 +1,6 @@
 <?php
 
-namespace App;
+namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 
@@ -10,11 +10,11 @@ class Unit extends Model
 
     public function karyawan()
     {
-        return $this->belongsToMany('App\Karyawan', 'karyawan_unit');
+        return $this->belongsToMany(Karyawan::class, 'karyawan_unit');
     }
 
     public function bidang()
     {
-        return $this->belongsTo('App\Bidang');
+        return $this->belongsTo(Bidang::class);
     }
 }

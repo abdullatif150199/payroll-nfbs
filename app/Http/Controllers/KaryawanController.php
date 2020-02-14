@@ -5,13 +5,13 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Http\Requests\KaryawanFormRequest;
 use Yajra\Datatables\Datatables;
-use App\Karyawan;
-use App\StatusKerja;
-use App\Golongan;
-use App\Jabatan;
-use App\Bidang;
-use App\Unit;
-use App\User;
+use App\Models\Karyawan;
+use App\Models\StatusKerja;
+use App\Models\Golongan;
+use App\Models\Jabatan;
+use App\Models\Bidang;
+use App\Models\Unit;
+use App\Models\User;
 
 class KaryawanController extends Controller
 {

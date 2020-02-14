@@ -20,7 +20,7 @@ class KelompokKerjaController extends Controller
 
         return Datatables::of($data)
             ->editColumn('persen', function($data) {
-                return $data->persen * 100 . '% dari GAPOK';
+                return $data->persen . '% dari GAPOK';
             })
             ->editColumn('peserta', function($data) {
                 return $data->karyawans()->count();
@@ -41,7 +41,7 @@ class KelompokKerjaController extends Controller
 
         $data = [
             'grade' => $request->grade,
-            'persen' => $request->persen/100
+            'persen' => $request->persen
         ];
 
         $store = KelompokKerja::create($data);
@@ -52,7 +52,6 @@ class KelompokKerjaController extends Controller
     public function edit($id)
     {
         $get = KelompokKerja::find($id);
-        $get->persen = $get->persen * 100;
         return $get;
     }
 
@@ -65,7 +64,7 @@ class KelompokKerjaController extends Controller
 
         $data = KelompokKerja::find($id);
         $data->grade = $request->grade;
-        $data->persen = $request->persen/100;
+        $data->persen = $request->persen;
         $data->save();
 
         return $data;
