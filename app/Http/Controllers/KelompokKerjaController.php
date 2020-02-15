@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Yajra\Datatables\Datatables;
-use App\KelompokKerja;
+use App\Models\KelompokKerja;
 
 class KelompokKerjaController extends Controller
 {

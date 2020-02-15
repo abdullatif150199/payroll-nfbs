@@ -29,12 +29,12 @@ class HomeController extends Controller
      */
     public function index()
     {
-        $finger = new EasyLink;
-        $serial = '61627018331031';
-        $port = '8080';
-        $ip = '192.168.4.90';
-        $test = $finger->newScan($serial, $port, $ip);
-        dd($test);
+        // $finger = new EasyLink;
+        // $serial = '61627018331031';
+        // $port = '8080';
+        // $ip = '192.168.4.90';
+        // $scanlogs = $finger->allScan($serial, $port, $ip);
+        // dd($scanlogs->Result);
 
         $title = 'Dashboard';
         $karyawan = Karyawan::all();

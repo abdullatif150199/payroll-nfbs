@@ -15,27 +15,25 @@ function count_time($end, $start) {
 }
 
 function total_time($masuk, $istirahat, $kembali, $pulang) {
-    $istirahat = empty($istirahat) ? date('H:i:s') : $istirahat;
-    $masuk = empty($masuk) ? date('H:i:s') : $masuk;
+    if (!empty($masuk) && !empty($istirahat) && !empty($kembali) && !empty($pulang)) {
+        $diff1 = (strtotime($istirahat) - strtotime($masuk));
+        $diff2 = (strtotime($pulang) - strtotime($kembali));
 
-    $pulang = empty($pulang) ? date('H:i:s') : $pulang;
-    $kembali = empty($kembali) ? date('H:i:s') : $kembali;
+        $diff = $diff1 + $diff2;
+        $total = $diff/60;
+        $jam = floor($total/60);
+        $menit = $total%60;
+        if ($jam < 0) {
+            $jam = 00;
+            $menit = 00;
+        }
 
-    $diff1 = (strtotime($istirahat) - strtotime($masuk));
-    $diff2 = (strtotime($pulang) - strtotime($kembali));
-
-    $diff = $diff1 + $diff2;
-    $total = $diff/60;
-    $jam = floor($total/60);
-    $menit = $total%60;
-    if ($jam < 0) {
-        $jam = 00;
-        $menit = 00;
+        return sprintf("%02d jam %02d menit", $jam, $menit);
     }
 
-    return sprintf("%02d jam %02d menit", $jam, $menit);
 }
 
+// days percent used
 function percent_time($end, $start) {
     $end = empty($end) ? date('H:i:s') : $end;
     $start = empty($start) ? date('H:i:s') : $start;
@@ -46,9 +44,22 @@ function percent_time($end, $start) {
 
     if ($percent > 100) {
         $percent = 100;
+    } elseif($percent < 0) {
+        $percent = 0;
     }
 
     return $percent;
+}
+
+// remaining days
+function days_diff($end, $start) {
+    if (strtotime(date('Y-m-d')) < strtotime($start)) {
+        return (new DateTime($end))->diff(new DateTime($start))->days;
+    } elseif (strtotime(date('Y-m-d')) > strtotime($end)) {
+        return 0;
+    }
+
+    return (new DateTime($end))->diff(new DateTime(date('Y-m-d')))->days;
 }
 
 function percent($part, $total) {

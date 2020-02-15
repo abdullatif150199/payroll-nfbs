@@ -14,7 +14,10 @@ class CreateDevicesTable extends Migration
     public function up()
     {
         Schema::create('devices', function (Blueprint $table) {
-            $table->bigIncrements('id');
+            $table->increments('id');
+            $table->string('server_ip', 20);
+            $table->string('server_port', 5);
+            $table->string('serial_number', 40);
             $table->timestamps();
         });
     }

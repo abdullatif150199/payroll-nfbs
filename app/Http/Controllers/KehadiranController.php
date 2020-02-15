@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Yajra\Datatables\Datatables;
-use App\Kehadiran;
+use App\Models\Kehadiran;
 
 class KehadiranController extends Controller
 {
@@ -28,7 +28,12 @@ class KehadiranController extends Controller
                 return view('kehadiran.actions');
             })
             ->editColumn('jumlah_jam', function($data) {
-                return total_time($data->jam_masuk, $data->jam_istirahat, $data->jam_kembali, $data->jam_pulang);
+                return total_time(
+                    $data->jam_masuk,
+                    $data->jam_istirahat,
+                    $data->jam_kembali,
+                    $data->jam_pulang
+                ) ?? '<span class="tag tag-rounded tag-red">Undefined</span>';
             })
             ->editColumn('jumlah_jam_ngajar', function($data) {
                 return $data->jumlah_jam_ngajar . ' jam (Guru)';

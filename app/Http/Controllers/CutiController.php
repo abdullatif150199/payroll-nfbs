@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Yajra\Datatables\Datatables;
-use App\Cuti;
+use App\Models\Cuti;
 
 class CutiController extends Controller
 {

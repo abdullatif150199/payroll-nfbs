@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Yajra\Datatables\Datatables;
-use App\Gaji;
+use App\Models\Gaji;
 
 class GajiController extends Controller
 {

@@ -33,9 +33,14 @@ class Karyawan extends Model
         return $this->belongsToMany(Unit::class, 'karyawan_unit');
     }
 
-    public function kehadiran()
+    public function kehadirans()
     {
         return $this->hasMany(Kehadiran::class);
+    }
+
+    public function kehadiranHariIni()
+    {
+        return $this->hasOne(Kehadiran::class)->where('tanggal', date('Y-m-d'));
     }
 
     public function cuti()
