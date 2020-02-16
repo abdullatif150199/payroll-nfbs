@@ -117,8 +117,8 @@
                                                 <td><a href="{{ route('dash.setting') }}">Status Keluarga</a></td>
                                             </tr>
                                             <tr>
-                                                <td width="1"><i class="{{ Route::is('') ? 'fa fa-circle' : 'fa fa-circle-o' }} text-primary"></i></td>
-                                                <td><a href="{{ route('dash.setting') }}">Finger print</a></td>
+                                                <td width="1"><i class="{{ Route::is('dash.device') ? 'fa fa-circle' : 'fa fa-circle-o' }} text-primary"></i></td>
+                                                <td><a href="{{ route('dash.device') }}">Fingerprint</a></td>
                                             </tr>
                                         </tbody>
                                     </table>

@@ -74,6 +74,14 @@ Route::group(['prefix' => 'dashboard', 'as' => 'dash.', 'middleware' => ['auth']
             Route::post('kelompok-kerja', 'KelompokKerjaController@store')->name('storeKelompokKerja');
             Route::get('kelompok-kerja/{id}/edit', 'KelompokKerjaController@edit')->name('editKelompokKerja');
             Route::put('kelompok-kerja/{id}', 'KelompokKerjaController@update')->name('updateKelompokKerja');
+
+             // Device fingerprint
+            Route::get('device', 'DeviceController@index')->name('device');
+            Route::get('get-device', 'DeviceController@getDevice')->name('getDevice');
+            Route::post('device', 'DeviceController@store')->name('storeDevice');
+            Route::get('device/{id}/edit', 'DeviceController@edit')->name('editDevice');
+            Route::put('device/{id}', 'DeviceController@update')->name('updateDevice');
+            Route::delete('device/{id}', 'DeviceController@destroy')->name('hapusDevice');
         });
     });
 });
