@@ -76,4 +76,17 @@ class GolonganController extends Controller
 
         return $update;
     }
+
+    public function destroy($id)
+    {
+        $get = Golongan::with('karyawans')->findOrFail($id);
+
+        if ($get->karyawans->count() > 0) {
+            return back()->withError('Golongan tidak bisa dihapus');
+        }
+
+        Golongan::destroy($id);
+
+        return back();
+    }
 }

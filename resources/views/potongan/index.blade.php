@@ -65,7 +65,7 @@
             serverSide: true,
             processing: true,
             select: true,
-            ajax: '{{ route('getPotongan') }}',
+            ajax: '{{ route('dash.getPotongan') }}',
             columns: [
                 {data: 'no_induk'},
                 {data: 'nama_lengkap'},
@@ -113,7 +113,7 @@
     }
 
     function editPotongan(id) {
-        var url = '{{ route("editPotongan", ":id") }}';
+        var url = '{{ route("dash.editPotongan", ":id") }}';
         url = url.replace(':id', id);
         $('input[name=_method]').val('PUT');
         $('#formPotongan form')[0].reset();
@@ -177,9 +177,9 @@
         var save_method = $('input[name=_method]').val();
 
         if (save_method == 'POST') {
-            url = '{{ route('storePotongan') }}';
+            url = '{{ route('dash.storePotongan') }}';
         } else {
-            url_raw = '{{ route('updatePotongan', ':id') }}';
+            url_raw = '{{ route('dash.updatePotongan', ':id') }}';
             url = url_raw.replace(':id', id);
             console.log(id);
         }
@@ -200,7 +200,7 @@
     });
 
     function hapusPotongan(id, name) {
-        var url = '{{ route("hapusPotongan", ":id") }}';
+        var url = '{{ route("dash.hapusPotongan", ":id") }}';
         url = url.replace(':id', id);
         $('.modal-title').text('Hapus Potongan ' + name);
         $('input[name=_method]').val('DELETE');
@@ -223,7 +223,7 @@
     }
 
     function tambahPotongan(id_karyawan) {
-        var url = '{{ route("showPotonganKaryawan", ":id") }}';
+        var url = '{{ route("dash.showPotonganKaryawan", ":id") }}';
         url = url.replace(':id', id_karyawan);
         $('#tambahPotongan form')[0].reset();
         $.ajax({
@@ -231,7 +231,7 @@
             type: 'GET',
             dataType: 'JSON',
             success: function(data) {
-                var urlp = '{{ route("attachPotongan", ":id") }}';
+                var urlp = '{{ route("dash.attachPotongan", ":id") }}';
                 url = urlp.replace(':id', data.id);
                 $('.modal-title').text('Tambah Potongan ' + data.nama_lengkap);
                 $('#tambahPotongan form').attr('action', url);
@@ -251,9 +251,9 @@
     }
 
     function deleteModal(id_potongan, name, id_karyawan) {
-        var url = '{{ route("editPotongan", ":id_potongan") }}';
+        var url = '{{ route("dash.editPotongan", ":id_potongan") }}';
         url = url.replace(':id_potongan', id_potongan);
-        var url_delete = '{{ route("detachPotongan", ["id_potongan" => ":id_potongan", "id_karyawan" => ":id_karyawan"]) }}';
+        var url_delete = '{{ route("dash.detachPotongan", ["id_potongan" => ":id_potongan", "id_karyawan" => ":id_karyawan"]) }}';
         url_delete = url_delete.replace(':id_potongan', id_potongan);
         url_delete = url_delete.replace(':id_karyawan', id_karyawan);
         $('.modal-title').text('Warning!');

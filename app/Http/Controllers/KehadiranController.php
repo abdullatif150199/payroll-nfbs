@@ -39,7 +39,7 @@ class KehadiranController extends Controller
                 return $data->jumlah_jam_ngajar . ' jam (Guru)';
             })
             ->editColumn('no_induk', function($data) {
-                return $data->karyawan->no_induk;
+                return '<span class="text-muted">'. $data->karyawan->no_induk .'</span>';
             })
             ->editColumn('nama_lengkap', function($data) {
                 return $data->karyawan->nama_lengkap;

@@ -1,5 +1,5 @@
-{{-- Modal formGolongan --}}
-<div class="modal fade" id="formGolongan">
+{{-- Modal formDevice --}}
+<div class="modal fade" id="formDevice">
     <div class="modal-dialog">
         <div class="modal-content">
 
@@ -16,24 +16,24 @@
                     <div class="row">
                         <div class="col">
                             <div class="form-group">
-                                <label class="form-label">Kode Golongan</label>
-                                <input type="text" name="kode_golongan" class="form-control" required>
+                                <label class="form-label">IP Server</label>
+                                <input type="text" name="server_ip" class="form-control" required>
                             </div>
                         </div>
                     </div>
                     <div class="row">
                         <div class="col">
                             <div class="form-group">
-                                <label class="form-label">Gaji Pokok</label>
-                                <input type="text" name="gaji_pokok" class="form-control" data-mask="000,000,000" data-mask-reverse="true" autocomplete="off">
+                                <label class="form-label">Port Server</label>
+                                <input type="text" name="server_port" class="form-control">
                             </div>
                         </div>
                     </div>
                     <div class="row">
                         <div class="col">
                             <div class="form-group">
-                                <label class="form-label">Lembur</label>
-                                <input type="text" name="lembur" class="form-control" data-mask="000,000,000" data-mask-reverse="true" autocomplete="off">
+                                <label class="form-label">Serial Number Fingerspot</label>
+                                <input type="text" name="serial_number" class="form-control">
                             </div>
                         </div>
                     </div>
@@ -50,13 +50,13 @@
     </div>
 </div>
 
-<div class="modal fade" id="hapusGolongan">
+<div class="modal fade" id="hapusDevice">
     <div class="modal-dialog">
         <div class="modal-content">
 
             <!-- Modal Header -->
             <div class="modal-header">
-                <h4 class="modal-title">Hapus Golongan</h4>
+                <h4 class="modal-title">Hapus Device Fingerprint</h4>
                 <button type="button" class="close" data-dismiss="modal"></button>
             </div>
 

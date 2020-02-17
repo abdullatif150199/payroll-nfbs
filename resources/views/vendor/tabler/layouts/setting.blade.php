@@ -67,18 +67,6 @@
                         {!! isset($title) && $title != 'Setting' ? 'Setting &RightArrow; ' . $title : 'Setting' !!}
                     </h1>
                 </div>
-                @if ($message = Session::get('success'))
-                    <div class="alert alert-success alert-dismissible">
-                        <button type="button" class="close" data-dismiss="alert"></button>
-                        {{$message}}
-                    </div>
-                @endif
-                @if ($message = Session::get('error'))
-                    <div class="alert alert-success alert-dismissible">
-                        <button type="button" class="close" data-dismiss="alert"></button>
-                        {{$message}}
-                    </div>
-                @endif
 
                 {{-- Content --}}
                 <div class="page-content">
@@ -125,6 +113,19 @@
                                 </div>
                             </div>
                             <div class="col-lg-9">
+                                @if ($message = Session::get('success'))
+                                    <div class="alert alert-success alert-dismissible">
+                                        <button type="button" class="close" data-dismiss="alert"></button>
+                                        {{$message}}
+                                    </div>
+                                @endif
+                                @if ($message = Session::get('error'))
+                                    <div class="alert alert-danger alert-dismissible">
+                                        <button type="button" class="close" data-dismiss="alert"></button>
+                                        {{$message}}
+                                    </div>
+                                @endif
+
                                 @yield('content')
                             </div>
                         </div>

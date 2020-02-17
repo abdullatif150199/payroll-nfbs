@@ -59,7 +59,8 @@ Route::group(['prefix' => 'dashboard', 'as' => 'dash.', 'middleware' => ['auth']
 
         Route::group(['prefix' => 'setting'], function () {
             // Setting
-            Route::get('/', 'SettingController@index')->name('setting');
+            Route::get('/', 'UserController@index')->name('setting');
+            Route::get('get-user', 'UserController@getUser')->name('getUser');
 
             // Golongan
             Route::get('golongan', 'GolonganController@index')->name('golongan');
@@ -67,6 +68,7 @@ Route::group(['prefix' => 'dashboard', 'as' => 'dash.', 'middleware' => ['auth']
             Route::post('golongan', 'GolonganController@store')->name('storeGolongan');
             Route::get('golongan/{id}/edit', 'GolonganController@edit')->name('editGolongan');
             Route::put('golongan/{id}', 'GolonganController@update')->name('updateGolongan');
+            Route::delete('golongan/{id}', 'GolonganController@destroy')->name('hapusGolongan');
 
             // Kelompok Kerja
             Route::get('kelompok-kerja', 'KelompokKerjaController@index')->name('kelompokKerja');

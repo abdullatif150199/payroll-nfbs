@@ -69,7 +69,7 @@ class DeviceController extends Controller
 
     public function destroy($id)
     {
-        $get = Device::destroy($id);
+        Device::destroy($id);
 
         return back();
     }

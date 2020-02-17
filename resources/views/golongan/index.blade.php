@@ -88,6 +88,7 @@
             $('.modal-title').text('Create Golongan');
             $('#formGolongan').modal('show');
             $('input[name=_method]').val('POST');
+            $('#formGolongan form')[0].reset();
         });
 
         function editGolongan(id) {
@@ -136,6 +137,14 @@
                 }
             });
         });
+
+        function hapusGolongan(id) {
+            var url = '{{ route("dash.hapusGolongan", ":id") }}';
+            url = url.replace(':id', id);
+            $('#hapusGolongan .modal-body').text('Yakin ingin menghapus?');
+            $('#hapusGolongan form').attr('action', url);
+            $('#hapusGolongan').modal('show');
+        }
 
     // });
 </script>

@@ -4,8 +4,8 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Yajra\Datatables\Datatables;
-use App\Karyawan;
-use App\Potongan;
+use App\Models\Karyawan;
+use App\Models\Potongan;
 
 class PotonganController extends Controller
 {

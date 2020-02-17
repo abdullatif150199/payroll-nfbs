@@ -86,6 +86,7 @@
             $('.modal-title').text('Create Kelompok Kerja');
             $('#formKelompok').modal('show');
             $('input[name=_method]').val('POST');
+            $('#formKelompok form')[0].reset();
         });
 
         function editKelompok(id) {

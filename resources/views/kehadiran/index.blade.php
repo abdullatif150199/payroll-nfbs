@@ -83,7 +83,6 @@
                             <th>Kembali</th>
                             <th>Pulang</th>
                             <th>Jml Jam</th>
-                            <th>Jml Jam ngajar</th>
                             <th class="text-center"><i class="icon-settings"></i></th>
                         </tr>
                     </thead>
@@ -115,7 +114,6 @@ $(document).ready(function() {
             {data: 'jam_kembali'},
             {data: 'jam_pulang'},
             {data: 'jumlah_jam'},
-            {data: 'jumlah_jam_ngajar'},
             {data: 'actions', orderable: false, searchable: false}
         ]
     });
