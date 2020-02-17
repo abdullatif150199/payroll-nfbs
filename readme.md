@@ -7,9 +7,9 @@
 <a href="https://packagist.org/packages/laravel/framework"><img src="https://poser.pugx.org/laravel/framework/license.svg" alt="License"></a>
 </p>
 
-## About Gajian
+## About Payroll
 
-Dibuat menggunakan framework laravel
+Aplikasi web sistem management gaji dan kehadiran karyawan yang dibuat menggunakan framework laravel
 
 ## Parameter Global
 
