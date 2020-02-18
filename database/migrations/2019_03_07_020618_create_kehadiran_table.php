@@ -22,7 +22,7 @@ class CreateKehadiranTable extends Migration
             $table->time('jam_kembali')->nullable();
             $table->time('jam_pulang')->nullable();
             $table->date('tanggal');
-            $table->tinyInteger('jumlah_jam_ngajar')->nullable()->comment('Khusus guru');
+            $table->tinyInteger('tipe', ['shift', 'non shift'])->default('non shift')->comment('Tipe Kehadiran');
             $table->timestamps();
         });
     }

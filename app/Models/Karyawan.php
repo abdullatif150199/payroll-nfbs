@@ -43,6 +43,12 @@ class Karyawan extends Model
         return $this->hasOne(Kehadiran::class)->where('tanggal', date('Y-m-d'));
     }
 
+    public function kehadiranKemarin()
+    {
+        $yesterday = date("Y-m-d", strtotime( '-1 days' ) );
+        return $this->hasOne(kehadiran::class)->where('tanggal', $yesterday);
+    }
+
     public function cuti()
     {
         return $this->hasMany(Cuti::class);

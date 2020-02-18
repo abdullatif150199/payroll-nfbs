@@ -41,7 +41,7 @@ class ScanlogMasuk extends Command
     public function handle()
     {
         $finger = new EasyLink;
-        $devices = Device::all();
+        $devices = Device::where('tipe', '1')->get();
 
         foreach ($devices as $device) {
             $serial = $device->serial_number;
