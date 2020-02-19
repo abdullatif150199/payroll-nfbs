@@ -28,12 +28,21 @@ class KehadiranController extends Controller
                 return view('kehadiran.actions');
             })
             ->editColumn('jumlah_jam', function($data) {
-                return total_time(
-                    $data->jam_masuk,
-                    $data->jam_istirahat,
-                    $data->jam_kembali,
-                    $data->jam_pulang
-                ) ?? '<span class="tag tag-rounded tag-red">Undefined</span>';
+                if ($data->karyawan->tipe_kerja !== 'shift') {
+                    $result = total_time(
+                        $data->jam_masuk,
+                        $data->jam_istirahat,
+                        $data->jam_kembali,
+                        $data->jam_pulang
+                    ) ?? '<span class="tag tag-rounded tag-red">Undefined</span>';
+                } else {
+                    $result = total_time_shift(
+                        $data->jam_masuk,
+                        $data->jam_pulang
+                    ) ?? '<span class="tag tag-rounded tag-red">Undefined</span>';
+                }
+
+                return $result;
             })
             ->editColumn('jumlah_jam_ngajar', function($data) {
                 return $data->jumlah_jam_ngajar . ' jam (Guru)';

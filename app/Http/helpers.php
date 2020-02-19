@@ -33,6 +33,22 @@ function total_time($masuk, $istirahat, $kembali, $pulang) {
 
 }
 
+function total_time_shift($masuk, $pulang) {
+    if (!empty($masuk) && !empty($pulang)) {
+        $diff = (strtotime($pulang) - strtotime($masuk));
+
+        $total = $diff/60;
+        $jam = floor($total/60);
+        $menit = $total%60;
+        if ($jam < 0) {
+            $jam = 00;
+            $menit = 00;
+        }
+
+        return sprintf("%02d jam %02d menit", $jam, $menit);
+    }
+}
+
 // days percent used
 function percent_time($end, $start) {
     $end = empty($end) ? date('H:i:s') : $end;
