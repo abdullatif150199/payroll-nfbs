@@ -11,12 +11,12 @@ class BidangUnitKaryawanSeeder extends Seeder
      */
     public function run()
     {
-        $bidang = factory(App\Bidang::class, 5)->create();
+        $bidang = factory(App\Models\Bidang::class, 5)->create();
 
         $bidang->each(function ($bid) {
-            $units = factory(App\Unit::class, 2)->create(['bidang_id' => $bid->id]);
+            $units = factory(App\Models\Unit::class, 2)->create(['bidang_id' => $bid->id]);
             $units->each(function ($unit) {
-                factory(App\Karyawan::class, 10)->create(['bidang_id' => $unit->bidang_id,
+                factory(App\Models\Karyawan::class, 10)->create(['bidang_id' => $unit->bidang_id,
                 'unit_id' => $unit->id]);
             });
         });

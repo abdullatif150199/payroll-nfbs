@@ -30,7 +30,7 @@ class PersentaseKinerjaTableSeeder extends Seeder
             ]
         ]);
 
-        App\Karyawan::All()->each(function ($kar) use ($data){
+        App\Models\Karyawan::All()->each(function ($kar) use ($data){
             $kar->persentaseKinerjas()->attach(
                 [1,2,3,4]
             );

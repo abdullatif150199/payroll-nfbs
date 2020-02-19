@@ -11,29 +11,29 @@ class MasterSeeder extends Seeder
      */
     public function run()
     {
-        factory(App\Jabatan::class, 10)->create();
-        factory(App\Golongan::class, 7)->create();
-        factory(App\StatusKerja::class, 6)->create();
-        factory(App\Potongan::class, 6)->create();
+        factory(App\Models\Jabatan::class, 10)->create();
+        factory(App\Models\Golongan::class, 7)->create();
+        factory(App\Models\StatusKerja::class, 6)->create();
+        factory(App\Models\Potongan::class, 6)->create();
 
-        factory(App\Bidang::class, 5)->create()->each(function ($bidang) {
-            $bidang->unit()->saveMany(factory(App\Unit::class, 2)->make());
+        factory(App\Models\Bidang::class, 5)->create()->each(function ($bidang) {
+            $bidang->unit()->saveMany(factory(App\Models\Unit::class, 2)->make());
         });
 
-        factory(App\Karyawan::class, 50)->create()->each(function ($karyawan) {
-            $karyawan->kehadiran()->saveMany(factory(App\Kehadiran::class, 3)->make());
-            $karyawan->cuti()->save(factory(App\Cuti::class)->make());
-            $karyawan->gaji()->save(factory(App\Gaji::class)->make());
-            $karyawan->insentif()->save(factory(App\Insentif::class)->make());
-            $karyawan->keluarga()->saveMany(factory(App\Keluarga::class, rand(1, 4))->make());
-            $karyawan->lembur()->saveMany(factory(App\Lembur::class, rand(1, 3))->make());
+        factory(App\Models\Karyawan::class, 50)->create()->each(function ($karyawan) {
+            $karyawan->kehadiran()->saveMany(factory(App\Models\Kehadiran::class, 3)->make());
+            $karyawan->cuti()->save(factory(App\Models\Cuti::class)->make());
+            $karyawan->gaji()->save(factory(App\Models\Gaji::class)->make());
+            $karyawan->insentif()->save(factory(App\Models\Insentif::class)->make());
+            $karyawan->keluarga()->saveMany(factory(App\Models\Keluarga::class, rand(1, 4))->make());
+            $karyawan->lembur()->saveMany(factory(App\Models\Lembur::class, rand(1, 3))->make());
         });
 
-        $bidang = App\Bidang::all();
-        $unit = App\Unit::all();
-        $potongan = App\Potongan::all();
+        $bidang = App\Models\Bidang::all();
+        $unit = App\Models\Unit::all();
+        $potongan = App\Models\Potongan::all();
 
-        App\Karyawan::all()->each(function ($karyawan) use ($bidang, $unit, $potongan) {
+        App\Models\Karyawan::all()->each(function ($karyawan) use ($bidang, $unit, $potongan) {
             $karyawan->bidang()->attach(
                 $bidang->random(rand(1, 2))->pluck('id')->toArray()
             );
