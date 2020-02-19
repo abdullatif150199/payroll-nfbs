@@ -2,22 +2,22 @@
 
 use Faker\Generator as Faker;
 
-$factory->define(App\Karyawan::class, function (Faker $faker) {
+$factory->define(App\Models\Karyawan::class, function (Faker $faker) {
     return [
         'user_id' => function () {
-            return App\User::inRandomOrder()->first()->id;
+            return App\Models\User::inRandomOrder()->first()->id;
         },
         'golongan_id' => function () {
-            return App\Golongan::inRandomOrder()->first()->id;
+            return App\Models\Golongan::inRandomOrder()->first()->id;
         },
         'jabatan_id' => function () {
-            return App\Jabatan::inRandomOrder()->first()->id;
+            return App\Models\Jabatan::inRandomOrder()->first()->id;
         },
         'status_kerja_id' => function () {
-            return App\StatusKerja::inRandomOrder()->first()->id;
+            return App\Models\StatusKerja::inRandomOrder()->first()->id;
         },
         'kelompok_kerja_id' => function () {
-            return App\KelompokKerja::inRandomOrder()->first()->id;
+            return App\Models\KelompokKerja::inRandomOrder()->first()->id;
         },
         'no_induk' => mt_rand(100000, 300000),
         'nik' => mt_rand(1000000000000000, 3000000000000000),

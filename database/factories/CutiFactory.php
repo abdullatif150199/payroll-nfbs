@@ -2,7 +2,7 @@
 
 use Faker\Generator as Faker;
 
-$factory->define(App\Cuti::class, function (Faker $faker) {
+$factory->define(App\Models\Cuti::class, function (Faker $faker) {
     return [
         // 'karyawan_id' => function() {
         //     // get random karyawan id

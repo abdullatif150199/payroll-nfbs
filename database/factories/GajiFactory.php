@@ -2,7 +2,7 @@
 
 use Faker\Generator as Faker;
 
-$factory->define(App\Gaji::class, function (Faker $faker) {
+$factory->define(App\Models\Gaji::class, function (Faker $faker) {
     return [
         // 'karyawan_id' => function() {
         //     // get random karyawan id

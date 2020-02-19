@@ -2,7 +2,7 @@
 
 use Faker\Generator as Faker;
 
-$factory->define(App\Insentif::class, function (Faker $faker) {
+$factory->define(App\Models\Insentif::class, function (Faker $faker) {
     return [
         // 'karyawan_id' => function () {
         //     return App\Karyawan::inRandomorder()->first()->id;
