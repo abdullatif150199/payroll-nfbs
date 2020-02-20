@@ -45,6 +45,7 @@
                     <th>IP Server</th>
                     <th>Port Server</th>
                     <th>Serial Number</th>
+                    <th>Tipe</th>
                     <th>Opsi</th>
                 </tr>
             </thead>
@@ -73,6 +74,7 @@
             {data: 'server_ip'},
             {data: 'server_port'},
             {data: 'serial_number'},
+            {data: 'tipe'},
             {data: 'actions', orderable: false, searchable: false}
         ]
     });
@@ -105,6 +107,7 @@
                 $('input[name=server_ip]').val(data.server_ip);
                 $('input[name=server_port]').val(data.server_port);
                 $('input[name=serial_number]').val(data.serial_number);
+                $('input[name=tipe]').val(data.tipe);
             }
         });
     }

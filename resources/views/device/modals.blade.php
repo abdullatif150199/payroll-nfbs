@@ -37,6 +37,18 @@
                             </div>
                         </div>
                     </div>
+                    <div class="row">
+                        <div class="col">
+                            <div class="form-group">
+                                <label class="form-label">Tipe</label>
+                                <select name="tipe" class="form-control">
+                                    <option value="">Pilih</option>
+                                    <option value="1">non shift</option>
+                                    <option value="2">shift</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
                 </div>
                 <div class="modal-footer">
 

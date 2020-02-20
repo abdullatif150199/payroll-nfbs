@@ -8,7 +8,6 @@ use App\Models\Bidang;
 use App\Models\Unit;
 use App\Models\Golongan;
 use App\Models\Cuti;
-// use App\Libraries\EasyLink;
 
 class HomeController extends Controller
 {
@@ -29,13 +28,6 @@ class HomeController extends Controller
      */
     public function index()
     {
-        // $finger = new EasyLink;
-        // $serial = '61627018331031';
-        // $port = '8080';
-        // $ip = '192.168.1.164';
-        // $scanlogs = $finger->delScan($serial, $port, $ip);
-        // dd($scanlogs->Result);
-
         $title = 'Dashboard';
         $karyawan = Karyawan::all();
         $bidang = Bidang::count();
