@@ -84,14 +84,14 @@ class DeviceController extends Controller
 
     public function check($id)
     {
-        $get = Device::findOrFail($id);
-
-        $finger = new EasyLink;
-        $serial = $get->serial_number;
-        $port = $get->server_port;
-        $ip = $get->server_ip;
-
         try {
+            $get = Device::findOrFail($id);
+
+            $finger = new EasyLink;
+            $serial = $get->serial_number;
+            $port = $get->server_port;
+            $ip = $get->server_ip;
+
             $scanlogs = $finger->info($serial, $port, $ip);
 
             if ($scanlogs->Result === false) {
