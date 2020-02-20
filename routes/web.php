@@ -84,7 +84,7 @@ Route::group(['prefix' => 'dashboard', 'as' => 'dash.', 'middleware' => ['auth']
             Route::get('device/{id}/edit', 'DeviceController@edit')->name('editDevice');
             Route::put('device/{id}', 'DeviceController@update')->name('updateDevice');
             Route::delete('device/{id}', 'DeviceController@destroy')->name('hapusDevice');
-            Route::post('device/{id}/check', 'Devicecontroller@check')->name('checkDevice');
+            Route::post('device/{id}/check', 'DeviceController@check')->name('checkDevice');
         });
     });
 });
