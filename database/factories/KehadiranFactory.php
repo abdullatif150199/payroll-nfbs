@@ -12,6 +12,6 @@ $factory->define(App\Models\Kehadiran::class, function (Faker $faker) {
         'jam_kembali' => $faker->time(),
         'jam_pulang' => $faker->time(),
         'tanggal' => $faker->date(),
-        'jumlah_jam_ngajar' => mt_rand(4, 6),
+        'tipe' => 'non shift',
     ];
 });
