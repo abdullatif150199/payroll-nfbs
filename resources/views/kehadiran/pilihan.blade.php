@@ -78,6 +78,7 @@
 <script src="{{ asset('js/jquery.datetimepicker.full.min.js') }}"></script>
 <script>
     $('.datepicker').datetimepicker({
+        timepicker:false,
         format: 'Y-m-d'
     });
 
