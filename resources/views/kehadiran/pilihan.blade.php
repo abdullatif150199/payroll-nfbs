@@ -38,14 +38,23 @@
                     <label for="month" class="mr-sm-3">Dari</label>
                     <div class="row gutters-xs">
                         <div class="col">
-                            <input type="text" name="dari_tanggal" class="form-control datepicker" onchange="$('#karyawanTable').DataTable().draw()">
+                            <input type="text" name="dari_tanggal" class="form-control datepicker" onchange="$('#kehadiranTable').DataTable().draw()">
                         </div>
                     </div>
                     {{-- BBBBBBBBB --}}
                     <label for="month" class="ml-sm-3 mr-sm-3">Sampai</label>
                     <div class="row gutters-xs">
                         <div class="col">
-                            <input type="text" name="sampai_tanggal" class="form-control datepicker" onchange="$('#karyawanTable').DataTable().draw()">
+                            <input type="text" name="sampai_tanggal" class="form-control datepicker" onchange="$('#kehadiranTable').DataTable().draw()">
+                        </div>
+                    </div>
+                    {{-- unit --}}
+                    <label for="month" class="ml-sm-3 mr-sm-3">Bidang</label>
+                    <div class="row gutters-xs">
+                        <div class="col">
+                            <select name="bidang" class="form-control" onchange="$('#kehadiranTable').DataTable().draw()">
+                                <option value="">Nama Bidang</option>
+                            </select>
                         </div>
                     </div>
                 </form>
