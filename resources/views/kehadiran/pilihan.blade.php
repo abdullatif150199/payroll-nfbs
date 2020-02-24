@@ -2,7 +2,7 @@
 @push('styles')
 <link rel="stylesheet" href="{{ asset('css/dataTables.bootstrap4.min.css') }}">
 <link rel="stylesheet" href="{{ asset('css/select.dataTables.min.css') }}">
-{{-- <link rel="stylesheet" href="{{ asset('css/jquery.datetimepicker.css') }}"> --}}
+<link rel="stylesheet" href="{{ asset('css/jquery.datetimepicker.css') }}">
 <style>
     .dataTables_length {
         padding-left: 1rem;
@@ -75,11 +75,11 @@
 @endsection
 
 @push('scripts')
-{{-- <script src="{{ asset('js/jquery.datetimepicker.js') }}"></script> --}}
+<script src="{{ asset('js/jquery.datetimepicker.full.min.js') }}"></script>
 <script>
-    // $('.datepicker').datetimepicker({
-    //     format: 'Y-m-d'
-    // });
+    $('.datepicker').datetimepicker({
+        format: 'Y-m-d'
+    });
 
     var oTable = $('#kehadiranTable').DataTable({
         serverSide: true,
