@@ -14,29 +14,66 @@ function count_time($end, $start) {
     return sprintf("%02d jam %02d menit", $jam, $menit);
 }
 
-function total_time($masuk, $istirahat, $kembali, $pulang) {
+function sum_time($masuk, $istirahat, $kembali, $pulang, $res=null) {
     if (!empty($masuk) && !empty($istirahat) && !empty($kembali) && !empty($pulang)) {
         $diff1 = (strtotime($istirahat) - strtotime($masuk));
         $diff2 = (strtotime($pulang) - strtotime($kembali));
 
         $diff = $diff1 + $diff2;
-        $total = $diff/60;
-        $jam = floor($total/60);
-        $menit = $total%60;
-        if ($jam < 0) {
-            $jam = 00;
-            $menit = 00;
+
+        if ($res === 'val') {
+            return $diff;
+        } else {
+            $total = $diff/60;
+            $jam = floor($total/60);
+            $menit = $total%60;
+            if ($jam < 0) {
+                $jam = 00;
+                $menit = 00;
+            }
+
+            return sprintf("%02d jam %02d menit", $jam, $menit);
         }
 
-        return sprintf("%02d jam %02d menit", $jam, $menit);
     }
-
 }
 
-function total_time_shift($masuk, $pulang) {
+function sum_time_shift($masuk, $pulang, $res=null) {
     if (!empty($masuk) && !empty($pulang)) {
         $diff = (strtotime($pulang) - strtotime($masuk));
 
+        if ($res === 'val') {
+            return $diff;
+        } else {
+            $total = $diff/60;
+            $jam = floor($total/60);
+            $menit = $total%60;
+            if ($jam < 0) {
+                $jam = 00;
+                $menit = 00;
+            }
+
+            return sprintf("%02d jam %02d menit", $jam, $menit);
+        }
+
+    }
+}
+
+function total_sum_time($data, $tipe_kerja, $res=null) {
+    $diff = 0;
+    if ($tipe_kerja === 'shift') {
+        foreach ($data as $item) {
+            $diff += sum_time_shift($item->jam_masuk, $item->jam_pulang, 'val');
+        }
+    } else {
+        foreach ($data as $item) {
+            $diff += sum_time($item->jam_masuk, $item->jam_istirahat, $item->jam_kembali, $item->jam_pulang, 'val');
+        }
+    }
+
+    if ($res === 'val') {
+        return $diff;
+    } else {
         $total = $diff/60;
         $jam = floor($total/60);
         $menit = $total%60;
@@ -47,6 +84,7 @@ function total_time_shift($masuk, $pulang) {
 
         return sprintf("%02d jam %02d menit", $jam, $menit);
     }
+
 }
 
 // days percent used
@@ -86,6 +124,10 @@ function percent($part, $total) {
     $percent = $part / $total * 100;
 
     return $percent;
+}
+
+function persentase_pekanan($a, $b) {
+
 }
 
 function sumType($sum, $type) {

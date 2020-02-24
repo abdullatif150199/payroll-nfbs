@@ -106,6 +106,13 @@ class KaryawanController extends Controller
         return redirect()->back()->withSuccess(sprintf('Karyawan %s berhasil di tambahkan', $karyawan->nama_lengkap));
     }
 
+    public function show($id)
+    {
+        $data = Karyawan::findOrFail($id);
+
+        dd(total_sum_time($data->kehadiran, $data->tipe_kerja));
+    }
+
     public function edit($id)
     {
         $data = Karyawan::with(['bidang', 'unit'])->find($id);

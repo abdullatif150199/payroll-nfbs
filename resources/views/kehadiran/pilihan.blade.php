@@ -2,6 +2,7 @@
 @push('styles')
 <link rel="stylesheet" href="{{ asset('css/dataTables.bootstrap4.min.css') }}">
 <link rel="stylesheet" href="{{ asset('css/select.dataTables.min.css') }}">
+{{-- <link rel="stylesheet" href="{{ asset('css/jquery.datetimepicker.css') }}"> --}}
 <style>
     .dataTables_length {
         padding-left: 1rem;
@@ -34,45 +35,22 @@
         <div class="card">
             <div class="card-header">
                 <form class="form-inline" action="{{ route('dash.getKehadiran') }}" method="post">
-                    <label for="month" class="mr-sm-3">Tanggal</label>
+                    <label for="month" class="mr-sm-3">Dari</label>
                     <div class="row gutters-xs">
                         <div class="col">
-                            <select name="day" class="form-control custom-select" onchange="$('#kehadiranTable').DataTable().draw()">
-                                <option value="">Tahun</option>
-                                @for ($i=1; $i <= 31; $i++)
-                                    <option {{ date('d') == $i ? 'selected' : ''}} value="{{$i}}">{{$i}}</option>
-                                @endfor
-                            </select>
+                            <input type="text" name="dari_tanggal" class="form-control datepicker" onchange="$('#karyawanTable').DataTable().draw()">
                         </div>
+                    </div>
+                    {{-- BBBBBBBBB --}}
+                    <label for="month" class="ml-sm-3 mr-sm-3">Sampai</label>
+                    <div class="row gutters-xs">
                         <div class="col">
-                            <select name="month" class="form-control custom-select" onchange="$('#kehadiranTable').DataTable().draw()">
-                                <option value="">Bulan</option>
-                                <option {{ date('m') == '01' ? 'selected' : ''}} value="01">Januari</option>
-                                <option {{ date('m') == '02' ? 'selected' : ''}} value="02">Februari</option>
-                                <option {{ date('m') == '03' ? 'selected' : ''}} value="03">Maret</option>
-                                <option {{ date('m') == '04' ? 'selected' : ''}} value="04">April</option>
-                                <option {{ date('m') == '05' ? 'selected' : ''}} value="05">Mei</option>
-                                <option {{ date('m') == '06' ? 'selected' : ''}} value="06">Juni</option>
-                                <option {{ date('m') == '07' ? 'selected' : ''}} value="07">Juli</option>
-                                <option {{ date('m') == '08' ? 'selected' : ''}} value="08">Augustus</option>
-                                <option {{ date('m') == '09' ? 'selected' : ''}} value="09">September</option>
-                                <option {{ date('m') == '10' ? 'selected' : ''}} value="10">Oktober</option>
-                                <option {{ date('m') == '11' ? 'selected' : ''}} value="11">November</option>
-                                <option {{ date('m') == '12' ? 'selected' : ''}} value="12">Desember</option>
-                            </select>
-                        </div>
-                        <div class="col">
-                            <select name="year" class="form-control custom-select" onchange="$('#kehadiranTable').DataTable().draw()">
-                                <option value="">Tahun</option>
-                                @for ($i=2018; $i <= date('Y'); $i++)
-                                    <option {{ date('Y') == $i ? 'selected' : ''}} value="{{$i}}">{{$i}}</option>
-                                @endfor
-                            </select>
+                            <input type="text" name="sampai_tanggal" class="form-control datepicker" onchange="$('#karyawanTable').DataTable().draw()">
                         </div>
                     </div>
                 </form>
                 <div class="card-options">
-                    <a class="btn btn-info" href="?list=pilihan"><i class="fe fe-list"></i> Menuju Pilihan</a>
+                    <a class="btn btn-info" href="{{ route('dash.kehadiran') }}"><i class="fe fe-list"></i> Menuju Harian</a>
                 </div>
             </div>
             <div class="table-responsive">
@@ -81,11 +59,8 @@
                         <tr>
                             <th class="w-1">No. Induk</th>
                             <th>Nama Lengkap</th>
-                            <th>Masuk</th>
-                            <th>Istirahat</th>
-                            <th>Kembali</th>
-                            <th>Pulang</th>
                             <th>Jml Jam</th>
+                            <th class="text-center">Persentase Kehadiran</th>
                             <th class="text-center"><i class="icon-settings"></i></th>
                         </tr>
                     </thead>
@@ -100,26 +75,28 @@
 @endsection
 
 @push('scripts')
+{{-- <script src="{{ asset('js/jquery.datetimepicker.js') }}"></script> --}}
 <script>
-// $(document).ready(function() {
+    // $('.datepicker').datetimepicker({
+    //     format: 'Y-m-d'
+    // });
+
     var oTable = $('#kehadiranTable').DataTable({
         serverSide: true,
         processing: true,
         select: true,
         ajax: {
-            url: '{{ route('dash.getKehadiran') }}',
+            url: '{{ route('dash.getKehadiranPilihan') }}',
             data: function (d) {
-                d.tanggal = $('select[name=year]').val() + '-' + $('select[name=month]').val() + '-' + $('select[name=day]').val();
+                d.dari_tanggal = $('input[name=dari_tanggal]').val();
+                d.sampai_tanggal = $('input[name=sampai_tanggal]').val();
             }
         },
         columns: [
             {data: 'no_induk'},
             {data: 'nama_lengkap'},
-            {data: 'jam_masuk'},
-            {data: 'jam_istirahat'},
-            {data: 'jam_kembali'},
-            {data: 'jam_pulang'},
             {data: 'jumlah_jam'},
+            {data: 'persentase'},
             {data: 'actions', orderable: false, searchable: false}
         ]
     });
@@ -172,6 +149,6 @@
             }
         });
     });
-// });
+
 </script>
 @endpush

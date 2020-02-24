@@ -30,6 +30,7 @@ Route::group(['prefix' => 'dashboard', 'as' => 'dash.', 'middleware' => ['auth']
         Route::get('karyawan', 'KaryawanController@index');
         Route::get('get-karyawan', 'KaryawanController@getKaryawan')->name('getKaryawan');
         Route::post('karyawan', 'KaryawanController@store')->name('storeKaryawan');
+        Route::get('karyawan/{id}', 'KaryawanController@show')->name('showKaryawan');
         Route::get('karyawan/{id}/edit', 'KaryawanController@edit')->name('editKaryawan');
         Route::put('karyawan/{id}', 'KaryawanController@update')->name('updateKaryawan');
         Route::put('karyawan/{id}/resign', 'KaryawanController@resign')->name('resignKaryawan');
@@ -39,8 +40,11 @@ Route::group(['prefix' => 'dashboard', 'as' => 'dash.', 'middleware' => ['auth']
         Route::get('get-gaji', 'GajiController@getGaji')->name('getGaji');
 
         // Kehadiran
-        Route::get('kehadiran', 'KehadiranController@index');
+        Route::get('kehadiran', 'KehadiranController@index')->name('kehadiran');
         Route::get('get-kehadiran', 'KehadiranController@getKehadiran')->name('getKehadiran');
+        Route::get('get-pilihan', 'KehadiranController@getPilihan')->name('getKehadiranPilihan');
+        Route::get('kehadiran/{id}/edit', 'KehadiranController@edit')->name('editKehadiran');
+        Route::put('kehadiran/{id}', 'KehadiranController@update')->name('updateKehadiran');
 
         // Cuti
         Route::get('cuti', 'CutiController@index');

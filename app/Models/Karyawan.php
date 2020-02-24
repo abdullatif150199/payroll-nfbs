@@ -33,7 +33,7 @@ class Karyawan extends Model
         return $this->belongsToMany(Unit::class, 'karyawan_unit');
     }
 
-    public function kehadirans()
+    public function kehadiran()
     {
         return $this->hasMany(Kehadiran::class);
     }

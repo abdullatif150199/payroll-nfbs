@@ -92,6 +92,8 @@ class DeviceController extends Controller
             $port = $get->server_port;
             $ip = $get->server_ip;
 
+            dd($finger);
+
             $scanlogs = $finger->info($serial, $port, $ip);
 
             if ($scanlogs->Result === false) {
