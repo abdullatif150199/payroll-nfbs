@@ -88,28 +88,28 @@ class KehadiranController extends Controller
 
     public function getPilihan(Request $request)
     {
+        // $data = Karyawan::find(1);
+        // $persen = $this->persentaseKehadiran($data, 2);
+        // dd($persen);
         if (!$request->dari_tanggal) {
             $dari = date('Y-m-d', strtotime('-1 weeks'));
             $sampai = date('Y-m-d');
-            $range = (strtotime($sampai) - strtotime($dari))/3600/24;
+            $range = ((strtotime($sampai) - strtotime($dari))/3600/24) + 1;
 
-            $data = Karyawan::with(['kehadiran' => function($query) use($dari, $sampai) {
+            $data = Karyawan::with(['jamperpekan', 'kehadiran' => function($query) use($dari, $sampai) {
                 $query->whereBetween('tanggal', [$dari, $sampai]);
             }])->orderBy('nama_lengkap', 'asc')->get();
         } else {
-            $dari = $request->dari_tanggal;
-            $sampai = date('Y-m-d', strtotime($request->sampai_tanggal . '+1 day'));
-            $range = (strtotime($sampai) - strtotime($dari))/3600/24;
+            $dari = date('Y-m-d', strtotime($request->dari_tanggal));
+            $sampai = date('Y-m-d', strtotime($request->sampai_tanggal));
+            $range = ((strtotime($sampai) - strtotime($dari))/3600/24) + 1;
 
-            $data = Karyawan::with(['kehadiran' => function($query) use($dari, $sampai) {
+            $data = Karyawan::with(['jamperpekan', 'kehadiran' => function($query) use($dari, $sampai) {
                 $query->whereBetween('tanggal', [$dari, $sampai]);
             }])->orderBy('nama_lengkap', 'asc')->get();
         }
 
         return Datatables::of($data)
-            ->addColumn('actions', function($data) {
-                return view('kehadiran.actions', compact('data'));
-            })
             ->editColumn('jumlah_jam', function($data) {
 
                 $result = total_sum_time(
@@ -129,14 +129,15 @@ class KehadiranController extends Controller
                 $persen = $this->persentaseKehadiran($data, $range);
                 return view('kehadiran.persentase', compact('persen'));
             })
-            ->rawColumns(['actions', 'jumlah_jam', 'no_induk', 'nama_lengkap', 'persentase'])
+            ->rawColumns(['jumlah_jam', 'no_induk', 'nama_lengkap', 'persentase'])
             ->make(true);
     }
 
-    public function persentaseKehadiran($data, $range, $default=7)
+    public function persentaseKehadiran($data, $range)
     {
+        $jam_perhari = round($data->jamperpekan->jml_jam/$data->jamperpekan->jml_hari, 2);
         $jam_hadir = total_sum_time($data->kehadiran, $data->tipe_kerja, 'val');
-        $jam_wajib = ($range * $default) * 3600;
+        $jam_wajib = ($range * $jam_perhari) * 3600;
 
         if ($jam_wajib <= 0) {
             return 0;
@@ -148,11 +149,6 @@ class KehadiranController extends Controller
             return 100;
         }
 
-        if (is_float($persen)) {
-            return number_format($persen, 2);
-        } else {
-            return $persen;
-        }
-
+        return round($persen, 2);
     }
 }

@@ -86,7 +86,7 @@
                             <th>Kembali</th>
                             <th>Pulang</th>
                             <th>Jml Jam</th>
-                            <th class="text-center"><i class="icon-settings"></i></th>
+                            <th class="text-center"></th>
                         </tr>
                     </thead>
                 </table>

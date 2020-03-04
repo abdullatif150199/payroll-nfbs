@@ -108,9 +108,21 @@ class KaryawanController extends Controller
 
     public function show($id)
     {
-        $data = Karyawan::findOrFail($id);
+        $data = Karyawan::with(
+            'kehadiran',
+            'bidang',
+            'unit',
+            'golongan',
+            'jabatan',
+            'statuskerja',
+            'persentasekinerja',
+            'cuti',
+            'potongan',
+            'lembur',
+            'keluarga',
+            'insentif'
+        )->findOrFail($id);
 
-        dd(total_sum_time($data->kehadiran, $data->tipe_kerja));
     }
 
     public function edit($id)

@@ -19,6 +19,9 @@ class CreateCutiTable extends Migration
             $table->foreign('karyawan_id')->references('id')->on('karyawan')->onDelete('cascade');
             $table->date('start_at');
             $table->date('end_at');
+            $table->string('ket')->nullable();
+            $table->timestamp('approved_at')->nullable();
+            $table->enum('status', [1,2])->nullable();
             $table->timestamps();
         });
     }

@@ -21,7 +21,7 @@ class MasterSeeder extends Seeder
         });
 
         factory(App\Models\Karyawan::class, 50)->create()->each(function ($karyawan) {
-            $karyawan->kehadirans()->saveMany(factory(App\Models\Kehadiran::class, 3)->make());
+            $karyawan->kehadiran()->saveMany(factory(App\Models\Kehadiran::class, 3)->make());
             $karyawan->cuti()->save(factory(App\Models\Cuti::class)->make());
             $karyawan->gaji()->save(factory(App\Models\Gaji::class)->make());
             $karyawan->insentif()->save(factory(App\Models\Insentif::class)->make());

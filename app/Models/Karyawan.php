@@ -89,8 +89,13 @@ class Karyawan extends Model
         return $this->belongsTo(StatusKerja::class);
     }
 
-    public function persentaseKinerjas()
+    public function persentaseKinerja()
     {
         return $this->belongsToMany(PersentaseKinerja::class, 'karyawan_persentase_kinerja');
+    }
+
+    public function jamPerpekan()
+    {
+        return $this->belongsTo(JamPerpekan::class);
     }
 }

@@ -20,7 +20,7 @@ class KelompokKerjaController extends Controller
 
         return Datatables::of($data)
             ->editColumn('persen', function($data) {
-                return $data->persen . '% dari GAPOK';
+                return round($data->persen, 2) . '% dari GAPOK';
             })
             ->editColumn('peserta', function($data) {
                 return $data->karyawans()->count();

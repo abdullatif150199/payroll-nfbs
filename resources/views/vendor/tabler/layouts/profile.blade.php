@@ -8,7 +8,7 @@
     <!-- CSRF Token -->
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
-    <title>{{ isset($title) ? $title .' | '. config('tabler.suffix') : config('tabler.suffix') }}</title>
+    <title>{{ auth()->user()->name .' | '. config('tabler.suffix') }}</title>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
     <link rel="stylesheet"
           href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,300i,400,400i,500,500i,600,600i,700,700i&amp;subset=latin-ext">
@@ -66,7 +66,40 @@
                         {{ isset($title) ? $title : '' }}
                     </h1>
                 </div>
-                @yield('content')
+                <div class="page-content">
+                    <div class="container">
+                        <div class="row">
+                            <div class="col-lg-4">
+                                <div class="card card-profile">
+                                    <div class="card-header" style="background-image: url(/images/src/eberhard-grossgasteiger-311213-500.jpg);"></div>
+                                    <div class="card-body text-center">
+                                        <img class="card-profile-img" src="/images/src/user.jpg">
+                                        <h3 class="mb-0">{{ $user->name }}</h3>
+                                        <p class="text-muted mb-2">{{ $user->karyawan->no_induk }}</p>
+                                        {{-- <button class="btn btn-outline-primary btn-sm">
+                                            <span class="fe fe-edit"></span> edit
+                                        </button> --}}
+                                    </div>
+                                </div>
+                                {{-- <div class="card">
+                                    <div class="card-header">
+                                        <h3 class="card-title">Social Media</h3>
+                                    </div>
+                                    <div class="card-body">
+                                        <div class="text-center">
+                                            <button type="button" class="btn btn-icon btn-facebook"><i class="fa fa-facebook"></i></button>
+                                            <button type="button" class="btn btn-icon btn-twitter"><i class="fa fa-twitter"></i></button>
+                                            <button type="button" class="btn btn-icon btn-google"><i class="fa fa-google"></i></button>
+                                            <button type="button" class="btn btn-icon btn-instagram"><i class="fa fa-instagram"></i></button>
+                                            <button type="button" class="btn btn-icon btn-green"><i class="fa fa-whatsapp"></i></button>
+                                        </div>
+                                    </div>
+                                </div> --}}
+                            </div>
+                            @yield('content')
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
     </div>

@@ -27,7 +27,10 @@ class DefineMenus
         });
 
         Menu::make('profile', function ($menu) {
-            $menu->add('Beranda', 'profile')->data('icon', 'fa fa-home');
+            $menu->add('Beranda', 'profile')->data('icon', 'fe fe-grid');
+            $menu->add('Gaji', 'profile/gaji')->data('icon', 'fe fe-shopping-bag');
+            $menu->add('Kehadiran', 'profile/kehadiran')->data('icon', 'fe fe-user-check');
+            $menu->add('Cuti', 'profile/cuti')->data('icon', 'fe fe-user-x');
         });
 
         return $next($request);

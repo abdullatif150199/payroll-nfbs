@@ -28,13 +28,17 @@ class Kernel extends ConsoleKernel
     protected function schedule(Schedule $schedule)
     {
         $schedule->command('scanlog:masuk')
-                 ->dailyAt('08.30');
+                ->withoutOverlapping()
+                ->between('05:30', '09:00');
         $schedule->command('scanlog:istirahat')
-                 ->dailyAt('13.00');
+                ->withoutOverlapping()
+                ->between('11:00', '12:45');
         $schedule->command('scanlog:kembali')
-                 ->dailyAt('14.15');
+                ->withoutOverlapping()
+                ->between('12:50', '14:30');
         $schedule->command('scanlog:pulang')
-                 ->dailyAt('16.00');
+                ->withoutOverlapping()
+                ->between('15:00', '17:00');
     }
 
     /**

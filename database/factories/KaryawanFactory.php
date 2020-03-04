@@ -38,5 +38,7 @@ $factory->define(App\Models\Karyawan::class, function (Faker $faker) {
         'no_rekening' => $faker->bankAccountNumber,
         'rekening_atas_nama' => $faker->name,
         'status' => mt_rand(1,2),
+        'tipe_kerja' => $faker->randomElement(['shift', 'non shift']),
+        'jam_perpekan_id' => mt_rand(1,3),
     ];
 });

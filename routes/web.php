@@ -17,9 +17,17 @@ Route::get('/', function () {
 
 Auth::routes();
 
-Route::get('/profile', function () {
-    // dd(App\Bidang::all()->random(3)->pluck('nama_bidang')->toArray());
-    return view('profile.index');
+Route::group(['prefix' => 'profile', 'as' => 'profile.', 'middleware' => ['auth']], function () {
+    Route::get('/', 'ProfileController@index');
+    Route::get('kehadiran', 'ProfileController@kehadiran')->name('kehadiran');
+    Route::get('get-kehadiran/{id}', 'ProfileController@getKehadiran')->name('getKehadiran');
+    // Profile/Cuti
+    Route::get('cuti', 'ProfileController@cuti')->name('cuti');
+    Route::get('cuti/create', 'ProfileController@createCuti')->name('createCuti');
+    Route::post('cuti/store', 'ProfileController@storeCuti')->name('storeCuti');
+    Route::get('cuti/{id}/edit', 'ProfileController@editCuti')->name('editCuti');
+    Route::put('cuti/{id}', 'ProfileController@updateCuti')->name('updateCuti');
+    Route::get('get-cuti/{id}', 'ProfileController@getCuti')->name('getCuti');
 });
 
 Route::group(['prefix' => 'dashboard', 'as' => 'dash.', 'middleware' => ['auth']], function () {

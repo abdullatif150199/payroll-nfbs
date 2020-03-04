@@ -46,6 +46,8 @@ class CreateKaryawanTable extends Migration
             $table->string('rekening_atas_nama', 150)->nullable();
             $table->enum('status', ['1', '2', '3'])->comment('1 == guru, 2 == non guru, 3 == berhenti');
             $table->enum('tipe_kerja', ['shift', 'non shift'])->default('non shift');
+            $table->integer('jam_perpekan_id')->unsigned();
+            $table->foreign('jam_perpekan_id')->references('id')->on('jam_perpekan')->onDelete('restrict');
             $table->timestamps();
         });
     }
