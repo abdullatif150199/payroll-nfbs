@@ -29,7 +29,7 @@ class Kernel extends ConsoleKernel
     {
         $schedule->command('scanlog:masuk')
                 ->withoutOverlapping()
-                ->between('05:30', '09:00');
+                ->between('05:30', '10:00');
         $schedule->command('scanlog:istirahat')
                 ->withoutOverlapping()
                 ->between('11:00', '12:45');
