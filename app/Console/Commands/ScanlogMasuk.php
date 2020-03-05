@@ -53,7 +53,7 @@ class ScanlogMasuk extends Command
             if ($scanlogs->Result) {
                 foreach ($scanlogs->Data as $scan) {
                     $karyawan = Karyawan::where('pin', $scan->PIN)->first();
-                    $karyawan->kehadirans()->create([
+                    $karyawan->kehadiran()->create([
                         'jam_masuk' => date('H:i:s', strtotime($scan->ScanDate)),
                         'tanggal' => date('Y-m-d', strtotime($scan->ScanDate))
                     ]);

@@ -105,6 +105,10 @@
                                                 <td><a href="{{ route('dash.setting') }}">Status Keluarga</a></td>
                                             </tr>
                                             <tr>
+                                                <td width="1"><i class="{{ Route::is('dash.bulkUpload') ? 'fa fa-circle' : 'fa fa-circle-o' }} text-primary"></i></td>
+                                                <td><a href="{{ route('dash.bulkUpload') }}">Bulk Upload</a></td>
+                                            </tr>
+                                            <tr>
                                                 <td width="1"><i class="{{ Route::is('dash.device') ? 'fa fa-circle' : 'fa fa-circle-o' }} text-primary"></i></td>
                                                 <td><a href="{{ route('dash.device') }}">Fingerprint</a></td>
                                             </tr>

@@ -97,6 +97,9 @@ Route::group(['prefix' => 'dashboard', 'as' => 'dash.', 'middleware' => ['auth']
             Route::put('device/{id}', 'DeviceController@update')->name('updateDevice');
             Route::delete('device/{id}', 'DeviceController@destroy')->name('hapusDevice');
             Route::post('device/{id}/check', 'DeviceController@check')->name('checkDevice');
+
+            // Bulk Upload
+            Route::get('bulk-upload', 'BulkUploadController@index')->name('bulkUpload');
         });
     });
 });

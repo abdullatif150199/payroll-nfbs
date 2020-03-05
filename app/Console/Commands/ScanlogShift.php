@@ -60,7 +60,7 @@ class ScanlogShift extends Command
                             if (!empty($kemarin = $karyawan->kehadiranKemarin)) {
                                 // cek apakah kemarin jam pulang terisi
                                 if (!empty($kemarin->jam_pulang)) {
-                                    $a = $karyawan->kehadirans()->create([
+                                    $a = $karyawan->kehadiran()->create([
                                         'jam_masuk' => date('H:i:s', strtotime($scan->ScanDate)),
                                         'tanggal' => date('Y-m-d', strtotime($scan->ScanDate)),
                                         'tipe' => 'shift'
@@ -80,7 +80,7 @@ class ScanlogShift extends Command
                         }
 
                     } else {
-                        $karyawan->kehadirans()->create([
+                        $karyawan->kehadiran()->create([
                             'jam_masuk' => date('H:i:s', strtotime($scan->ScanDate)),
                             'tanggal' => date('Y-m-d', strtotime($scan->ScanDate))
                         ]);
