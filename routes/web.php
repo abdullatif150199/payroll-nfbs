@@ -100,6 +100,23 @@ Route::group(['prefix' => 'dashboard', 'as' => 'dash.', 'middleware' => ['auth']
 
             // Bulk Upload
             Route::get('bulk-upload', 'BulkUploadController@index')->name('bulkUpload');
+            Route::post('bulk-upload', 'BulkUploadController@store')->name('storeBulkUpload');
+
+            // Bidang
+            Route::get('bidang', 'BidangController@index')->name('bidang');
+            Route::get('get-bidang', 'BidangController@getBidang')->name('getBidang');
+            Route::post('bidang', 'BidangController@store')->name('storeBidang');
+            Route::get('bidang/{id}/edit', 'BidangController@edit')->name('editBidang');
+            Route::put('bidang/{id}', 'BidangController@update')->name('updateBidang');
+            Route::delete('bidang/{id}', 'BidangController@destroy')->name('hapusBidang');
+
+             // Unit
+            Route::get('unit', 'UnitController@index')->name('unit');
+            Route::get('get-unit', 'UnitController@getUnit')->name('getUnit');
+            Route::post('unit', 'UnitController@store')->name('storeUnit');
+            Route::get('unit/{id}/edit', 'UnitController@edit')->name('editUnit');
+            Route::put('unit/{id}', 'UnitController@update')->name('updateUnit');
+            Route::delete('unit/{id}', 'UnitController@destroy')->name('hapusUnit');
         });
     });
 });

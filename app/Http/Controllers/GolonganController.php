@@ -20,7 +20,7 @@ class GolonganController extends Controller
 
         return Datatables::of($data)
             ->editColumn('peserta', function($data) {
-                    return $data->karyawans()->count();
+                    return $data->karyawan()->count();
             })
             ->editColumn('gaji_pokok', function($data) {
                 return number_format($data->gaji_pokok);

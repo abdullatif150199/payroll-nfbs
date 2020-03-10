@@ -10,7 +10,7 @@ class Golongan extends Model
 
     protected $fillable = ['kode_golongan', 'gaji_pokok', 'lembur'];
 
-    public function karyawans()
+    public function karyawan()
     {
         return $this->hasMany(Karyawan::class);
     }

@@ -114,6 +114,7 @@ class KaryawanController extends Controller
             'unit',
             'golongan',
             'jabatan',
+            'kelompokkerja',
             'statuskerja',
             'persentasekinerja',
             'cuti',
@@ -122,6 +123,8 @@ class KaryawanController extends Controller
             'keluarga',
             'insentif'
         )->findOrFail($id);
+
+        return view('karyawan.rincian', compact('data'));
 
     }
 

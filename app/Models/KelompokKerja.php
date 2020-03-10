@@ -12,7 +12,7 @@ class KelompokKerja extends Model
         'grade', 'persen',
     ];
 
-    public function karyawans()
+    public function karyawan()
     {
         return $this->hasMany(Karyawan::class);
     }

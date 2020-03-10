@@ -89,16 +89,20 @@
                                                 <td><a href="{{ route('dash.golongan') }}">Golongan</a></td>
                                             </tr>
                                             <tr>
-                                                <td width="1"><i class="{{ Route::is('') ? 'fa fa-circle' : 'fa fa-circle-o' }} text-primary"></i></td>
-                                                <td><a href="{{ route('dash.setting') }}">Bidang</a></td>
+                                                <td width="1"><i class="{{ Route::is('dash.bidang') ? 'fa fa-circle' : 'fa fa-circle-o' }} text-primary"></i></td>
+                                                <td><a href="{{ route('dash.bidang') }}">Bidang</a></td>
                                             </tr>
                                             <tr>
-                                                <td width="1"><i class="{{ Route::is('') ? 'fa fa-circle' : 'fa fa-circle-o' }} text-primary"></i></td>
-                                                <td><a href="{{ route('dash.setting') }}">Unit</a></td>
+                                                <td width="1"><i class="{{ Route::is('dash.unit') ? 'fa fa-circle' : 'fa fa-circle-o' }} text-primary"></i></td>
+                                                <td><a href="{{ route('dash.unit') }}">Unit</a></td>
                                             </tr>
                                             <tr>
                                                 <td width="1"><i class="{{ Route::is('dash.kelompokKerja') ? 'fa fa-circle' : 'fa fa-circle-o' }} text-primary"></i></td>
                                                 <td><a href="{{ route('dash.kelompokKerja') }}">Kelompok Kerja</a></td>
+                                            </tr>
+                                            <tr>
+                                                <td width="1"><i class="{{ Route::is('') ? 'fa fa-circle' : 'fa fa-circle-o' }} text-primary"></i></td>
+                                                <td><a href="{{ route('dash.setting') }}">Status Kerja</a></td>
                                             </tr>
                                             <tr>
                                                 <td width="1"><i class="{{ Route::is('') ? 'fa fa-circle' : 'fa fa-circle-o' }} text-primary"></i></td>

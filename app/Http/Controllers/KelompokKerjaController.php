@@ -23,7 +23,7 @@ class KelompokKerjaController extends Controller
                 return round($data->persen, 2) . '% dari GAPOK';
             })
             ->editColumn('peserta', function($data) {
-                return $data->karyawans()->count();
+                return $data->karyawan()->count();
             })
             ->addColumn('actions', function($data) {
                 return view('kelompok_kerja.actions', ['data' => $data]);
