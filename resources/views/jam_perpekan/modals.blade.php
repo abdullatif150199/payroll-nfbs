@@ -1,5 +1,5 @@
-{{-- Modal formStatusKeluarga --}}
-<div class="modal fade" id="formStatusKeluarga">
+{{-- Modal formJamPerpekan --}}
+<div class="modal fade" id="formJamPerpekan">
     <div class="modal-dialog">
         <div class="modal-content">
 
@@ -16,19 +16,30 @@
                     <div class="row">
                         <div class="col">
                             <div class="form-group">
-                                <label class="form-label">Title</label>
-                                <input type="text" name="status" class="form-control">
+                                <label class="form-label">Keterangan</label>
+                                <input type="text" name="keterangan" class="form-control" required>
                             </div>
                         </div>
                     </div>
                     <div class="row">
                         <div class="col">
                             <div class="form-group">
-                                <label class="form-label">Persentase</label>
+                                <label class="form-label">Jml Jam</label>
                                 <div class="input-group">
-                                    <input type="number" name="persen" class="form-control" placeholder="Persentase" aria-describedby="basic-addon2">
+                                    <input type="number" name="jml_jam" class="form-control" placeholder="Persentase" aria-describedby="basic-addon2">
                                     <span class="input-group-append" id="basic-addon2">
-                                        <span class="input-group-text">&percnt; dari GAPOK</span>
+                                        <span class="input-group-text">Jam</span>
+                                    </span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col">
+                            <div class="form-group">
+                                <label class="form-label">Jml Hari Kerja</label>
+                                <div class="input-group">
+                                    <input type="number" name="jml_hari" class="form-control" placeholder="Persentase" aria-describedby="basic-addon2">
+                                    <span class="input-group-append" id="basic-addon2">
+                                        <span class="input-group-text">Hari</span>
                                     </span>
                                 </div>
                             </div>
@@ -47,13 +58,13 @@
     </div>
 </div>
 
-<div class="modal fade" id="hapusStatusKeluarga">
+<div class="modal fade" id="hapusJamPerpekan">
     <div class="modal-dialog">
         <div class="modal-content">
 
             <!-- Modal Header -->
             <div class="modal-header">
-                <h4 class="modal-title">Hapus Status Keluarga</h4>
+                <h4 class="modal-title">Hapus Jam Perpekan</h4>
                 <button type="button" class="close" data-dismiss="modal"></button>
             </div>
 

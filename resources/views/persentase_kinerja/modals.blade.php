@@ -1,5 +1,5 @@
-{{-- Modal formStatusKeluarga --}}
-<div class="modal fade" id="formStatusKeluarga">
+{{-- Modal formPersentaseKinerja --}}
+<div class="modal fade" id="formPersentaseKinerja">
     <div class="modal-dialog">
         <div class="modal-content">
 
@@ -17,7 +17,7 @@
                         <div class="col">
                             <div class="form-group">
                                 <label class="form-label">Title</label>
-                                <input type="text" name="status" class="form-control">
+                                <input type="text" name="title" class="form-control">
                             </div>
                         </div>
                     </div>
@@ -28,7 +28,7 @@
                                 <div class="input-group">
                                     <input type="number" name="persen" class="form-control" placeholder="Persentase" aria-describedby="basic-addon2">
                                     <span class="input-group-append" id="basic-addon2">
-                                        <span class="input-group-text">&percnt; dari GAPOK</span>
+                                        <span class="input-group-text">&percnt;</span>
                                     </span>
                                 </div>
                             </div>
@@ -47,13 +47,13 @@
     </div>
 </div>
 
-<div class="modal fade" id="hapusStatusKeluarga">
+<div class="modal fade" id="hapusPersentaseKinerja">
     <div class="modal-dialog">
         <div class="modal-content">
 
             <!-- Modal Header -->
             <div class="modal-header">
-                <h4 class="modal-title">Hapus Status Keluarga</h4>
+                <h4 class="modal-title">Hapus Persentase Kinerja</h4>
                 <button type="button" class="close" data-dismiss="modal"></button>
             </div>
 

@@ -117,6 +117,46 @@ Route::group(['prefix' => 'dashboard', 'as' => 'dash.', 'middleware' => ['auth']
             Route::get('unit/{id}/edit', 'UnitController@edit')->name('editUnit');
             Route::put('unit/{id}', 'UnitController@update')->name('updateUnit');
             Route::delete('unit/{id}', 'UnitController@destroy')->name('hapusUnit');
+
+             // Status Keluarga
+            Route::get('status-keluarga', 'StatusKeluargaController@index')->name('statusKeluarga');
+            Route::get('get-status-keluarga', 'StatusKeluargaController@getStatusKeluarga')->name('getStatusKeluarga');
+            Route::post('status-keluarga', 'StatusKeluargaController@store')->name('storeStatusKeluarga');
+            Route::get('status-keluarga/{id}/edit', 'StatusKeluargaController@edit')->name('editStatusKeluarga');
+            Route::put('status-keluarga/{id}', 'StatusKeluargaController@update')->name('updateStatusKeluarga');
+            Route::delete('status-keluarga/{id}', 'StatusKeluargaController@destroy')->name('hapusStatusKeluarga');
+
+             // Status Kerja
+            Route::get('status-kerja', 'StatusKerjaController@index')->name('statusKerja');
+            Route::get('get-status-kerja', 'StatusKerjaController@getStatusKerja')->name('getStatusKerja');
+            Route::post('status-kerja', 'StatusKerjaController@store')->name('storeStatusKerja');
+            Route::get('status-kerja/{id}/edit', 'StatusKerjaController@edit')->name('editStatusKerja');
+            Route::put('status-kerja/{id}', 'StatusKerjaController@update')->name('updateStatusKerja');
+            Route::delete('status-kerja/{id}', 'StatusKerjaController@destroy')->name('hapusStatusKerja');
+
+             // Persentase Kinerja
+            Route::get('persentase-kinerja', 'PersentaseKinerjaController@index')->name('persentaseKinerja');
+            Route::get('get-persentase-kinerja', 'PersentaseKinerjaController@getPersentaseKinerja')->name('getPersentaseKinerja');
+            Route::post('persentase-kinerja', 'PersentaseKinerjaController@store')->name('storePersentaseKinerja');
+            Route::get('persentase-kinerja/{id}/edit', 'PersentaseKinerjaController@edit')->name('editPersentaseKinerja');
+            Route::put('persentase-kinerja/{id}', 'PersentaseKinerjaController@update')->name('updatePersentaseKinerja');
+            Route::delete('persentase-kinerja/{id}', 'PersentaseKinerjaController@destroy')->name('hapusPersentaseKinerja');
+
+             // Nilai Kinerja
+            Route::get('nilai-kinerja', 'NilaiKinerjaController@index')->name('nilaiKinerja');
+            Route::get('get-nilai-kinerja', 'NilaiKinerjaController@getNilaiKinerja')->name('getNilaiKinerja');
+            Route::post('nilai-kinerja', 'NilaiKinerjaController@store')->name('storeNilaiKinerja');
+            Route::get('nilai-kinerja/{id}/edit', 'NilaiKinerjaController@edit')->name('editNilaiKinerja');
+            Route::put('nilai-kinerja/{id}', 'NilaiKinerjaController@update')->name('updateNilaiKinerja');
+            Route::delete('nilai-kinerja/{id}', 'NilaiKinerjaController@destroy')->name('hapusNilaiKinerja');
+
+            // Jam Perpekan
+            Route::get('jam-perpekan', 'JamPerpekanController@index')->name('jamPerpekan');
+            Route::get('get-jam-perpekan', 'JamPerpekanController@getJamPerpekan')->name('getJamPerpekan');
+            Route::post('jam-perpekan', 'JamPerpekanController@store')->name('storeJamPerpekan');
+            Route::get('jam-perpekan/{id}/edit', 'JamPerpekanController@edit')->name('editJamPerpekan');
+            Route::put('jam-perpekan/{id}', 'JamPerpekanController@update')->name('updateJamPerpekan');
+            Route::delete('jam-perpekan/{id}', 'JamPerpekanController@destroy')->name('hapusJamPerpekan');
         });
     });
 });

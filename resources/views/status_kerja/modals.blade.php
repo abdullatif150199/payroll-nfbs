@@ -1,5 +1,5 @@
-{{-- Modal formStatusKeluarga --}}
-<div class="modal fade" id="formStatusKeluarga">
+{{-- Modal formStatusKerja --}}
+<div class="modal fade" id="formStatusKerja">
     <div class="modal-dialog">
         <div class="modal-content">
 
@@ -16,8 +16,8 @@
                     <div class="row">
                         <div class="col">
                             <div class="form-group">
-                                <label class="form-label">Title</label>
-                                <input type="text" name="status" class="form-control">
+                                <label class="form-label">Status Kerja</label>
+                                <input type="text" name="nama_status_kerja" class="form-control">
                             </div>
                         </div>
                     </div>
@@ -26,9 +26,9 @@
                             <div class="form-group">
                                 <label class="form-label">Persentase</label>
                                 <div class="input-group">
-                                    <input type="number" name="persen" class="form-control" placeholder="Persentase" aria-describedby="basic-addon2">
+                                    <input type="number" name="persentase_gaji_pokok" class="form-control" placeholder="Persentase" aria-describedby="basic-addon2">
                                     <span class="input-group-append" id="basic-addon2">
-                                        <span class="input-group-text">&percnt; dari GAPOK</span>
+                                        <span class="input-group-text">&percnt; GATOT</span>
                                     </span>
                                 </div>
                             </div>
@@ -47,13 +47,13 @@
     </div>
 </div>
 
-<div class="modal fade" id="hapusStatusKeluarga">
+<div class="modal fade" id="hapusStatusKerja">
     <div class="modal-dialog">
         <div class="modal-content">
 
             <!-- Modal Header -->
             <div class="modal-header">
-                <h4 class="modal-title">Hapus Status Keluarga</h4>
+                <h4 class="modal-title">Hapus Status Kerja</h4>
                 <button type="button" class="close" data-dismiss="modal"></button>
             </div>
 

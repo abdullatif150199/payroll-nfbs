@@ -32,19 +32,19 @@
 <div class="card">
     <div class="card-header">
         <h3 class="card-title">
-            Daftar Status Keluarga
+            Daftar Jam Perpekan
         </h3>
         <div class="card-options">
-            <button type="button" id="newStatusKeluarga" class="btn btn-primary"><i class="fe fe-plus"></i> Tambah</button>
+            <button type="button" id="newJamPerpekan" class="btn btn-primary"><i class="fe fe-plus"></i> Tambah</button>
         </div>
     </div>
     <div class="table-responsive">
-        <table class="table card-table table-vcenter text-nowra" id="daftarStatusKeluarga">
+        <table class="table card-table table-vcenter text-nowra" id="daftarJamPerpekan">
             <thead>
                 <tr>
-                    <th>Title</th>
-                    <th>Persentase tunjangan</th>
-                    <th>Jml peserta</th>
+                    <th>Keterangan</th>
+                    <th>Jml Jam</th>
+                    <th>Jml Hari Kerja</th>
                     <th>Opsi</th>
                 </tr>
             </thead>
@@ -52,7 +52,7 @@
     </div>
 </div>
 
-@include('status_keluarga.modals')
+@include('jam_perpekan.modals')
 
 @endsection
 
@@ -65,15 +65,15 @@
     });
 
     // $(document).ready(function() {
-        var oTable = $('#daftarStatusKeluarga').DataTable({
+        var oTable = $('#daftarJamPerpekan').DataTable({
             serverSide: true,
             processing: true,
             // select: true,
-            ajax: '{{ route('dash.getStatusKeluarga') }}',
+            ajax: '{{ route('dash.getJamPerpekan') }}',
             columns: [
-                {data: 'status'},
-                {data: 'persentase'},
-                {data: 'jml_peserta'},
+                {data: 'keterangan'},
+                {data: 'jml_jam'},
+                {data: 'jml_hari'},
                 {data: 'actions', orderable: false, searchable: false}
             ]
         });
@@ -82,51 +82,52 @@
         //     e.preventDefault();
         // });
 
-        $('#newStatusKeluarga').click(function () {
-            $('.modal-title').text('Create Status Keluarga');
-            $('#formStatusKeluarga').modal('show');
+        $('#newJamPerpekan').click(function () {
+            $('.modal-title').text('Create Bidang');
+            $('#formJamPerpekan').modal('show');
             $('input[name=_method]').val('POST');
-            $('#formStatusKeluarga form')[0].reset();
+            $('#formBidang form')[0].reset();
         });
 
-        function editStatusKeluarga(id) {
-            var url = '{{ route('dash.editStatusKeluarga', ':id') }}';
+        function editJamPerpekan(id) {
+            var url = '{{ route('dash.editJamPerpekan', ':id') }}';
             url = url.replace(':id', id);
             $('input[name=_method]').val('PUT');
-            $('#formStatusKeluarga form')[0].reset();
+            $('#formJamPerpekan form')[0].reset();
             $.ajax({
                 url: url,
                 type: 'GET',
                 dataType: 'JSON',
                 success: function (data) {
-                    $('.modal-title').text('Edit Status Keluarga');
-                    $('#formStatusKeluarga').modal('show');
+                    $('.modal-title').text('Edit Jam Perpekan');
+                    $('#formJamPerpekan').modal('show');
 
                     $('input[name=id]').val(data.id);
-                    $('input[name=status]').val(data.status);
-                    $('input[name=persen]').val(data.persen);
+                    $('input[name=keterangan]').val(data.keterangan);
+                    $('input[name=jml_jam]').val(data.jml_jam);
+                    $('input[name=jml_hari]').val(data.jml_hari);
                 }
             });
         }
 
-        $('#formStatusKeluarga form').submit(function(e) {
+        $('#formJamPerpekan form').submit(function(e) {
             e.preventDefault();
             var id = $('input[name=id]').val();
             var save_method = $('input[name=_method]').val();
 
             if (save_method == 'POST') {
-                url = '{{ route('dash.storeStatusKeluarga') }}';
+                url = '{{ route('dash.storeJamPerpekan') }}';
             } else {
-                url_raw = '{{ route('dash.updateStatusKeluarga', ':id') }}';
+                url_raw = '{{ route('dash.updateJamPerpekan', ':id') }}';
                 url = url_raw.replace(':id', id);
             }
 
             $.ajax({
                 url: url,
                 type: 'POST',
-                data: $('#formStatusKeluarga form').serialize(),
+                data: $('#formJamPerpekan form').serialize(),
                 success: function (data) {
-                    $('#formStatusKeluarga').modal('hide');
+                    $('#formJamPerpekan').modal('hide');
                     oTable.ajax.reload();
                 },
                 error: function () {
@@ -135,12 +136,12 @@
             });
         });
 
-        function hapusStatusKeluarga(id) {
-            var url = '{{ route("dash.hapusStatusKeluarga", ":id") }}';
+        function hapusJamPerpekan(id) {
+            var url = '{{ route("dash.hapusJamPerpekan", ":id") }}';
             url = url.replace(':id', id);
-            $('#hapusStatusKeluarga .modal-body').text('Yakin ingin menghapus?');
-            $('#hapusStatusKeluarga form').attr('action', url);
-            $('#hapusStatusKeluarga').modal('show');
+            $('#hapusJamPerpekan .modal-body').text('Yakin ingin menghapus?');
+            $('#hapusJamPerpekan form').attr('action', url);
+            $('#hapusJamPerpekan').modal('show');
         }
 
     // });

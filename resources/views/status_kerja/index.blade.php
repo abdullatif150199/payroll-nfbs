@@ -32,18 +32,18 @@
 <div class="card">
     <div class="card-header">
         <h3 class="card-title">
-            Daftar Status Keluarga
+            Daftar Status Kerja
         </h3>
         <div class="card-options">
-            <button type="button" id="newStatusKeluarga" class="btn btn-primary"><i class="fe fe-plus"></i> Tambah</button>
+            <button type="button" id="newStatusKerja" class="btn btn-primary"><i class="fe fe-plus"></i> Tambah</button>
         </div>
     </div>
     <div class="table-responsive">
-        <table class="table card-table table-vcenter text-nowra" id="daftarStatusKeluarga">
+        <table class="table card-table table-vcenter text-nowra" id="daftarStatusKerja">
             <thead>
                 <tr>
-                    <th>Title</th>
-                    <th>Persentase tunjangan</th>
+                    <th>Status Kerja</th>
+                    <th>Persentase Gaji</th>
                     <th>Jml peserta</th>
                     <th>Opsi</th>
                 </tr>
@@ -52,7 +52,7 @@
     </div>
 </div>
 
-@include('status_keluarga.modals')
+@include('status_kerja.modals')
 
 @endsection
 
@@ -65,13 +65,13 @@
     });
 
     // $(document).ready(function() {
-        var oTable = $('#daftarStatusKeluarga').DataTable({
+        var oTable = $('#daftarStatusKerja').DataTable({
             serverSide: true,
             processing: true,
             // select: true,
-            ajax: '{{ route('dash.getStatusKeluarga') }}',
+            ajax: '{{ route('dash.getStatusKerja') }}',
             columns: [
-                {data: 'status'},
+                {data: 'nama_status_kerja'},
                 {data: 'persentase'},
                 {data: 'jml_peserta'},
                 {data: 'actions', orderable: false, searchable: false}
@@ -82,51 +82,51 @@
         //     e.preventDefault();
         // });
 
-        $('#newStatusKeluarga').click(function () {
-            $('.modal-title').text('Create Status Keluarga');
-            $('#formStatusKeluarga').modal('show');
+        $('#newStatusKerja').click(function () {
+            $('.modal-title').text('Create Status Kerja');
+            $('#formStatusKerja').modal('show');
             $('input[name=_method]').val('POST');
-            $('#formStatusKeluarga form')[0].reset();
+            $('#formStatusKerja form')[0].reset();
         });
 
-        function editStatusKeluarga(id) {
-            var url = '{{ route('dash.editStatusKeluarga', ':id') }}';
+        function editStatusKerja(id) {
+            var url = '{{ route('dash.editStatusKerja', ':id') }}';
             url = url.replace(':id', id);
             $('input[name=_method]').val('PUT');
-            $('#formStatusKeluarga form')[0].reset();
+            $('#formStatusKerja form')[0].reset();
             $.ajax({
                 url: url,
                 type: 'GET',
                 dataType: 'JSON',
                 success: function (data) {
-                    $('.modal-title').text('Edit Status Keluarga');
-                    $('#formStatusKeluarga').modal('show');
+                    $('.modal-title').text('Edit Status Kerja');
+                    $('#formStatusKerja').modal('show');
 
                     $('input[name=id]').val(data.id);
-                    $('input[name=status]').val(data.status);
-                    $('input[name=persen]').val(data.persen);
+                    $('input[name=nama_status_kerja]').val(data.nama_status_kerja);
+                    $('input[name=persentase_gaji_pokok]').val(data.persentase_gaji_pokok);
                 }
             });
         }
 
-        $('#formStatusKeluarga form').submit(function(e) {
+        $('#formStatusKerja form').submit(function(e) {
             e.preventDefault();
             var id = $('input[name=id]').val();
             var save_method = $('input[name=_method]').val();
 
             if (save_method == 'POST') {
-                url = '{{ route('dash.storeStatusKeluarga') }}';
+                url = '{{ route('dash.storeStatusKerja') }}';
             } else {
-                url_raw = '{{ route('dash.updateStatusKeluarga', ':id') }}';
+                url_raw = '{{ route('dash.updateStatusKerja', ':id') }}';
                 url = url_raw.replace(':id', id);
             }
 
             $.ajax({
                 url: url,
                 type: 'POST',
-                data: $('#formStatusKeluarga form').serialize(),
+                data: $('#formStatusKerja form').serialize(),
                 success: function (data) {
-                    $('#formStatusKeluarga').modal('hide');
+                    $('#formStatusKerja').modal('hide');
                     oTable.ajax.reload();
                 },
                 error: function () {
@@ -135,12 +135,12 @@
             });
         });
 
-        function hapusStatusKeluarga(id) {
-            var url = '{{ route("dash.hapusStatusKeluarga", ":id") }}';
+        function hapusStatusKerja(id) {
+            var url = '{{ route("dash.hapusStatusKerja", ":id") }}';
             url = url.replace(':id', id);
-            $('#hapusStatusKeluarga .modal-body').text('Yakin ingin menghapus?');
-            $('#hapusStatusKeluarga form').attr('action', url);
-            $('#hapusStatusKeluarga').modal('show');
+            $('#hapusStatusKerja .modal-body').text('Yakin ingin menghapus?');
+            $('#hapusStatusKerja form').attr('action', url);
+            $('#hapusStatusKerja').modal('show');
         }
 
     // });

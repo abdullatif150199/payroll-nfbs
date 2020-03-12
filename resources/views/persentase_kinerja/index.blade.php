@@ -32,19 +32,19 @@
 <div class="card">
     <div class="card-header">
         <h3 class="card-title">
-            Daftar Status Keluarga
+            Daftar Persentase Kinerja
         </h3>
         <div class="card-options">
-            <button type="button" id="newStatusKeluarga" class="btn btn-primary"><i class="fe fe-plus"></i> Tambah</button>
+            <button type="button" id="newPersentaseKinerja" class="btn btn-primary"><i class="fe fe-plus"></i> Tambah</button>
         </div>
     </div>
     <div class="table-responsive">
-        <table class="table card-table table-vcenter text-nowra" id="daftarStatusKeluarga">
+        <table class="table card-table table-vcenter text-nowra" id="daftarPersentaseKinerja">
             <thead>
                 <tr>
                     <th>Title</th>
-                    <th>Persentase tunjangan</th>
-                    <th>Jml peserta</th>
+                    <th>Persentase</th>
+                    <th>Jml Peserta</th>
                     <th>Opsi</th>
                 </tr>
             </thead>
@@ -52,7 +52,7 @@
     </div>
 </div>
 
-@include('status_keluarga.modals')
+@include('persentase_kinerja.modals')
 
 @endsection
 
@@ -65,14 +65,14 @@
     });
 
     // $(document).ready(function() {
-        var oTable = $('#daftarStatusKeluarga').DataTable({
+        var oTable = $('#daftarPersentaseKinerja').DataTable({
             serverSide: true,
             processing: true,
             // select: true,
-            ajax: '{{ route('dash.getStatusKeluarga') }}',
+            ajax: '{{ route('dash.getPersentaseKinerja') }}',
             columns: [
-                {data: 'status'},
-                {data: 'persentase'},
+                {data: 'title'},
+                {data: 'persen'},
                 {data: 'jml_peserta'},
                 {data: 'actions', orderable: false, searchable: false}
             ]
@@ -82,51 +82,51 @@
         //     e.preventDefault();
         // });
 
-        $('#newStatusKeluarga').click(function () {
-            $('.modal-title').text('Create Status Keluarga');
-            $('#formStatusKeluarga').modal('show');
+        $('#newPersentaseKinerja').click(function () {
+            $('.modal-title').text('Create Persentase Kinerja');
+            $('#formPersentaseKinerja').modal('show');
             $('input[name=_method]').val('POST');
-            $('#formStatusKeluarga form')[0].reset();
+            $('#formPersentaseKinerja form')[0].reset();
         });
 
-        function editStatusKeluarga(id) {
-            var url = '{{ route('dash.editStatusKeluarga', ':id') }}';
+        function editPersentaseKinerja(id) {
+            var url = '{{ route('dash.editPersentaseKinerja', ':id') }}';
             url = url.replace(':id', id);
             $('input[name=_method]').val('PUT');
-            $('#formStatusKeluarga form')[0].reset();
+            $('#formPersentaseKinerja form')[0].reset();
             $.ajax({
                 url: url,
                 type: 'GET',
                 dataType: 'JSON',
                 success: function (data) {
-                    $('.modal-title').text('Edit Status Keluarga');
-                    $('#formStatusKeluarga').modal('show');
+                    $('.modal-title').text('Edit Persentase Kinerja');
+                    $('#formPersentaseKinerja').modal('show');
 
                     $('input[name=id]').val(data.id);
-                    $('input[name=status]').val(data.status);
+                    $('input[name=title]').val(data.title);
                     $('input[name=persen]').val(data.persen);
                 }
             });
         }
 
-        $('#formStatusKeluarga form').submit(function(e) {
+        $('#formPersentaseKinerja form').submit(function(e) {
             e.preventDefault();
             var id = $('input[name=id]').val();
             var save_method = $('input[name=_method]').val();
 
             if (save_method == 'POST') {
-                url = '{{ route('dash.storeStatusKeluarga') }}';
+                url = '{{ route('dash.storePersentaseKinerja') }}';
             } else {
-                url_raw = '{{ route('dash.updateStatusKeluarga', ':id') }}';
+                url_raw = '{{ route('dash.updatePersentaseKinerja', ':id') }}';
                 url = url_raw.replace(':id', id);
             }
 
             $.ajax({
                 url: url,
                 type: 'POST',
-                data: $('#formStatusKeluarga form').serialize(),
+                data: $('#formPersentaseKinerja form').serialize(),
                 success: function (data) {
-                    $('#formStatusKeluarga').modal('hide');
+                    $('#formPersentaseKinerja').modal('hide');
                     oTable.ajax.reload();
                 },
                 error: function () {
@@ -135,12 +135,12 @@
             });
         });
 
-        function hapusStatusKeluarga(id) {
-            var url = '{{ route("dash.hapusStatusKeluarga", ":id") }}';
+        function hapusPersentaseKinerja(id) {
+            var url = '{{ route("dash.hapusPersentaseKinerja", ":id") }}';
             url = url.replace(':id', id);
-            $('#hapusStatusKeluarga .modal-body').text('Yakin ingin menghapus?');
-            $('#hapusStatusKeluarga form').attr('action', url);
-            $('#hapusStatusKeluarga').modal('show');
+            $('#hapusPersentaseKinerja .modal-body').text('Yakin ingin menghapus?');
+            $('#hapusPersentaseKinerja form').attr('action', url);
+            $('#hapusPersentaseKinerja').modal('show');
         }
 
     // });

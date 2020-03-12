@@ -101,12 +101,24 @@
                                                 <td><a href="{{ route('dash.kelompokKerja') }}">Kelompok Kerja</a></td>
                                             </tr>
                                             <tr>
-                                                <td width="1"><i class="{{ Route::is('') ? 'fa fa-circle' : 'fa fa-circle-o' }} text-primary"></i></td>
-                                                <td><a href="{{ route('dash.setting') }}">Status Kerja</a></td>
+                                                <td width="1"><i class="{{ Route::is('dash.statusKerja') ? 'fa fa-circle' : 'fa fa-circle-o' }} text-primary"></i></td>
+                                                <td><a href="{{ route('dash.statusKerja') }}">Status Kerja</a></td>
                                             </tr>
                                             <tr>
-                                                <td width="1"><i class="{{ Route::is('') ? 'fa fa-circle' : 'fa fa-circle-o' }} text-primary"></i></td>
-                                                <td><a href="{{ route('dash.setting') }}">Status Keluarga</a></td>
+                                                <td width="1"><i class="{{ Route::is('dash.statusKeluarga') ? 'fa fa-circle' : 'fa fa-circle-o' }} text-primary"></i></td>
+                                                <td><a href="{{ route('dash.statusKeluarga') }}">Status Keluarga</a></td>
+                                            </tr>
+                                            <tr>
+                                                <td width="1"><i class="{{ Route::is('dash.persentaseKinerja') ? 'fa fa-circle' : 'fa fa-circle-o' }} text-primary"></i></td>
+                                                <td><a href="{{ route('dash.persentaseKinerja') }}">Persentase Kinerja</a></td>
+                                            </tr>
+                                            <tr>
+                                                <td width="1"><i class="{{ Route::is('dash.nilaiKinerja') ? 'fa fa-circle' : 'fa fa-circle-o' }} text-primary"></i></td>
+                                                <td><a href="{{ route('dash.nilaiKinerja') }}">Nilai Kinerja</a></td>
+                                            </tr>
+                                            <tr>
+                                                <td width="1"><i class="{{ Route::is('dash.jamPerpekan') ? 'fa fa-circle' : 'fa fa-circle-o' }} text-primary"></i></td>
+                                                <td><a href="{{ route('dash.jamPerpekan') }}">Jml Jam Perpekan</a></td>
                                             </tr>
                                             <tr>
                                                 <td width="1"><i class="{{ Route::is('dash.bulkUpload') ? 'fa fa-circle' : 'fa fa-circle-o' }} text-primary"></i></td>

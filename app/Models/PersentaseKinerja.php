@@ -8,7 +8,9 @@ class PersentaseKinerja extends Model
 {
     protected $table = 'persentase_kinerja';
 
-    public function karyawans()
+    protected $fillable = ['title', 'persen'];
+
+    public function karyawan()
     {
         return $this->belongsToMany(Karyawan::class, 'karyawan_persentase_kinerja');
     }

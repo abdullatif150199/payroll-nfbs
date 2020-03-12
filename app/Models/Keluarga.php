@@ -12,4 +12,9 @@ class Keluarga extends Model
     {
         return $this->belongsTo(Karyawan::class);
     }
+
+    public function statusKeluarga()
+    {
+        return $this->belongsTo(StatusKeluarga::class);
+    }
 }
