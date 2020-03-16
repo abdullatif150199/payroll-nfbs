@@ -19,6 +19,7 @@ class DefineMenus
         Menu::make('primary', function ($menu) {
             $menu->add('Home', 'dashboard')->data('icon', 'fe fe-grid');
             $menu->add('Karyawan', 'dashboard/karyawan')->data('icon', 'fe fe-users');
+            $menu->add('Insentif', 'dashboard/insentif')->data('icon', 'fe fe-cloud-drizzle');
             $menu->add('Daftar Gaji', 'dashboard/gaji')->data('icon', 'fe fe-shopping-bag');
             $menu->add('Kehadiran', 'dashboard/kehadiran')->data('icon', 'fe fe-user-check');
             $menu->add('Cuti', 'dashboard/cuti')->data('icon', 'fe fe-user-x');

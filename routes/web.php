@@ -19,6 +19,9 @@ Auth::routes();
 
 Route::group(['prefix' => 'profile', 'as' => 'profile.', 'middleware' => ['auth']], function () {
     Route::get('/', 'ProfileController@index');
+    Route::get('gaji', 'ProfileController@gaji')->name('gaji');
+    Route::get('get-gaji/{id}', 'ProfileController@getGaji')->name('getGaji');
+
     Route::get('kehadiran', 'ProfileController@kehadiran')->name('kehadiran');
     Route::get('get-kehadiran/{id}', 'ProfileController@getKehadiran')->name('getKehadiran');
     // Profile/Cuti
@@ -46,6 +49,15 @@ Route::group(['prefix' => 'dashboard', 'as' => 'dash.', 'middleware' => ['auth']
         // Daftar Gaji
         Route::get('gaji', 'GajiController@index');
         Route::get('get-gaji', 'GajiController@getGaji')->name('getGaji');
+
+        // Daftar Insentif
+        Route::get('insentif', 'InsentifController@index');
+        Route::get('get-insentif', 'InsentifController@getInsentif')->name('getInsentif');
+        Route::post('insentif', 'InsentifController@store')->name('storeInsentif');
+        Route::get('insentif/get-name', 'InsentifController@getName')->name('getName');
+        Route::get('insentif/{id}/edit', 'InsentifController@edit')->name('editInsentif');
+        Route::put('insentif/{id}', 'InsentifController@update')->name('updateInsentif');
+        Route::delete('insentif/{id}', 'InsentifController@destroy')->name('hapusInsentif');
 
         // Kehadiran
         Route::get('kehadiran', 'KehadiranController@index')->name('kehadiran');

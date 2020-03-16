@@ -8,6 +8,8 @@ class Insentif extends Model
 {
     protected $table = 'insentif';
 
+    protected $fillable = ['karyawan_id', 'jenis_insentif', 'bulan', 'jumlah', 'keterangan'];
+
     public function karyawan()
     {
         return $this->belongsTo(Karyawan::class);

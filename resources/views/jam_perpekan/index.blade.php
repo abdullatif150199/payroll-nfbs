@@ -83,10 +83,10 @@
         // });
 
         $('#newJamPerpekan').click(function () {
-            $('.modal-title').text('Create Bidang');
+            $('.modal-title').text('Create Jam Perpekan');
             $('#formJamPerpekan').modal('show');
             $('input[name=_method]').val('POST');
-            $('#formBidang form')[0].reset();
+            $('#formJamPerpekan form')[0].reset();
         });
 
         function editJamPerpekan(id) {

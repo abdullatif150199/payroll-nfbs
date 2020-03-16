@@ -8,6 +8,7 @@ use Yajra\Datatables\Datatables;
 use App\Http\Requests\CutiRequest;
 use App\Models\Kehadiran;
 use App\Models\Cuti;
+use App\Models\Gaji;
 
 class ProfileController extends Controller
 {
@@ -98,6 +99,50 @@ class ProfileController extends Controller
                 return '<span class="text-muted">'. date('d M Y', strtotime($data->created_at)) .'</span>';
             })
             ->rawColumns(['status', 'progress', 'tgl_request'])
+            ->make(true);
+    }
+
+    public function gaji()
+    {
+        $id = Auth::user()->karyawan->id;
+        return view('profile.gaji.index', compact('id'));
+    }
+
+    public function getGaji($id)
+    {
+        $data = Gaji::with('karyawan')
+                ->where('karyawan_id', $id)->get();
+
+        return Datatables::of($data)
+            ->editColumn('bulan', function($data) {
+                return '<span class="text-muted">'. yearMonth($data->bulan) .'</span>';
+            })
+            ->editColumn('gaji_pokok', function($data) {
+                return number_format($data->gaji_pokok);
+            })
+            ->editColumn('lembur', function($data) {
+                return number_format($data->lembur);
+            })
+            ->editColumn('insentif', function($data) {
+                return number_format($data->insentif);
+            })
+            ->editColumn('lain_lain', function($data) {
+                return number_format($data->lain_lain);
+            })
+            ->editColumn('tunjangan', function($data) {
+                $total_tunjangan = $data->tunjangan_istri + $data->tunjangan_anak + $data->tunjangan_pendidikan + $data->tunjangan_jabatan;
+                return number_format($total_tunjangan);
+            })
+            ->editColumn('potongan', function($data) {
+                return number_format($data->potongan);
+            })
+            ->editColumn('gaji_akhir', function($data) {
+                return number_format($data->gaji_akhir);
+            })
+            ->addColumn('actions', function($data) {
+                return view('profile.gaji.actions', ['data' => $data]);
+            })
+            ->rawColumns(['actions', 'bulan', 'gaji_akhir', 'tunjangan', 'gaji_pokok', 'lembur', 'insentif', 'lain_lain', 'potongan'])
             ->make(true);
     }
 
