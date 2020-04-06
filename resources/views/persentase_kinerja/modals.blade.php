@@ -26,7 +26,7 @@
                             <div class="form-group">
                                 <label class="form-label">Persentase</label>
                                 <div class="input-group">
-                                    <input type="number" name="persen" class="form-control" placeholder="Persentase" aria-describedby="basic-addon2">
+                                    <input type="number" name="persen" step="any" class="form-control" placeholder="Persentase" aria-describedby="basic-addon2">
                                     <span class="input-group-append" id="basic-addon2">
                                         <span class="input-group-text">&percnt;</span>
                                     </span>

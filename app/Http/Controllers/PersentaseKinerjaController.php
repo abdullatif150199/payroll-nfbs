@@ -20,7 +20,7 @@ class PersentaseKinerjaController extends Controller
 
         return Datatables::of($data)
             ->editColumn('persen', function($data) {
-                return round($data->persen, 2) . '%';
+                return $data->to_persen . '%';
             })
             ->editColumn('jml_peserta', function($data) {
                 return $data->karyawan()->count();

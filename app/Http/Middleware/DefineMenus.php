@@ -20,10 +20,12 @@ class DefineMenus
             $menu->add('Home', 'dashboard')->data('icon', 'fe fe-grid');
             $menu->add('Karyawan', 'dashboard/karyawan')->data('icon', 'fe fe-users');
             $menu->add('Insentif', 'dashboard/insentif')->data('icon', 'fe fe-cloud-drizzle');
+            $menu->add('Kinerja', 'dashboard/kinerja')->data('icon', 'fe fe-bar-chart-2');
             $menu->add('Daftar Gaji', 'dashboard/gaji')->data('icon', 'fe fe-shopping-bag');
-            $menu->add('Kehadiran', 'dashboard/kehadiran')->data('icon', 'fe fe-user-check');
-            $menu->add('Cuti', 'dashboard/cuti')->data('icon', 'fe fe-user-x');
             $menu->add('Potongan', 'dashboard/potongan')->data('icon', 'fe fe-scissors');
+            $menu->add('Kehadiran', 'dashboard/kehadiran')->data('icon', 'fe fe-user-check');
+            $menu->kehadiran->add('Kehadiran', 'dashboard/kehadiran');
+            $menu->kehadiran->add('Cuti', 'dashboard/cuti');
             $menu->add('Setting', 'dashboard/setting')->data('icon', 'fe fe-settings');
         });
 

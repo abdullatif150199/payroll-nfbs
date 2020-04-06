@@ -104,7 +104,7 @@
 
                     $('input[name=id]').val(data.id);
                     $('input[name=nama_status_kerja]').val(data.nama_status_kerja);
-                    $('input[name=persentase_gaji_pokok]').val(data.persentase_gaji_pokok);
+                    $('input[name=persentase_gaji_pokok]').val(data.to_persen);
                 }
             });
         }

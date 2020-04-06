@@ -140,8 +140,7 @@ function sumType($sum, $type) {
 }
 
 // for Route name
-function set_active($uri, $output = 'active')
-{
+function set_active($uri, $output = 'active') {
     if (is_array($uri)) {
         foreach ($uri as $u) {
             if (Route::is($u)) {
@@ -156,8 +155,7 @@ function set_active($uri, $output = 'active')
 }
 
 // for path URI
-function setActive($uri, $output = 'active')
-{
+function setActive($uri, $output = 'active') {
     if (is_array($uri)) {
         foreach ($uri as $u) {
             return Request::path() === $u ? $output : "";
@@ -167,8 +165,7 @@ function setActive($uri, $output = 'active')
     }
 }
 
-function yearMonth($value)
-{
+function yearMonth($value) {
     // From DB YYYY-mm
     $str = explode('-', $value);
     $bln = $str[1];
@@ -214,4 +211,18 @@ function yearMonth($value)
     }
 
     return $bln . ' ' . $thn;
+}
+
+// Get Setting Variable from DB
+function setting($key) {
+    static $setting;
+
+    if(is_null($setting))
+    {
+        $setting = Cache::remember('setting', 24*60, function() {
+            return array_pluck(App\Models\Setting::all()->toArray(), 'value', 'key');
+        });
+    }
+
+    return (is_array($key)) ? array_only($setting, $key) : $setting[$key];
 }

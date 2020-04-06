@@ -14,4 +14,9 @@ class Insentif extends Model
     {
         return $this->belongsTo(Karyawan::class);
     }
+
+    public function scopeBulan($query, $bln)
+    {
+        return $query->where('bulan', $bln);
+    }
 }

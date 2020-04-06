@@ -76,12 +76,12 @@
                                         <img class="card-profile-img" src="/images/src/user.jpg">
                                         <h3 class="mb-0">{{ $user->name }}</h3>
                                         <p class="text-muted mb-2">{{ $user->karyawan->no_induk }}</p>
-                                        {{-- <button class="btn btn-outline-primary btn-sm">
-                                            <span class="fe fe-edit"></span> edit
-                                        </button> --}}
+                                        <button class="btn btn-outline-primary btn-sm">
+                                            <span class="fe fe-edit"></span> Detail
+                                        </button>
                                     </div>
                                 </div>
-                                {{-- <div class="card">
+                                <div class="card">
                                     <div class="card-header">
                                         <h3 class="card-title">Social Media</h3>
                                     </div>
@@ -94,7 +94,7 @@
                                             <button type="button" class="btn btn-icon btn-green"><i class="fa fa-whatsapp"></i></button>
                                         </div>
                                     </div>
-                                </div> --}}
+                                </div>
                             </div>
                             @yield('content')
                         </div>

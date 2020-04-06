@@ -17,9 +17,11 @@ class CreateLemburTable extends Migration
             $table->increments('id');
             $table->integer('karyawan_id')->unsigned();
             $table->foreign('karyawan_id')->references('id')->on('karyawan')->onDelete('cascade');
-            $table->char('bulan', 2);
+            $table->char('bulan', 7);
             $table->tinyInteger('jumlah_jam_lembur');
             $table->string('keterangan', 225)->nullable();
+            $table->timestamp('date');
+            $table->enum('type', ['week', 'day', 'holi']);
             $table->timestamps();
         });
     }

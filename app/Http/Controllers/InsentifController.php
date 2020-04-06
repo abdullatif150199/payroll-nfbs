@@ -5,7 +5,6 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Yajra\Datatables\Datatables;
 use App\Models\Insentif;
-use App\Models\Karyawan;
 
 class InsentifController extends Controller
 {
@@ -13,14 +12,6 @@ class InsentifController extends Controller
     {
         $title = 'Insentif';
         return view('insentif.index', ['title' => $title]);
-    }
-
-    public function getName(Request $request)
-    {
-        $data = Karyawan::select('id', 'nama_lengkap', 'no_induk')
-            ->where('nama_lengkap', 'LIKE', '%'.$request->q.'%')->get();
-
-        return response()->json($data);
     }
 
     public function getInsentif(Request $request)

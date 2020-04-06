@@ -20,7 +20,7 @@ class StatusKeluargaController extends Controller
 
         return Datatables::of($data)
             ->editColumn('persentase', function($data) {
-                return round($data->persen, 2) . '% dari GAPOK';
+                return $data->to_persen . '% dari GAPOK';
             })
             ->editColumn('jml_peserta', function($data) {
                 return $data->keluarga()->count();

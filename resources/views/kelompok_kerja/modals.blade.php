@@ -26,11 +26,19 @@
                             <div class="form-group">
                                 <label class="form-label">Persen</label>
                                 <div class="input-group">
-                                    <input type="number" name="persen" class="form-control" placeholder="Persentase" aria-describedby="basic-addon2">
+                                    <input type="number" name="persen" step="any" class="form-control" placeholder="Persentase" aria-describedby="basic-addon2">
                                     <span class="input-group-append" id="basic-addon2">
                                         <span class="input-group-text">&percnt; dari GAPOK</span>
                                     </span>
                                 </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col">
+                            <div class="form-group">
+                                <label class="form-label">Amount Kinerja Normal</label>
+                                <input type="number" name="kinerja_normal" class="form-control">
                             </div>
                         </div>
                     </div>

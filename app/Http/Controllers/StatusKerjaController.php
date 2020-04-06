@@ -20,7 +20,7 @@ class StatusKerjaController extends Controller
 
         return Datatables::of($data)
             ->editColumn('persentase', function($data) {
-                return round($data->persentase_gaji_pokok, 2) . '% dari GATOT';
+                return $data->to_persen . '% dari GATOT';
             })
             ->editColumn('jml_peserta', function($data) {
                 return $data->karyawan()->count();

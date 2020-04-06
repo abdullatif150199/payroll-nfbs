@@ -16,7 +16,7 @@ class CreateKelompokKerjaTable extends Migration
         Schema::create('kelompok_kerja', function (Blueprint $table) {
             $table->increments('id');
             $table->char('grade');
-            $table->decimal('persen', 5,2)->comment('dari gapok');
+            $table->decimal('persen', 6,4)->comment('dari gapok');
             $table->decimal('kinerja_normal', 14,0);
             $table->timestamps();
         });

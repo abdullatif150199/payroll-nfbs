@@ -39,6 +39,7 @@ class CreateKaryawanTable extends Migration
             $table->enum('pendidikan_terakhir', ['TS', 'SD', 'SMP', 'SMA', 'D3', 'S1', 'S2', 'S3'])->nullable();
             $table->string('jurusan')->nullable();
             $table->char('tahun_lulus', 4)->nullable();
+            $table->tinyInteger('total_load')->default(0);
             $table->date('tanggal_masuk')->nullable();
             $table->date('tanggal_keluar')->nullable();
             $table->string('nama_bank', 100)->nullable();

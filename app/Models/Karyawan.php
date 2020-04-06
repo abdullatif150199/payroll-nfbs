@@ -79,6 +79,11 @@ class Karyawan extends Model
         return $this->hasMany(Gaji::class);
     }
 
+    public function gajiTotalAkhir()
+    {
+        return $this->hasOne(Gaji::class)->latest();
+    }
+
     public function user()
     {
         return $this->belongsTo(User::class);
@@ -87,6 +92,11 @@ class Karyawan extends Model
     public function statusKerja()
     {
         return $this->belongsTo(StatusKerja::class);
+    }
+
+    public function kinerja()
+    {
+        return $this->hasMany(Kinerja::class);
     }
 
     public function persentaseKinerja()
@@ -103,4 +113,80 @@ class Karyawan extends Model
     {
         return $this->belongsTo(kelompokKerja::class);
     }
+
+    // Get gaji Pokok
+    public function getGajiPokokAttribute($value)
+    {
+        return $this->golongan->gaji_pokok;
+    }
+
+    // Get Tunjangan Jabatan
+    public function getTunjJabatanAttribute($value)
+    {
+        return $this->jabatan->tunjangan_jabatan;
+    }
+
+    // Get Tunjangan Anak
+    public function getTunjAnakAttribute($value)
+    {
+        $anak = $this->keluarga()->tunjAnak()->get();
+        $tot_persen = 0;
+        foreach ($anak as $item) {
+            $tot_persen += $item->statuskeluarga->persen;
+        }
+
+        return ($tot_persen * $this->gaji_pokok);
+    }
+
+    // Get Tunjangan Istri
+    public function getTunjIstriAttribute($value)
+    {
+        if ($this->jenis_kelamin == 'L' && $this->status_pernikahan == 'M') {
+            $istri = $this->keluarga()->tunjIstri()->get();
+            $tot_persen = 0;
+            foreach ($istri as $item) {
+                $tot_persen += $item->statuskeluarga->persen;
+            }
+
+            return ($tot_persen * $this->gaji_pokok);
+        } else {
+            return 0;
+        }
+    }
+
+    // Get Jml Anak
+    public function getJmlAnakAttribute($value)
+    {
+        return $this->keluarga()->anak()->count();
+    }
+
+      // Get Jml Istri
+    public function getJmlIstriAttribute($value)
+    {
+        return $this->keluarga()->istri()->count();
+    }
+
+    // Get Tunjangan Pendidikan Anak
+    public function getTunjPendidikanAnakAttribute($value)
+    {
+        return $this->keluarga()->anak()->sum('tunjangan_pendidikan');
+    }
+
+    // Get Tunjangan Struktural
+    public function getTunjStrukturalAttribute($value)
+    {
+        return (($this->total_load - $this->jabatan->maksimal_jam) * $this->jabatan->load);
+    }
+
+    // Get Tunjangan Fungsional
+    public function getTunjFungsionalAttribute($value)
+    {
+        return ($this->gaji_pokok * $this->kelompokKerja->persen);
+    }
+
+    public function getGajiTotalAttribute()
+    {
+        return $this->gajitotalakhir->gaji_total;
+    }
+
 }

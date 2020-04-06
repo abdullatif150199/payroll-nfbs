@@ -22,6 +22,8 @@ class CreateKeluargaTable extends Migration
             $table->foreign('status_keluarga_id')->references('id')->on('status_keluarga')->onDelete('cascade');
             $table->date('tanggal_lahir');
             $table->decimal('tunjangan_pendidikan', 10,0)->nullable();
+            $table->date('akhir_tunj_pendidikan');
+            $table->date('akhir_tunj_keluarga');
             $table->timestamps();
         });
     }

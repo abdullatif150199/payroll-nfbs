@@ -31,6 +31,9 @@ Route::group(['prefix' => 'profile', 'as' => 'profile.', 'middleware' => ['auth'
     Route::get('cuti/{id}/edit', 'ProfileController@editCuti')->name('editCuti');
     Route::put('cuti/{id}', 'ProfileController@updateCuti')->name('updateCuti');
     Route::get('get-cuti/{id}', 'ProfileController@getCuti')->name('getCuti');
+
+    // Messages
+    Route::get('messages', 'ProfileController@messages')->name('messages');
 });
 
 Route::group(['prefix' => 'dashboard', 'as' => 'dash.', 'middleware' => ['auth']], function () {
@@ -41,6 +44,7 @@ Route::group(['prefix' => 'dashboard', 'as' => 'dash.', 'middleware' => ['auth']
         Route::get('karyawan', 'KaryawanController@index');
         Route::get('get-karyawan', 'KaryawanController@getKaryawan')->name('getKaryawan');
         Route::post('karyawan', 'KaryawanController@store')->name('storeKaryawan');
+        Route::get('karyawan/get-name', 'KaryawanController@getName')->name('getName');
         Route::get('karyawan/{id}', 'KaryawanController@show')->name('showKaryawan');
         Route::get('karyawan/{id}/edit', 'KaryawanController@edit')->name('editKaryawan');
         Route::put('karyawan/{id}', 'KaryawanController@update')->name('updateKaryawan');
@@ -49,15 +53,23 @@ Route::group(['prefix' => 'dashboard', 'as' => 'dash.', 'middleware' => ['auth']
         // Daftar Gaji
         Route::get('gaji', 'GajiController@index');
         Route::get('get-gaji', 'GajiController@getGaji')->name('getGaji');
+        Route::post('get-gaji', 'GajiController@calculate')->name('calculateGaji');
 
         // Daftar Insentif
         Route::get('insentif', 'InsentifController@index');
         Route::get('get-insentif', 'InsentifController@getInsentif')->name('getInsentif');
         Route::post('insentif', 'InsentifController@store')->name('storeInsentif');
-        Route::get('insentif/get-name', 'InsentifController@getName')->name('getName');
         Route::get('insentif/{id}/edit', 'InsentifController@edit')->name('editInsentif');
         Route::put('insentif/{id}', 'InsentifController@update')->name('updateInsentif');
         Route::delete('insentif/{id}', 'InsentifController@destroy')->name('hapusInsentif');
+
+        // Daftar Kinerja
+        Route::get('kinerja', 'KinerjaController@index');
+        Route::get('get-kinerja', 'KinerjaController@getKinerja')->name('getKinerja');
+        Route::post('kinerja', 'KinerjaController@store')->name('storeKinerja');
+        Route::get('kinerja/{id}/edit', 'KinerjaController@edit')->name('editKinerja');
+        Route::put('kinerja/{id}', 'KinerjaController@update')->name('updateKinerja');
+        Route::delete('kinerja/{id}', 'KinerjaController@destroy')->name('hapusKinerja');
 
         // Kehadiran
         Route::get('kehadiran', 'KehadiranController@index')->name('kehadiran');

@@ -106,9 +106,9 @@
 
                     $('input[name=id]').val(data.id);
                     $('input[name=nilai]').val(data.nilai);
-                    $('input[name=min_persen]').val(data.min_persen);
-                    $('input[name=max_persen]').val(data.max_persen);
-                    $('input[name=result_persen]').val(data.result_persen);
+                    $('input[name=min_persen]').val(data.to_min_persen);
+                    $('input[name=max_persen]').val(data.to_max_persen);
+                    $('input[name=result_persen]').val(data.to_result_persen);
                 }
             });
         }

@@ -16,9 +16,9 @@ class CreateNilaiKinerjaTable extends Migration
         Schema::create('nilai_kinerja', function (Blueprint $table) {
             $table->increments('id');
             $table->char('nilai', 1)->comment('ex: A, B, C');
-            $table->decimal('min_persen', 5,2)->comment('persentase');
-            $table->decimal('max_persen', 5,2)->comment('persentase');
-            $table->decimal('result_persen', 5,2)->comment('hasil yang akan di peroleh');
+            $table->decimal('min_persen', 6,4)->comment('persentase');
+            $table->decimal('max_persen', 6,4)->comment('persentase');
+            $table->decimal('result_persen', 6,4)->comment('hasil yang akan di peroleh');
             $table->timestamps();
         });
     }

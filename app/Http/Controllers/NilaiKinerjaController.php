@@ -20,13 +20,13 @@ class NilaiKinerjaController extends Controller
 
         return Datatables::of($data)
             ->editColumn('min_persen', function($data) {
-                return round($data->min_persen, 2) . '%';
+                return $data->to_min_persen . '%';
             })
             ->editColumn('max_persen', function($data) {
-                return round($data->max_persen, 2) . '%';
+                return $data->to_max_persen . '%';
             })
             ->editColumn('result_persen', function($data) {
-                return round($data->result_persen, 2) . '%';
+                return $data->to_result_persen . '%';
             })
             ->addColumn('actions', function($data) {
                 return view('nilai_kinerja.actions', ['data' => $data]);

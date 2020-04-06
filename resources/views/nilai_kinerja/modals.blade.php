@@ -26,7 +26,7 @@
                             <div class="form-group">
                                 <label class="form-label">Minimal</label>
                                 <div class="input-group">
-                                    <input type="text" name="min_persen" class="form-control" placeholder="Persentase" aria-describedby="basic-addon2">
+                                    <input type="text" name="min_persen" step="any" class="form-control" placeholder="Persentase" aria-describedby="basic-addon2">
                                     <span class="input-group-append" id="basic-addon2">
                                         <span class="input-group-text">&percnt;</span>
                                     </span>
@@ -37,7 +37,7 @@
                             <div class="form-group">
                                 <label class="form-label">Maksimal</label>
                                 <div class="input-group">
-                                    <input type="text" name="max_persen" class="form-control" placeholder="Persentase" aria-describedby="basic-addon2">
+                                    <input type="text" name="max_persen" step="any" class="form-control" placeholder="Persentase" aria-describedby="basic-addon2">
                                     <span class="input-group-append" id="basic-addon2">
                                         <span class="input-group-text">&percnt;</span>
                                     </span>
@@ -50,7 +50,7 @@
                             <div class="form-group">
                                 <label class="form-label">Hasil yang diperoleh</label>
                                 <div class="input-group">
-                                    <input type="text" name="result_persen" class="form-control" placeholder="Persentase" aria-describedby="basic-addon2">
+                                    <input type="text" name="result_persen" step="any" class="form-control" placeholder="Persentase" aria-describedby="basic-addon2">
                                     <span class="input-group-append" id="basic-addon2">
                                         <span class="input-group-text">&percnt;</span>
                                     </span>

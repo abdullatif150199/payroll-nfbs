@@ -10,8 +10,20 @@ class StatusKeluarga extends Model
 
     protected $fillable = ['status', 'persen'];
 
+    protected $appends = ['to_persen'];
+
     public function keluarga()
     {
         return $this->hasMany(Keluarga::class);
+    }
+
+    public function getToPersenAttribute()
+    {
+        return ($this->persen * 100);
+    }
+
+    public function setPersenAttribute($value)
+    {
+        $this->attributes['persen'] = round($value/100, 2);
     }
 }

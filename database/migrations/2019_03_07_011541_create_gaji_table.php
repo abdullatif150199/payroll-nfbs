@@ -30,7 +30,7 @@ class CreateGajiTable extends Migration
             $table->decimal('lain_lain', 10, 0)->nullable();
             $table->decimal('insentif', 10, 0)->nullable();
             $table->decimal('potongan', 10, 0)->nullable();
-            $table->decimal('gaji_akhir', 10, 0);
+            $table->decimal('gaji_total', 10, 0);
             $table->timestamps();
         });
     }

@@ -20,7 +20,7 @@ class KelompokKerjaController extends Controller
 
         return Datatables::of($data)
             ->editColumn('persen', function($data) {
-                return round($data->persen, 2) . '% dari GAPOK';
+                return $data->to_persen . '% GAPOK';
             })
             ->editColumn('peserta', function($data) {
                 return $data->karyawan()->count();
@@ -36,12 +36,14 @@ class KelompokKerjaController extends Controller
     {
         $this->validate($request, [
             'grade' => 'min:1|max:1',
-            'persen' => 'min:1|max:5'
+            'persen' => 'min:1|max:5',
+            'kinerja_normal' => 'min:3'
         ]);
 
         $data = [
             'grade' => $request->grade,
-            'persen' => $request->persen
+            'persen' => $request->persen,
+            'kinerja_normal' => $request->kinerja_normal
         ];
 
         $store = KelompokKerja::create($data);
@@ -59,12 +61,15 @@ class KelompokKerjaController extends Controller
     {
         $this->validate($request, [
             'grade' => 'min:1|max:1',
-            'persen' => 'min:1|max:5'
+            'persen' => 'min:1|max:5',
+            'kinerja_normal' => 'min:3'
         ]);
 
         $data = KelompokKerja::find($id);
         $data->grade = $request->grade;
         $data->persen = $request->persen;
+        $data->kinerja_normal = $request->kinerja_normal;
+
         $data->save();
 
         return $data;

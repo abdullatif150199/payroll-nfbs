@@ -14,14 +14,17 @@ class StatusKeluargaTableSeeder extends Seeder
         // generate
         DB::table('status_keluarga')->insert([
             [
+                'id' => 1,
                 'status' => "suami",
                 'persen' => 0
             ],
             [
+                'id' => 2,
                 'status' => "istri",
                 'persen' => 15
             ],
             [
+                'id' => 3,
                 'status' => "anak",
                 'persen' => 5.25
             ]

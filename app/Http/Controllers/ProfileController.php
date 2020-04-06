@@ -117,33 +117,19 @@ class ProfileController extends Controller
             ->editColumn('bulan', function($data) {
                 return '<span class="text-muted">'. yearMonth($data->bulan) .'</span>';
             })
-            ->editColumn('gaji_pokok', function($data) {
-                return number_format($data->gaji_pokok);
-            })
-            ->editColumn('lembur', function($data) {
-                return number_format($data->lembur);
-            })
-            ->editColumn('insentif', function($data) {
-                return number_format($data->insentif);
-            })
-            ->editColumn('lain_lain', function($data) {
-                return number_format($data->lain_lain);
-            })
-            ->editColumn('tunjangan', function($data) {
-                $total_tunjangan = $data->tunjangan_istri + $data->tunjangan_anak + $data->tunjangan_pendidikan + $data->tunjangan_jabatan;
-                return number_format($total_tunjangan);
-            })
-            ->editColumn('potongan', function($data) {
-                return number_format($data->potongan);
-            })
             ->editColumn('gaji_akhir', function($data) {
                 return number_format($data->gaji_akhir);
             })
             ->addColumn('actions', function($data) {
                 return view('profile.gaji.actions', ['data' => $data]);
             })
-            ->rawColumns(['actions', 'bulan', 'gaji_akhir', 'tunjangan', 'gaji_pokok', 'lembur', 'insentif', 'lain_lain', 'potongan'])
+            ->rawColumns(['actions', 'bulan', 'gaji_akhir'])
             ->make(true);
+    }
+
+    public function messages()
+    {
+        return view('profile.messages.index');
     }
 
 }

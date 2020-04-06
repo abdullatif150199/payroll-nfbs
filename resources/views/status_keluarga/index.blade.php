@@ -104,7 +104,7 @@
 
                     $('input[name=id]').val(data.id);
                     $('input[name=status]').val(data.status);
-                    $('input[name=persen]').val(data.persen);
+                    $('input[name=persen]').val(data.to_persen);
                 }
             });
         }

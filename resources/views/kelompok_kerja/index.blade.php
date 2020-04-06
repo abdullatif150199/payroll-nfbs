@@ -101,10 +101,11 @@
                 success: function (data) {
                     $('.modal-title').text('Edit Kelompok Kerja');
                     $('#formKelompok').modal('show');
-
+                    console.log(data);
                     $('input[name=id]').val(data.id);
                     $('input[name=grade]').val(data.grade);
-                    $('input[name=persen]').val(data.persen);
+                    $('input[name=persen]').val(data.to_persen);
+                    $('input[name=kinerja_normal]').val(data.kinerja_normal);
                 }
             });
         }
