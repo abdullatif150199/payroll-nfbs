@@ -170,18 +170,31 @@
                         results: $.map(data, function (item) {
                             return {
                                 text: item.nama_lengkap,
-                                id: item.id
+                                id: item.id,
+                                persentase: item.persentasekinerja
                             }
                         })
                     };
                 },
                 cache: true
             }
-        });
+        }).on('select2:select', function (e) {
+            var data = e.params.data.persentase;
+            console.log(data.length);
+            if (data.length > 0) {
+                var elements = '';
+                $.map(data, function (item) {
+                    elements += '<div class="row"><div class="col"><div class="form-group"><label class="form-label">'+ item.title +'</label><input type="number" name="'+ item.title +'" class="form-control" placeholder="Nilai 1-100" required></div></div></div>';
+                });
+                $('#elements').html(elements);
+            } else {
+                $('#elements').html('<strong class="text-danger">Daftar kinerja tidak tersedia/belum ditambahkan</strong>');
+            }
+        });;
     }
 
     function editKinerja(id) {
-        var url = '{{ route('dash.editInsentif', ':id') }}';
+        var url = '{{ route('dash.editKinerja', ':id') }}';
         url = url.replace(':id', id);
         $('input[name=_method]').val('PUT');
         $('#select2').hide();
@@ -191,16 +204,16 @@
             type: 'GET',
             dataType: 'JSON',
             success: function (data) {
-                $('.modal-title').text('Edit Kinerja');
+                $('.modal-title').text('Edit Kinerja ' + data.karyawan.nama_lengkap);
                 $('#formKinerja').modal('show');
                 var bulan = data.bulan;
                 var arr = bulan.split("-");
                 $('select[name=month]').val(arr[1]);
                 $('select[name=year]').val(arr[0]);
                 $('input[name=id]').val(data.id);
-                $('input[name=jenis_insentif]').val(data.jenis_insentif);
-                $('input[name=jumlah]').val(data.jumlah);
-                $('input[name=keterangan]').val(data.keterangan);
+                $('input[name=produktifitas]').val(data.produktifitas);
+                $('input[name=kepesantrenan]').val(data.kepesantrenan);
+                $('input[name=pembinaan]').val(data.pembinaan);
             }
         });
     }

@@ -65,7 +65,7 @@ class GajiController extends Controller
     {
         $bln = $request->tahun .'-'. $request->bulan;
         foreach (Karyawan::whereIn('status', ['1','2'])->cursor() as $data) {
-            dd($data->nama_lengkap .' - '. $this->hitungLembur($data, $bln));
+            dd($data->nama_lengkap .' - '. $data->insentif()->bulan($bln)->sum('jumlah'));
             $data->gaji()->create([
                 'bulan' => $bln,
                 'gaji_pokok' => $data->gaji_pokok,

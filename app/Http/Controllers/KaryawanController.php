@@ -37,7 +37,7 @@ class KaryawanController extends Controller
 
     public function getName(Request $request)
     {
-        $data = Karyawan::select('id', 'nama_lengkap', 'no_induk')
+        $data = Karyawan::with('persentasekinerja')->select('id', 'nama_lengkap', 'no_induk')
             ->where('nama_lengkap', 'LIKE', '%'.$request->q.'%')->get();
 
         return response()->json($data);

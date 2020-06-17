@@ -6,22 +6,30 @@ use Illuminate\Http\Request;
 use Yajra\Datatables\Datatables;
 use App\Models\Kinerja;
 use App\Models\Karyawan;
+use App\Models\PersentaseKinerja;
 
 class KinerjaController extends Controller
 {
     public function index()
     {
         $title = 'Kinerja';
-        return view('kinerja.index', ['title' => $title]);
+        $persentase = PersentaseKinerja::all();
+        return view('kinerja.index', ['title' => $title, 'persentase' => $persentase]);
     }
 
     public function getKinerja (Request $request)
     {
         if (!$request->bulan) {
             $bulan = date('Y-m');
-            $data = Kinerja::with('karyawan')->where('bulan', $bulan)->get();
+            $data = Karyawan::whereHas('kinerja', function ($q) use ($bulan) {
+                $q->where('bulan', $bulan);
+            })->get();
+            dd($data);
         } else {
-            $data = Kinerja::with('karyawan')->where('bulan', $request->bulan)->get();
+            $bulan = $request->bulan;
+            $data = Karyawan::has('kinerja')->whereHas('kinerja', function ($q) use ($bulan) {
+                $q->where('bulan', $bulan);
+            })->get();
         }
 
         return Datatables::of($data)
@@ -40,18 +48,12 @@ class KinerjaController extends Controller
 
     public function store(Request $request)
     {
-        $this->validate($request, [
-            'produktifitas' => 'required|min:1|max:3',
-            'kepesantrenan' => 'required|min:1|max:3',
-            'pembinaan' => 'required|min:1|max:3'
-        ]);
-
         $bln = $request->year . '-' . $request->month;
         $at = $bln . '-' . setting('kehadiran_start');
         $end = $bln . '-' . setting('kehadiran_end');
         $range = ((strtotime($end) - strtotime($at))/3600/24) + 1;
 
-        $karyawan = Karyawan::with(['kehadiran' => function($query) use($at, $end) {
+        $karyawan = Karyawan::with(['persentasekinerja', 'kehadiran' => function($query) use($at, $end) {
             $query->whereBetween('tanggal', [$at, $end]);
         }])->findOrFail($request->karyawan_id);
 
@@ -83,5 +85,11 @@ class KinerjaController extends Controller
         }
 
         return round($persen);
+    }
+
+    public function edit($id)
+    {
+        $get = Kinerja::with('karyawan')->find($id);
+        return $get;
     }
 }

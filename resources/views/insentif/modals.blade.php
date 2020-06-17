@@ -63,9 +63,8 @@
                                 <label class="form-label">Tahun</label>
                                 <select name="year" class="form-control" required>
                                     <option value=""></option>
-                                    @for ($i=2018; $i <= date('Y'); $i++)
-                                        <option value="{{$i}}">{{$i}}</option>
-                                    @endfor
+                                    @for ($i=2018; $i <= date('Y'); $i++) <option value="{{$i}}">{{$i}}</option>
+                                        @endfor
                                 </select>
                             </div>
                         </div>
@@ -82,7 +81,7 @@
                 <div class="modal-footer">
 
                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Batal</button>
-                    <button type="submit" class="btn btn-primary">Tambah</button>
+                    <button type="submit" class="btn btn-primary">Submit</button>
 
                 </div>
             </form>

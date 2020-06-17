@@ -66,6 +66,7 @@ Route::group(['prefix' => 'dashboard', 'as' => 'dash.', 'middleware' => ['auth']
         // Daftar Kinerja
         Route::get('kinerja', 'KinerjaController@index');
         Route::get('get-kinerja', 'KinerjaController@getKinerja')->name('getKinerja');
+        Route::get('kinerja/create', 'KinerjaController@create')->name('createKinerja');
         Route::post('kinerja', 'KinerjaController@store')->name('storeKinerja');
         Route::get('kinerja/{id}/edit', 'KinerjaController@edit')->name('editKinerja');
         Route::put('kinerja/{id}', 'KinerjaController@update')->name('updateKinerja');

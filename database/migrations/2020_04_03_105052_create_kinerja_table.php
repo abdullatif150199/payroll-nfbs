@@ -18,10 +18,8 @@ class CreateKinerjaTable extends Migration
             $table->integer('karyawan_id')->unsigned();
             $table->foreign('karyawan_id')->references('id')->on('karyawan')->onDelete('cascade');
             $table->char('bulan', 7);
-            $table->tinyInteger('produktifitas');
-            $table->tinyInteger('kehadiran');
-            $table->tinyInteger('kepesantrenan');
-            $table->tinyInteger('pembinaan');
+            $table->string('title');
+            $table->decimal('value', 5,2)->default(0);
             $table->timestamps();
         });
     }

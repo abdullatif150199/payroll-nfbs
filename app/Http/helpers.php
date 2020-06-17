@@ -126,8 +126,8 @@ function percent($part, $total) {
     return $percent;
 }
 
-function persentase_pekanan($a, $b) {
-
+function to_percent($val) {
+    return $val * 100 . '%';
 }
 
 function sumType($sum, $type) {

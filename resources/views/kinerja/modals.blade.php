@@ -1,5 +1,5 @@
 {{-- Modal formKinerja --}}
-<div class="modal fade" id="formKinerja">
+<div class="modal fade" id="formKinerja" role="dialog" aria-labelledby="formKinerjaLabel" aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-content">
 
@@ -11,6 +11,15 @@
 
             <form method="post">
                 <div class="modal-body">
+                    <div class="alert alert-info" role="alert">
+                        <h4>Persentase Kinerja</h4>
+                        @foreach ($persentase as $persen)
+                            <div class="row">
+                                <div class="col">{{ $persen->title }}</div>
+                                <div class="col">{{ to_percent($persen->persen) }}</div>
+                            </div>
+                        @endforeach
+                    </div>
                     {{ csrf_field() }} {{ method_field('POST') }}
                     <input type="hidden" name="id">
                     <div class="row" id="select2">
@@ -21,27 +30,29 @@
                             </div>
                         </div>
                     </div>
-                    <div class="row">
-                        <div class="col">
-                            <div class="form-group">
-                                <label class="form-label">Produktifitas</label>
-                                <input type="number" name="produktifitas" class="form-control" required>
+                    <div id="elements">
+                        <div class="row">
+                            <div class="col">
+                                <div class="form-group">
+                                    <label class="form-label">Produktifitas</label>
+                                    <input type="number" name="produktifitas" class="form-control">
+                                </div>
                             </div>
                         </div>
-                    </div>
-                    <div class="row">
-                        <div class="col">
-                            <div class="form-group">
-                                <label class="form-label">Kepesantrenan</label>
-                                <input type="number" name="kepesantrenan" class="form-control" required>
+                        <div class="row">
+                            <div class="col">
+                                <div class="form-group">
+                                    <label class="form-label">Kepesantrenan</label>
+                                    <input type="number" name="kepesantrenan" class="form-control">
+                                </div>
                             </div>
                         </div>
-                    </div>
-                    <div class="row">
-                        <div class="col">
-                            <div class="form-group">
-                                <label class="form-label">Pembinaan</label>
-                                <input type="number" name="pembinaan" class="form-control" required>
+                        <div class="row">
+                            <div class="col">
+                                <div class="form-group">
+                                    <label class="form-label">Pembinaan</label>
+                                    <input type="number" name="pembinaan" class="form-control">
+                                </div>
                             </div>
                         </div>
                     </div>
