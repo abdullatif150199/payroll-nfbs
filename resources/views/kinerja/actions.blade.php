@@ -1,7 +1,1 @@
-<a class="icon mr-2" onclick="editKinerja({{ $data->id }})" title="edit">
-    <i class="fe fe-edit"></i>
-</a>
-
-<a class="icon" onclick="hapusKinerja({{ $data->id }})" title="hapus">
-    <i class="fe fe-trash"></i>
-</a>
+<a onclick="tambahKinerja({{ $data->id }})" class="btn btn-secondary btn-sm"><i class="fe fe-plus"></i> Tambah</a>

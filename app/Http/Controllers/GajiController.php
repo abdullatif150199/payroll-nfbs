@@ -2,10 +2,11 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Gaji;
+use App\Models\Karyawan;
 use Illuminate\Http\Request;
 use Yajra\Datatables\Datatables;
-use App\Models\Karyawan;
-use App\Models\Gaji;
+use App\Jobs\ProcessPayroll;
 
 class GajiController extends Controller
 {
@@ -65,22 +66,7 @@ class GajiController extends Controller
     {
         $bln = $request->tahun .'-'. $request->bulan;
         foreach (Karyawan::whereIn('status', ['1','2'])->cursor() as $data) {
-            dd($data->nama_lengkap .' - '. $data->insentif()->bulan($bln)->sum('jumlah'));
-            $data->gaji()->create([
-                'bulan' => $bln,
-                'gaji_pokok' => $data->gaji_pokok,
-                'tunjangan_jabatan' => $data->tunj_struktural,
-                'tunjangan_fungsional' => $data->tunj_fungsional,
-                'tunj_pendidikan' => $data->tunj_pendidikan_anak,
-                'tunjangan_istri' => $data->tunj_istri,
-                'tunjangan_anak' => $data->tunj_anak,
-                'tunjangan_hari_raya' => $data->tunj_hari_raya,
-                'lembur' => $this->hitungLembur($data, $bln),
-                'lain_lain' => 0,
-                'insentif' => $data->insentif()->bulan($bln)->sum('jumlah'),
-                'potongan' => $this->potongan($data),
-                'gaji_total' => $this->gatot($data, $bln)
-            ]);
+            ProcessPayroll::dispatch($data);
         }
     }
 

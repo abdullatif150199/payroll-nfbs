@@ -23,10 +23,10 @@ class DefineMenus
             $menu->add('Kinerja', 'dashboard/kinerja')->data('icon', 'fe fe-bar-chart-2');
             $menu->add('Daftar Gaji', 'dashboard/gaji')->data('icon', 'fe fe-shopping-bag');
             $menu->add('Potongan', 'dashboard/potongan')->data('icon', 'fe fe-scissors');
-            $menu->add('Kehadiran', 'dashboard/kehadiran')->data('icon', 'fe fe-user-check');
-            $menu->kehadiran->add('Kehadiran', 'dashboard/kehadiran');
-            $menu->kehadiran->add('Cuti', 'dashboard/cuti');
-            $menu->add('Setting', 'dashboard/setting')->data('icon', 'fe fe-settings');
+            $menu->add('Absensi', 'dashboard/kehadiran')->data('icon', 'fe fe-user-check');
+            $menu->absensi->add('Kehadiran', 'dashboard/kehadiran');
+            $menu->absensi->add('Cuti', 'dashboard/cuti');
+            // $menu->add('Setting', 'dashboard/setting')->data('icon', 'fe fe-settings');
         });
 
         Menu::make('profile', function ($menu) {

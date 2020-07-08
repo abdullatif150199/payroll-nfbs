@@ -61,7 +61,7 @@ class PotonganController extends Controller
 
     public function showPotonganKaryawan($id)
     {
-        $get = karyawan::with('potongan')->findOrFail($id);
+        $get = Karyawan::with('potongan')->findOrFail($id);
 
         return $get;
     }

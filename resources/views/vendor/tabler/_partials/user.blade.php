@@ -24,7 +24,11 @@
         <a class="dropdown-item" href="{!! url(config('tabler.urls.profile')) !!}">
             <i class="dropdown-icon fe fe-user"></i> Profile
         </a>
-        <a class="dropdown-item" href="{{ route('logout') }}" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
+        <a class="dropdown-item" href="{!! url(config('tabler.urls.settings')) !!}">
+            <i class="dropdown-icon fe fe-settings"></i> Setting
+        </a>
+        <a class="dropdown-item" href="{{ route('logout') }}"
+            onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
             <i class="dropdown-icon fe fe-log-out"></i> Logout
         </a>
         <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">

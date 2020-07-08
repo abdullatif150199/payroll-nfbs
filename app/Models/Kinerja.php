@@ -8,7 +8,7 @@ class Kinerja extends Model
 {
     protected $table = 'kinerja';
 
-    protected $fillable = ['bulan', 'produktifitas', 'kehadiran', 'kepesantrenan', 'pembinaan'];
+    protected $fillable = ['bulan', 'title', 'value'];
 
     public function karyawan()
     {
