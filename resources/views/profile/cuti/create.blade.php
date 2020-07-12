@@ -1,4 +1,4 @@
-@extends('tabler::layouts.profile')
+@extends('layouts.profile')
 
 @push('styles')
 <link rel="stylesheet" href="{{ asset('css/jquery.datetimepicker.css') }}">

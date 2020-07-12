@@ -1,4 +1,4 @@
-@extends('tabler::layouts.setting')
+@extends('layouts.setting')
 @push('styles')
 <link rel="stylesheet" href="{{ asset('css/dataTables.bootstrap4.min.css') }}">
 <link rel="stylesheet" href="{{ asset('css/select.dataTables.min.css') }}">
@@ -41,30 +41,30 @@
         </div>
     </div>
     @if (!empty($errorItems))
-        <div class="table-responsive">
-            <table class="table card-table table-vcenter text-nowra" id="errorTable">
-                <thead>
-                    <tr>
-                        <th>IP Server</th>
-                        <th>Port Server</th>
-                        <th>Serial Number</th>
-                        <th>Tipe</th>
-                        <th>Opsi</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    @foreach ($errorItems as $item)
-                        <tr>
-                            <td>adgagag</td>
-                            <td>adgagag</td>
-                            <td>adgagag</td>
-                            <td>adgagag</td>
-                            <td>adgagag</td>
-                        </tr>
-                    @endforeach
-                </tbody>
-            </table>
-        </div>
+    <div class="table-responsive">
+        <table class="table card-table table-vcenter text-nowra" id="errorTable">
+            <thead>
+                <tr>
+                    <th>IP Server</th>
+                    <th>Port Server</th>
+                    <th>Serial Number</th>
+                    <th>Tipe</th>
+                    <th>Opsi</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach ($errorItems as $item)
+                <tr>
+                    <td>adgagag</td>
+                    <td>adgagag</td>
+                    <td>adgagag</td>
+                    <td>adgagag</td>
+                    <td>adgagag</td>
+                </tr>
+                @endforeach
+            </tbody>
+        </table>
+    </div>
     @endif
 </div>
 

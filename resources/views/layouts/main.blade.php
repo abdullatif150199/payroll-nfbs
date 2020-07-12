@@ -34,7 +34,7 @@
                         </a>
                         <div class="d-flex order-lg-2 ml-auto">
                             @if(Auth::check())
-                            @include('tabler::_partials.user')
+                            @include('layouts._partials.user')
                             @endif
                         </div>
                         <a href="#" class="header-toggler d-lg-none ml-3 ml-lg-0" data-toggle="collapse"
@@ -61,7 +61,7 @@
                         @endif
                         <div class="col-lg order-lg-first">
                             @if(Menu::exists('primary'))
-                            @include('tabler::_partials.primary-menu')
+                            @include('layouts._partials.primary-menu')
                             @endif
                         </div>
                     </div>
@@ -97,7 +97,7 @@
                     <div class="col-lg-12">
                         <div class="row">
                             @if(Menu::exists('footer'))
-                            @include('tabler::_partials.footer-menu')
+                            @include('layouts._partials.footer-menu')
                             @endif
                         </div>
                     </div>

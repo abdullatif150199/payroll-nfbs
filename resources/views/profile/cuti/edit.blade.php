@@ -1,4 +1,4 @@
-@extends('tabler::layouts.profile')
+@extends('layouts.profile')
 
 @push('styles')
 <link rel="stylesheet" href="{{ asset('css/jquery.datetimepicker.css') }}">
@@ -7,16 +7,16 @@
 @section('content')
 <div class="col-lg-8">
     @if ($message = Session::get('success'))
-        <div class="alert alert-success alert-dismissible">
-            <button type="button" class="close" data-dismiss="alert"></button>
-            {{$message}}
-        </div>
+    <div class="alert alert-success alert-dismissible">
+        <button type="button" class="close" data-dismiss="alert"></button>
+        {{$message}}
+    </div>
     @endif
     @if ($message = Session::get('error'))
-        <div class="alert alert-success alert-dismissible">
-            <button type="button" class="close" data-dismiss="alert"></button>
-            {{$message}}
-        </div>
+    <div class="alert alert-success alert-dismissible">
+        <button type="button" class="close" data-dismiss="alert"></button>
+        {{$message}}
+    </div>
     @endif
     <div class="card">
         <div class="card-header">

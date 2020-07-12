@@ -1,4 +1,4 @@
-@extends('tabler::layouts.setting')
+@extends('layouts.setting')
 @push('styles')
 <link rel="stylesheet" href="{{ asset('css/dataTables.bootstrap4.min.css') }}">
 <link rel="stylesheet" href="{{ asset('css/select.dataTables.min.css') }}">
@@ -35,7 +35,8 @@
             Daftar Persentase Kinerja
         </h3>
         <div class="card-options">
-            <button type="button" id="newPersentaseKinerja" class="btn btn-primary"><i class="fe fe-plus"></i> Tambah</button>
+            <button type="button" id="newPersentaseKinerja" class="btn btn-primary"><i class="fe fe-plus"></i>
+                Tambah</button>
         </div>
     </div>
     <div class="table-responsive">

@@ -1,4 +1,4 @@
-@extends('tabler::layouts.main')
+@extends('layouts.main')
 @push('styles')
 <link rel="stylesheet" href="{{ asset('css/dataTables.bootstrap4.min.css') }}">
 <link rel="stylesheet" href="{{ asset('css/select.dataTables.min.css') }}">
@@ -26,7 +26,6 @@
     .paginate_button .page-link {
         padding: 0.3rem 0.5rem
     }
-
 </style>
 @endpush
 @section('content')
@@ -70,16 +69,19 @@
                 <li class="list-group-item py-5">
                     <table class="table table-borderless mb-0">
                         <tr class="text-center">
-                            <td>Golongan: <span class="tag tag-gray-dark">{{ $data->golongan->kode_golongan }}</span></td>
+                            <td>Golongan: <span class="tag tag-gray-dark">{{ $data->golongan->kode_golongan }}</span>
+                            </td>
                             <td>Kelompok Kerja: <span class="tag tag-gray-dark">{{ $data->kelompokkerja->grade }}</span>
                             </td>
-                            <td>Status Kerja: <span class="tag tag-gray-dark">{{ $data->statuskerja->nama_status_kerja }}</span></td>
+                            <td>Status Kerja: <span
+                                    class="tag tag-gray-dark">{{ $data->statuskerja->nama_status_kerja }}</span></td>
                         </tr>
                     </table>
                 </li>
                 <li class="list-group-item py-5">
                     NIK: <h5>{{ $data->nik }}</h5>
-                    Tempat, tanggal lahir: <h5>{{ $data->tempat_lahir . ', ' . date('d M Y', strtotime($data->tanggal_lahir)) }}</h5>
+                    Tempat, tanggal lahir: <h5>
+                        {{ $data->tempat_lahir . ', ' . date('d M Y', strtotime($data->tanggal_lahir)) }}</h5>
                     Jenis Kelamin: <h5>{{ $data->jenis_kelamin == 'L' ? 'Laki-laki' : 'Perempuan' }}</h5>
                     Status Pernikahan: <h5>{{ $data->status_pernikahan == 'M' ? 'Menikah' : 'Belum Menikah' }}</h5>
                 </li>

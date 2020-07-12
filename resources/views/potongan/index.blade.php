@@ -1,4 +1,4 @@
-@extends('tabler::layouts.main')
+@extends('layouts.main')
 @push('styles')
 <link rel="stylesheet" href="{{ asset('css/dataTables.bootstrap4.min.css') }}">
 <link rel="stylesheet" href="{{ asset('css/select.dataTables.min.css') }}">
@@ -35,7 +35,8 @@
             <div class="card-header">
                 <h3 class="card-title">Daftar Potongan</h3>
                 <div class="card-options">
-                    <a href="#daftarPotongan" data-toggle="modal" data-backdrop="static" class="btn btn-primary"><i class="fe fe-list"></i> Daftar Potongan</a>
+                    <a href="#daftarPotongan" data-toggle="modal" data-backdrop="static" class="btn btn-primary"><i
+                            class="fe fe-list"></i> Daftar Potongan</a>
                 </div>
             </div>
             <div class="table-responsive">
@@ -250,12 +251,12 @@
         });
     }
 
-    function deleteModal(id_potongan, name, id_karyawan) {
-        var url = '{{ route("dash.editPotongan", ":id_potongan") }}';
-        url = url.replace(':id_potongan', id_potongan);
-        var url_delete = '{{ route("dash.detachPotongan", ["id_potongan" => ":id_potongan", "id_karyawan" => ":id_karyawan"]) }}';
-        url_delete = url_delete.replace(':id_potongan', id_potongan);
-        url_delete = url_delete.replace(':id_karyawan', id_karyawan);
+    function deleteModal(potongan_id, name, karyawan_id) {
+        var url = '{{ route("dash.editPotongan", ":potongan_id") }}';
+        url = url.replace(':potongan_id', potongan_id);
+        var url_delete = "{{ route('dash.detachPotongan', ['potongan_id' => ':potongan_id', 'karyawan_id' => ':karyawan_id']) }}";
+        url_delete = url_delete.replace(':potongan_id', potongan_id);
+        url_delete = url_delete.replace(':karyawan_id', karyawan_id);
         $('.modal-title').text('Warning!');
         $.ajax({
             url: url,

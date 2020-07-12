@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Yajra\Datatables\Datatables;
+use App\Jobs\ProcessPayroll;
 use App\Models\Insentif;
 
 class InsentifController extends Controller
@@ -58,6 +59,8 @@ class InsentifController extends Controller
 
         $store = Insentif::create($data);
 
+        ProcessPayroll::dispatch($karyawan, $bln);
+
         return $store;
     }
 
@@ -80,6 +83,8 @@ class InsentifController extends Controller
         $update->jumlah = $request->jumlah;
         $update->keterangan = $request->keterangan;
         $update->update();
+
+        ProcessPayroll::dispatch($karyawan, $bln);
 
         return $update;
     }

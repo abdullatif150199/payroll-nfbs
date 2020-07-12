@@ -1,4 +1,4 @@
-@extends('tabler::layouts.main')
+@extends('layouts.main')
 @push('styles')
 <link rel="stylesheet" href="{{ asset('css/dataTables.bootstrap4.min.css') }}">
 <link rel="stylesheet" href="{{ asset('css/select.dataTables.min.css') }}">
@@ -38,32 +38,37 @@
                     <label for="month" class="mr-sm-3">Dari</label>
                     <div class="row gutters-xs">
                         <div class="col">
-                            <input type="text" name="dari_tanggal" class="form-control datepicker" onchange="$('#kehadiranTable').DataTable().draw()">
+                            <input type="text" name="dari_tanggal" class="form-control datepicker"
+                                onchange="$('#kehadiranTable').DataTable().draw()">
                         </div>
                     </div>
                     {{-- BBBBBBBBB --}}
                     <label for="month" class="ml-sm-3 mr-sm-3">Sampai</label>
                     <div class="row gutters-xs">
                         <div class="col">
-                            <input type="text" name="sampai_tanggal" class="form-control datepicker" onchange="$('#kehadiranTable').DataTable().draw()">
+                            <input type="text" name="sampai_tanggal" class="form-control datepicker"
+                                onchange="$('#kehadiranTable').DataTable().draw()">
                         </div>
                     </div>
                     {{-- unit --}}
                     <label for="month" class="ml-sm-3 mr-sm-3">Bidang</label>
                     <div class="row gutters-xs">
                         <div class="col">
-                            <select name="bidang" class="form-control" onchange="$('#kehadiranTable').DataTable().draw()">
+                            <select name="bidang" class="form-control"
+                                onchange="$('#kehadiranTable').DataTable().draw()">
                                 <option value="">Nama Bidang</option>
                             </select>
                         </div>
                     </div>
                 </form>
                 <div class="card-options">
-                    <a class="btn btn-info" href="{{ route('dash.kehadiran') }}"><i class="fe fe-list"></i> Menuju Harian</a>
+                    <a class="btn btn-info" href="{{ route('dash.kehadiran') }}"><i class="fe fe-list"></i> Menuju
+                        Harian</a>
                 </div>
             </div>
             <div class="table-responsive">
-                <table class="table table-responsive-sm table-hover table-outline table-vcenter card-table" id="kehadiranTable">
+                <table class="table table-responsive-sm table-hover table-outline table-vcenter card-table"
+                    id="kehadiranTable">
                     <thead>
                         <tr>
                             <th class="w-1">No. Induk</th>

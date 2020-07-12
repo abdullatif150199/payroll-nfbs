@@ -78,7 +78,7 @@ class KinerjaController extends Controller
             }
         }
 
-        // ProcessPayroll::dispatch($karyawan);
+        ProcessPayroll::dispatch($karyawan, $bln);
 
         return $store;
     }

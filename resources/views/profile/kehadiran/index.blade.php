@@ -1,4 +1,4 @@
-@extends('tabler::layouts.profile')
+@extends('layouts.profile')
 @push('styles')
 <link rel="stylesheet" href="{{ asset('css/dataTables.bootstrap4.min.css') }}">
 <link rel="stylesheet" href="{{ asset('css/select.dataTables.min.css') }}">
@@ -38,7 +38,8 @@
             </div>
         </div>
         <div class="table-responsive">
-            <table class="table table-responsive-sm table-hover table-outline table-vcenter card-table" id="kehadiranTable">
+            <table class="table table-responsive-sm table-hover table-outline table-vcenter card-table"
+                id="kehadiranTable">
                 <thead>
                     <tr>
                         <th class="w-1">Tanggal</th>
@@ -57,7 +58,7 @@
 
 @push('scripts')
 <script>
-// $(document).ready(function() {
+    // $(document).ready(function() {
     $('#kehadiranTable').DataTable({
         serverSide: true,
         processing: true,

@@ -1,4 +1,4 @@
-@extends('tabler::layouts.profile')
+@extends('layouts.profile')
 @section('content')
 <div class="col-lg-8">
     <div class="card">
@@ -10,22 +10,31 @@
             <div class="container-fluid">
                 <div class="media py-4">
                     <div class="media-object avatar mr-4" style="background-image: url(demo/faces/male/32.jpg)"></div>
-                    <div class="media-body bg-blue-lightest rounded px-4 py-4" style="max-width:70%;word-break: break-word;">
+                    <div class="media-body bg-blue-lightest rounded px-4 py-4"
+                        style="max-width:70%;word-break: break-word;">
                         <strong>Bu Fitri </strong><br>
-                        Donec id elit non mi porta gravida at eget metus. Vivamus sagittis lacus vel augue laoreet rutrum faucibus dolor auctor. Donec ullamcorper nulla non metus
-                        auctor fringilla. Praesent commodo cursus magna, vel scelerisque nisl consectetur et. Sed posuere consectetur est at lobortis.
+                        Donec id elit non mi porta gravida at eget metus. Vivamus sagittis lacus vel augue laoreet
+                        rutrum faucibus dolor auctor. Donec ullamcorper nulla non metus
+                        auctor fringilla. Praesent commodo cursus magna, vel scelerisque nisl consectetur et. Sed
+                        posuere consectetur est at lobortis.
                         <small class="pull-right text-muted">4 min</small>
                     </div>
                 </div>
                 {{-- pemilik akun --}}
-                <div class="float-right bg-blue-lightest rounded px-4 py-4 mb-4" style="max-width:70%;word-break: break-word;">
-                    Donec id elit non mi porta gravida at eget metus. Vivamus sagittis lacus vel augue laoreet rutrum faucibus dolor auctor. Donec ullamcorper nulla non metus
-                    auctor fringilla. Praesent commodo cursus magna, vel scelerisque nisl consectetur et. Sed posuere consectetur est at lobortis.
+                <div class="float-right bg-blue-lightest rounded px-4 py-4 mb-4"
+                    style="max-width:70%;word-break: break-word;">
+                    Donec id elit non mi porta gravida at eget metus. Vivamus sagittis lacus vel augue laoreet rutrum
+                    faucibus dolor auctor. Donec ullamcorper nulla non metus
+                    auctor fringilla. Praesent commodo cursus magna, vel scelerisque nisl consectetur et. Sed posuere
+                    consectetur est at lobortis.
                     <small class="pull-right text-muted">4 min</small>
                 </div>
-                <div class="float-right bg-blue-lightest rounded px-4 py-4 mb-4" style="max-width:70%;word-break: break-word;">
-                    Donec id elit non mi porta gravida at eget metus. Vivamus sagittis lacus vel augue laoreet rutrum faucibus dolor auctor. Donec ullamcorper nulla non metus
-                    auctor fringilla. Praesent commodo cursus magna, vel scelerisque nisl consectetur et. Sed posuere consectetur est at lobortis.
+                <div class="float-right bg-blue-lightest rounded px-4 py-4 mb-4"
+                    style="max-width:70%;word-break: break-word;">
+                    Donec id elit non mi porta gravida at eget metus. Vivamus sagittis lacus vel augue laoreet rutrum
+                    faucibus dolor auctor. Donec ullamcorper nulla non metus
+                    auctor fringilla. Praesent commodo cursus magna, vel scelerisque nisl consectetur et. Sed posuere
+                    consectetur est at lobortis.
                     <small class="pull-right text-muted">4 min</small>
                 </div>
             </div>

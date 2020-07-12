@@ -1,4 +1,4 @@
-@extends('tabler::layouts.main')
+@extends('layouts.main')
 @push('styles')
 <link rel="stylesheet" href="{{ asset('css/dataTables.bootstrap4.min.css') }}">
 <link rel="stylesheet" href="{{ asset('css/select.dataTables.min.css') }}">
@@ -38,7 +38,8 @@
                         <label for="month" class="mr-sm-3">Bulan </label>
                         <div class="row gutters-xs">
                             <div class="col">
-                                <select name="month" class="form-control custom-select" onchange="$('#daftarGaji').DataTable().draw()">
+                                <select name="month" class="form-control custom-select"
+                                    onchange="$('#daftarGaji').DataTable().draw()">
                                     <option value="">Bulan</option>
                                     <option {{ date('m') == '01' ? 'selected' : ''}} value="01">Januari</option>
                                     <option {{ date('m') == '02' ? 'selected' : ''}} value="02">Februari</option>
@@ -55,11 +56,12 @@
                                 </select>
                             </div>
                             <div class="col">
-                                <select name="year" class="form-control custom-select" onchange="$('#daftarGaji').DataTable().draw()">
+                                <select name="year" class="form-control custom-select"
+                                    onchange="$('#daftarGaji').DataTable().draw()">
                                     <option value="">Tahun</option>
-                                    @for ($i=2018; $i <= date('Y'); $i++)
-                                        <option {{ date('Y') == $i ? 'selected' : ''}} value="{{$i}}">{{$i}}</option>
-                                    @endfor
+                                    @for ($i=2018; $i <= date('Y'); $i++) <option {{ date('Y') == $i ? 'selected' : ''}}
+                                        value="{{$i}}">{{$i}}</option>
+                                        @endfor
                                 </select>
                             </div>
                         </div>

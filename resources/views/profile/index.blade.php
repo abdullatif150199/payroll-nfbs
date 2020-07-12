@@ -1,4 +1,4 @@
-@extends('tabler::layouts.profile')
+@extends('layouts.profile')
 @section('content')
 <div class="col-lg-8">
     <div class="card">
@@ -7,7 +7,8 @@
         </div>
         <div class="card-body">
             Lorem ipsum dolor sit, amet consectetur adipisicing elit.
-            Facilis architecto velit id iure numquam atque odit voluptates vel ex aliquid? Nostrum voluptate labore possimus, iure officiis eligendi impedit fugit quam.
+            Facilis architecto velit id iure numquam atque odit voluptates vel ex aliquid? Nostrum voluptate labore
+            possimus, iure officiis eligendi impedit fugit quam.
         </div>
     </div>
     <form class="card">
@@ -17,7 +18,8 @@
                 <div class="col-md-5">
                     <div class="form-group">
                         <label class="form-label">Company</label>
-                        <input type="text" class="form-control" disabled="" placeholder="Company" value="Creative Code Inc.">
+                        <input type="text" class="form-control" disabled="" placeholder="Company"
+                            value="Creative Code Inc.">
                     </div>
                 </div>
                 <div class="col-sm-6 col-md-3">

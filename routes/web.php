@@ -95,7 +95,7 @@ Route::group(['prefix' => 'dashboard', 'as' => 'dash.', 'middleware' => ['auth']
         Route::get('potongan-karyawan/{id}', 'PotonganController@showPotonganKaryawan')->name('showPotonganKaryawan');
         Route::put('potongan/{id}', 'PotonganController@update')->name('updatePotongan');
         Route::delete('potongan/{id}', 'PotonganController@delete')->name('hapusPotongan');
-        Route::delete('potongan/{potongan_id}/{karyawan_id}', 'PotonganController@detach')->name('detachPotongan');
+        Route::delete('potongan/{potongan_id}/{karyawan_id}/delete', 'PotonganController@detach')->name('detachPotongan');
 
         Route::group(['prefix' => 'setting'], function () {
             // Setting
@@ -188,3 +188,7 @@ Route::group(['prefix' => 'dashboard', 'as' => 'dash.', 'middleware' => ['auth']
         });
     });
 });
+
+Auth::routes();
+
+Route::get('/home', 'HomeController@index')->name('home');

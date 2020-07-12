@@ -1,4 +1,4 @@
-@extends('tabler::layouts.main')
+@extends('layouts.main')
 @push('styles')
 <link rel="stylesheet" href="{{ asset('css/dataTables.bootstrap4.min.css') }}">
 <link rel="stylesheet" href="{{ asset('css/select.dataTables.min.css') }}">
@@ -38,10 +38,11 @@
                         <label for="status_kerja" class="mr-sm-3">Daftar Karyawan </label>
                         <div class="row gutters-xs">
                             <div class="col">
-                                <select id="statuskerja" class="form-control" onchange="$('#karyawanTable').DataTable().draw()">
+                                <select id="statuskerja" class="form-control"
+                                    onchange="$('#karyawanTable').DataTable().draw()">
                                     <option value="">Aktif</option>
                                     @foreach ($status_kerja as $item)
-                                        <option value="{{ $item->id }}">{{ $item->nama_status_kerja }}</option>
+                                    <option value="{{ $item->id }}">{{ $item->nama_status_kerja }}</option>
                                     @endforeach
                                     <option value="berhenti">Resign/Berhenti</option>
                                 </select>
@@ -50,7 +51,8 @@
                     </form>
                 </h3>
                 <div class="card-options">
-                    <a href="#modalCreate" data-toggle="modal" data-backdrop="static" class="btn btn-primary"><i class="fe fe-plus"></i> Tambah</a>
+                    <a href="#modalCreate" data-toggle="modal" data-backdrop="static" class="btn btn-primary"><i
+                            class="fe fe-plus"></i> Tambah</a>
                 </div>
             </div>
             <div class="table-responsive">

@@ -1,4 +1,4 @@
-@extends('tabler::layouts.profile')
+@extends('layouts.profile')
 @push('styles')
 <link rel="stylesheet" href="{{ asset('css/dataTables.bootstrap4.min.css') }}">
 <link rel="stylesheet" href="{{ asset('css/select.dataTables.min.css') }}">
@@ -31,22 +31,23 @@
 @section('content')
 <div class="col-lg-8">
     @if ($message = Session::get('success'))
-        <div class="alert alert-success alert-dismissible">
-            <button type="button" class="close" data-dismiss="alert"></button>
-            {{$message}}
-        </div>
+    <div class="alert alert-success alert-dismissible">
+        <button type="button" class="close" data-dismiss="alert"></button>
+        {{$message}}
+    </div>
     @endif
     @if ($message = Session::get('error'))
-        <div class="alert alert-success alert-dismissible">
-            <button type="button" class="close" data-dismiss="alert"></button>
-            {{$message}}
-        </div>
+    <div class="alert alert-success alert-dismissible">
+        <button type="button" class="close" data-dismiss="alert"></button>
+        {{$message}}
+    </div>
     @endif
     <div class="card">
         <div class="card-header">
             Daftar Cuti
             <div class="card-options">
-                <a class="btn btn-info" href="{{ route('profile.createCuti') }}"><i class="fe fe-plus"></i> Request Cuti</a>
+                <a class="btn btn-info" href="{{ route('profile.createCuti') }}"><i class="fe fe-plus"></i> Request
+                    Cuti</a>
             </div>
         </div>
         <div class="table-responsive">

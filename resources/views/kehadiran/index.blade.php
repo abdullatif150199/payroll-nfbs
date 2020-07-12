@@ -1,4 +1,4 @@
-@extends('tabler::layouts.main')
+@extends('layouts.main')
 @push('styles')
 <link rel="stylesheet" href="{{ asset('css/dataTables.bootstrap4.min.css') }}">
 <link rel="stylesheet" href="{{ asset('css/select.dataTables.min.css') }}">
@@ -37,15 +37,17 @@
                     <label for="month" class="mr-sm-3">Tanggal</label>
                     <div class="row gutters-xs">
                         <div class="col">
-                            <select name="day" class="form-control custom-select" onchange="$('#kehadiranTable').DataTable().draw()">
+                            <select name="day" class="form-control custom-select"
+                                onchange="$('#kehadiranTable').DataTable().draw()">
                                 <option value="">Tahun</option>
-                                @for ($i=1; $i <= 31; $i++)
-                                    <option {{ date('d') == $i ? 'selected' : ''}} value="{{$i}}">{{$i}}</option>
-                                @endfor
+                                @for ($i=1; $i <= 31; $i++) <option {{ date('d') == $i ? 'selected' : ''}}
+                                    value="{{$i}}">{{$i}}</option>
+                                    @endfor
                             </select>
                         </div>
                         <div class="col">
-                            <select name="month" class="form-control custom-select" onchange="$('#kehadiranTable').DataTable().draw()">
+                            <select name="month" class="form-control custom-select"
+                                onchange="$('#kehadiranTable').DataTable().draw()">
                                 <option value="">Bulan</option>
                                 <option {{ date('m') == '01' ? 'selected' : ''}} value="01">Januari</option>
                                 <option {{ date('m') == '02' ? 'selected' : ''}} value="02">Februari</option>
@@ -62,11 +64,12 @@
                             </select>
                         </div>
                         <div class="col">
-                            <select name="year" class="form-control custom-select" onchange="$('#kehadiranTable').DataTable().draw()">
+                            <select name="year" class="form-control custom-select"
+                                onchange="$('#kehadiranTable').DataTable().draw()">
                                 <option value="">Tahun</option>
-                                @for ($i=2018; $i <= date('Y'); $i++)
-                                    <option {{ date('Y') == $i ? 'selected' : ''}} value="{{$i}}">{{$i}}</option>
-                                @endfor
+                                @for ($i=2018; $i <= date('Y'); $i++) <option {{ date('Y') == $i ? 'selected' : ''}}
+                                    value="{{$i}}">{{$i}}</option>
+                                    @endfor
                             </select>
                         </div>
                     </div>
@@ -76,7 +79,8 @@
                 </div>
             </div>
             <div class="table-responsive">
-                <table class="table table-responsive-sm table-hover table-outline table-vcenter card-table" id="kehadiranTable">
+                <table class="table table-responsive-sm table-hover table-outline table-vcenter card-table"
+                    id="kehadiranTable">
                     <thead>
                         <tr>
                             <th class="w-1">No. Induk</th>
@@ -101,7 +105,7 @@
 
 @push('scripts')
 <script>
-// $(document).ready(function() {
+    // $(document).ready(function() {
     var oTable = $('#kehadiranTable').DataTable({
         serverSide: true,
         processing: true,
