@@ -16,7 +16,7 @@ class GajiController extends Controller
         return view('gaji.index', ['title' => $title]);
     }
 
-    public function getGaji(Request $request)
+    public function datatable(Request $request)
     {
         if (!$request->month) {
             $month = date('Y-m');

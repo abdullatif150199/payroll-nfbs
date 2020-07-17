@@ -18,7 +18,7 @@ class KinerjaController extends Controller
         return view('kinerja.index', ['title' => $title, 'persentase' => $persentase]);
     }
 
-    public function getKinerja (Request $request)
+    public function datatable(Request $request)
     {
         $data = Karyawan::query();
         $bulan = $request->bulan;
@@ -108,7 +108,7 @@ class KinerjaController extends Controller
         return $get;
     }
 
-    public function showKinerjaKaryawan($id)
+    public function show($id)
     {
         $get = Karyawan::with('persentasekinerja')->findOrFail($id);
 

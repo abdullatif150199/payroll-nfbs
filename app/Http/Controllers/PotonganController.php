@@ -16,7 +16,7 @@ class PotonganController extends Controller
         return view('potongan.index', ['title' => $title, 'potongan' => $potongan]);
     }
 
-    public function getPotongan()
+    public function datatable()
     {
         $data = Karyawan::with('potongan')->latest();
 
@@ -59,7 +59,7 @@ class PotonganController extends Controller
         return Potongan::create($data);
     }
 
-    public function showPotonganKaryawan($id)
+    public function show($id)
     {
         $get = Karyawan::with('potongan')->findOrFail($id);
 
@@ -118,7 +118,7 @@ class PotonganController extends Controller
         return redirect()->back()->withSuccess(sprintf('Potongan %s berhasil di hapus.', $potongan->nama_potongan));
     }
 
-    public function delete($id)
+    public function destroy($id)
     {
         Potongan::destroy($id);
     }

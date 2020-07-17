@@ -14,7 +14,7 @@ class GolonganController extends Controller
         return view('golongan.index', ['title' => $title]);
     }
 
-    public function getGolongan()
+    public function datatable()
     {
         $data = Golongan::all();
 

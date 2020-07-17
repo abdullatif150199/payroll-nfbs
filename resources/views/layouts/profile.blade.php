@@ -9,7 +9,7 @@
     <!-- CSRF Token -->
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
-    <title>{{ auth()->user()->name .' | '. config('tabler.suffix') }}</title>
+    <title>{{ Auth::user()->name .' | '. config('tabler.suffix') }}</title>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
     <link rel="stylesheet"
         href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,300i,400,400i,500,500i,600,600i,700,700i&amp;subset=latin-ext">
@@ -78,11 +78,12 @@
                                         </div>
                                         <div class="card-body text-center">
                                             <img class="card-profile-img" src="/images/src/user.jpg">
-                                            <h3 class="mb-0">{{ $user->name }}</h3>
-                                            <p class="text-muted mb-2">{{ $user->karyawan->no_induk }}</p>
-                                            <button class="btn btn-outline-primary btn-sm">
+                                            <h3 class="mb-0">{{ Auth::user()->name }}</h3>
+                                            <p class="text-muted mb-2">{{ Auth::user()->karyawan->no_induk }}</p>
+                                            <a href="{{ route('profile.detail', Auth::user()->username) }}"
+                                                class="btn btn-outline-primary btn-sm">
                                                 <span class="fe fe-edit"></span> Detail
-                                            </button>
+                                            </a>
                                         </div>
                                     </div>
                                     <div class="card">

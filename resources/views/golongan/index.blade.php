@@ -70,7 +70,7 @@
             serverSide: true,
             processing: true,
             // select: true,
-            ajax: '{{ route('dash.getGolongan') }}',
+            ajax: '{{ route('dash.golongan.datatable') }}',
             columns: [
                 {data: 'kode_golongan'},
                 {data: 'peserta'},
@@ -92,7 +92,7 @@
         });
 
         function editGolongan(id) {
-            var url = '{{ route('dash.editGolongan', ':id') }}';
+            var url = '{{ route('dash.golongan.edit', ':id') }}';
             url = url.replace(':id', id);
             $('input[name=_method]').val('PUT');
             $('#formGolongan form')[0].reset();
@@ -118,9 +118,9 @@
             var save_method = $('input[name=_method]').val();
 
             if (save_method == 'POST') {
-                url = '{{ route('dash.storeGolongan') }}';
+                url = '{{ route('dash.golongan.store') }}';
             } else {
-                url_raw = '{{ route('dash.updateGolongan', ':id') }}';
+                url_raw = '{{ route('dash.golongan.update', ':id') }}';
                 url = url_raw.replace(':id', id);
             }
 
@@ -139,7 +139,7 @@
         });
 
         function hapusGolongan(id) {
-            var url = '{{ route("dash.hapusGolongan", ":id") }}';
+            var url = '{{ route('dash.golongan.destroy', ':id') }}';
             url = url.replace(':id', id);
             $('#hapusGolongan .modal-body').text('Yakin ingin menghapus?');
             $('#hapusGolongan form').attr('action', url);

@@ -53,7 +53,7 @@
     $('#gajiTable').DataTable({
         serverSide: true,
         processing: true,
-        ajax: "{{ route('profile.getGaji', $id) }}",
+        ajax: "{{ route('profile.gaji.datatable', $id) }}",
         columns: [
             {data: 'bulan'},
             {data: 'gaji_akhir'},

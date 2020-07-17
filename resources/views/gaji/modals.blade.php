@@ -9,7 +9,7 @@
                 <button type="button" class="close" data-dismiss="modal"></button>
             </div>
 
-            <form method="post" action="{{ route('dash.calculateGaji') }}">
+            <form method="post" action="{{ route('dash.gaji.calculate') }}">
                 <div class="modal-body">
                     {{ csrf_field() }} {{ method_field('POST') }}
                     <input type="hidden" name="id">
@@ -39,9 +39,9 @@
                                 <label class="form-label">Tahun</label>
                                 <select name="tahun" class="form-control" required>
                                     <option value="">Pilih Tahun</option>
-                                    @for ($i=2018; $i <= date('Y'); $i++)
-                                        <option {{ date('Y') == $i ? 'selected' : ''}} value="{{$i}}">{{$i}}</option>
-                                    @endfor
+                                    @for ($i=2018; $i <= date('Y'); $i++) <option {{ date('Y') == $i ? 'selected' : ''}}
+                                        value="{{$i}}">{{$i}}</option>
+                                        @endfor
                                 </select>
                             </div>
                         </div>

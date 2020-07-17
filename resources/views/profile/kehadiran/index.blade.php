@@ -63,7 +63,7 @@
         serverSide: true,
         processing: true,
         select: true,
-        ajax: "{{ route('profile.getKehadiran', $id) }}",
+        ajax: "{{ route('profile.kehadiran.datatable', $id) }}",
         columns: [
             {data: 'tanggal'},
             {data: 'jam_masuk'},

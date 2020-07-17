@@ -14,7 +14,7 @@ class KelompokKerjaController extends Controller
         return view('kelompok_kerja.index', compact('title'));
     }
 
-    public function getKelompokKerja()
+    public function datatable()
     {
         $data = KelompokKerja::all();
 

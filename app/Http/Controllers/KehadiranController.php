@@ -24,7 +24,7 @@ class KehadiranController extends Controller
         }
     }
 
-    public function getKehadiran(Request $request)
+    public function datatable(Request $request)
     {
         if (!$request->tanggal) {
             $tanggal = date('Y-m-d');
@@ -86,7 +86,7 @@ class KehadiranController extends Controller
         return $update;
     }
 
-    public function getPilihan(Request $request)
+    public function pilihan(Request $request)
     {
         // $data = Karyawan::find(1);
         // $persen = $this->persentaseKehadiran($data, 2);

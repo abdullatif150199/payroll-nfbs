@@ -35,7 +35,7 @@ class KaryawanController extends Controller
         ]);
     }
 
-    public function getName(Request $request)
+    public function name(Request $request)
     {
         $data = Karyawan::with('persentasekinerja')->select('id', 'nama_lengkap', 'no_induk')
             ->where('nama_lengkap', 'LIKE', '%'.$request->q.'%')->get();
@@ -43,7 +43,7 @@ class KaryawanController extends Controller
         return response()->json($data);
     }
 
-    public function getKaryawan(Request $request)
+    public function datatable(Request $request)
     {
         if ($request->statuskerja != 'berhenti') {
             $data = Karyawan::with(['jabatan', 'golongan', 'statusKerja', 'unit'])
@@ -132,7 +132,7 @@ class KaryawanController extends Controller
             'insentif'
         )->findOrFail($id);
 
-        return view('karyawan.rincian', compact('data'));
+        return view('karyawan.rincian', ['data' => $data]);
 
     }
 

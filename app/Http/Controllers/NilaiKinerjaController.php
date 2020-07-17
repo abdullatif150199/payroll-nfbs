@@ -14,7 +14,7 @@ class NilaiKinerjaController extends Controller
         return view('nilai_kinerja.index', compact('title'));
     }
 
-    public function getNilaiKinerja()
+    public function datatable()
     {
         $data = NilaiKinerja::all();
 

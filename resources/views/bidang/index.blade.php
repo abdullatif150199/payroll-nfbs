@@ -69,7 +69,7 @@
             serverSide: true,
             processing: true,
             // select: true,
-            ajax: '{{ route('dash.getBidang') }}',
+            ajax: '{{ route('dash.bidang.datatable') }}',
             columns: [
                 {data: 'nama_bidang'},
                 {data: 'jml_peserta'},
@@ -90,7 +90,7 @@
         });
 
         function editBidang(id) {
-            var url = '{{ route('dash.editBidang', ':id') }}';
+            var url = '{{ route('dash.bidang.edit', ':id') }}';
             url = url.replace(':id', id);
             $('input[name=_method]').val('PUT');
             $('#formBidang form')[0].reset();
@@ -114,9 +114,9 @@
             var save_method = $('input[name=_method]').val();
 
             if (save_method == 'POST') {
-                url = '{{ route('dash.storeBidang') }}';
+                url = '{{ route('dash.bidang.store') }}';
             } else {
-                url_raw = '{{ route('dash.updateBidang', ':id') }}';
+                url_raw = '{{ route('dash.bidang.update', ':id') }}';
                 url = url_raw.replace(':id', id);
             }
 
@@ -135,7 +135,7 @@
         });
 
         function hapusBidang(id) {
-            var url = '{{ route("dash.hapusBidang", ":id") }}';
+            var url = '{{ route("dash.bidang.destroy", ":id") }}';
             url = url.replace(':id', id);
             $('#hapusBidang .modal-body').text('Yakin ingin menghapus?');
             $('#hapusBidang form').attr('action', url);

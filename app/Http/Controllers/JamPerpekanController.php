@@ -14,7 +14,7 @@ class JamPerpekanController extends Controller
         return view('jam_perpekan.index', ['title' => $title]);
     }
 
-    public function getJamPerpekan()
+    public function datatable()
     {
         $data = JamPerpekan::all();
 

@@ -14,7 +14,7 @@ class StatusKeluargaController extends Controller
         return view('status_keluarga.index', compact('title'));
     }
 
-    public function getStatusKeluarga()
+    public function datatable()
     {
         $data = StatusKeluarga::all();
 

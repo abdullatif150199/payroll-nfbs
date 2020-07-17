@@ -14,7 +14,7 @@ class BidangController extends Controller
         return view('bidang.index', ['title' => $title]);
     }
 
-    public function getBidang()
+    public function datatable()
     {
         $data = Bidang::all();
 

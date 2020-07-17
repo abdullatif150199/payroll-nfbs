@@ -14,7 +14,7 @@ class PersentaseKinerjaController extends Controller
         return view('persentase_kinerja.index', compact('title'));
     }
 
-    public function getPersentaseKinerja()
+    public function datatable()
     {
         $data = PersentaseKinerja::all();
 

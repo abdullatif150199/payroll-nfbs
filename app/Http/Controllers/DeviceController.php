@@ -14,7 +14,7 @@ class DeviceController extends Controller
         return view('device.index');
     }
 
-    public function getDevice()
+    public function datatable()
     {
         $data = Device::all();
 

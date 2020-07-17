@@ -61,7 +61,7 @@
             serverSide: true,
             processing: true,
             select: true,
-            ajax: '{{ route('dash.getCuti') }}',
+            ajax: '{{ route('dash.cuti.datatable') }}',
             columns: [
                 {data: 'no_induk'},
                 {data: 'nama_lengkap'},

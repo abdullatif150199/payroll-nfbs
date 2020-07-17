@@ -14,7 +14,7 @@ class StatusKerjaController extends Controller
         return view('status_kerja.index', compact('title'));
     }
 
-    public function getStatusKerja()
+    public function datatable()
     {
         $data = StatusKerja::all();
 

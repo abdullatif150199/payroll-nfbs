@@ -34,7 +34,7 @@
         <div class="card">
             <div class="card-header">
                 <h3 class="card-title">
-                    <form class="form-inline mb-0" action="{{ route('dash.getKaryawan') }}" method="post">
+                    <form class="form-inline mb-0" action="{{ route('dash.karyawan.datatable') }}" method="post">
                         <label for="status_kerja" class="mr-sm-3">Daftar Karyawan </label>
                         <div class="row gutters-xs">
                             <div class="col">
@@ -93,7 +93,7 @@
             processing: true,
             select: true,
             ajax: {
-                url: '{{ route('dash.getKaryawan') }}',
+                url: '{{ route('dash.karyawan.datatable') }}',
                 data: function (d) {
                     d.statuskerja = $('#statuskerja').val();
                 }
@@ -118,7 +118,7 @@
 
     function editKaryawan(id) {
         $('#formEdit')[0].reset();
-        var url = '{{ route("dash.editKaryawan", ":id") }}';
+        var url = '{{ route("dash.karyawan.edit", ":id") }}';
         url = url.replace(':id', id);
         $.ajax({
             url: url,
@@ -126,7 +126,7 @@
             dataType: "JSON",
             success: function(data) {
                 // console.log(JSON.stringify(data.bidang, null, 2));
-                var url_update = '{{ route("dash.updateKaryawan", ":id") }}';
+                var url_update = '{{ route("dash.karyawan.update", ":id") }}';
                 url = url_update.replace(':id', id);
                 $('#formEdit').attr('action', url);
                 $('#nama_lengkap').val(data.nama_lengkap);
@@ -181,7 +181,7 @@
     }
 
     function resignKaryawan(id, name) {
-        var url = '{{ route("dash.resignKaryawan", ":id") }}';
+        var url = '{{ route("dash.karyawan.resign", ":id") }}';
         url = url.replace(':id', id);
         $('#resignKaryawan .modal-body').text('Apakah yakin ' + name + ' berhenti kerja?');
         $('#resignKaryawan form').attr('action', url);

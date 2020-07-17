@@ -46,7 +46,7 @@
         <div class="card-header">
             Daftar Cuti
             <div class="card-options">
-                <a class="btn btn-info" href="{{ route('profile.createCuti') }}"><i class="fe fe-plus"></i> Request
+                <a class="btn btn-info" href="{{ route('profile.cuti.create') }}"><i class="fe fe-plus"></i> Request
                     Cuti</a>
             </div>
         </div>
@@ -71,7 +71,7 @@
         serverSide: true,
         processing: true,
         select: true,
-        ajax: "{{ route('profile.getCuti', $id) }}",
+        ajax: "{{ route('profile.cuti.datatable', $id) }}",
         columns: [
             {data: 'tgl_request'},
             {data: 'progress'},

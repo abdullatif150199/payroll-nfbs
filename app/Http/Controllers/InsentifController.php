@@ -15,7 +15,7 @@ class InsentifController extends Controller
         return view('insentif.index', ['title' => $title]);
     }
 
-    public function getInsentif(Request $request)
+    public function datatable(Request $request)
     {
         if (!$request->bulan) {
             $bulan = date('Y-m');
@@ -49,17 +49,19 @@ class InsentifController extends Controller
 
         ]);
 
+        $bln = $request->year . '-' . $request->month;
+
         $data = [
             'karyawan_id' => $request->karyawan_id,
             'jenis_insentif' => $request->jenis_insentif,
-            'bulan' => $request->year . '-' . $request->month,
+            'bulan' => $bln,
             'jumlah' => $request->jumlah,
             'keterangan' => $request->keterangan
         ];
 
         $store = Insentif::create($data);
 
-        ProcessPayroll::dispatch($karyawan, $bln);
+        ProcessPayroll::dispatch($data, $bln);
 
         return $store;
     }
@@ -77,14 +79,16 @@ class InsentifController extends Controller
             'jumlah' => 'required|min:4|max:15'
         ]);
 
-        $update = Insentif::find($id);
+        $bln = $request->year . '-' . $request->month;
+
+        $update = Insentif::with('karyawan')->findOrFail($id);
         $update->jenis_insentif = $request->jenis_insentif;
-        $update->bulan = $request->year . '-' . $request->month;
+        $update->bulan = $bln;
         $update->jumlah = $request->jumlah;
         $update->keterangan = $request->keterangan;
         $update->update();
 
-        ProcessPayroll::dispatch($karyawan, $bln);
+        ProcessPayroll::dispatch($update->karyawan, $bln);
 
         return $update;
     }
@@ -92,6 +96,8 @@ class InsentifController extends Controller
     public function destroy($id)
     {
         $get = Insentif::with('karyawan')->findOrFail($id);
+
+        ProcessPayroll::dispatch($get->karyawan, $get->bulan);
 
         $get->delete();
 

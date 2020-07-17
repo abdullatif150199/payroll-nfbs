@@ -193,7 +193,7 @@
         <div class="card">
             <div class="card-header">
                 <h3 class="card-title">
-                    <form class="form-inline" action="{{ route('dash.getInsentif') }}" method="post">
+                    <form class="form-inline" action="{{ route('dash.insentif.datatable') }}" method="post">
                         <label for="month" class="mr-sm-3">Bulan </label>
                         <div class="row gutters-xs">
                             <div class="col">
@@ -267,7 +267,7 @@
         processing: true,
         select: true,
         ajax: {
-            url: '{{ route('dash.getInsentif') }}',
+            url: '{{ route('dash.insentif.datatable') }}',
             data: function (d) {
                 d.bulan = $('select[name=year]').val() + '-' + $('select[name=month]').val();
             }
@@ -301,7 +301,7 @@
             allowClear: true,
             minimumInputLength: 2,
             ajax: {
-                url: '{{ route("dash.getName") }}',
+                url: '{{ route('dash.karyawan.name') }}',
                 dataType: 'json',
                 processResults: function (data) {
                     return {
@@ -319,7 +319,7 @@
     }
 
     function editInsentif(id) {
-        var url = '{{ route('dash.editInsentif', ':id') }}';
+        var url = '{{ route('dash.insentif.edit', ':id') }}';
         url = url.replace(':id', id);
         $('input[name=_method]').val('PUT');
         $('#select2').hide();
@@ -349,9 +349,9 @@
         var save_method = $('input[name=_method]').val();
 
         if (save_method == 'POST') {
-            url = '{{ route('dash.storeInsentif') }}';
+            url = '{{ route('dash.insentif.store') }}';
         } else {
-            url_raw = '{{ route('dash.updateInsentif', ':id') }}';
+            url_raw = '{{ route('dash.insentif.update', ':id') }}';
             url = url_raw.replace(':id', id);
         }
 
@@ -370,7 +370,7 @@
     });
 
     function hapusInsentif(id) {
-        var url = '{{ route("dash.hapusInsentif", ":id") }}';
+        var url = '{{ route('dash.insentif.destroy', ':id') }}';
         url = url.replace(':id', id);
         $('#hapusInsentif .modal-body').text('Yakin ingin menghapus?');
         $('#hapusInsentif form').attr('action', url);

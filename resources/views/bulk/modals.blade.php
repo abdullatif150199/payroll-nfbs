@@ -9,7 +9,7 @@
                 <button type="button" class="close" data-dismiss="modal"></button>
             </div>
 
-            <form method="post" action="{{ route('dash.storeBulkUpload') }}">
+            <form method="post" action="{{ route('dash.bulkUpload.store') }}">
                 <div class="modal-body">
                     {{ csrf_field() }} {{ method_field('POST') }}
                     <input type="hidden" name="id">

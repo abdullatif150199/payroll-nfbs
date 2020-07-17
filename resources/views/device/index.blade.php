@@ -69,7 +69,7 @@
         serverSide: true,
         processing: true,
         // select: true,
-        ajax: '{{ route('dash.getDevice') }}',
+        ajax: '{{ route('dash.device.datatable') }}',
         columns: [
             {data: 'server_ip'},
             {data: 'server_port'},
@@ -91,7 +91,7 @@
     });
 
     function editDevice(id) {
-        var url = '{{ route('dash.editDevice', ':id') }}';
+        var url = '{{ route('dash.device.edit', ':id') }}';
         url = url.replace(':id', id);
         $('input[name=_method]').val('PUT');
         $('#formDevice form')[0].reset();
@@ -118,9 +118,9 @@
         var save_method = $('input[name=_method]').val();
 
         if (save_method == 'POST') {
-            url = '{{ route('dash.storeDevice') }}';
+            url = '{{ route('dash.device.store') }}';
         } else {
-            url_raw = '{{ route('dash.updateDevice', ':id') }}';
+            url_raw = '{{ route('dash.device.update', ':id') }}';
             url = url_raw.replace(':id', id);
         }
 
@@ -139,7 +139,7 @@
     });
 
     function hapusDevice(id) {
-        var url = '{{ route("dash.hapusDevice", ":id") }}';
+        var url = '{{ route('dash.device.destroy', ':id') }}';
         url = url.replace(':id', id);
         $('#hapusDevice .modal-body').text('Yakin ingin menghapus?');
         $('#hapusDevice form').attr('action', url);

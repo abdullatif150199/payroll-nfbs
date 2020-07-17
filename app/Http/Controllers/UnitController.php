@@ -14,7 +14,7 @@ class UnitController extends Controller
         return view('unit.index', ['title' => $title]);
     }
 
-    public function getUnit()
+    public function datatable()
     {
         $data = Unit::all();
 
