@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Yajra\Datatables\Datatables;
+use Illuminate\Database\Eloquent\Builder;
 use App\Jobs\ProcessPayroll;
 use App\Models\PersentaseKinerja;
 use App\Models\Karyawan;
@@ -20,16 +21,25 @@ class KinerjaController extends Controller
 
     public function datatable(Request $request)
     {
-        $data = Karyawan::query();
         $bulan = $request->bulan;
+        $user = auth()->user();
+        $data = Karyawan::query();
 
         if (!$request->bulan) {
             $bulan = date('Y-m');
         }
 
-        $data->with(['persentasekinerja', 'kinerja' => function($q) use($bulan) {
-            $q->where('bulan', $bulan);
-        }])->latest();
+        if ($user->hasRole(['admin', 'root'])) {
+            $data->with(['persentasekinerja', 'kinerja' => function($q) use($bulan) {
+                    $q->where('bulan', $bulan);
+                }])->latest();
+        } else {
+            $data->whereHas('bidang', function (Builder $query) use($user) {
+                    $query->whereIn('nama_bidang', $user->karyawan->bidang->pluck('nama_bidang'));
+                })->with(['persentasekinerja', 'kinerja' => function($q) use($bulan) {
+                    $q->where('bulan', $bulan);
+                }])->latest();
+        }
 
         return Datatables::of($data)
             ->editColumn('no_induk', function($data) {

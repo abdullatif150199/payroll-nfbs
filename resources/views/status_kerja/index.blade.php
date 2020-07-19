@@ -69,7 +69,7 @@
             serverSide: true,
             processing: true,
             // select: true,
-            ajax: '{{ route('dash.getStatusKerja') }}',
+            ajax: '{{ route('dash.statusKerja.datatable') }}',
             columns: [
                 {data: 'nama_status_kerja'},
                 {data: 'persentase'},
@@ -90,7 +90,7 @@
         });
 
         function editStatusKerja(id) {
-            var url = '{{ route('dash.editStatusKerja', ':id') }}';
+            var url = '{{ route('dash.statusKerja.edit', ':id') }}';
             url = url.replace(':id', id);
             $('input[name=_method]').val('PUT');
             $('#formStatusKerja form')[0].reset();
@@ -115,9 +115,9 @@
             var save_method = $('input[name=_method]').val();
 
             if (save_method == 'POST') {
-                url = '{{ route('dash.storeStatusKerja') }}';
+                url = '{{ route('dash.statusKerja.store') }}';
             } else {
-                url_raw = '{{ route('dash.updateStatusKerja', ':id') }}';
+                url_raw = '{{ route('dash.statusKerja.update', ':id') }}';
                 url = url_raw.replace(':id', id);
             }
 
@@ -136,7 +136,7 @@
         });
 
         function hapusStatusKerja(id) {
-            var url = '{{ route("dash.hapusStatusKerja", ":id") }}';
+            var url = '{{ route('dash.statusKerja.destroy', ':id') }}';
             url = url.replace(':id', id);
             $('#hapusStatusKerja .modal-body').text('Yakin ingin menghapus?');
             $('#hapusStatusKerja form').attr('action', url);

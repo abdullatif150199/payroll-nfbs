@@ -70,7 +70,7 @@
             serverSide: true,
             processing: true,
             // select: true,
-            ajax: '{{ route('dash.getPersentaseKinerja') }}',
+            ajax: '{{ route('dash.persentaseKinerja.datatable') }}',
             columns: [
                 {data: 'title'},
                 {data: 'persen'},
@@ -91,7 +91,7 @@
         });
 
         function editPersentaseKinerja(id) {
-            var url = '{{ route('dash.editPersentaseKinerja', ':id') }}';
+            var url = '{{ route('dash.persentaseKinerja.edit', ':id') }}';
             url = url.replace(':id', id);
             $('input[name=_method]').val('PUT');
             $('#formPersentaseKinerja form')[0].reset();
@@ -116,9 +116,9 @@
             var save_method = $('input[name=_method]').val();
 
             if (save_method == 'POST') {
-                url = '{{ route('dash.storePersentaseKinerja') }}';
+                url = '{{ route('dash.persentaseKinerja.store') }}';
             } else {
-                url_raw = '{{ route('dash.updatePersentaseKinerja', ':id') }}';
+                url_raw = '{{ route('dash.persentaseKinerja.update', ':id') }}';
                 url = url_raw.replace(':id', id);
             }
 
@@ -137,7 +137,7 @@
         });
 
         function hapusPersentaseKinerja(id) {
-            var url = '{{ route("dash.hapusPersentaseKinerja", ":id") }}';
+            var url = '{{ route('dash.persentaseKinerja.destroy', ':id') }}';
             url = url.replace(':id', id);
             $('#hapusPersentaseKinerja .modal-body').text('Yakin ingin menghapus?');
             $('#hapusPersentaseKinerja form').attr('action', url);

@@ -40,7 +40,7 @@ Route::group(['prefix' => 'profile', 'as' => 'profile.', 'middleware' => ['auth'
 });
 
 Route::group(['prefix' => 'dashboard', 'as' => 'dash.', 'middleware' => ['auth']], function () {
-    Route::group(['middleware' => ['role:root|admin']], function () {
+    Route::group(['middleware' => ['role:root|admin|kepala-bidang']], function () {
         Route::get('/', 'HomeController@index')->name('home');
 
         // Karyawan

@@ -69,7 +69,7 @@
             serverSide: true,
             processing: true,
             // select: true,
-            ajax: '{{ route('dash.getJamPerpekan') }}',
+            ajax: '{{ route('dash.jamPerpekan.datatable') }}',
             columns: [
                 {data: 'keterangan'},
                 {data: 'jml_jam'},
@@ -90,7 +90,7 @@
         });
 
         function editJamPerpekan(id) {
-            var url = '{{ route('dash.editJamPerpekan', ':id') }}';
+            var url = '{{ route('dash.jamPerpekan.edit', ':id') }}';
             url = url.replace(':id', id);
             $('input[name=_method]').val('PUT');
             $('#formJamPerpekan form')[0].reset();
@@ -116,9 +116,9 @@
             var save_method = $('input[name=_method]').val();
 
             if (save_method == 'POST') {
-                url = '{{ route('dash.storeJamPerpekan') }}';
+                url = '{{ route('dash.jamPerpekan.store') }}';
             } else {
-                url_raw = '{{ route('dash.updateJamPerpekan', ':id') }}';
+                url_raw = '{{ route('dash.jamPerpekan.update', ':id') }}';
                 url = url_raw.replace(':id', id);
             }
 
@@ -137,7 +137,7 @@
         });
 
         function hapusJamPerpekan(id) {
-            var url = '{{ route("dash.hapusJamPerpekan", ":id") }}';
+            var url = '{{ route('dash.jamPerpekan.destroy', ':id') }}';
             url = url.replace(':id', id);
             $('#hapusJamPerpekan .modal-body').text('Yakin ingin menghapus?');
             $('#hapusJamPerpekan form').attr('action', url);

@@ -69,7 +69,7 @@
             serverSide: true,
             processing: true,
             // select: true,
-            ajax: '{{ route('dash.getUnit') }}',
+            ajax: '{{ route('dash.unit.datatable') }}',
             columns: [
                 {data: 'nama_unit'},
                 {data: 'jml_peserta'},
@@ -90,7 +90,7 @@
         });
 
         function editUnit(id) {
-            var url = '{{ route('dash.editUnit', ':id') }}';
+            var url = '{{ route('dash.unit.edit', ':id') }}';
             url = url.replace(':id', id);
             $('input[name=_method]').val('PUT');
             $('#formUnit form')[0].reset();
@@ -115,9 +115,9 @@
             var save_method = $('input[name=_method]').val();
 
             if (save_method == 'POST') {
-                url = '{{ route('dash.storeUnit') }}';
+                url = '{{ route('dash.unit.store') }}';
             } else {
-                url_raw = '{{ route('dash.updateUnit', ':id') }}';
+                url_raw = '{{ route('dash.unit.update', ':id') }}';
                 url = url_raw.replace(':id', id);
             }
 
@@ -136,7 +136,7 @@
         });
 
         function hapusUnit(id) {
-            var url = '{{ route("dash.hapusUnit", ":id") }}';
+            var url = '{{ route('dash.unit.destroy', ':id') }}';
             url = url.replace(':id', id);
             $('#hapusUnit .modal-body').text('Yakin ingin menghapus?');
             $('#hapusUnit form').attr('action', url);

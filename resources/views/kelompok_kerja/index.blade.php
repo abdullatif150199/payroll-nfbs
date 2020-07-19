@@ -69,7 +69,7 @@
             serverSide: true,
             processing: true,
             // select: true,
-            ajax: '{{ route('dash.getKelompokKerja') }}',
+            ajax: '{{ route('dash.kelompokKerja.datatable') }}',
             columns: [
                 {data: 'grade'},
                 {data: 'peserta'},
@@ -90,7 +90,7 @@
         });
 
         function editKelompok(id) {
-            var url = '{{ route('dash.editKelompokKerja', ':id') }}';
+            var url = '{{ route('dash.kelompokKerja.edit', ':id') }}';
             url = url.replace(':id', id);
             $('input[name=_method]').val('PUT');
             $('#formKelompok form')[0].reset();
@@ -116,9 +116,9 @@
             var save_method = $('input[name=_method]').val();
 
             if (save_method == 'POST') {
-                url = '{{ route('dash.storeKelompokKerja') }}';
+                url = '{{ route('dash.kelompokKerja.store') }}';
             } else {
-                url_raw = '{{ route('dash.updateKelompokKerja', ':id') }}';
+                url_raw = '{{ route('dash.kelompokKerja.update', ':id') }}';
                 url = url_raw.replace(':id', id);
             }
 

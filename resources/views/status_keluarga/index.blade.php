@@ -70,7 +70,7 @@
             serverSide: true,
             processing: true,
             // select: true,
-            ajax: '{{ route('dash.getStatusKeluarga') }}',
+            ajax: '{{ route('dash.statusKeluarga.datatable') }}',
             columns: [
                 {data: 'status'},
                 {data: 'persentase'},
@@ -91,7 +91,7 @@
         });
 
         function editStatusKeluarga(id) {
-            var url = '{{ route('dash.editStatusKeluarga', ':id') }}';
+            var url = '{{ route('dash.statusKeluarga.edit', ':id') }}';
             url = url.replace(':id', id);
             $('input[name=_method]').val('PUT');
             $('#formStatusKeluarga form')[0].reset();
@@ -116,9 +116,9 @@
             var save_method = $('input[name=_method]').val();
 
             if (save_method == 'POST') {
-                url = '{{ route('dash.storeStatusKeluarga') }}';
+                url = '{{ route('dash.statusKeluarga.store') }}';
             } else {
-                url_raw = '{{ route('dash.updateStatusKeluarga', ':id') }}';
+                url_raw = '{{ route('dash.statusKeluarga.update', ':id') }}';
                 url = url_raw.replace(':id', id);
             }
 
@@ -137,7 +137,7 @@
         });
 
         function hapusStatusKeluarga(id) {
-            var url = '{{ route("dash.hapusStatusKeluarga", ":id") }}';
+            var url = '{{ route('dash.statusKeluarga.destroy', ':id') }}';
             url = url.replace(':id', id);
             $('#hapusStatusKeluarga .modal-body').text('Yakin ingin menghapus?');
             $('#hapusStatusKeluarga form').attr('action', url);

@@ -66,7 +66,7 @@
             serverSide: true,
             processing: true,
             select: true,
-            ajax: '{{ route('dash.getPotongan') }}',
+            ajax: '{{ route('dash.potongan.datatable') }}',
             columns: [
                 {data: 'no_induk'},
                 {data: 'nama_lengkap'},
@@ -114,7 +114,7 @@
     }
 
     function editPotongan(id) {
-        var url = '{{ route("dash.editPotongan", ":id") }}';
+        var url = '{{ route('dash.potongan.edit', ':id') }}';
         url = url.replace(':id', id);
         $('input[name=_method]').val('PUT');
         $('#formPotongan form')[0].reset();
@@ -178,9 +178,9 @@
         var save_method = $('input[name=_method]').val();
 
         if (save_method == 'POST') {
-            url = '{{ route('dash.storePotongan') }}';
+            url = '{{ route('dash.potongan.store') }}';
         } else {
-            url_raw = '{{ route('dash.updatePotongan', ':id') }}';
+            url_raw = '{{ route('dash.potongan.update', ':id') }}';
             url = url_raw.replace(':id', id);
             console.log(id);
         }
@@ -201,7 +201,7 @@
     });
 
     function hapusPotongan(id, name) {
-        var url = '{{ route("dash.hapusPotongan", ":id") }}';
+        var url = '{{ route('dash.potongan.destroy', ':id') }}';
         url = url.replace(':id', id);
         $('.modal-title').text('Hapus Potongan ' + name);
         $('input[name=_method]').val('DELETE');
@@ -224,7 +224,7 @@
     }
 
     function tambahPotongan(id_karyawan) {
-        var url = '{{ route("dash.showPotonganKaryawan", ":id") }}';
+        var url = '{{ route('dash.potongan.show', ':id') }}';
         url = url.replace(':id', id_karyawan);
         $('#tambahPotongan form')[0].reset();
         $.ajax({
@@ -232,7 +232,7 @@
             type: 'GET',
             dataType: 'JSON',
             success: function(data) {
-                var urlp = '{{ route("dash.attachPotongan", ":id") }}';
+                var urlp = '{{ route('dash.potongan.attach', ':id') }}';
                 url = urlp.replace(':id', data.id);
                 $('.modal-title').text('Tambah Potongan ' + data.nama_lengkap);
                 $('#tambahPotongan form').attr('action', url);
@@ -252,9 +252,9 @@
     }
 
     function deleteModal(potongan_id, name, karyawan_id) {
-        var url = '{{ route("dash.editPotongan", ":potongan_id") }}';
+        var url = '{{ route('dash.potongan.edit', ':potongan_i') }}';
         url = url.replace(':potongan_id', potongan_id);
-        var url_delete = "{{ route('dash.detachPotongan', ['potongan_id' => ':potongan_id', 'karyawan_id' => ':karyawan_id']) }}";
+        var url_delete = '{{ route('dash.potongan.detach', ['potongan_id' => ':potongan_id', 'karyawan_id' => ':karyawan_id']) }}';
         url_delete = url_delete.replace(':potongan_id', potongan_id);
         url_delete = url_delete.replace(':karyawan_id', karyawan_id);
         $('.modal-title').text('Warning!');

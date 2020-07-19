@@ -50,10 +50,13 @@
                         </div>
                     </form>
                 </h3>
+                @can('tambah karyawan')
                 <div class="card-options">
                     <a href="#modalCreate" data-toggle="modal" data-backdrop="static" class="btn btn-primary"><i
-                            class="fe fe-plus"></i> Tambah</a>
+                            class="fe fe-plus"></i>
+                        Tambah</a>
                 </div>
+                @endcan
             </div>
             <div class="table-responsive">
                 <table class="table card-table table-vcenter text-nowra" id="karyawanTable">
@@ -171,6 +174,8 @@
                 $('#no_rekening').val(data.no_rekening);
                 $('#rekening_atas_nama').val(data.rekening_atas_nama);
                 $('#status_kerja').val(data.status_kerja_id);
+                $('#kelompok_kerja').val(data.kelompok_kerja_id);
+                $('#jam_perpekan').val(data.jam_perpekan_id);
                 $('#status').val(data.status);
                 $('#modalEdit').modal('show');
             },

@@ -71,7 +71,7 @@
             serverSide: true,
             processing: true,
             // select: true,
-            ajax: '{{ route('dash.getNilaiKinerja') }}',
+            ajax: '{{ route('dash.nilaiKinerja.datatable') }}',
             columns: [
                 {data: 'nilai'},
                 {data: 'min_persen'},
@@ -93,7 +93,7 @@
         });
 
         function editNilaiKinerja(id) {
-            var url = '{{ route('dash.editNilaiKinerja', ':id') }}';
+            var url = '{{ route('dash.nilaiKinerja.edit', ':id') }}';
             url = url.replace(':id', id);
             $('input[name=_method]').val('PUT');
             $('#formNilaiKinerja form')[0].reset();
@@ -122,10 +122,10 @@
             console.log(save_method);
 
             if (save_method == 'POST') {
-                url = '{{ route('dash.storeNilaiKinerja') }}';
+                url = '{{ route('dash.nilaiKinerja.store') }}';
             } else {
                 console.log('masuk sini')
-                url_raw = '{{ route('dash.updateNilaiKinerja', ':id') }}';
+                url_raw = '{{ route('dash.nilaiKinerja.update', ':id') }}';
                 url = url_raw.replace(':id', id);
             }
 
@@ -144,7 +144,7 @@
         });
 
         function hapusNilaiKinerja(id) {
-            var url = '{{ route("dash.hapusNilaiKinerja", ":id") }}';
+            var url = '{{ route('dash.nilaiKinerja.destroy', ':id') }}';
             url = url.replace(':id', id);
             $('#hapusNilaiKinerja .modal-body').text('Yakin ingin menghapus?');
             $('#hapusNilaiKinerja form').attr('action', url);

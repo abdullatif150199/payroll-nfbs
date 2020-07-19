@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Yajra\Datatables\Datatables;
+use Illuminate\Database\Eloquent\Builder;
 use App\Models\User;
 
 class UserController extends Controller
@@ -15,7 +16,9 @@ class UserController extends Controller
 
     public function datatable()
     {
-        $data = User::all();
+        $data = User::with('roles')->whereDoesntHave('roles', function (Builder $query) {
+            $query->where('name', 'root');
+        })->get();
 
         return Datatables::of($data)
             ->editColumn('role', function($data) {

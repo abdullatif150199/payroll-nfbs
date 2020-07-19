@@ -4,9 +4,12 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Http\Requests\KaryawanFormRequest;
+use Illuminate\Database\Eloquent\Builder;
 use Yajra\Datatables\Datatables;
 use App\Models\Karyawan;
 use App\Models\StatusKerja;
+use App\Models\KelompokKerja;
+use App\Models\JamPerpekan;
 use App\Models\Golongan;
 use App\Models\Jabatan;
 use App\Models\Bidang;
@@ -23,22 +26,35 @@ class KaryawanController extends Controller
         $jabatan = Jabatan::select('id', 'nama_jabatan')->get();
         $unit = Unit::select('id', 'nama_unit')->get();
         $status_kerja = StatusKerja::select('id', 'nama_status_kerja')->get();
-        // $a = Karyawan::find(1);
-        // dd($a->unit);
+        $kelompok_kerja = KelompokKerja::select('id', 'grade')->get();
+        $jam_perpekan = JamPerpekan::select('id', 'jml_jam', 'keterangan')->get();
+
         return view('karyawan.index', [
             'title' => $title,
             'golongan' => $golongan,
             'jabatan' => $jabatan,
             'bidang' => $bidang,
             'unit' => $unit,
-            'status_kerja' => $status_kerja
+            'status_kerja' => $status_kerja,
+            'kelompok_kerja' => $kelompok_kerja,
+            'jam_perpekan' => $jam_perpekan
         ]);
     }
 
     public function name(Request $request)
     {
-        $data = Karyawan::with('persentasekinerja')->select('id', 'nama_lengkap', 'no_induk')
-            ->where('nama_lengkap', 'LIKE', '%'.$request->q.'%')->get();
+        $user = auth()->user();
+
+        if ($user->hasRole(['admin', 'root'])) {
+            $data = Karyawan::with('persentasekinerja')->select('id', 'nama_lengkap', 'no_induk')
+                ->where('nama_lengkap', 'LIKE', '%'.$request->q.'%')->get();
+        } else {
+            $data = Karyawan::with('persentasekinerja')->select('id', 'nama_lengkap', 'no_induk')
+                ->where('nama_lengkap', 'LIKE', '%'.$request->q.'%')
+                ->whereHas('bidang', function (Builder $query) use($user) {
+                    $query->whereIn('nama_bidang', $user->karyawan->bidang->pluck('nama_bidang'));
+                })->get();
+        }
 
         return response()->json($data);
     }
@@ -102,6 +118,8 @@ class KaryawanController extends Controller
             'golongan_id' => $request->golongan,
             'jabatan_id' => $request->jabatan,
             'status_kerja_id' => $request->status_kerja,
+            'kelompok_kerja_id' => $request->kelompok_kerja,
+            'jam_perpekan_id' => $request->jam_perpekan,
             'tanggal_lahir' => $request->birth['year'].'-'.$request->birth['month'].'-'.$request->birth['day'],
             'tanggal_masuk' => $request->tanggal_masuk['year'].'-'.$request->tanggal_masuk['month'].'-'.$request->tanggal_masuk['day'],
             'no_hp' => str_replace(' ', '', $request->no_hp)
@@ -138,7 +156,15 @@ class KaryawanController extends Controller
 
     public function edit($id)
     {
-        $data = Karyawan::with(['bidang', 'unit'])->find($id);
+        $data = Karyawan::with([
+            'bidang',
+            'unit',
+            'golongan',
+            'jabatan',
+            'kelompokkerja',
+            'statuskerja',
+            'jamPerpekan'
+        ])->find($id);
 
         $data['bidang'] = $data->bidang;
         $data['unit'] = $data->unit;
@@ -152,6 +178,8 @@ class KaryawanController extends Controller
             'golongan_id' => $request->golongan,
             'jabatan_id' => $request->jabatan,
             'status_kerja_id' => $request->status_kerja,
+            'kelompok_kerja_id' => $request->kelompok_kerja,
+            'jam_perpekan_id' => $request->jam_perpekan,
             'tanggal_lahir' => $request->birth['year'].'-'.$request->birth['month'].'-'.$request->birth['day'],
             'tanggal_masuk' => $request->tanggal_masuk['year'].'-'.$request->tanggal_masuk['month'].'-'.$request->tanggal_masuk['day'],
             'tanggal_keluar' => $request->tanggal_keluar['year'].'-'.$request->tanggal_keluar['month'].'-'.$request->tanggal_keluar['day'],

@@ -193,7 +193,7 @@
         <div class="card">
             <div class="card-header">
                 <h3 class="card-title">
-                    <form class="form-inline" action="{{ route('dash.getKinerja') }}" method="post">
+                    <form class="form-inline" action="{{ route('dash.kinerja.datatable') }}" method="post">
                         <label for="month" class="mr-sm-3">Bulan </label>
                         <div class="row gutters-xs">
                             <div class="col">
@@ -264,7 +264,7 @@
         processing: true,
         select: true,
         ajax: {
-            url: '{{ route('dash.getKinerja') }}',
+            url: '{{ route('dash.kinerja.datatable') }}',
             data: function (d) {
                 d.bulan = $('select[name=year]').val() + '-' + $('select[name=month]').val();
             }
@@ -308,7 +308,7 @@
     }
 
     function tambahKinerja(id_karyawan) {
-        var url = '{{ route("dash.showKinerjaKaryawan", ":id") }}';
+        var url = '{{ route('dash.kinerja.show', ':id') }}';
         url = url.replace(':id', id_karyawan);
         $('#tambahKinerja form')[0].reset();
         $.ajax({
@@ -316,7 +316,7 @@
             type: 'GET',
             dataType: 'JSON',
             success: function(data) {
-                var urlp = '{{ route("dash.attachKinerja", ":id") }}';
+                var urlp = '{{ route('dash.kinerja.attach', ':id') }}';
                 url = urlp.replace(':id', data.id);
                 $('.modal-title').text('Tambah Kinerja ' + data.nama_lengkap);
                 $('#tambahKinerja form').attr('action', url);
@@ -352,7 +352,7 @@
             allowClear: true,
             minimumInputLength: 2,
             ajax: {
-                url: '{{ route("dash.getName") }}',
+                url: '{{ route('dash.karyawan.name') }}',
                 dataType: 'json',
                 processResults: function (data) {
                     return {
@@ -383,7 +383,7 @@
     }
 
     function editKinerja(id) {
-        var url = '{{ route('dash.editKinerja', ':id') }}';
+        var url = '{{ route('dash.kinerja.edit', ':id') }}';
         url = url.replace(':id', id);
         $('input[name=_method]').val('PUT');
         $('#select2').hide();
@@ -413,9 +413,9 @@
         var save_method = $('input[name=_method]').val();
 
         if (save_method == 'POST') {
-            url = '{{ route('dash.storeKinerja') }}';
+            url = '{{ route('dash.kinerja.store') }}';
         } else {
-            url_raw = '{{ route('dash.updateKinerja', ':id') }}';
+            url_raw = '{{ route('dash.kinerja.update', ':id') }}';
             url = url_raw.replace(':id', id);
         }
 
@@ -434,7 +434,7 @@
     });
 
     function hapusKinerja(id) {
-        var url = '{{ route("dash.hapusKinerja", ":id") }}';
+        var url = '{{ route('dash.kinerja.destroy', ':id') }}';
         url = url.replace(':id', id);
         $('#hapusKinerja .modal-body').text('Yakin ingin menghapus?');
         $('#hapusKinerja form').attr('action', url);

@@ -202,30 +202,6 @@
                         </div>
                         <div class="col-md-3">
                             <div class="form-group">
-                                <label class="form-label">Status Kerja</label>
-                                <select name="status_kerja" class="form-control custom-select" required>
-                                    <option value="">Pilih</option>
-                                    @foreach ($status_kerja as $stat)
-                                    <option value="{{ $stat->id }}">{{ $stat->nama_status_kerja }}</option>
-                                    @endforeach
-                                </select>
-                            </div>
-                        </div>
-                        <div class="col-md-3">
-                            <div class="form-group">
-                                <label class="form-label">Status</label>
-                                <select name="status" class="form-control custom-select">
-                                    <option value="">Pilih</option>
-                                    <option value="1">Guru</option>
-                                    <option value="2">Non Guru</option>
-                                </select>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="row">
-                        <div class="col-md-3">
-                            <div class="form-group">
                                 <label class="form-label">Golongan</label>
                                 <select class="form-control custom-select" name="golongan" required>
                                     <option value="">Pilih</option>
@@ -246,7 +222,10 @@
                                 </select>
                             </div>
                         </div>
-                        <div class="col-md-3">
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-6">
                             <div class="form-group">
                                 <label class="form-label">Bidang</label>
                                 <select class="form-control custom-select selectize-select" name="bidang[]" required>
@@ -257,13 +236,60 @@
                                 </select>
                             </div>
                         </div>
-                        <div class="col-md-3">
+                        <div class="col-md-6">
                             <div class="form-group">
                                 <label class="form-label">Unit</label>
                                 <select class="form-control custom-select selectize-select" name="unit[]" required>
                                     <option value="">Pilih</option>
                                     @foreach ($unit as $uni)
                                     <option value="{{ $uni->id }}">{{ $uni->nama_unit }}</option>
+                                    @endforeach
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-3">
+                            <div class="form-group">
+                                <label class="form-label">Status Kerja</label>
+                                <select name="status_kerja" class="form-control custom-select" required>
+                                    <option value="">Pilih</option>
+                                    @foreach ($status_kerja as $stat)
+                                    <option value="{{ $stat->id }}">{{ $stat->nama_status_kerja }}</option>
+                                    @endforeach
+                                </select>
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                            <div class="form-group">
+                                <label class="form-label">Kelompok Kerja</label>
+                                <select name="kelompok_kerja" class="form-control custom-select" required>
+                                    <option value="">Pilih</option>
+                                    @foreach ($kelompok_kerja as $kel)
+                                    <option value="{{ $kel->id }}">{{ $kel->grade }}</option>
+                                    @endforeach
+                                </select>
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                            <div class="form-group">
+                                <label class="form-label">Status Karyawan</label>
+                                <select name="status" class="form-control custom-select">
+                                    <option value="">Pilih</option>
+                                    <option value="1">Guru</option>
+                                    <option value="2">Non Guru</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                            <div class="form-group">
+                                <label class="form-label">Jam Kerja Per Pekan</label>
+                                <select name="jam_perpekan" class="form-control custom-select" required>
+                                    <option value="">Pilih</option>
+                                    @foreach ($jam_perpekan as $jam)
+                                    <option value="{{ $jam->id }}">{{ $jam->jml_jam . ' (' . $jam->keterangan .')' }}
+                                    </option>
                                     @endforeach
                                 </select>
                             </div>
@@ -604,6 +630,56 @@
                     </div>
 
                     <div class="row">
+                        <div class="col-md-3">
+                            <div class="form-group">
+                                <label class="form-label">Status Kerja</label>
+                                <select name="status_kerja" id="status_kerja" class="form-control custom-select"
+                                    required>
+                                    <option value="">Pilih</option>
+                                    @foreach ($status_kerja as $stat)
+                                    <option value="{{ $stat->id }}">{{ $stat->nama_status_kerja }}</option>
+                                    @endforeach
+                                </select>
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                            <div class="form-group">
+                                <label class="form-label">Kelompok Kerja</label>
+                                <select name="kelompok_kerja" id="kelompok_kerja" class="form-control custom-select"
+                                    required>
+                                    <option value="">Pilih</option>
+                                    @foreach ($kelompok_kerja as $kel)
+                                    <option value="{{ $kel->id }}">{{ $kel->grade }}</option>
+                                    @endforeach
+                                </select>
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                            <div class="form-group">
+                                <label class="form-label">Status Karyawan</label>
+                                <select name="status" id="status" class="form-control custom-select">
+                                    <option value="">Pilih</option>
+                                    <option value="1">Guru</option>
+                                    <option value="2">Non Guru</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                            <div class="form-group">
+                                <label class="form-label">Jam Kerja Per Pekan</label>
+                                <select name="jam_perpekan" id="jam_perpekan" class="form-control custom-select"
+                                    required>
+                                    <option value="">Pilih</option>
+                                    @foreach ($jam_perpekan as $jam)
+                                    <option value="{{ $jam->id }}">{{ $jam->jml_jam . ' (' . $jam->keterangan .')' }}
+                                    </option>
+                                    @endforeach
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row">
                         <div class="col-md-4">
                             <div class="form-group">
                                 <label class="form-label">Nama Bank</label>
@@ -622,32 +698,6 @@
                                 <label class="form-label">Rekening Atas Nama</label>
                                 <input type="text" name="rekening_atas_nama" class="form-control"
                                     id="rekening_atas_nama">
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="row">
-                        <div class="col-md-6">
-                            <div class="form-group">
-                                <label class="form-label">Status Kerja</label>
-                                <select name="status_kerja" class="form-control custom-select" id="status_kerja"
-                                    required>
-                                    <option value="">Pilih</option>
-                                    @foreach ($status_kerja as $stat)
-                                    <option value="{{ $stat->id }}">{{ $stat->nama_status_kerja }}</option>
-                                    @endforeach
-                                </select>
-                            </div>
-                        </div>
-                        <div class="col-md-6">
-                            <div class="form-group">
-                                <label class="form-label">Status</label>
-                                <select name="status" class="form-control custom-select" id="status">
-                                    <option value="">Pilih</option>
-                                    <option value="1">Guru</option>
-                                    <option value="2">Non Guru</option>
-                                    <option value="3">Berhenti</option>
-                                </select>
                             </div>
                         </div>
                     </div>

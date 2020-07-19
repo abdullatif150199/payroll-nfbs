@@ -33,7 +33,7 @@
     <div class="col-12">
         <div class="card">
             <div class="card-header">
-                <form class="form-inline" action="{{ route('dash.getKehadiran') }}" method="post">
+                <form class="form-inline" action="{{ route('dash.kehadiran.datatable') }}" method="post">
                     <label for="month" class="mr-sm-3">Tanggal</label>
                     <div class="row gutters-xs">
                         <div class="col">
@@ -111,7 +111,7 @@
         processing: true,
         select: true,
         ajax: {
-            url: '{{ route('dash.getKehadiran') }}',
+            url: '{{ route('dash.kehadiran.datatable') }}',
             data: function (d) {
                 d.tanggal = $('select[name=year]').val() + '-' + $('select[name=month]').val() + '-' + $('select[name=day]').val();
             }
@@ -129,7 +129,7 @@
     });
 
     function editKehadiran(id) {
-        var url = '{{ route('dash.editKehadiran', ':id') }}';
+        var url = '{{ route('dash.kehadiran.edit', ':id') }}';
         url = url.replace(':id', id);
         $('input[name=_method]').val('PUT');
         $('#formKehadiran form')[0].reset();
@@ -160,7 +160,7 @@
         var id = $('input[name=id]').val();
         var save_method = $('input[name=_method]').val();
 
-        url_raw = '{{ route('dash.updateKehadiran', ':id') }}';
+        url_raw = '{{ route('dash.kehadiran.update', ':id') }}';
         url = url_raw.replace(':id', id);
 
         $.ajax({
