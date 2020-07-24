@@ -86,7 +86,13 @@
                                                     <td width="1"><i
                                                             class="{{ Route::is('dash.setting') ? 'fa fa-circle' : 'fa fa-circle-o' }} text-primary"></i>
                                                     </td>
-                                                    <td><a href="{{ route('dash.setting') }}">Users</a></td>
+                                                    <td><a href="{{ route('dash.setting') }}">General</a></td>
+                                                </tr>
+                                                <tr>
+                                                    <td width="1"><i
+                                                            class="{{ Route::is('dash.user') ? 'fa fa-circle' : 'fa fa-circle-o' }} text-primary"></i>
+                                                    </td>
+                                                    <td><a href="{{ route('dash.user') }}">Users</a></td>
                                                 </tr>
                                                 <tr>
                                                     <td width="1"><i
@@ -105,6 +111,12 @@
                                                             class="{{ Route::is('dash.unit') ? 'fa fa-circle' : 'fa fa-circle-o' }} text-primary"></i>
                                                     </td>
                                                     <td><a href="{{ route('dash.unit') }}">Unit</a></td>
+                                                </tr>
+                                                <tr>
+                                                    <td width="1"><i
+                                                            class="{{ Route::is('dash.jabatan') ? 'fa fa-circle' : 'fa fa-circle-o' }} text-primary"></i>
+                                                    </td>
+                                                    <td><a href="{{ route('dash.jabatan') }}">Jabatan</a></td>
                                                 </tr>
                                                 <tr>
                                                     <td width="1"><i

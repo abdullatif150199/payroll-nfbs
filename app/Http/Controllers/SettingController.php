@@ -9,6 +9,7 @@ class SettingController extends Controller
     public function index()
     {
         $title = 'Setting';
+
         return view('setting.index', compact('title'));
     }
 }

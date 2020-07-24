@@ -17,8 +17,9 @@ class CreateJabatanTable extends Migration
             $table->increments('id');
             $table->string('nama_jabatan', 100);
             $table->decimal('tunjangan_jabatan', 10, 0);
-            $table->decimal('load', 10, 0);
+            $table->detinyIntegercimal('load');
             $table->tinyInteger('maksimal_jam')->nullable();
+            $table->tinyInteger('no_kode');
             $table->timestamps();
         });
     }

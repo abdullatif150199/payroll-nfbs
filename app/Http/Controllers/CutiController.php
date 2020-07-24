@@ -14,7 +14,7 @@ class CutiController extends Controller
         return view('cuti.index', ['title' => $title]);
     }
 
-    public function getCuti()
+    public function datatable()
     {
         $data = Cuti::with(['karyawan' => function($query) {
             $query->with('unit');

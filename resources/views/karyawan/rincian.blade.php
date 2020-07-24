@@ -42,8 +42,6 @@
                         aria-controls="v-pills-keluarga" aria-selected="false">Keluarga</a>
                     <a class="nav-link" id="v-pills-rekening-tab" data-toggle="pill" href="#v-pills-rekening" role="tab"
                         aria-controls="v-pills-rekening" aria-selected="false">Rekening</a>
-                    <a class="nav-link" id="v-pills-settings-tab" data-toggle="pill" href="#v-pills-settings" role="tab"
-                        aria-controls="v-pills-settings" aria-selected="false">Setting</a>
                 </div>
             </div>
         </div>
@@ -106,11 +104,8 @@
                     <div class="tab-pane fade" id="v-pills-rekening" role="tabpanel"
                         aria-labelledby="v-pills-rekening-tab">
                         <h3>Rekening</h3>
-                    </div>
-
-                    <div class="tab-pane fade" id="v-pills-settings" role="tabpanel"
-                        aria-labelledby="v-pills-settings-tab">
-                        <h3>Setting</h3>
+                        <p>{{ $data->nama_bank }}</p>
+                        <p>No. Rek: {{ $data->no_rekening }} a.n {{ $data->rekening_atas_nama }}</p>
                     </div>
                 </li>
             </ul>

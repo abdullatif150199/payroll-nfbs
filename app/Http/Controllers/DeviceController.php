@@ -4,8 +4,8 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Yajra\Datatables\Datatables;
-use App\Models\Device;
 use App\Libraries\EasyLink;
+use App\Models\Device;
 
 class DeviceController extends Controller
 {
@@ -19,10 +19,10 @@ class DeviceController extends Controller
         $data = Device::all();
 
         return Datatables::of($data)
-            ->editColumn('tipe', function($data) {
+            ->editColumn('tipe', function ($data) {
                 return $data->tipe == '2' ? 'shift|non shift' : 'non shift';
             })
-            ->addColumn('actions', function($data) {
+            ->addColumn('actions', function ($data) {
                 return view('device.actions', ['data' => $data]);
             })
             ->rawColumns(['tipe', 'actions'])

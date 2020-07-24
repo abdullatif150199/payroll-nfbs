@@ -101,9 +101,20 @@ Route::group(['prefix' => 'dashboard', 'as' => 'dash.', 'middleware' => ['auth']
         Route::delete('potongan/{potongan_id}/{karyawan_id}/delete', 'PotonganController@detach')->name('potongan.detach');
 
         Route::group(['prefix' => 'setting'], function () {
-            // Setting
-            Route::get('/', 'UserController@index')->name('setting');
+            // General
+            Route::get('/', 'Settingcontroller@index')->name('setting');
+
+            // User
+            Route::get('user', 'UserController@index')->name('user');
             Route::get('get-user', 'UserController@datatable')->name('user.datatable');
+
+            // Jabatan
+            Route::get('jabatan', 'JabatanController@index')->name('jabatan');
+            Route::get('get-jabatan', 'JabatanController@datatable')->name('jabatan.datatable');
+            Route::post('jabatan', 'JabatanController@store')->name('jabatan.store');
+            Route::get('jabatan/{jabatan}/edit', 'JabatanController@edit')->name('jabatan.edit');
+            Route::put('jabatan/{jabatan}', 'JabatanController@update')->name('jabatan.update');
+            Route::delete('jabatan/{jabatan}', 'JabatanController@destroy')->name('jabatan.destroy');
 
             // Golongan
             Route::get('golongan', 'GolonganController@index')->name('golongan');

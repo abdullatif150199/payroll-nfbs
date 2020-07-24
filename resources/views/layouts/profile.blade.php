@@ -86,25 +86,8 @@
                                             </a>
                                         </div>
                                     </div>
-                                    <div class="card">
-                                        <div class="card-header">
-                                            <h3 class="card-title">Social Media</h3>
-                                        </div>
-                                        <div class="card-body">
-                                            <div class="text-center">
-                                                <button type="button" class="btn btn-icon btn-facebook"><i
-                                                        class="fa fa-facebook"></i></button>
-                                                <button type="button" class="btn btn-icon btn-twitter"><i
-                                                        class="fa fa-twitter"></i></button>
-                                                <button type="button" class="btn btn-icon btn-google"><i
-                                                        class="fa fa-google"></i></button>
-                                                <button type="button" class="btn btn-icon btn-instagram"><i
-                                                        class="fa fa-instagram"></i></button>
-                                                <button type="button" class="btn btn-icon btn-green"><i
-                                                        class="fa fa-whatsapp"></i></button>
-                                            </div>
-                                        </div>
-                                    </div>
+                                    <button type="button" class="btn btn-primary btn-block mb-4">Evaluasi
+                                        Ibadah</button>
                                 </div>
                                 @yield('content')
                             </div>
