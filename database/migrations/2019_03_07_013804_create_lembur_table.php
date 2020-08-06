@@ -22,6 +22,7 @@ class CreateLemburTable extends Migration
             $table->string('keterangan', 225)->nullable();
             $table->timestamp('date');
             $table->enum('type', ['week', 'day', 'holi']);
+            $table->decimal('total_tarif', 14,0)->default(0);
             $table->timestamps();
         });
     }

@@ -40,24 +40,17 @@ class JamPerpekanController extends Controller
             'jml_hari' => 'required',
         ]);
 
-        $data = [
-            'keterangan' => $request->keterangan,
-            'jml_jam' => $request->jml_jam,
-            'jml_hari' => $request->jml_hari
-        ];
-
-        $store = JamPerpekan::create($data);
+        $store = JamPerpekan::create($request->all());
 
         return $store;
     }
 
-    public function edit($id)
+    public function edit(JamPerpekan $jam)
     {
-        $get = JamPerpekan::find($id);
-        return $get;
+        return $jam;
     }
 
-    public function update(Request $request, $id)
+    public function update(Request $request, JamPerpekan $jam)
     {
         $this->validate($request, [
             'keterangan' => 'required|min:2|max:10',
@@ -65,18 +58,14 @@ class JamPerpekanController extends Controller
             'jml_hari' => 'required',
         ]);
 
-        $update = JamPerpekan::find($id);
-        $update->keterangan = $request->keterangan;
-        $update->jml_jam = $request->jml_jam;
-        $update->jml_hari = $request->jml_hari;
-        $update->update();
+        $jam->update($request->all());
 
-        return $update;
+        return $jam;
     }
 
-    public function destroy($id)
+    public function destroy($jam)
     {
-        $get = JamPerpekan::with('karyawan')->findOrFail($id);
+        $get = JamPerpekan::with('karyawan')->findOrFail($jam);
 
         if ($get->karyawan->count() > 0) {
             return back()->withError($get->keterangan . ' tidak bisa dihapus');

@@ -9,13 +9,13 @@ class Karyawan extends Model
     protected $table = 'karyawan';
 
     protected $fillable = [
-        'user_id', 'golongan_id', 'jabatan_id', 'status_kerja_id', 'kelompok_kerja_id', 'no_induk', 'nik', 'nama_lengkap', 'jenis_kelamin', 'tempat_lahir', 'tanggal_lahir', 'status_pernikahan', 'alamat', 'no_hp', 'nama_pendidikan', 'pendidikan_terakhir', 'jurusan', 'tahun_lulus',
+        'user_id', 'golongan_id', 'status_kerja_id', 'kelompok_kerja_id', 'no_induk', 'nik', 'nama_lengkap', 'jenis_kelamin', 'tempat_lahir', 'tanggal_lahir', 'status_pernikahan', 'alamat', 'no_hp', 'nama_pendidikan', 'pendidikan_terakhir', 'jurusan', 'tahun_lulus',
         'tanggal_masuk', 'nama_bank', 'no_rekening', 'rekening_atas_nama', 'status', 'tipe_kerja', 'jam_perpekan_id'
     ];
 
     public function jabatan()
     {
-        return $this->belongsTo(Jabatan::class);
+        return $this->belongsToMany(Jabatan::class, 'jabatan_karyawan');
     }
 
     public function golongan()
@@ -120,12 +120,6 @@ class Karyawan extends Model
         return $this->golongan->gaji_pokok;
     }
 
-    // Get Tunjangan Jabatan
-    public function getTunjJabatanAttribute($value)
-    {
-        return $this->jabatan->tunjangan_jabatan;
-    }
-
     // Get Tunjangan Anak
     public function getTunjAnakAttribute($value)
     {
@@ -169,13 +163,30 @@ class Karyawan extends Model
     // Get Tunjangan Pendidikan Anak
     public function getTunjPendidikanAnakAttribute($value)
     {
-        return $this->keluarga()->anak()->sum('tunjangan_pendidikan');
+        return $this->keluarga()->tunjPendidikanAnak()->sum('tunjangan_pendidikan');
+    }
+
+    // Get Tunjangan Jabatan
+    public function getTunjJabatanAttribute($value)
+    {
+        return $this->jabatan->tunjangan_jabatan;
+    }
+
+    public function sumLoad()
+    {
+        return $this->jabatan()->sum('load');
     }
 
     // Get Tunjangan Struktural
     public function getTunjStrukturalAttribute($value)
     {
-        return (($this->total_load - $this->jabatan->maksimal_jam) * $this->jabatan->load);
+        if ($this->status == 1) {
+            $load = ($this->sumLoad() + $this->jamPerpekan->jml_jam_ngajar) - $this->jamPerpekan->jml_jam;
+
+            return $load > 0 ? ($load * setting('tarif_load')) : 0;
+        }
+
+        return ($this->sumLoad() * setting('tarif_load'));
     }
 
     // Get Tunjangan Fungsional
@@ -187,6 +198,11 @@ class Karyawan extends Model
     public function getGajiTotalAttribute()
     {
         return $this->gajitotalakhir->gaji_total;
+    }
+
+    public function scopeSumLembur($query, $bln)
+    {
+        return $query->lembur->where('status_keluarga_id', 3);
     }
 
 }

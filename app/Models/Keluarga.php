@@ -3,7 +3,6 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
-use Carbon\Carbon;
 
 class Keluarga extends Model
 {
@@ -43,13 +42,18 @@ class Keluarga extends Model
         return $query->where('status_keluarga_id', 2);
     }
 
+    public function scopeTunjPendidikanAnak($query)
+    {
+        return $query->where('status_keluarga_id', 3)->where('akhir_tunj_pendidikan', '>=', date('Y-m-d'));
+    }
+
     public function scopeTunjAnak($query)
     {
-        return $query->where('status_keluarga_id', 3)->where('akhir_tunj_keluarga', '>=', Carbon::now());
+        return $query->where('status_keluarga_id', 3)->where('akhir_tunj_keluarga', '>=', date('Y-m-d'));
     }
 
     public function scopeTunjIstri($query)
     {
-        return $query->where('status_keluarga_id', 2)->where('akhir_tunj_keluarga', '>=', Carbon::now());
+        return $query->where('status_keluarga_id', 2)->where('akhir_tunj_keluarga', '>=', date('Y-m-d'));
     }
 }

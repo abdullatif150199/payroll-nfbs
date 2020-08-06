@@ -196,9 +196,9 @@ Route::group(['prefix' => 'dashboard', 'as' => 'dash.', 'middleware' => ['auth']
             Route::get('jam-perpekan', 'JamPerpekanController@index')->name('jamPerpekan');
             Route::get('get-jam-perpekan', 'JamPerpekanController@datatable')->name('jamPerpekan.datatable');
             Route::post('jam-perpekan', 'JamPerpekanController@store')->name('jamPerpekan.store');
-            Route::get('jam-perpekan/{id}/edit', 'JamPerpekanController@edit')->name('jamPerpekan.edit');
-            Route::put('jam-perpekan/{id}', 'JamPerpekanController@update')->name('jamPerpekan.update');
-            Route::delete('jam-perpekan/{id}', 'JamPerpekanController@destroy')->name('jamPerpekan.destroy');
+            Route::get('jam-perpekan/{jam}/edit', 'JamPerpekanController@edit')->name('jamPerpekan.edit');
+            Route::put('jam-perpekan/{jam}', 'JamPerpekanController@update')->name('jamPerpekan.update');
+            Route::delete('jam-perpekan/{jam}', 'JamPerpekanController@destroy')->name('jamPerpekan.destroy');
         });
     });
 });

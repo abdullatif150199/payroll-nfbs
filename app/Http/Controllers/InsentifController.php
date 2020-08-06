@@ -11,6 +11,7 @@ class InsentifController extends Controller
 {
     public function index()
     {
+        ProcessPayroll::dispatch(\App\Models\Karyawan::find(3), '2020-07');
         $title = 'Insentif';
         return view('insentif.index', ['title' => $title]);
     }
@@ -51,17 +52,13 @@ class InsentifController extends Controller
 
         $bln = $request->year . '-' . $request->month;
 
-        $data = [
-            'karyawan_id' => $request->karyawan_id,
-            'jenis_insentif' => $request->jenis_insentif,
+        $request->merge([
             'bulan' => $bln,
-            'jumlah' => $request->jumlah,
-            'keterangan' => $request->keterangan
-        ];
+        ]);
 
-        $store = Insentif::create($data);
+        $store = Insentif::create($request->all());
 
-        ProcessPayroll::dispatch($data, $bln);
+        ProcessPayroll::dispatch($store->karyawan, $bln);
 
         return $store;
     }

@@ -2,12 +2,12 @@
 
 namespace App\Jobs;
 
-use App\Models\Karyawan;
 use Illuminate\Bus\Queueable;
 use Illuminate\Queue\SerializesModels;
 use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Foundation\Bus\Dispatchable;
+use App\Models\Karyawan;
 
 class ProcessPayroll implements ShouldQueue
 {
@@ -34,6 +34,7 @@ class ProcessPayroll implements ShouldQueue
      */
     public function handle()
     {
+        dd($this->karyawan->tunj_hari_raya);
         $this->karyawan->gaji()->firstOrCreate([
             'bulan' => $this->bln,
         ],[
@@ -43,9 +44,9 @@ class ProcessPayroll implements ShouldQueue
             'tunj_pendidikan' => $this->karyawan->tunj_pendidikan_anak,
             'tunjangan_istri' => $this->karyawan->tunj_istri,
             'tunjangan_anak' => $this->karyawan->tunj_anak,
-            'tunjangan_hari_raya' => $this->karyawan->tunj_hari_raya,
+            // 'tunjangan_hari_raya' => $this->karyawan->tunj_hari_raya,
             'lembur' => $this->hitungLembur($this->karyawan, $this->bln),
-            'lain_lain' => 0,
+            // 'lain_lain' => 0,
             'insentif' => $this->karyawan->insentif()->bulan($this->bln)->sum('jumlah'),
             'potongan' => $this->potongan($this->karyawan),
             'gaji_total' => $this->gatot($this->karyawan, $this->bln)
