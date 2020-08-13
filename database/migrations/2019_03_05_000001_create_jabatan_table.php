@@ -14,10 +14,10 @@ class CreateJabatanTable extends Migration
     public function up()
     {
         Schema::create('jabatan', function (Blueprint $table) {
-            $table->increments('id');
+            $table->id();
             $table->string('nama_jabatan', 100);
             $table->decimal('tunjangan_jabatan', 10, 0)->default(0);
-            $table->detinyIntegercimal('load')->default(0);
+            $table->tinyInteger('load')->default(0);
             $table->tinyInteger('maksimal_jam')->default(0);
             $table->tinyInteger('no_kode')->default(0);
             $table->timestamps();

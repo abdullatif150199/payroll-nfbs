@@ -14,11 +14,11 @@ class CreateKeluargaTable extends Migration
     public function up()
     {
         Schema::create('keluarga', function (Blueprint $table) {
-            $table->increments('id');
-            $table->integer('karyawan_id')->unsigned();
+            $table->id('id');
+            $table->foreignId('karyawan_id');
             $table->foreign('karyawan_id')->references('id')->on('karyawan')->onDelete('cascade');
             $table->string('nama', 150);
-            $table->integer('status_keluarga_id')->unsigned();
+            $table->foreignId('status_keluarga_id');
             $table->foreign('status_keluarga_id')->references('id')->on('status_keluarga')->onDelete('cascade');
             $table->date('tanggal_lahir');
             $table->decimal('tunjangan_pendidikan', 10,0)->nullable();

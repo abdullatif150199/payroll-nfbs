@@ -79,7 +79,9 @@ class KaryawanController extends Controller
                 return '<span class="text-muted">'. $data->no_induk .'</span>';
             })
             ->editColumn('jabatan', function($data) {
-                return $data->jabatan->nama_jabatan;
+                return $data->jabatan->map(function($q) {
+                    return $q->nama_jabatan;
+                })->implode(',<br>');
             })
             ->editColumn('golongan', function($data) {
                 return $data->golongan->kode_golongan;

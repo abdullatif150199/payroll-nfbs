@@ -56,7 +56,7 @@ class Karyawan extends Model
 
     public function potongan()
     {
-        return $this->belongsToMany(Potongan::class, 'karyawan_potongan');
+        return $this->belongsToMany(Potongan::class, 'karyawan_potongan')->withPivot('end_at');
     }
 
     public function lembur()
@@ -195,14 +195,55 @@ class Karyawan extends Model
         return ($this->gaji_pokok * $this->kelompokKerja->persen);
     }
 
-    public function getGajiTotalAttribute()
+    public function getGajiTotalAttribute($value)
     {
-        return $this->gajitotalakhir->gaji_total;
+        $result = array_sum([
+            $this->gaji_pokok,
+            $this->tunj_struktural,
+            $this->tunj_fungsional,
+            $this->tunj_pendidikan_anak,
+            $this->tunj_istri,
+            $this->tunj_anak,
+            $this->lembur()->sumLembur($this->bln),
+            $this->insentif()->bulan($this->bln)->sum('jumlah')
+        ]);
+
+        return $result;
     }
 
-    public function scopeSumLembur($query, $bln)
+    // Get poTongan Karyawan $data == Karyawan
+    public function getSumPotonganAttribute($value)
     {
-        return $query->lembur->where('status_keluarga_id', 3);
+        $result = 0;
+
+        foreach ($this->potongan as $item) {
+            if ($item->type !== 'decimal') {
+                $arr = explode('*&', $item->jumlah_potongan);
+                dd($this->tunj_fungsional);
+                dd($arr[0] * ($this->gaji_pokok + $this->tunj_fungsional));
+
+                switch ($arr[1]) {
+                    case 'GATOT':
+                        $jml = $arr[0] * $this->gaji_total;
+                        $result += $jml;
+                        break;
+
+                    case 'GAFUN':
+                        $jml = $arr[0] * ($this->gaji_pokok + $this->tunj_fungsional);
+                        $result += $jml;
+                        break;
+
+                    default:
+                        $result = 0;
+                        break;
+                }
+            } else {
+                $jml = $item->jumlah_potongan;
+                $result += $jml;
+            }
+        }
+
+        return $result;
     }
 
 }

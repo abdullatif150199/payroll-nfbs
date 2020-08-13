@@ -14,8 +14,8 @@ class CreateKehadiranTable extends Migration
     public function up()
     {
         Schema::create('kehadiran', function (Blueprint $table) {
-            $table->increments('id');
-            $table->integer('karyawan_id')->unsigned();
+            $table->id();
+            $table->foreignId('karyawan_id');
             $table->foreign('karyawan_id')->references('id')->on('karyawan')->onDelete('cascade');
             $table->time('jam_masuk')->nullable();
             $table->time('jam_istirahat')->nullable();

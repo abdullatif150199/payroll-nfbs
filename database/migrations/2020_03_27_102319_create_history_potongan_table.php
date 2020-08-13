@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateBidangTable extends Migration
+class CreateHistoryPotonganTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,9 +13,12 @@ class CreateBidangTable extends Migration
      */
     public function up()
     {
-        Schema::create('bidang', function (Blueprint $table) {
+        Schema::create('history_potongan', function (Blueprint $table) {
             $table->id();
-            $table->string('nama_bidang', 150);
+            $table->foreignId('gaji_id');
+            $table->foreign('gaji_id')->references('id')->on('gaji')->onDelete('cascade');
+            $table->string('nama');
+            $table->decimal('jumlah', 14, 0)->default(0);
             $table->timestamps();
         });
     }
@@ -27,6 +30,6 @@ class CreateBidangTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('bidang');
+        Schema::dropIfExists('history_potongan');
     }
 }

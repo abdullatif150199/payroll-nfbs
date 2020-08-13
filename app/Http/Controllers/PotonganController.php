@@ -11,14 +11,23 @@ class PotonganController extends Controller
 {
     public function index()
     {
+        dd(Karyawan::find(1)->sum_potongan);
         $title = 'Potongan';
         $potongan = Potongan::all();
         return view('potongan.index', ['title' => $title, 'potongan' => $potongan]);
     }
 
+    public function name(Request $request)
+    {
+        $data = Potongan::select('id', 'nama_potongan')
+             ->where('nama_potongan', 'LIKE', '%'.$request->q.'%')->get();
+
+        return response()->json($data);
+    }
+
     public function datatable()
     {
-        $data = Karyawan::with('potongan')->latest();
+        $data = Karyawan::with('potongan')->get();
 
         return Datatables::of($data)
             ->addColumn('actions', function ($data) {
@@ -104,8 +113,8 @@ class PotonganController extends Controller
     public function attach(Request $request, $id)
     {
         $karyawan = Karyawan::with('potongan')->findOrFail($id);
-        $karyawan->potongan()->detach();
-        $karyawan->potongan()->attach($request->potongan);
+        $date = $request->end_at['year'].'-'.$request->end_at['month'].'-28';
+        $karyawan->potongan()->sync([$request->potongan_id => ['end_at' => $date]], false);
 
         return redirect()->back()->withSuccess("Potongan berhasil di tambahkan ke {$karyawan->nama_lengkap}.");
     }

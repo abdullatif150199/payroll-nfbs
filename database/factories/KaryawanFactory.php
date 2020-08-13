@@ -10,9 +10,6 @@ $factory->define(App\Models\Karyawan::class, function (Faker $faker) {
         'golongan_id' => function () {
             return App\Models\Golongan::inRandomOrder()->first()->id;
         },
-        'jabatan_id' => function () {
-            return App\Models\Jabatan::inRandomOrder()->first()->id;
-        },
         'status_kerja_id' => function () {
             return App\Models\StatusKerja::inRandomOrder()->first()->id;
         },

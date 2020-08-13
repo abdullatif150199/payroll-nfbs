@@ -11,7 +11,6 @@ class InsentifController extends Controller
 {
     public function index()
     {
-        ProcessPayroll::dispatch(\App\Models\Karyawan::find(3), '2020-07');
         $title = 'Insentif';
         return view('insentif.index', ['title' => $title]);
     }
@@ -47,7 +46,6 @@ class InsentifController extends Controller
         $this->validate($request, [
             'jenis_insentif' => 'required|min:1|max:10',
             'jumlah' => 'required|min:4|max:15'
-
         ]);
 
         $bln = $request->year . '-' . $request->month;
@@ -93,9 +91,7 @@ class InsentifController extends Controller
     public function destroy($id)
     {
         $get = Insentif::with('karyawan')->findOrFail($id);
-
         ProcessPayroll::dispatch($get->karyawan, $get->bulan);
-
         $get->delete();
 
         return back()->withSuccess('Insentif ' . $get->karyawan->nama_lengkap . ' berhasil dihapus!');

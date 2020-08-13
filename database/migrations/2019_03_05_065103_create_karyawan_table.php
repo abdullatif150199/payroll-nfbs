@@ -14,15 +14,15 @@ class CreateKaryawanTable extends Migration
     public function up()
     {
         Schema::create('karyawan', function (Blueprint $table) {
-            $table->increments('id');
+            $table->id();
             $table->string('pin', 10)->nullable();
-            $table->integer('user_id')->unsigned();
+            $table->foreignId('user_id');
             $table->foreign('user_id')->references('id')->on('users')->onDelete('restrict');
-            $table->integer('golongan_id')->unsigned();
+            $table->foreignId('golongan_id');
             $table->foreign('golongan_id')->references('id')->on('golongan')->onDelete('restrict');
-            $table->integer('status_kerja_id')->unsigned();
+            $table->foreignId('status_kerja_id');
             $table->foreign('status_kerja_id')->references('id')->on('status_kerja')->onDelete('restrict');
-            $table->integer('kelompok_kerja_id')->unsigned();
+            $table->foreignId('kelompok_kerja_id');
             $table->foreign('kelompok_kerja_id')->references('id')->on('kelompok_kerja')->onDelete('restrict');
             $table->char('no_induk', 6)->nullable();
             $table->char('nik', 16)->nullable();
@@ -45,7 +45,7 @@ class CreateKaryawanTable extends Migration
             $table->string('rekening_atas_nama', 150)->nullable();
             $table->enum('status', ['1', '2', '3'])->comment('1 == guru, 2 == non guru, 3 == berhenti');
             $table->enum('tipe_kerja', ['shift', 'non shift'])->default('non shift');
-            $table->integer('jam_perpekan_id')->unsigned();
+            $table->foreignId('jam_perpekan_id');
             $table->foreign('jam_perpekan_id')->references('id')->on('jam_perpekan')->onDelete('restrict');
             $table->timestamps();
         });

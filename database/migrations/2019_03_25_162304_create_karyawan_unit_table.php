@@ -14,8 +14,8 @@ class CreateKaryawanUnitTable extends Migration
     public function up()
     {
         Schema::create('karyawan_unit', function (Blueprint $table) {
-            $table->integer('karyawan_id')->unsigned();
-            $table->integer('unit_id')->unsigned();
+            $table->foreignId('karyawan_id');
+            $table->foreignId('unit_id');
             $table->foreign('karyawan_id')->references('id')->on('karyawan')->onDelete('cascade');
             $table->foreign('unit_id')->references('id')->on('unit')->onDelete('cascade');
         });

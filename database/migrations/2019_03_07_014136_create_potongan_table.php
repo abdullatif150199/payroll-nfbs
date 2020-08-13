@@ -14,10 +14,10 @@ class CreatePotonganTable extends Migration
     public function up()
     {
         Schema::create('potongan', function (Blueprint $table) {
-            $table->increments('id');
-            $table->string('nama_potongan', 10);
-            $table->string('jumlah_potongan', 100);
-            $table->enum('type', ['percent', 'decimal', 'custom']);
+            $table->id();
+            $table->string('nama_potongan');
+            $table->string('jumlah_potongan');
+            $table->enum('type', ['percent', 'decimal']);
             $table->timestamps();
         });
     }

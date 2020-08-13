@@ -13,5 +13,7 @@ $factory->define(App\Models\Keluarga::class, function (Faker $faker) {
         },
         'tanggal_lahir' => $faker->date(),
         'tunjangan_pendidikan' => $faker->randomElement([100000, 200000]),
+        'akhir_tunj_pendidikan' => date('Y-m-d H:i:s', strtotime('+'.mt_rand(10, 30).'days')),
+        'akhir_tunj_keluarga' => date('Y-m-d H:i:s', strtotime('+'.mt_rand(10, 30).'days'))
     ];
 });

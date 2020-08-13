@@ -17,4 +17,9 @@ class Lembur extends Model
     {
         return $query->where('bulan', $bln);
     }
+
+    public function scopeSumLembur($query, $bln)
+    {
+        return $query->bulan($bln)->sum('total_tarif');
+    }
 }

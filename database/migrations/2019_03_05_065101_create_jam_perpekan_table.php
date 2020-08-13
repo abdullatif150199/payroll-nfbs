@@ -14,7 +14,7 @@ class CreateJamPerpekanTable extends Migration
     public function up()
     {
         Schema::create('jam_perpekan', function (Blueprint $table) {
-            $table->increments('id');
+            $table->id();
             $table->string('jml_jam', 2);
             $table->string('jml_hari', 2);
             $table->string('keterangan')->nullable();

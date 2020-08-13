@@ -16,7 +16,7 @@ class BidangUnitKaryawanSeeder extends Seeder
         $bidang->each(function ($bid) {
             $units = factory(App\Models\Unit::class, 2)->create(['bidang_id' => $bid->id]);
             $units->each(function ($unit) {
-                factory(App\Models\Karyawan::class, 10)->create(['bidang_id' => $unit->bidang_id,
+                factory(App\Models\Karyawan::class, 3)->create(['bidang_id' => $unit->bidang_id,
                 'unit_id' => $unit->id]);
             });
         });

@@ -14,7 +14,7 @@ class CreateStatusKerjaTable extends Migration
     public function up()
     {
         Schema::create('status_kerja', function (Blueprint $table) {
-            $table->increments('id');
+            $table->id();
             $table->string('nama_status_kerja', 25);
             $table->decimal('persentase_gaji_pokok', 6, 4);
             $table->timestamps();

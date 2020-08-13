@@ -14,10 +14,11 @@ class CreateKaryawanPotonganTable extends Migration
     public function up()
     {
         Schema::create('karyawan_potongan', function (Blueprint $table) {
-            $table->integer('karyawan_id')->unsigned();
-            $table->integer('potongan_id')->unsigned();
+            $table->foreignId('karyawan_id');
+            $table->foreignId('potongan_id');
             $table->foreign('karyawan_id')->references('id')->on('karyawan')->onDelete('cascade');
             $table->foreign('potongan_id')->references('id')->on('potongan')->onDelete('cascade');
+            $table->date('end_at')->nullable();
         });
     }
 

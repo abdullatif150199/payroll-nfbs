@@ -14,8 +14,8 @@ class CreateGajiTable extends Migration
     public function up()
     {
         Schema::create('gaji', function (Blueprint $table) {
-            $table->increments('id');
-            $table->integer('karyawan_id')->unsigned();
+            $table->id();
+            $table->foreignId('karyawan_id');
             $table->foreign('karyawan_id')->references('id')->on('karyawan')->onDelete('cascade');
             $table->char('bulan', 7);
             $table->decimal('gaji_pokok', 10, 0);

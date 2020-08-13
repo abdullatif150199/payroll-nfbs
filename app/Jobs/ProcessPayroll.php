@@ -34,8 +34,7 @@ class ProcessPayroll implements ShouldQueue
      */
     public function handle()
     {
-        dd($this->karyawan->tunj_hari_raya);
-        $this->karyawan->gaji()->firstOrCreate([
+        $this->karyawan->gaji()->updateOrCreate([
             'bulan' => $this->bln,
         ],[
             'gaji_pokok' => $this->karyawan->gaji_pokok,
@@ -45,45 +44,11 @@ class ProcessPayroll implements ShouldQueue
             'tunjangan_istri' => $this->karyawan->tunj_istri,
             'tunjangan_anak' => $this->karyawan->tunj_anak,
             // 'tunjangan_hari_raya' => $this->karyawan->tunj_hari_raya,
-            'lembur' => $this->hitungLembur($this->karyawan, $this->bln),
+            'lembur' => $this->karyawan->lembur()->sumLembur($this->bln),
             // 'lain_lain' => 0,
             'insentif' => $this->karyawan->insentif()->bulan($this->bln)->sum('jumlah'),
-            'potongan' => $this->potongan($this->karyawan),
-            'gaji_total' => $this->gatot($this->karyawan, $this->bln)
+            'gaji_total' => $this->karyawan->gaji_total
         ]);
-    }
-
-    // Get poTongan Karyawan $data == Karyawan
-    public function potongan($data)
-    {
-        foreach ($data->potongan as $item) {
-            if ($item->type == 'percent') {
-                $arr = explode('*', $item->jumlah_potongan);
-                if ($arr[1] == 'GATOT') {
-                    $jml = $arr[0] * $data->gaji_total;
-                } else {
-                    $jml = $arr[0] * $data->gaji_pokok;
-                }
-            }
-        }
-    }
-
-    // Get Gatot $data == Karyawan
-    public function gatot($data, $bln)
-    {
-        $gatot = $data->gaji_pokok +
-            $data->tunj_jabatan +
-            $data->tunj_struktural +
-            $data->tunj_fungsional +
-            $data->tunj_pendidikan_anak +
-            $data->tunj_istri +
-            $data->tunj_anak +
-            $data->tunj_hari_raya +
-            $this->hitungLembur($data, $bln) +
-            $data->lain_lain +
-            $data->insentif()->bulan($bln)->sum('jumlah');
-
-        return $gatot;
     }
 
     // Perhitungan Lembur

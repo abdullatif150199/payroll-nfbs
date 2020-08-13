@@ -14,8 +14,8 @@ class CreateReplyMessagesTable extends Migration
     public function up()
     {
         Schema::create('reply_messages', function (Blueprint $table) {
-            $table->increments('id');
-            $table->integer('message_id')->unsigned();
+            $table->id();
+            $table->foreignId('message_id');
             $table->foreign('message_id')->references('id')->on('messages')->onDelete('cascade');
             $table->text('body');
             $table->enum('status', [1,2])->comment('unread/read');

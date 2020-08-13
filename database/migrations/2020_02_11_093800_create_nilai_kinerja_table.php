@@ -14,7 +14,7 @@ class CreateNilaiKinerjaTable extends Migration
     public function up()
     {
         Schema::create('nilai_kinerja', function (Blueprint $table) {
-            $table->increments('id');
+            $table->id();
             $table->char('nilai', 1)->comment('ex: A, B, C');
             $table->decimal('min_persen', 6,4)->comment('persentase');
             $table->decimal('max_persen', 6,4)->comment('persentase');

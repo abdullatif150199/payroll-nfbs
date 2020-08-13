@@ -14,8 +14,8 @@ class CreateKaryawanPersentaseKinerjaTable extends Migration
     public function up()
     {
         Schema::create('karyawan_persentase_kinerja', function (Blueprint $table) {
-            $table->integer('karyawan_id')->unsigned();
-            $table->integer('persentase_kinerja_id')->unsigned();
+            $table->foreignId('karyawan_id');
+            $table->foreignId('persentase_kinerja_id');
             $table->foreign('karyawan_id')->references('id')->on('karyawan')->onDelete('cascade');
             $table->foreign('persentase_kinerja_id')->references('id')->on('persentase_kinerja')->onDelete('cascade');
         });

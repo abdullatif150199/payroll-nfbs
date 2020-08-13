@@ -40,7 +40,7 @@ Route::group(['prefix' => 'profile', 'as' => 'profile.', 'middleware' => ['auth'
 });
 
 Route::group(['prefix' => 'dashboard', 'as' => 'dash.', 'middleware' => ['auth']], function () {
-    Route::group(['middleware' => ['role:root|admin|kepala-bidang']], function () {
+    Route::group(['middleware' => ['role:root|admin|kabid']], function () {
         Route::get('/', 'HomeController@index')->name('home');
 
         // Karyawan
@@ -93,6 +93,7 @@ Route::group(['prefix' => 'dashboard', 'as' => 'dash.', 'middleware' => ['auth']
         Route::get('potongan', 'PotonganController@index');
         Route::get('get-potongan', 'PotonganController@datatable')->name('potongan.datatable');
         Route::post('potongan', 'PotonganController@store')->name('potongan.store');
+        Route::get('potongan/get-name', 'PotonganController@name')->name('potongan.name');
         Route::get('potongan/{id}/edit', 'PotonganController@edit')->name('potongan.edit');
         Route::post('potongan/{id}/attach', 'PotonganController@attach')->name('potongan.attach');
         Route::get('potongan-karyawan/{id}', 'PotonganController@show')->name('potongan.show');

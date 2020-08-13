@@ -21,6 +21,6 @@ $factory->define(App\Models\Gaji::class, function (Faker $faker) {
         'lain_lain' => $lain_lain = mt_rand(100000, 200000),
         'insentif' => $insentif = mt_rand(100000, 500000),
         'potongan' => $potongan = mt_rand(100000, 500000),
-        'gaji_akhir' => $gaji_pokok + $tunjangan_jabatan + $tunjangan_fungsional +$tunjangan_kinerja +  $tunjangan_pendidikan + $tunjangan_istri + $tunjangan_anak + $tunjangan_hari_raya + $lembur + $lain_lain + $insentif - $potongan,
+        'gaji_total' => $gaji_pokok + $tunjangan_jabatan + $tunjangan_fungsional +$tunjangan_kinerja +  $tunjangan_pendidikan + $tunjangan_istri + $tunjangan_anak + $tunjangan_hari_raya + $lembur + $lain_lain + $insentif,
     ];
 });

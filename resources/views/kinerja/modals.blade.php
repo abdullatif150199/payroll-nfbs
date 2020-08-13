@@ -121,7 +121,7 @@
                             <div class="form-group">
                                 <label class="form-label">Kinerja</label>
                                 <select class="form-control custom-select selectize-select" name="kinerja[]"
-                                    id="kinerja-karyawan" required>
+                                    id="kinerja-karyawan">
                                     <option value="">Pilih</option>
                                     @foreach ($persentase as $item)
                                     <option value="{{ $item->id }}">{{ $item->title }}</option>

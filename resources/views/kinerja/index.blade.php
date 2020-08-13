@@ -369,7 +369,7 @@
             }
         }).on('select2:select', function (e) {
             var data = e.params.data.persentase;
-            console.log(data.length);
+            // console.log(data.length);
             if (data.length > 0) {
                 var elements = '';
                 $.map(data, function (item) {

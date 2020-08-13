@@ -14,8 +14,8 @@ class CreateUnitTable extends Migration
     public function up()
     {
         Schema::create('unit', function (Blueprint $table) {
-            $table->increments('id');
-            $table->integer('bidang_id')->unsigned();
+            $table->id();
+            $table->foreignId('bidang_id');
             $table->foreign('bidang_id')->references('id')->on('bidang')->onDelete('cascade');
             $table->string('nama_unit');
             $table->timestamps();

@@ -11,16 +11,16 @@ class MasterSeeder extends Seeder
      */
     public function run()
     {
-        factory(App\Models\Jabatan::class, 10)->create();
-        factory(App\Models\Golongan::class, 7)->create();
-        factory(App\Models\StatusKerja::class, 6)->create();
-        factory(App\Models\Potongan::class, 6)->create();
+        factory(App\Models\Jabatan::class, 3)->create();
+        factory(App\Models\Golongan::class, 3)->create();
+        factory(App\Models\StatusKerja::class, 3)->create();
+        factory(App\Models\Potongan::class, 3)->create();
 
-        factory(App\Models\Bidang::class, 5)->create()->each(function ($bidang) {
+        factory(App\Models\Bidang::class, 3)->create()->each(function ($bidang) {
             $bidang->unit()->saveMany(factory(App\Models\Unit::class, 2)->make());
         });
 
-        factory(App\Models\Karyawan::class, 50)->create()->each(function ($karyawan) {
+        factory(App\Models\Karyawan::class, 3)->create()->each(function ($karyawan) {
             $karyawan->kehadiran()->saveMany(factory(App\Models\Kehadiran::class, 3)->make());
             $karyawan->cuti()->save(factory(App\Models\Cuti::class)->make());
             $karyawan->gaji()->save(factory(App\Models\Gaji::class)->make());
@@ -38,10 +38,10 @@ class MasterSeeder extends Seeder
                 $bidang->random(rand(1, 2))->pluck('id')->toArray()
             );
             $karyawan->unit()->attach(
-                $unit->random(rand(1, 3))->pluck('id')->toArray()
+                $unit->random(rand(1, 2))->pluck('id')->toArray()
             );
             $karyawan->potongan()->attach(
-                $potongan->random(rand(1, 4))->pluck('id')->toArray()
+                $potongan->random(rand(1, 3))->pluck('id')->toArray()
             );
         });
     }

@@ -14,8 +14,8 @@ class CreateJabatanKaryawanTable extends Migration
     public function up()
     {
         Schema::create('jabatan_karyawan', function (Blueprint $table) {
-            $table->integer('jabatan_id')->unsigned();
-            $table->integer('karyawan_id')->unsigned();
+            $table->foreignId('jabatan_id');
+            $table->foreignId('karyawan_id');
             $table->foreign('jabatan_id')->references('id')->on('jabatan')->onDelete('cascade');
             $table->foreign('karyawan_id')->references('id')->on('karyawan')->onDelete('cascade');
         });

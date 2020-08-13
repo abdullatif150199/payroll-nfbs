@@ -35,6 +35,10 @@ class SettingTableSeeder extends Seeder
             [
                 'key' => 'kehadiran_end',
                 'value' => 15,
+            ],
+            [
+                'key' => 'tarif_load',
+                'value' => 20000,
             ]
         ]);
     }
