@@ -79,9 +79,9 @@ class Karyawan extends Model
         return $this->hasMany(Gaji::class);
     }
 
-    public function gajiTotalAkhir()
+    public function gajiOne()
     {
-        return $this->hasOne(Gaji::class)->latest();
+        return $this->hasOne(Gaji::class)->latest('updated_at');
     }
 
     public function user()
@@ -92,11 +92,6 @@ class Karyawan extends Model
     public function statusKerja()
     {
         return $this->belongsTo(StatusKerja::class);
-    }
-
-    public function kinerja()
-    {
-        return $this->hasMany(Kinerja::class);
     }
 
     public function persentaseKinerja()
@@ -167,9 +162,9 @@ class Karyawan extends Model
     }
 
     // Get Tunjangan Jabatan
-    public function getTunjJabatanAttribute($value)
+    public function getTunjJabatanAttribute()
     {
-        return $this->jabatan->tunjangan_jabatan;
+        return $this->jabatan()->sum('tunjangan_jabatan');
     }
 
     public function sumLoad()
@@ -195,32 +190,62 @@ class Karyawan extends Model
         return ($this->gaji_pokok * $this->kelompokKerja->persen);
     }
 
-    public function getGajiTotalAttribute($value)
+    // get Tunj Kinerja
+    public function scopeTunjKinerja($query, $data, $bln)
     {
-        $result = array_sum([
-            $this->gaji_pokok,
-            $this->tunj_struktural,
-            $this->tunj_fungsional,
-            $this->tunj_pendidikan_anak,
-            $this->tunj_istri,
-            $this->tunj_anak,
-            $this->lembur()->sumLembur($this->bln),
-            $this->insentif()->bulan($this->bln)->sum('jumlah')
-        ]);
+        $get = $this->gajiOne()->bulan($bln)->first();
+        return $get->resultKinerja($data);
+    }
 
-        return $result;
+    public function getPotonganArrayAttribute()
+    {
+        $toArray = [];
+
+        foreach ($this->potongan as $item) {
+            if ($item->type !== 'decimal') {
+                $arr = explode('*&', $item->jumlah_potongan);
+
+                switch ($arr[1]) {
+                    case 'GATOT':
+                        $jml = $arr[0] * $this->gaji_total;
+                        $toArray[] = [
+                            'nama' => $item->nama_potongan,
+                            'jumlah' => $jml
+                        ];
+                        break;
+
+                    case 'GAFUN':
+                        $jml = $arr[0] * ($this->gaji_pokok + $this->tunj_fungsional);
+                        $toArray[] = [
+                            'nama' => $item->nama_potongan,
+                            'jumlah' => $jml
+                        ];
+                        break;
+
+                    default:
+                        dd('Unknow parameter');
+                        break;
+                }
+            } else {
+                $jml = $item->jumlah_potongan;
+                $toArray[] = [
+                    'nama' => $item->nama_potongan,
+                    'jumlah' => $jml
+                ];
+            }
+        }
+
+        return $toArray;
     }
 
     // Get poTongan Karyawan $data == Karyawan
-    public function getSumPotonganAttribute($value)
+    public function getSumPotonganAttribute()
     {
         $result = 0;
 
         foreach ($this->potongan as $item) {
             if ($item->type !== 'decimal') {
                 $arr = explode('*&', $item->jumlah_potongan);
-                dd($this->tunj_fungsional);
-                dd($arr[0] * ($this->gaji_pokok + $this->tunj_fungsional));
 
                 switch ($arr[1]) {
                     case 'GATOT':

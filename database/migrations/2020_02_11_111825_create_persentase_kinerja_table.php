@@ -16,7 +16,7 @@ class CreatePersentaseKinerjaTable extends Migration
         Schema::create('persentase_kinerja', function (Blueprint $table) {
             $table->id();
             $table->string('title');
-            $table->decimal('persen', 6,4);
+            $table->decimal('persen', 5,2);
             $table->timestamps();
         });
     }

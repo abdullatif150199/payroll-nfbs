@@ -16,7 +16,7 @@ class CreateStatusKerjaTable extends Migration
         Schema::create('status_kerja', function (Blueprint $table) {
             $table->id();
             $table->string('nama_status_kerja', 25);
-            $table->decimal('persentase_gaji_pokok', 6, 4);
+            $table->decimal('persentase_gaji_pokok', 5, 2);
             $table->timestamps();
         });
     }

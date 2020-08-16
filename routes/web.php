@@ -69,14 +69,12 @@ Route::group(['prefix' => 'dashboard', 'as' => 'dash.', 'middleware' => ['auth']
         // Daftar Kinerja
         Route::get('kinerja', 'KinerjaController@index');
         Route::get('get-kinerja', 'KinerjaController@datatable')->name('kinerja.datatable');
-        Route::get('kinerja/create', 'KinerjaController@create')->name('kinerja.create');
         Route::post('kinerja', 'KinerjaController@store')->name('kinerja.store');
         Route::get('kinerja-karyawan/{id}', 'KinerjaController@show')->name('kinerja.show');
         Route::post('kinerja/{id}/attach', 'KinerjaController@attach')->name('kinerja.attach');
         Route::get('kinerja/{id}/edit', 'KinerjaController@edit')->name('kinerja.edit');
         Route::put('kinerja/{id}', 'KinerjaController@update')->name('kinerja.update');
         Route::delete('kinerja/{id}', 'KinerjaController@destroy')->name('kinerja.destroy');
-        Route::delete('kinerja/{kinerja_id}/{karyawan_id}', 'KinerjaController@detach')->name('kinerja.detach');
 
         // Kehadiran
         Route::get('kehadiran', 'KehadiranController@index')->name('kehadiran');

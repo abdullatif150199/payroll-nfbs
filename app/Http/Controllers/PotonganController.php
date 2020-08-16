@@ -11,7 +11,6 @@ class PotonganController extends Controller
 {
     public function index()
     {
-        dd(Karyawan::find(1)->sum_potongan);
         $title = 'Potongan';
         $potongan = Potongan::all();
         return view('potongan.index', ['title' => $title, 'potongan' => $potongan]);

@@ -14,32 +14,27 @@ class NilaiKinerjaSeeder extends Seeder
         DB::table('nilai_kinerja')->insert([
             [
                 'nilai' => 'A',
-                'min_persen' => 0.9,
-                'max_persen' => 1,
+                'min_nilai' => 90,
                 'result_persen' => 1.1
             ],
             [
                 'nilai' => 'B',
-                'min_persen' => 0.8,
-                'max_persen' => 0.9,
+                'min_nilai' => 80,
                 'result_persen' => 1
             ],
             [
                 'nilai' => 'C',
-                'min_persen' => 0.7,
-                'max_persen' => 0.8,
+                'min_nilai' => 70,
                 'result_persen' => 0.9
             ],
             [
                 'nilai' => 'D',
-                'min_persen' => 0.6,
-                'max_persen' => 0.7,
+                'min_nilai' => 60,
                 'result_persen' => 0.8
             ],
             [
                 'nilai' => 'E',
-                'min_persen' => 0.5,
-                'max_persen' => 0.6,
+                'min_nilai' => 50,
                 'result_persen' => 0.7
             ]
         ]);

@@ -21,12 +21,12 @@ class StatusKeluargaTableSeeder extends Seeder
             [
                 'id' => 2,
                 'status' => "istri",
-                'persen' => 15
+                'persen' => 0.15
             ],
             [
                 'id' => 3,
                 'status' => "anak",
-                'persen' => 5.25
+                'persen' => 0.05
             ]
         ]);
     }

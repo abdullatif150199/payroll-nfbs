@@ -69,7 +69,7 @@
                 </h3>
                 <div class="card-options">
                     <a href="#confirm" data-toggle="modal" class="btn btn-primary">
-                        <i class="fe fe-list"></i> Dapatkan gaji bulanan
+                        <i class="fe fe-list"></i> Proses ulang gaji
                     </a>
                 </div>
             </div>
@@ -86,7 +86,7 @@
                             <th>Lain-lain</th>
                             <th>Potongan</th>
                             <th>Gaji Akhir</th>
-                            <th>Opsi</th>
+                            {{-- <th>Opsi</th> --}}
                         </tr>
                     </thead>
                 </table>
@@ -128,7 +128,7 @@
                 {data: 'lain_lain'},
                 {data: 'potongan'},
                 {data: 'gaji_akhir'},
-                {data: 'actions', orderable: false, searchable: false}
+                // {data: 'actions', orderable: false, searchable: false}
             ]
         });
         // $('#select-form').submit(function(e) {

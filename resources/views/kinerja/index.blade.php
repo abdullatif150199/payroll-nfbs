@@ -238,6 +238,7 @@
                             <th>No. Induk</th>
                             <th>Nama Lengkap</th>
                             <th>Daftar Kinerja</th>
+                            <th>Nilai Kinerja</th>
                         </tr>
                     </thead>
                 </table>
@@ -272,7 +273,8 @@
         columns: [
             {data: 'no_induk'},
             {data: 'nama_lengkap'},
-            {data: 'jenis_kinerja'}
+            {data: 'jenis_kinerja'},
+            {data: 'nilai_kinerja'}
         ]
     });
 

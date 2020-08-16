@@ -7,6 +7,7 @@ use Illuminate\Queue\SerializesModels;
 use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Foundation\Bus\Dispatchable;
+use App\Models\NilaiKinerja;
 use App\Models\Karyawan;
 
 class ProcessPayroll implements ShouldQueue
@@ -34,12 +35,16 @@ class ProcessPayroll implements ShouldQueue
      */
     public function handle()
     {
-        $this->karyawan->gaji()->updateOrCreate([
+        $data = NilaiKinerja::all();
+
+        $gaji = $this->karyawan->gaji()->updateOrCreate([
             'bulan' => $this->bln,
         ],[
             'gaji_pokok' => $this->karyawan->gaji_pokok,
-            'tunjangan_jabatan' => $this->karyawan->tunj_struktural,
+            'tunjangan_jabatan' => $this->karyawan->tunj_jabatan,
+            'tunjangan_struktural' => $this->karyawan->tunj_struktural,
             'tunjangan_fungsional' => $this->karyawan->tunj_fungsional,
+            'tunjangan_kinerja' => $this->karyawan->tunjKinerja($data, $this->bln),
             'tunj_pendidikan' => $this->karyawan->tunj_pendidikan_anak,
             'tunjangan_istri' => $this->karyawan->tunj_istri,
             'tunjangan_anak' => $this->karyawan->tunj_anak,
@@ -47,8 +52,25 @@ class ProcessPayroll implements ShouldQueue
             'lembur' => $this->karyawan->lembur()->sumLembur($this->bln),
             // 'lain_lain' => 0,
             'insentif' => $this->karyawan->insentif()->bulan($this->bln)->sum('jumlah'),
-            'gaji_total' => $this->karyawan->gaji_total
+            'gaji_total' => array_sum([
+                $this->karyawan->gaji_pokok,
+                $this->karyawan->tunj_jabatan,
+                $this->karyawan->tunj_struktural,
+                $this->karyawan->tunj_fungsional,
+                $this->karyawan->tunjKinerja($data, $this->bln),
+                $this->karyawan->tunj_pendidikan_anak,
+                $this->karyawan->tunj_istri,
+                $this->karyawan->tunj_anak,
+                $this->karyawan->lembur()->sumLembur($this->bln),
+                $this->karyawan->insentif()->bulan($this->bln)->sum('jumlah')
+            ])
         ]);
+
+        if ($gaji->historyPotongan->count() > 0) {
+            $gaji->deleteHistoryPotongan();
+        }
+
+        $gaji->historyPotongan()->createMany($this->karyawan->potongan_array);
     }
 
     // Perhitungan Lembur

@@ -8,7 +8,8 @@ use Illuminate\Database\Eloquent\Builder;
 use App\Jobs\ProcessPayroll;
 use App\Models\PersentaseKinerja;
 use App\Models\Karyawan;
-use App\Models\Kinerja;
+use App\Models\HistoryKinerja;
+use App\Models\NilaiKinerja;
 
 class KinerjaController extends Controller
 {
@@ -16,6 +17,8 @@ class KinerjaController extends Controller
     {
         $title = 'Kinerja';
         $persentase = PersentaseKinerja::all();
+        // $nilai_kinerja = NilaiKinerja::all();
+        // dd(\App\Models\Gaji::find(2)->resultKinerja($nilai_kinerja));
         return view('kinerja.index', ['title' => $title, 'persentase' => $persentase]);
     }
 
@@ -30,16 +33,18 @@ class KinerjaController extends Controller
         }
 
         if ($user->hasRole(['admin', 'root'])) {
-            $data->with(['persentasekinerja', 'kinerja' => function($q) use($bulan) {
-                    $q->where('bulan', $bulan);
-                }])->latest();
+            $data->with(['gajiOne' => function ($q) use ($bulan) {
+                $q->bulan($bulan);
+            }])->latest();
         } else {
             $data->whereHas('bidang', function (Builder $query) use($user) {
-                    $query->whereIn('nama_bidang', $user->karyawan->bidang->pluck('nama_bidang'));
-                })->with(['persentasekinerja', 'kinerja' => function($q) use($bulan) {
-                    $q->where('bulan', $bulan);
-                }])->latest();
+                $query->whereIn('nama_bidang', $user->karyawan->bidang->pluck('nama_bidang'));
+            })->with(['gajiOne' => function ($q) use ($bulan) {
+                $q->bulan($bulan);
+            }])->latest();
         }
+
+        $nilai_kinerja = NilaiKinerja::all();
 
         return Datatables::of($data)
             ->editColumn('no_induk', function($data) {
@@ -51,46 +56,61 @@ class KinerjaController extends Controller
             ->editColumn('jenis_kinerja', function($data) {
                 return view('kinerja.types', ['data' => $data]);
             })
-            ->rawColumns(['no_induk', 'nama_lengkap', 'jenis_kinerja'])
+            ->editColumn('nilai_kinerja', function($data) use($nilai_kinerja) {
+                if ($data->gajiOne && $data->gajiOne->historyKinerja()->exists()) {
+                    $val = $data->gajiOne->nilaiKinerja($nilai_kinerja);
+                    $res = $data->gajiOne->resultKinerja($nilai_kinerja);
+                    return $val .' | '. number_format($res);
+                }
+            })
+            ->rawColumns(['no_induk', 'nama_lengkap', 'jenis_kinerja', 'nilai_kinerja'])
             ->make(true);
     }
 
     public function store(Request $request)
     {
         $bln = $request->year . '-' . $request->month;
-        $at = $bln . '-' . setting('kehadiran_start');
-        $end = $bln . '-' . setting('kehadiran_end');
-        $range = ((strtotime($end) - strtotime($at))/3600/24) + 1;
+        // $at = $bln . '-' . setting('kehadiran_start');
+        // $end = $bln . '-' . setting('kehadiran_end');
+        // $range = ((strtotime($end) - strtotime($at))/3600/24) + 1;
 
-        $karyawan = Karyawan::with(['persentasekinerja', 'kehadiran' => function($query) use($at, $end) {
-            $query->whereBetween('tanggal', [$at, $end]);
-        }])->findOrFail($request->karyawan_id);
+        // $karyawan = Karyawan::with(['persentasekinerja', 'kehadiran' => function($query) use($at, $end) {
+        //     $query->whereBetween('tanggal', [$at, $end]);
+        // }])->findOrFail($request->karyawan_id);
 
-        $store = [];
+        $karyawan = Karyawan::with('persentaseKinerja', 'gaji')->findOrFail($request->karyawan_id);
+        $gaji = $karyawan->gaji()->updateOrCreate([
+            'bulan' => $bln
+        ], [
+            'gaji_pokok' => $karyawan->gaji_pokok
+        ]);
 
-        foreach($karyawan->persentaseKinerja as $item){
-            if ($item->id !== 1) {
-                $data = $karyawan->kinerja()->firstOrNew([
-                    'bulan' => $bln,
-                    'title' => $item->title
-                ]);
-                $data->value = $request[$item->title];
-                $data->save();
-                $store[] = $data;
-            } else {
-                $data = $karyawan->kinerja()->firstOrNew([
-                    'bulan' => $bln,
-                    'title' => $item->title
-                ]);
-                $data->value = $this->persentaseKehadiran($karyawan, $range);
-                $data->save();
-                $store[] = $data;
-            }
+        if ($gaji->historyKinerja->count() > 0) {
+            $gaji->deleteHistoryKinerja();
         }
+
+        $store = $gaji->historyKinerja()->createMany($this->kinerjaToArray($request, $karyawan));
 
         ProcessPayroll::dispatch($karyawan, $bln);
 
         return $store;
+    }
+
+    public function kinerjaToArray($request, $data)
+    {
+        $toArray = [];
+        $bln = $request->year . '-' . $request->month;
+
+        foreach($data->persentaseKinerja as $item) {
+            $toArray[] = [
+                'bulan' => $bln,
+                'title' => $item->title,
+                'value' => $request[$item->title],
+                'after_count' => $item->persen * $request[$item->title]
+            ];
+        }
+
+        return $toArray;
     }
 
     public function persentaseKehadiran($data, $range)
@@ -114,7 +134,7 @@ class KinerjaController extends Controller
 
     public function edit($id)
     {
-        $get = Kinerja::with('karyawan')->find($id);
+        $get = HistoryKinerja::find($id);
         return $get;
     }
 
@@ -134,11 +154,11 @@ class KinerjaController extends Controller
         return redirect()->back()->withSuccess("Item kinerja berhasil ditambahkan ke {$karyawan->nama_lengkap}.");
     }
 
-    public function detach($id_kinerja, $id_karyawan)
+    public function destroy($id)
     {
-        $kinerja = Kinerja::with('karyawan')->findOrFail($id_kinerja);
-        $kinerja->karyawan()->detach($id_karyawan);
+        $kinerja = HistoryKinerja::findOrFail($id);
+        $kinerja->delete();
 
-        return redirect()->back()->withSuccess(sprintf('Kinerja %s berhasil di hapus.', $kinerja->nama_kinerja));
+        return redirect()->back()->withSuccess(sprintf('Kinerja %s berhasil di hapus.', $kinerja->title));
     }
 }

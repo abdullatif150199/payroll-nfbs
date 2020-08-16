@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateKinerjaTable extends Migration
+class CreateHistoryKinerjaTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,13 +13,13 @@ class CreateKinerjaTable extends Migration
      */
     public function up()
     {
-        Schema::create('kinerja', function (Blueprint $table) {
+        Schema::create('history_kinerja', function (Blueprint $table) {
             $table->id();
             $table->foreignId('karyawan_id');
             $table->foreign('karyawan_id')->references('id')->on('karyawan')->onDelete('cascade');
             $table->char('bulan', 7);
             $table->string('title');
-            $table->decimal('value', 5,2)->default(0);
+            $table->decimal('value', 3,0)->default(0);
             $table->timestamps();
         });
     }
@@ -31,6 +31,6 @@ class CreateKinerjaTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('kinerja');
+        Schema::dropIfExists('history_kinerja');
     }
 }

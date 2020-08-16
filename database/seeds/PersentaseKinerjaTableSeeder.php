@@ -14,19 +14,19 @@ class PersentaseKinerjaTableSeeder extends Seeder
         $data = DB::table('persentase_kinerja')->insert([
             [
                 'title' => 'Produktifitas',
-                'persen' => 35
+                'persen' => 0.35
             ],
             [
                 'title' => 'Kehadiran',
-                'persen' => 25
+                'persen' => 0.25
             ],
             [
                 'title' => 'Kepesantrenan',
-                'persen' => 25
+                'persen' => 0.25
             ],
             [
                 'title' => 'Pembinaan',
-                'persen' => 15
+                'persen' => 0.15
             ]
         ]);
 

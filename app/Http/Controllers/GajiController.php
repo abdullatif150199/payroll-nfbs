@@ -45,7 +45,16 @@ class GajiController extends Controller
                 return number_format($data->lain_lain);
             })
             ->editColumn('tunjangan', function($data) {
-                $total_tunjangan = $data->tunjangan_istri + $data->tunjangan_anak + $data->tunjangan_pendidikan + $data->tunjangan_jabatan;
+                $total_tunjangan = array_sum([
+                    $data->tunjangan_jabatan,
+                    $data->tunjangan_fungsional,
+                    $data->tunjangan_struktural,
+                    $data->tunjangan_kinerja,
+                    $data->tunjangan_pendidikan,
+                    $data->tunjangan_istri,
+                    $data->tunjangan_anak
+                ]);
+
                 return number_format($total_tunjangan);
             })
             ->editColumn('potongan', function($data) {
@@ -54,10 +63,10 @@ class GajiController extends Controller
             ->editColumn('gaji_akhir', function($data) {
                 return number_format($data->gaji_akhir);
             })
-            ->addColumn('actions', function($data) {
-                return view('gaji.actions', ['data' => $data]);
-            })
-            ->rawColumns(['actions', 'no_induk', 'nama_lengkap', 'gaji_akhir', 'tunjangan', 'gaji_pokok', 'lembur', 'insentif', 'lain_lain', 'potongan'])
+            // ->addColumn('actions', function($data) {
+            //     return view('gaji.actions', ['data' => $data]);
+            // })
+            ->rawColumns(['no_induk', 'nama_lengkap', 'gaji_akhir', 'tunjangan', 'gaji_pokok', 'lembur', 'insentif', 'lain_lain', 'potongan'])
             ->make(true);
     }
 
