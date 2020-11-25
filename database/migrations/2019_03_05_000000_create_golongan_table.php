@@ -18,6 +18,7 @@ class CreateGolonganTable extends Migration
             $table->string('kode_golongan', 10);
             $table->decimal('gaji_pokok', 10, 0);
             $table->decimal('lembur', 10, 0);
+            $table->decimal('lembur_harian', 10, 0);
             $table->timestamps();
         });
     }

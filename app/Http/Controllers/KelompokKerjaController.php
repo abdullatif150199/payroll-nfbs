@@ -37,16 +37,11 @@ class KelompokKerjaController extends Controller
         $this->validate($request, [
             'grade' => 'min:1|max:1',
             'persen' => 'min:1|max:5',
-            'kinerja_normal' => 'min:3'
+            'kinerja_normal' => 'min:3',
+            'no_kode' => 'required'
         ]);
 
-        $data = [
-            'grade' => $request->grade,
-            'persen' => $request->persen,
-            'kinerja_normal' => $request->kinerja_normal
-        ];
-
-        $store = KelompokKerja::create($data);
+        $store = KelompokKerja::create($request->all());
 
         return $store;
     }
@@ -62,13 +57,15 @@ class KelompokKerjaController extends Controller
         $this->validate($request, [
             'grade' => 'min:1|max:1',
             'persen' => 'min:1|max:5',
-            'kinerja_normal' => 'min:3'
+            'kinerja_normal' => 'min:3',
+            'no_kode' => 'required'
         ]);
 
         $data = KelompokKerja::find($id);
         $data->grade = $request->grade;
         $data->persen = $request->persen;
         $data->kinerja_normal = $request->kinerja_normal;
+        $data->no_kode = $request->no_kode;
 
         $data->save();
 

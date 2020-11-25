@@ -45,7 +45,6 @@
                 <tr>
                     <th>Nilai</th>
                     <th>Minimal</th>
-                    <th>Maksimal</th>
                     <th>Hasil yg diperoleh</th>
                     <th>Opsi</th>
                 </tr>
@@ -74,8 +73,7 @@
             ajax: '{{ route('dash.nilaiKinerja.datatable') }}',
             columns: [
                 {data: 'nilai'},
-                {data: 'min_persen'},
-                {data: 'max_persen'},
+                {data: 'min_nilai'},
                 {data: 'result_persen'},
                 {data: 'actions', orderable: false, searchable: false}
             ]
@@ -143,13 +141,13 @@
             });
         });
 
-        function hapusNilaiKinerja(id) {
-            var url = '{{ route('dash.nilaiKinerja.destroy', ':id') }}';
-            url = url.replace(':id', id);
-            $('#hapusNilaiKinerja .modal-body').text('Yakin ingin menghapus?');
-            $('#hapusNilaiKinerja form').attr('action', url);
-            $('#hapusNilaiKinerja').modal('show');
-        }
+        // function hapusNilaiKinerja(id) {
+        //     var url = '{{ route('dash.nilaiKinerja.destroy', ':id') }}';
+        //     url = url.replace(':id', id);
+        //     $('#hapusNilaiKinerja .modal-body').text('Yakin ingin menghapus?');
+        //     $('#hapusNilaiKinerja form').attr('action', url);
+        //     $('#hapusNilaiKinerja').modal('show');
+        // }
 
     // });
 </script>

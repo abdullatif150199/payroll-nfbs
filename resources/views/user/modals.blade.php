@@ -1,5 +1,5 @@
-{{-- Modal formDevice --}}
-<div class="modal fade" id="formDevice">
+{{-- Modal formUser --}}
+<div class="modal fade" id="formUser">
     <div class="modal-dialog">
         <div class="modal-content">
 
@@ -16,24 +16,48 @@
                     <div class="row">
                         <div class="col">
                             <div class="form-group">
-                                <label class="form-label">IP Server</label>
-                                <input type="text" name="server_ip" class="form-control" required>
+                                <label class="form-label">Username:</label>
+                                <input type="text" name="username" class="form-control" required>
                             </div>
                         </div>
                     </div>
                     <div class="row">
                         <div class="col">
                             <div class="form-group">
-                                <label class="form-label">Port Server</label>
-                                <input type="text" name="server_port" class="form-control">
+                                <label class="form-label">Nama:</label>
+                                <input type="text" name="name" class="form-control" required>
                             </div>
                         </div>
                     </div>
                     <div class="row">
                         <div class="col">
                             <div class="form-group">
-                                <label class="form-label">Serial Number Fingerspot</label>
-                                <input type="text" name="serial_number" class="form-control">
+                                <label class="form-label">Email:</label>
+                                <input type="email" name="email" class="form-control" required>
+                            </div>
+                        </div>
+                    </div>
+                    {{-- <div class="row">
+                        <div class="col">
+                            <div class="form-group">
+                                <label class="form-label">Password</label>
+                                <input type="password" name="password" class="form-control" required>
+                            </div>
+                        </div>
+                    </div> --}}
+                    {{-- <div class="row">
+                        <div class="col">
+                            <div class="form-group">
+                                <label class="form-label">Ulangi Password</label>
+                                <input type="password" name="password_confirmation" class="form-control" required>
+                            </div>
+                        </div>
+                    </div> --}}
+                    <div class="row">
+                        <div class="col">
+                            <div class="form-group">
+                                <label class="form-label">Role atau Hak Akses Sebagai:</label>
+                                <div id="checkbox"></div>
                             </div>
                         </div>
                     </div>
@@ -50,13 +74,13 @@
     </div>
 </div>
 
-<div class="modal fade" id="hapusDevice">
+<div class="modal fade" id="hapusUser">
     <div class="modal-dialog">
         <div class="modal-content">
 
             <!-- Modal Header -->
             <div class="modal-header">
-                <h4 class="modal-title">Hapus Device Fingerprint</h4>
+                <h4 class="modal-title">Hapus User</h4>
                 <button type="button" class="close" data-dismiss="modal"></button>
             </div>
 

@@ -40,8 +40,7 @@ class JabatanController extends Controller
         $this->validate($request, [
             'nama_jabatan' => 'required',
             'load' => 'required',
-            'maksimal_jam' => 'required',
-            'no_kode' => 'required'
+            'maksimal_jam' => 'required'
         ]);
 
         $store = Jabatan::create($request->all());
@@ -60,8 +59,7 @@ class JabatanController extends Controller
         $this->validate($request, [
             'nama_jabatan' => 'required',
             'load' => 'required',
-            'maksimal_jam' => 'required',
-            'no_kode' => 'required'
+            'maksimal_jam' => 'required'
         ]);
 
         $jabatan->update($request->all());

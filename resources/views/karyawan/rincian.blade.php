@@ -8,7 +8,12 @@
                     <span class="avatar avatar-xxl mr-5" style="background-image: url(demo/faces/male/21.jpg)"></span>
                     <div class="media-body">
                         <h4 class="m-0">{{ $data->nama_lengkap }}</h4>
-                        <p class="text-muted mb-0">{!! $data->no_induk . ' &middot; ' . $data->jabatan->nama_jabatan !!}
+                        <p class="text-muted mb-0">
+                            {{ $data->no_induk }}
+                            &middot;
+                            @foreach ($data->jabatan as $item)
+                            {{ $item->nama_jabatan }}
+                            @endforeach
                         </p>
                         <ul class="social-links list-inline mb-0 mt-2">
                             <li class="list-inline-item">

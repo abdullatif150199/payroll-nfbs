@@ -1,5 +1,5 @@
-{{-- Modal formKelompok --}}
-<div class="modal fade" id="formKelompok">
+{{-- Modal formDevice --}}
+<div class="modal fade" id="formDevice">
     <div class="modal-dialog">
         <div class="modal-content">
 
@@ -16,36 +16,24 @@
                     <div class="row">
                         <div class="col">
                             <div class="form-group">
-                                <label class="form-label">Grade</label>
-                                <input type="text" name="grade" class="form-control">
+                                <label class="form-label">IP Server</label>
+                                <input type="text" name="server_ip" class="form-control" required>
                             </div>
                         </div>
                     </div>
                     <div class="row">
                         <div class="col">
                             <div class="form-group">
-                                <label class="form-label">Persen</label>
-                                <div class="input-group">
-                                    <input type="number" name="persen" step="any" class="form-control"
-                                        placeholder="Persentase" aria-describedby="basic-addon2">
-                                    <span class="input-group-append" id="basic-addon2">
-                                        <span class="input-group-text">&percnt; dari GAPOK</span>
-                                    </span>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col">
-                            <div class="form-group">
-                                <label class="form-label">Kode Untuk No.Induk</label>
-                                <input type="text" name="no_kode" class="form-control" required>
+                                <label class="form-label">Port Server</label>
+                                <input type="text" name="server_port" class="form-control">
                             </div>
                         </div>
                     </div>
                     <div class="row">
                         <div class="col">
                             <div class="form-group">
-                                <label class="form-label">Amount Kinerja Normal</label>
-                                <input type="number" name="kinerja_normal" class="form-control">
+                                <label class="form-label">Serial Number Fingerspot</label>
+                                <input type="text" name="serial_number" class="form-control">
                             </div>
                         </div>
                     </div>
@@ -54,6 +42,33 @@
 
                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Batal</button>
                     <button type="submit" class="btn btn-primary">Tambah</button>
+
+                </div>
+            </form>
+
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="hapusDevice">
+    <div class="modal-dialog">
+        <div class="modal-content">
+
+            <!-- Modal Header -->
+            <div class="modal-header">
+                <h4 class="modal-title">Hapus Device Fingerprint</h4>
+                <button type="button" class="close" data-dismiss="modal"></button>
+            </div>
+
+            <form method="post">
+                {{ csrf_field() }} {{ method_field('DELETE') }}
+                <div class="modal-body">
+
+                </div>
+                <div class="modal-footer">
+
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+                    <button type="submit" class="btn btn-danger">Ya</button>
 
                 </div>
             </form>

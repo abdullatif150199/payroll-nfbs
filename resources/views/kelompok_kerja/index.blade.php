@@ -45,6 +45,7 @@
                     <th>Grade</th>
                     <th>Jml Peserta</th>
                     <th>Tunj Fungsional</th>
+                    <th>No Kode/Induk</th>
                     <th>Opsi</th>
                 </tr>
             </thead>
@@ -74,6 +75,7 @@
                 {data: 'grade'},
                 {data: 'peserta'},
                 {data: 'persen'},
+                {data: 'no_kode'},
                 {data: 'actions', orderable: false, searchable: false}
             ]
         });
@@ -105,6 +107,7 @@
                     $('input[name=id]').val(data.id);
                     $('input[name=grade]').val(data.grade);
                     $('input[name=persen]').val(data.to_persen);
+                    $('input[name=no_kode]').val(data.no_kode);
                     $('input[name=kinerja_normal]').val(data.kinerja_normal);
                 }
             });

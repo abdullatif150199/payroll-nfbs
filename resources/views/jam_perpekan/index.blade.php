@@ -44,7 +44,6 @@
                 <tr>
                     <th>Keterangan</th>
                     <th>Jml Jam Wajib</th>
-                    <th>Jml Jam Ngajar</th>
                     <th>Jml Hari Kerja</th>
                     <th>Opsi</th>
                 </tr>
@@ -74,7 +73,6 @@
             columns: [
                 {data: 'keterangan'},
                 {data: 'jml_jam'},
-                {data: 'jml_jam_ngajar'},
                 {data: 'jml_hari'},
                 {data: 'actions', orderable: false, searchable: false}
             ]
@@ -107,7 +105,6 @@
                     $('input[name=id]').val(data.id);
                     $('input[name=keterangan]').val(data.keterangan);
                     $('input[name=jml_jam]').val(data.jml_jam);
-                    $('input[name=jml_jam_ngajar]').val(data.jml_jam_ngajar);
                     $('input[name=jml_hari]').val(data.jml_hari);
                 }
             });

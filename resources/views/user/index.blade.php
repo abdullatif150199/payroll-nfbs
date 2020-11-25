@@ -35,7 +35,8 @@
             Daftar User
         </h3>
         <div class="card-options">
-            <button type="button" id="newUser" class="btn btn-primary"><i class="fe fe-plus"></i> Tambah</button>
+            {{-- <button type="button" id="newUser" class="btn btn-primary mr-2"><i class="fe fe-plus"></i> Tambah</button> --}}
+            <a href="{{ route('dash.role.index') }}" class="btn btn-primary"><i class="fe fe-shuffle"></i> Role User</a>
         </div>
     </div>
     <div class="table-responsive">
@@ -53,7 +54,7 @@
     </div>
 </div>
 
-@include('device.modals')
+@include('user.modals')
 
 @endsection
 
@@ -78,57 +79,65 @@
             {data: 'actions', orderable: false, searchable: false}
         ]
     });
+
     // $('#select-form').submit(function(e) {
     //     oTable.draw();
     //     e.preventDefault();
     // });
 
-    $('#newDevice').click(function () {
-        $('.modal-title').text('Create Device');
-        $('#formDevice').modal('show');
+    $('#newUser').click(function () {
+        $('.modal-title').text('Create User');
+        $('#formUser').modal('show');
         $('input[name=_method]').val('POST');
-        $('#formDevice form')[0].reset();
+        $('#formUser form')[0].reset();
     });
 
-    function editDevice(id) {
-        var url = '{{ route('dash.device.edit', ':id') }}';
+    function editUser(id) {
+        var url = '{{ route('dash.user.edit', ':id') }}';
         url = url.replace(':id', id);
         $('input[name=_method]').val('PUT');
-        $('#formDevice form')[0].reset();
+        $('#formUser form')[0].reset();
         $.ajax({
             url: url,
             type: 'GET',
             dataType: 'JSON',
             success: function (data) {
-                $('.modal-title').text('Edit Device');
-                $('#formDevice').modal('show');
+                $('.modal-title').text('Edit User');
+                $('#formUser').modal('show');
 
                 $('input[name=id]').val(data.id);
-                $('input[name=server_ip]').val(data.server_ip);
-                $('input[name=server_port]').val(data.server_port);
-                $('input[name=serial_number]').val(data.serial_number);
+                $('input[name=name]').val(data.name);
+                $('input[name=username]').val(data.username);
+                $('input[name=email]').val(data.email);
+
+                $('#checkbox').html('');
+                $.each(data.roles, function (key, value) {
+                    $('#checkbox').append('<div class="form-check-inline"><label class="form-check-label"><input type="checkbox" name="roles[]" class="form-check-input" value="'+ value +'">'+ value +'</label></div>');
+                });
+
+
             }
         });
     }
 
-    $('#formDevice form').submit(function(e) {
+    $('#formUser form').submit(function(e) {
         e.preventDefault();
         var id = $('input[name=id]').val();
         var save_method = $('input[name=_method]').val();
 
         if (save_method == 'POST') {
-            url = '{{ route('dash.device.store') }}';
+            url = '{{ route('dash.user.store') }}';
         } else {
-            url_raw = '{{ route('dash.device.update', ':id') }}';
+            url_raw = '{{ route('dash.user.update', ':id') }}';
             url = url_raw.replace(':id', id);
         }
 
         $.ajax({
             url: url,
             type: 'POST',
-            data: $('#formDevice form').serialize(),
+            data: $('#formUser form').serialize(),
             success: function (data) {
-                $('#formDevice').modal('hide');
+                $('#formUser').modal('hide');
                 oTable.ajax.reload();
             },
             error: function () {
@@ -137,12 +146,12 @@
         });
     });
 
-    function hapusDevice(id) {
-        var url = '{{ route('dash.device.destroy', ':id') }}';
+    function hapusUser(id) {
+        var url = '{{ route('dash.user.destroy', ':id') }}';
         url = url.replace(':id', id);
-        $('#hapusDevice .modal-body').text('Yakin ingin menghapus?');
-        $('#hapusDevice form').attr('action', url);
-        $('#hapusDevice').modal('show');
+        $('#hapusUser .modal-body').text('Yakin ingin menghapus?');
+        $('#hapusUser form').attr('action', url);
+        $('#hapusUser').modal('show');
     }
 </script>
 @endpush

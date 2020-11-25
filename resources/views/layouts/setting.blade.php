@@ -92,7 +92,7 @@
                                                     <td width="1"><i
                                                             class="{{ Route::is('dash.user') ? 'fa fa-circle' : 'fa fa-circle-o' }} text-primary"></i>
                                                     </td>
-                                                    <td><a href="{{ route('dash.user') }}">Users</a></td>
+                                                    <td><a href="{{ route('dash.user.index') }}">Users</a></td>
                                                 </tr>
                                                 <tr>
                                                     <td width="1"><i

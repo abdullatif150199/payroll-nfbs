@@ -11,11 +11,10 @@
 |
 */
 
-Route::get('/', function () {
-    return redirect()->route('login');
-});
+Route::get('/', 'HomeController@index');
+Route::get('/home', 'HomeController@index')->name('home');
 
-Auth::routes();
+Auth::routes(['register' => false]);
 
 Route::group(['prefix' => 'profile', 'as' => 'profile.', 'middleware' => ['auth', 'role:root|admin|user']], function () {
     Route::get('/', 'Profile\ProfileController@index');
@@ -23,6 +22,9 @@ Route::group(['prefix' => 'profile', 'as' => 'profile.', 'middleware' => ['auth'
 
     Route::get('gaji', 'Profile\GajiController@index')->name('gaji.index');
     Route::get('get-gaji/{id}', 'Profile\GajiController@datatable')->name('gaji.datatable');
+
+    Route::get('lembur', 'Profile\GajiController@index')->name('gaji.index');
+    Route::get('get-lembur/{id}', 'Profile\GajiController@datatable')->name('gaji.datatable');
 
     Route::get('kehadiran', 'Profile\KehadiranController@index')->name('kehadiran.index');
     Route::get('get-kehadiran/{id}', 'Profile\KehadiranController@datatable')->name('kehadiran.datatable');
@@ -66,6 +68,14 @@ Route::group(['prefix' => 'dashboard', 'as' => 'dash.', 'middleware' => ['auth']
         Route::put('insentif/{id}', 'InsentifController@update')->name('insentif.update');
         Route::delete('insentif/{id}', 'InsentifController@destroy')->name('insentif.destroy');
 
+        // Daftar Lembur
+        Route::get('lembur', 'LemburController@index');
+        Route::get('get-lembur', 'LemburController@datatable')->name('lembur.datatable');
+        Route::post('lembur', 'LemburController@store')->name('lembur.store');
+        Route::get('lembur/{id}/edit', 'LemburController@edit')->name('lembur.edit');
+        Route::put('lembur/{id}', 'LemburController@update')->name('lembur.update');
+        Route::delete('lembur/{id}', 'LemburController@destroy')->name('lembur.destroy');
+
         // Daftar Kinerja
         Route::get('kinerja', 'KinerjaController@index');
         Route::get('get-kinerja', 'KinerjaController@datatable')->name('kinerja.datatable');
@@ -103,9 +113,14 @@ Route::group(['prefix' => 'dashboard', 'as' => 'dash.', 'middleware' => ['auth']
             // General
             Route::get('/', 'Settingcontroller@index')->name('setting');
 
-            // User
-            Route::get('user', 'UserController@index')->name('user');
+            // User / Role
+            Route::resources([
+                'user' => 'UserController',
+                'role' => 'RoleController',
+            ]);
+
             Route::get('get-user', 'UserController@datatable')->name('user.datatable');
+            Route::get('get-role', 'RoleController@datatable')->name('role.datatable');
 
             // Jabatan
             Route::get('jabatan', 'JabatanController@index')->name('jabatan');
@@ -130,7 +145,7 @@ Route::group(['prefix' => 'dashboard', 'as' => 'dash.', 'middleware' => ['auth']
             Route::get('kelompok-kerja/{id}/edit', 'KelompokKerjaController@edit')->name('kelompokKerja.edit');
             Route::put('kelompok-kerja/{id}', 'KelompokKerjaController@update')->name('kelompokKerja.update');
 
-             // Device fingerprint
+            // Device fingerprint
             Route::get('device', 'DeviceController@index')->name('device');
             Route::get('get-device', 'DeviceController@datatable')->name('device.datatable');
             Route::post('device', 'DeviceController@store')->name('device.store');
@@ -151,7 +166,7 @@ Route::group(['prefix' => 'dashboard', 'as' => 'dash.', 'middleware' => ['auth']
             Route::put('bidang/{id}', 'BidangController@update')->name('bidang.update');
             Route::delete('bidang/{id}', 'BidangController@destroy')->name('bidang.destroy');
 
-             // Unit
+            // Unit
             Route::get('unit', 'UnitController@index')->name('unit');
             Route::get('get-unit', 'UnitController@datatable')->name('unit.datatable');
             Route::post('unit', 'UnitController@store')->name('unit.store');
@@ -159,7 +174,7 @@ Route::group(['prefix' => 'dashboard', 'as' => 'dash.', 'middleware' => ['auth']
             Route::put('unit/{id}', 'UnitController@update')->name('unit.update');
             Route::delete('unit/{id}', 'UnitController@destroy')->name('unit.destroy');
 
-             // Status Keluarga
+            // Status Keluarga
             Route::get('status-keluarga', 'StatusKeluargaController@index')->name('statusKeluarga');
             Route::get('get-status-keluarga', 'StatusKeluargaController@datatable')->name('statusKeluarga.datatable');
             Route::post('status-keluarga', 'StatusKeluargaController@store')->name('statusKeluarga.store');
@@ -167,7 +182,7 @@ Route::group(['prefix' => 'dashboard', 'as' => 'dash.', 'middleware' => ['auth']
             Route::put('status-keluarga/{id}', 'StatusKeluargaController@update')->name('statusKeluarga.update');
             Route::delete('status-keluarga/{id}', 'StatusKeluargaController@destroy')->name('statusKeluarga.destroy');
 
-             // Status Kerja
+            // Status Kerja
             Route::get('status-kerja', 'StatusKerjaController@index')->name('statusKerja');
             Route::get('get-status-kerja', 'StatusKerjaController@datatable')->name('statusKerja.datatable');
             Route::post('status-kerja', 'StatusKerjaController@store')->name('statusKerja.store');
@@ -175,7 +190,7 @@ Route::group(['prefix' => 'dashboard', 'as' => 'dash.', 'middleware' => ['auth']
             Route::put('status-kerja/{id}', 'StatusKerjaController@update')->name('statusKerja.update');
             Route::delete('status-kerja/{id}', 'StatusKerjaController@destroy')->name('statusKerja.destroy');
 
-             // Persentase Kinerja
+            // Persentase Kinerja
             Route::get('persentase-kinerja', 'PersentaseKinerjaController@index')->name('persentaseKinerja');
             Route::get('get-persentase-kinerja', 'PersentaseKinerjaController@datatable')->name('persentaseKinerja.datatable');
             Route::post('persentase-kinerja', 'PersentaseKinerjaController@store')->name('persentaseKinerja.store');
@@ -183,7 +198,7 @@ Route::group(['prefix' => 'dashboard', 'as' => 'dash.', 'middleware' => ['auth']
             Route::put('persentase-kinerja/{id}', 'PersentaseKinerjaController@update')->name('persentaseKinerja.update');
             Route::delete('persentase-kinerja/{id}', 'PersentaseKinerjaController@destroy')->name('persentaseKinerja.destroy');
 
-             // Nilai Kinerja
+            // Nilai Kinerja
             Route::get('nilai-kinerja', 'NilaiKinerjaController@index')->name('nilaiKinerja');
             Route::get('get-nilai-kinerja', 'NilaiKinerjaController@datatable')->name('nilaiKinerja.datatable');
             Route::post('nilai-kinerja', 'NilaiKinerjaController@store')->name('nilaiKinerja.store');
@@ -201,7 +216,3 @@ Route::group(['prefix' => 'dashboard', 'as' => 'dash.', 'middleware' => ['auth']
         });
     });
 });
-
-Auth::routes();
-
-Route::get('/home', 'HomeController@index')->name('home');

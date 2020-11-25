@@ -188,7 +188,7 @@
     function resignKaryawan(id, name) {
         var url = '{{ route("dash.karyawan.resign", ":id") }}';
         url = url.replace(':id', id);
-        $('#resignKaryawan .modal-body').text('Apakah yakin ' + name + ' berhenti kerja?');
+        $('#resignKaryawan .modal-body').text('Apakah benar ' + name + ' berhenti kerja?');
         $('#resignKaryawan form').attr('action', url);
         $('#resignKaryawan').modal('show');
     }

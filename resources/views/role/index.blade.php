@@ -32,21 +32,18 @@
 <div class="card">
     <div class="card-header">
         <h3 class="card-title">
-            Daftar Jabatan
+            Daftar Role
         </h3>
         <div class="card-options">
-            <button type="button" id="newJabatan" class="btn btn-primary"><i class="fe fe-plus"></i> Tambah</button>
+            <a href="{{ route('dash.user.index') }}" class="btn btn-primary"><i class="fe fe-users"></i> Daftar User</a>
         </div>
     </div>
     <div class="table-responsive">
-        <table class="table card-table table-vcenter text-nowra" id="daftarJabatan">
+        <table class="table card-table table-vcenter text-nowra" id="daftarRole">
             <thead>
                 <tr>
-                    <th>Nama Jabatan</th>
-                    <th>Jml Peserta</th>
-                    <th>Tunj Jabatan</th>
-                    <th>Load</th>
-                    <th>Maks Jam Lembur</th>
+                    <th>Nama Role</th>
+                    <th>Hak Akses</th>
                     <th>Opsi</th>
                 </tr>
             </thead>
@@ -54,7 +51,7 @@
     </div>
 </div>
 
-@include('jabatan.modals')
+@include('role.modals')
 
 @endsection
 
@@ -66,71 +63,69 @@
         }
     });
 
-    var oTable = $('#daftarJabatan').DataTable({
+    var oTable = $('#daftarRole').DataTable({
         serverSide: true,
         processing: true,
         // select: true,
-        ajax: '{{ route('dash.jabatan.datatable') }}',
+        ajax: '{{ route('dash.role.datatable') }}',
         columns: [
-            {data: 'nama_jabatan'},
-            {data: 'jml_peserta'},
-            {data: 'tunjangan_jabatan'},
-            {data: 'load'},
-            {data: 'maksimal_jam'},
+            {data: 'name'},
+            {data: 'permission'},
             {data: 'actions', orderable: false, searchable: false}
         ]
     });
+
     // $('#select-form').submit(function(e) {
     //     oTable.draw();
     //     e.preventDefault();
     // });
 
-    $('#newJabatan').click(function () {
-        $('.modal-title').text('Tambah Jabatan');
-        $('#formJabatan').modal('show');
+    $('#newUser').click(function () {
+        $('.modal-title').text('Create User');
+        $('#formUser').modal('show');
         $('input[name=_method]').val('POST');
-        $('#formJabatan form')[0].reset();
+        $('#formUser form')[0].reset();
     });
 
-    function editJabatan(id) {
-        var url = '{{ route('dash.jabatan.edit', ':id') }}';
+    function editUser(id) {
+        var url = '{{ route('dash.user.edit', ':id') }}';
         url = url.replace(':id', id);
         $('input[name=_method]').val('PUT');
-        $('#formJabatan form')[0].reset();
+        $('#formUser form')[0].reset();
         $.ajax({
             url: url,
             type: 'GET',
             dataType: 'JSON',
             success: function (data) {
-                $('.modal-title').text('Edit Jabatan');
-                $('#formJabatan').modal('show');
+                $('.modal-title').text('Edit User');
+                $('#formUser').modal('show');
+
                 $('input[name=id]').val(data.id);
-                $('input[name=nama_jabatan]').val(data.nama_jabatan);
-                $('input[name=tunjangan_jabatan]').val(data.tunjangan_jabatan);
-                $('input[name=load]').val(data.load);
-                $('input[name=maksimal_jam]').val(data.maksimal_jam);
+                $('input[name=server_ip]').val(data.server_ip);
+                $('input[name=server_port]').val(data.server_port);
+                $('input[name=serial_number]').val(data.serial_number);
             }
         });
     }
 
-    $('#formJabatan form').submit(function(e) {
+    $('#formUser form').submit(function(e) {
         e.preventDefault();
         var id = $('input[name=id]').val();
         var save_method = $('input[name=_method]').val();
 
         if (save_method == 'POST') {
-            url = '{{ route('dash.jabatan.store') }}';
+            url = '{{ route('dash.user.store') }}';
         } else {
-            url_raw = '{{ route('dash.jabatan.update', ':id') }}';
+            url_raw = '{{ route('dash.user.update', ':id') }}';
             url = url_raw.replace(':id', id);
         }
 
         $.ajax({
             url: url,
             type: 'POST',
-            data: $('#formJabatan form').serialize(),
+            data: $('#formUser form').serialize(),
             success: function (data) {
-                $('#formJabatan').modal('hide');
+                $('#formUser').modal('hide');
                 oTable.ajax.reload();
             },
             error: function () {
@@ -139,12 +134,12 @@
         });
     });
 
-    function hapusJabatan(id) {
-        var url = '{{ route('dash.jabatan.destroy', ':id') }}';
+    function hapusUser(id) {
+        var url = '{{ route('dash.user.destroy', ':id') }}';
         url = url.replace(':id', id);
-        $('#hapusJabatan .modal-body').text('Yakin ingin menghapus?');
-        $('#hapusJabatan form').attr('action', url);
-        $('#hapusJabatan').modal('show');
+        $('#hapusUser .modal-body').text('Yakin ingin menghapus?');
+        $('#hapusUser form').attr('action', url);
+        $('#hapusUser').modal('show');
     }
 </script>
 @endpush

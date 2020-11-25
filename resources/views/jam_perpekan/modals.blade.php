@@ -34,18 +34,6 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="col">
-                            <div class="form-group">
-                                <label class="form-label">Jml Jam Ngajar</label>
-                                <div class="input-group">
-                                    <input type="number" name="jml_jam_ngajar" class="form-control"
-                                        aria-describedby="basic-addon2">
-                                    <span class="input-group-append" id="basic-addon2">
-                                        <span class="input-group-text">Jam</span>
-                                    </span>
-                                </div>
-                            </div>
-                        </div>
                     </div>
                     <div class="row">
                         <div class="col">

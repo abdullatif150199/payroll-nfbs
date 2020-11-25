@@ -44,12 +44,6 @@
                                 <input type="number" name="maksimal_jam" class="form-control" required>
                             </div>
                         </div>
-                        <div class="col">
-                            <div class="form-group">
-                                <label class="form-label">Kode Jabatan Untuk No.Induk</label>
-                                <input type="text" name="no_kode" class="form-control" required>
-                            </div>
-                        </div>
                     </div>
                 </div>
                 <div class="modal-footer">

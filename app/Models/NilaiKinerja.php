@@ -14,7 +14,7 @@ class NilaiKinerja extends Model
 
     public function getToResultPersenAttribute()
     {
-        return ($this->result_persen * 100);
+        return round($this->result_persen * 100);
     }
 
     public function setResultPersenAttribute($value)

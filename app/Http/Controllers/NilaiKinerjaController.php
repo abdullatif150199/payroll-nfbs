@@ -22,9 +22,6 @@ class NilaiKinerjaController extends Controller
             ->editColumn('min_persen', function($data) {
                 return $data->to_min_persen . '%';
             })
-            ->editColumn('max_persen', function($data) {
-                return $data->to_max_persen . '%';
-            })
             ->editColumn('result_persen', function($data) {
                 return $data->to_result_persen . '%';
             })
@@ -38,15 +35,13 @@ class NilaiKinerjaController extends Controller
     public function store(Request $request)
     {
         $this->validate($request, [
-            'min_persen' => 'required|min:1|max:5',
-            'max_persen' => 'required|min:1|max:5',
+            'min_nilai' => 'required|min:1|max:5',
             'result_persen' => 'required|min:1|max:5',
             'nilai' => 'required|min:1|max:5'
         ]);
 
         $data = [
-            'min_persen' => $request->min_persen,
-            'max_persen' => $request->max_persen,
+            'min_nilai' => $request->min_nilai,
             'result_persen' => $request->result_persen,
             'nilai' => $request->nilai,
         ];
@@ -65,15 +60,13 @@ class NilaiKinerjaController extends Controller
     public function update(Request $request, $id)
     {
         $this->validate($request, [
-            'min_persen' => 'required|min:1|max:5',
-            'max_persen' => 'required|min:1|max:5',
+            'min_nilai' => 'required|min:1|max:5',
             'result_persen' => 'required|min:1|max:5',
             'nilai' => 'required|min:1|max:5'
         ]);
 
         $data = NilaiKinerja::find($id);
-        $data->min_persen = $request->min_persen;
-        $data->max_persen = $request->max_persen;
+        $data->min_nilai = $request->min_nilai;
         $data->result_persen = $request->result_persen;
         $data->nilai = $request->nilai;
         $data->save();
