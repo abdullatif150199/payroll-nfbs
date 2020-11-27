@@ -39,19 +39,14 @@ class CutiController extends ProfileController
         $data = Cuti::with('karyawan')->where('karyawan_id', $id)->get();
 
         return Datatables::of($data)
-            ->editColumn('status', function($data) {
-                if ($data->approved_at === null) {
-                    return ($data->status === null) ? '<span class="tag tag-blue tag-rounded">Menunggu</span>' : '<span class="tag tag-rounded">Ditolak</span>' ;
-                } else {
-                    return '<span class="tag tag-green tag-rounded">Diterima</span>';
-                }
-
+            ->editColumn('status', function ($data) {
+                return view('profile.cuti.status', ['data' => $data]);
             })
-            ->addColumn('progress', function($data) {
+            ->addColumn('progress', function ($data) {
                 return view('profile.cuti.progress', ['data' => $data]);
             })
-            ->editColumn('tgl_request', function($data) {
-                return '<span class="text-muted">'. date('d M Y', strtotime($data->created_at)) .'</span>';
+            ->editColumn('tgl_request', function ($data) {
+                return '<span class="text-muted">'. yearMonth(date('Y-m-d', strtotime($data->created_at))) .'</span>';
             })
             ->rawColumns(['status', 'progress', 'tgl_request'])
             ->make(true);

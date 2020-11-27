@@ -24,9 +24,14 @@
         <a class="dropdown-item" href="{!! url(config('tabler.urls.profile')) !!}">
             <i class="dropdown-icon fe fe-user"></i> Profile
         </a>
-        <a class="dropdown-item" href="{!! url(config('tabler.urls.settings')) !!}">
-            <i class="dropdown-icon fe fe-settings"></i> Setting
-        </a>
+        @if (!Auth::user()->hasRole('user'))
+            <a class="dropdown-item" href="{{ route('dash.home') }}">
+                <i class="dropdown-icon fe fe-grid"></i> Dashboard
+            </a>
+            <a class="dropdown-item" href="{!! url(config('tabler.urls.settings')) !!}">
+                <i class="dropdown-icon fe fe-settings"></i> Setting
+            </a>
+        @endif
         <a class="dropdown-item" href="{{ route('logout') }}"
             onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
             <i class="dropdown-icon fe fe-log-out"></i> Logout

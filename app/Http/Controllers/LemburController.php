@@ -20,9 +20,9 @@ class LemburController extends Controller
     {
         if (!$request->bulan) {
             $bulan = date('Y-m');
-            $data = Lembur::with('karyawan')->bulan($bulan)->get();
+            $data = Lembur::with('karyawan')->bulan($bulan)->latest()->get();
         } else {
-            $data = Lembur::with('karyawan')->bulan($request->bulan)->get();
+            $data = Lembur::with('karyawan')->bulan($request->bulan)->latest()->get();
         }
 
         return Datatables::of($data)
@@ -30,15 +30,18 @@ class LemburController extends Controller
                 return '<span class="text-muted">'. $data->karyawan->no_induk .'</span>';
             })
             ->editColumn('nama_lengkap', function ($data) {
-                return $data->karyawan->nama_lengkap;
+                return view('lembur.nama', ['data' => $data]);
             })
             ->editColumn('total_tarif', function ($data) {
                 return number_format($data->total_tarif);
             })
+            ->addColumn('status', function ($data) {
+                return view('lembur.status', ['data' => $data]);
+            })
             ->addColumn('actions', function ($data) {
                 return view('lembur.actions', ['data' => $data]);
             })
-            ->rawColumns(['actions', 'no_induk', 'nama_lengkap', 'total_tarif'])
+            ->rawColumns(['status', 'actions', 'no_induk', 'nama_lengkap', 'total_tarif'])
             ->make(true);
     }
 

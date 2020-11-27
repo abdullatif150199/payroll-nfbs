@@ -46,8 +46,9 @@
         <div class="card-header">
             Daftar Cuti
             <div class="card-options">
-                <a class="btn btn-info" href="{{ route('profile.cuti.create') }}"><i class="fe fe-plus"></i> Request
-                    Cuti</a>
+                <a class="btn btn-primary" href="{{ route('profile.cuti.create') }}">
+                    <i class="fe fe-plus"></i> Ajukan Cuti
+                </a>
             </div>
         </div>
         <div class="table-responsive">

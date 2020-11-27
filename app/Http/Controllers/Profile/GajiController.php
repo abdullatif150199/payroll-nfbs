@@ -19,13 +19,13 @@ class GajiController extends ProfileController
                 ->where('karyawan_id', $id)->get();
 
         return Datatables::of($data)
-            ->editColumn('bulan', function($data) {
-                return '<span class="text-muted">'. yearMonth($data->bulan) .'</span>';
+            ->editColumn('bulan', function ($data) {
+                return '<span class="text-muted">'. yearMonth($data->bulan, 'H') .'</span>';
             })
-            ->editColumn('gaji_akhir', function($data) {
+            ->editColumn('gaji_akhir', function ($data) {
                 return number_format($data->gaji_akhir);
             })
-            ->addColumn('actions', function($data) {
+            ->addColumn('actions', function ($data) {
                 return view('profile.gaji.actions', ['data' => $data]);
             })
             ->rawColumns(['actions', 'bulan', 'gaji_akhir'])

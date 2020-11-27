@@ -70,7 +70,7 @@
                             <th>Unit</th>
                             <th>No. HP</th>
                             <th>Status Kerja</th>
-                            <th>Option</th>
+                            <th></th>
                         </tr>
                     </thead>
                 </table>

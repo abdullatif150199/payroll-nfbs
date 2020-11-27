@@ -238,10 +238,11 @@
                             <th>No. Induk</th>
                             <th>Nama Lengkap</th>
                             <th>Jml Jam</th>
-                            <th>Total Tarif</th>
+                            <th>Tarif</th>
                             <th>Keterangan</th>
                             <th>Tipe</th>
-                            <th>Opsi</th>
+                            <th>Status</th>
+                            <th></th>
                         </tr>
                     </thead>
                 </table>
@@ -280,6 +281,7 @@
             {data: 'total_tarif'},
             {data: 'keterangan'},
             {data: 'type'},
+            {data: 'status'},
             {data: 'actions', orderable: false, searchable: false}
         ]
     });

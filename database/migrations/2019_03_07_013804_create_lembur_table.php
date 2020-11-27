@@ -20,7 +20,7 @@ class CreateLemburTable extends Migration
             $table->char('bulan', 7);
             $table->tinyInteger('jumlah_jam');
             $table->string('keterangan', 225)->nullable();
-            $table->dateTime('date')->nullable();
+            $table->date('date')->nullable();
             $table->enum('type', ['week', 'day', 'holi']);
             $table->decimal('total_tarif', 14, 0)->default(0);
             $table->enum('status', ['approve', 'disapprove'])->nullable();

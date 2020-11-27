@@ -23,8 +23,12 @@ Route::group(['prefix' => 'profile', 'as' => 'profile.', 'middleware' => ['auth'
     Route::get('gaji', 'Profile\GajiController@index')->name('gaji.index');
     Route::get('get-gaji/{id}', 'Profile\GajiController@datatable')->name('gaji.datatable');
 
-    Route::get('lembur', 'Profile\GajiController@index')->name('gaji.index');
-    Route::get('get-lembur/{id}', 'Profile\GajiController@datatable')->name('gaji.datatable');
+    Route::get('lembur', 'Profile\LemburController@index')->name('lembur.index');
+    Route::post('lembur', 'Profile\LemburController@store')->name('lembur.store');
+    Route::get('lembur/{id}', 'Profile\LemburController@edit')->name('lembur.edit');
+    Route::put('lembur/{id}', 'Profile\LemburController@update')->name('lembur.update');
+    Route::delete('lembur/{id}', 'Profile\LemburController@destroy')->name('lembur.destroy');
+    Route::get('get-lembur/{id}', 'Profile\LemburController@datatable')->name('lembur.datatable');
 
     Route::get('kehadiran', 'Profile\KehadiranController@index')->name('kehadiran.index');
     Route::get('get-kehadiran/{id}', 'Profile\KehadiranController@datatable')->name('kehadiran.datatable');
