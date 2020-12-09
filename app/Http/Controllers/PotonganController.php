@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use Yajra\Datatables\Datatables;
 use App\Models\Karyawan;
 use App\Models\Potongan;
+use App\Models\Rekening;
 
 class PotonganController extends Controller
 {
@@ -13,7 +14,13 @@ class PotonganController extends Controller
     {
         $title = 'Potongan';
         $potongan = Potongan::all();
-        return view('potongan.index', ['title' => $title, 'potongan' => $potongan]);
+        $rekening = Rekening::all();
+
+        return view('potongan.index', [
+            'title' => $title,
+            'potongan' => $potongan,
+            'rekening' => $rekening
+        ]);
     }
 
     public function name(Request $request)
@@ -32,7 +39,7 @@ class PotonganController extends Controller
             ->addColumn('actions', function ($data) {
                 return view('potongan.actions', ['data' => $data]);
             })
-            ->editColumn('jenis_potongan', function($data) {
+            ->editColumn('jenis_potongan', function ($data) {
                 return view('potongan.types', ['data' => $data]);
             })
             ->rawColumns(['actions', 'jenis_potongan'])
@@ -44,7 +51,8 @@ class PotonganController extends Controller
         if ($request->type === 'decimal') {
             $this->validate($request, [
                 'nama_potongan' => 'min:2|max:20',
-                'jumlah_potongan' => 'required|max:22'
+                'jumlah_potongan' => 'required|max:22',
+                'rekening_id' => 'required'
             ]);
 
             $jumlah_potongan = str_replace('.', '', $request->jumlah_potongan);
@@ -52,7 +60,8 @@ class PotonganController extends Controller
             $this->validate($request, [
                 'nama_potongan' => 'min:2|max:20',
                 'jumlah_persentase' => 'required|max:3',
-                'jenis_persentase' => 'required'
+                'jenis_persentase' => 'required',
+                'rekening_id' => 'required'
             ]);
 
             $jumlah_potongan = substr($request->jumlah_persentase/100, 0, 4) . '*' . $request->jenis_persentase;
@@ -61,7 +70,8 @@ class PotonganController extends Controller
         $data = [
             'nama_potongan' => $request->nama_potongan,
             'jumlah_potongan' => $jumlah_potongan,
-            'type' => $request->type
+            'type' => $request->type,
+            'rekening_id' => $request->rekening_id
         ];
 
         return Potongan::create($data);
@@ -86,7 +96,8 @@ class PotonganController extends Controller
         if ($request->type === 'decimal') {
             $this->validate($request, [
                 'nama_potongan' => 'min:2|max:20',
-                'jumlah_potongan' => 'required|max:22'
+                'jumlah_potongan' => 'required|max:22',
+                'rekening_id' => 'required'
             ]);
 
             $jumlah_potongan = str_replace('.', '', $request->jumlah_potongan);
@@ -94,7 +105,8 @@ class PotonganController extends Controller
             $this->validate($request, [
                 'nama_potongan' => 'min:2|max:20',
                 'jumlah_persentase' => 'required|max:3',
-                'jenis_persentase' => 'required'
+                'jenis_persentase' => 'required',
+                'rekening_id' => 'required'
             ]);
 
             $jumlah_potongan = substr($request->jumlah_persentase/100, 0, 4) . '*' . $request->jenis_persentase;
@@ -104,6 +116,7 @@ class PotonganController extends Controller
         $pot->nama_potongan = $request->nama_potongan;
         $pot->jumlah_potongan = $jumlah_potongan;
         $pot->type = $request->type;
+        $pot->rekening_id = $request->rekening_id;
         $pot->update();
 
         return $pot;

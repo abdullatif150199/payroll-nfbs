@@ -8,7 +8,7 @@ class Potongan extends Model
 {
     protected $table = 'potongan';
 
-    protected $fillable = ['nama_potongan', 'jumlah_potongan', 'type'];
+    protected $fillable = ['rekening_id', 'nama_potongan', 'jumlah_potongan', 'type'];
 
     public function karyawan()
     {

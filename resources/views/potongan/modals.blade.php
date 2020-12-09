@@ -209,6 +209,19 @@
                             </div>
                         </div>
                     </div>
+                    <div class="row">
+                        <div class="col">
+                            <div class="form-group">
+                                <label class="form-label">Rekening Cover</label>
+                                <select class="form-control custom-select" name="rekening_id" required>
+                                    <option value="">Pilih</option>
+                                    @foreach ($rekening as $rek)
+                                        <option value="{{ $rek->id }}">{{ $rek->atas_nama .' ('. $rek->keterangan .')' }}</option>
+                                    @endforeach
+                                </select>
+                            </div>
+                        </div>
+                    </div>
                 </div>
                 <div class="modal-footer">
 
