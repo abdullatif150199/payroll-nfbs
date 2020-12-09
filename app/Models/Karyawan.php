@@ -45,7 +45,7 @@ class Karyawan extends Model
 
     public function kehadiranKemarin()
     {
-        $yesterday = date("Y-m-d", strtotime( '-1 days' ) );
+        $yesterday = date("Y-m-d", strtotime('-1 days'));
         return $this->hasOne(kehadiran::class)->where('tanggal', $yesterday);
     }
 
@@ -149,7 +149,7 @@ class Karyawan extends Model
         return $this->keluarga()->anak()->count();
     }
 
-      // Get Jml Istri
+    // Get Jml Istri
     public function getJmlIstriAttribute($value)
     {
         return $this->keluarga()->istri()->count();
@@ -194,7 +194,12 @@ class Karyawan extends Model
     public function scopeTunjKinerja($query, $data, $bln)
     {
         $get = $this->gajiOne()->bulan($bln)->first();
-        return $get->resultKinerja($data);
+
+        if (!empty($get)) {
+            return $get->resultKinerja($data);
+        }
+
+        return 0;
     }
 
     public function getPotonganArrayAttribute()
@@ -209,6 +214,7 @@ class Karyawan extends Model
                     case 'GATOT':
                         $jml = $arr[0] * $this->gaji_total;
                         $toArray[] = [
+                            'rekening_id' => $item->rekening_id,
                             'nama' => $item->nama_potongan,
                             'jumlah' => $jml
                         ];
@@ -217,18 +223,20 @@ class Karyawan extends Model
                     case 'GAFUN':
                         $jml = $arr[0] * ($this->gaji_pokok + $this->tunj_fungsional);
                         $toArray[] = [
+                            'rekening_id' => $item->rekening_id,
                             'nama' => $item->nama_potongan,
                             'jumlah' => $jml
                         ];
                         break;
 
                     default:
-                        dd('Unknow parameter');
+                        dd($arr[1] . ' undefined');
                         break;
                 }
             } else {
                 $jml = $item->jumlah_potongan;
                 $toArray[] = [
+                    'rekening_id' => $item->rekening_id,
                     'nama' => $item->nama_potongan,
                     'jumlah' => $jml
                 ];
@@ -270,5 +278,4 @@ class Karyawan extends Model
 
         return $result;
     }
-
 }

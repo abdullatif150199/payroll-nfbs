@@ -326,22 +326,23 @@
         var url = '{{ route('dash.lembur.edit', ':id') }}';
         url = url.replace(':id', id);
         $('input[name=_method]').val('PUT');
-        $('#select2').hide();
+        $('#select2').remove();
         $('#formLembur form')[0].reset();
         $.ajax({
             url: url,
             type: 'GET',
             dataType: 'JSON',
             success: function (data) {
-                $('.modal-title').text('Edit Lembur');
+                $('.modal-title').text(data.karyawan.nama_lengkap + ' | Edit Lembur');
                 $('#formLembur').modal('show');
-                var bulan = data.bulan;
-                var arr = bulan.split("-");
+                var date = data.date;
+                var arr = date.split("-");
+                $('select[name=day]').val(arr[2]);
                 $('select[name=month]').val(arr[1]);
                 $('select[name=year]').val(arr[0]);
                 $('input[name=id]').val(data.id);
-                $('input[name=jenis_insentif]').val(data.jenis_insentif);
-                $('input[name=jumlah]').val(data.jumlah);
+                $('input[name=jumlah_jam]').val(data.jumlah_jam);
+                $('select[name=type]').val(data.type);
                 $('input[name=keterangan]').val(data.keterangan);
             }
         });
@@ -366,20 +367,84 @@
             success: function (data) {
                 $('#formLembur').modal('hide');
                 oTable.ajax.reload();
+                toastr.success(data.message, "Success");
             },
             error: function () {
-                alert('Gagal menambahkan data');
+                toastr.error('Gagal memproses data', 'Failed');
             }
         });
     });
 
     function hapusLembur(id) {
-        var url = '{{ route('dash.lembur.destroy', ':id') }}';
-        url = url.replace(':id', id);
+        $('input[name=id]').val(id);
         $('#hapusLembur .modal-body').text('Yakin ingin menghapus?');
-        $('#hapusLembur form').attr('action', url);
         $('#hapusLembur').modal('show');
     }
+
+    $('#hapusLembur form').submit(function(e) {
+        e.preventDefault();
+        var id = $('input[name=id]').val();
+        var url = '{{ route('dash.lembur.destroy', ':id') }}';
+        url = url.replace(':id', id);
+
+        $.ajax({
+            url: url,
+            type: "DELETE",
+            success: function (data) {
+                $('#hapusLembur').modal('hide');
+                oTable.ajax.reload();
+                toastr.success(data.message, "Success");
+            },
+            error: function () {
+                toastr.error('Gagal memproses data', 'Failed');
+            }
+        });
+    });
+
+    function persetujuan(id) {
+        var url = '{{ route('dash.lembur.edit', ':id') }}';
+        url = url.replace(':id', id);
+        $('input[name=_method]').val('PUT');
+        $('#persetujuanLembur form')[0].reset();
+        $.ajax({
+            url: url,
+            type: 'GET',
+            dataType: 'JSON',
+            success: function (data) {
+                $('.modal-title').text(data.karyawan.nama_lengkap + ' | Persetujuan Lembur');
+                $('#persetujuanLembur').modal('show');
+                var date = data.date;
+                var arr = date.split("-");
+                $('input[name=day]').val(arr[2]);
+                $('input[name=month]').val(arr[1]);
+                $('input[name=year]').val(arr[0]);
+                $('input[name=id]').val(data.id);
+                $('input[name=jumlah_jam]').val(data.jumlah_jam);
+                $('input[name=type]').val(data.type);
+            }
+        });
+    }
+
+    $('#persetujuanLembur form').submit(function(e) {
+        e.preventDefault();
+        var id = $('input[name=id]').val();
+        var url = '{{ route('dash.lembur.update', ':id') }}';
+        url = url.replace(':id', id);
+
+        $.ajax({
+            url: url,
+            type: "PUT",
+            data: $('#persetujuanLembur form').serialize(),
+            success: function (data) {
+                $('#persetujuanLembur').modal('hide');
+                oTable.ajax.reload();
+                toastr.success(data.message, "Success");
+            },
+            error: function () {
+                toastr.error('Gagal memproses data', 'Failed');
+            }
+        });
+    });
 
 </script>
 @endpush

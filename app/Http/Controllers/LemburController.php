@@ -55,6 +55,85 @@ class LemburController extends Controller
         $bln = $request->year . '-' . $request->month;
         $karyawan = Karyawan::with('golongan', 'jabatan')->find($request->karyawan_id);
 
+        $total_lembur = $this->totalLembur($request, $karyawan);
+
+        $request->merge([
+            'bulan' => $bln,
+            'date' => $bln . '-' . $request->day,
+            'status' => 'approve',
+            'total_tarif' => $total_lembur
+        ]);
+
+        $store = $karyawan->lembur()->create($request->all());
+
+        ProcessPayroll::dispatch($karyawan, $bln);
+
+        return $store;
+    }
+
+    public function edit($id)
+    {
+        $get = Lembur::with('karyawan')->findOrFail($id);
+        return $get;
+    }
+
+    public function update(Request $request, $id)
+    {
+        $lembur = Lembur::with('karyawan')->findOrFail($id);
+        $bln = $request->year .'-'. $request->month;
+
+        if ($status = $request->status) {
+            if ($status == 'approve') {
+                $total_lembur = $this->totalLembur($request, $lembur->karyawan);
+
+                $lembur->update([
+                    'total_tarif' => $total_lembur,
+                    'status' => $status
+                ]);
+
+                ProcessPayroll::dispatch($lembur->karyawan, $bln);
+            } else {
+                $lembur->update([
+                    'status' => $status
+                ]);
+            }
+        } else {
+            $total_lembur = $this->totalLembur($request, $lembur->karyawan);
+
+            $request->merge([
+                'bulan' => $bln,
+                'date' => $bln .'-'. $request->day,
+                'total_tarif' => $total_lembur
+            ]);
+
+            $lembur->update($request->all());
+
+            ProcessPayroll::dispatch($lembur->karyawan, $bln);
+        }
+
+        return response()->json([
+            'status' => 200,
+            'message' => 'Ajuan lembur berhasil diupdate'
+        ]);
+    }
+
+    public function destroy($id)
+    {
+        $get = Lembur::findOrFail($id);
+        $bln = $get->bulan;
+        $karyawan = Karyawan::with('golongan', 'jabatan')->findOrFail($get->karyawan_id);
+        $get->delete();
+
+        ProcessPayroll::dispatch($karyawan, $bln);
+
+        return response()->json([
+            'status' => 200,
+            'message' => 'lembur berhasil dihapus'
+        ]);
+    }
+
+    public function totalLembur($request, $karyawan)
+    {
         $max_jam = $karyawan->jabatan()->first()->maksimal_jam;
         $tarif = $karyawan->golongan->lembur;
         //  Lembur hari kerja
@@ -81,56 +160,6 @@ class LemburController extends Controller
             $total_lembur = $karyawan->golongan->lembur_harian; // 2x tarif lembur harian
         }
 
-        $request->merge([
-            'bulan' => $bln,
-            'date' => $bln . '-' . $request->day,
-            'total_tarif' => $total_lembur
-        ]);
-
-        $store = $karyawan->lembur()->create($request->all());
-
-        ProcessPayroll::dispatch($karyawan, $bln);
-
-        return $store;
-    }
-
-    public function edit($id)
-    {
-        $get = Lembur::with('karyawan')->find($id);
-        return $get;
-    }
-
-    public function update(Request $request, $id)
-    {
-        $this->validate($request, [
-            'jenis_insentif' => 'required|min:1|max:10',
-            'jumlah' => 'required|min:4|max:15'
-        ]);
-
-        $bln = $request->year . '-' . $request->month;
-
-        $update = Lembur::with('karyawan')->findOrFail($id);
-        $update->jenis_insentif = $request->jenis_insentif;
-        $update->bulan = $bln;
-        $update->jumlah = $request->jumlah;
-        $update->keterangan = $request->keterangan;
-        $update->update();
-
-        ProcessPayroll::dispatch($update->karyawan, $bln);
-
-        return $update;
-    }
-
-    public function destroy($id)
-    {
-        $get = Lembur::with('karyawan')->findOrFail($id);
-        ProcessPayroll::dispatch($get->karyawan, $get->bulan);
-        $get->delete();
-
-        return back()->withSuccess('Insentif ' . $get->karyawan->nama_lengkap . ' berhasil dihapus!');
-    }
-
-    public function totalLembur($data)
-    {
+        return $total_lembur;
     }
 }

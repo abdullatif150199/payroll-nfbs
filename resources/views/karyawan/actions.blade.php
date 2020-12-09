@@ -11,6 +11,6 @@
         @endcan
         <div class="dropdown-divider"></div>
         <a href="{{ route('dash.karyawan.show', $data->id) }}" class="dropdown-item"><i
-                class="dropdown-icon fe fe-list"></i> Rincian</a>
+                class="dropdown-icon fe fe-list"></i> Detail</a>
     </div>
 </div>

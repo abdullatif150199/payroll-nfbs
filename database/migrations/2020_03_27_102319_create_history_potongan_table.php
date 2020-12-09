@@ -17,6 +17,8 @@ class CreateHistoryPotonganTable extends Migration
             $table->id();
             $table->foreignId('gaji_id');
             $table->foreign('gaji_id')->references('id')->on('gaji')->onDelete('cascade');
+            $table->foreignId('rekening_id');
+            $table->foreign('rekening_id')->references('id')->on('rekenings')->onDelete('cascade');
             $table->string('nama');
             $table->decimal('jumlah', 14, 0)->default(0);
             $table->timestamps();

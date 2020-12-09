@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 class Lembur extends Model
 {
     protected $table = 'lembur';
-    protected $fillable = ['karyawan_id', 'bulan', 'jumlah_jam', 'keterangan', 'date', 'type', 'total_tarif'];
+    protected $fillable = ['karyawan_id', 'bulan', 'jumlah_jam', 'keterangan', 'date', 'type', 'total_tarif', 'status'];
 
     public function karyawan()
     {

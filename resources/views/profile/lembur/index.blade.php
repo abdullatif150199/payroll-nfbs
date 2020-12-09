@@ -135,9 +135,10 @@
             success: function (data) {
                 $('#formLembur').modal('hide');
                 oTable.ajax.reload();
+                toastr.success(data.message, "Success");
             },
             error: function () {
-                alert('Gagal menambahkan data');
+                toastr.error('Gagal memproses data');
             }
         });
     });

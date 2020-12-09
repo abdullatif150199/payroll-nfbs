@@ -37,9 +37,22 @@ class ProcessPayroll implements ShouldQueue
     {
         $data = NilaiKinerja::all();
 
+        $gatot = array_sum([
+            $this->karyawan->gaji_pokok,
+            $this->karyawan->tunj_jabatan,
+            $this->karyawan->tunj_struktural,
+            $this->karyawan->tunj_fungsional,
+            $this->karyawan->tunjKinerja($data, $this->bln),
+            $this->karyawan->tunj_pendidikan_anak,
+            $this->karyawan->tunj_istri,
+            $this->karyawan->tunj_anak,
+            $this->karyawan->lembur()->sumLembur($this->bln),
+            $this->karyawan->insentif()->bulan($this->bln)->sum('jumlah')
+        ]);
+
         $gaji = $this->karyawan->gaji()->updateOrCreate([
             'bulan' => $this->bln,
-        ],[
+        ], [
             'gaji_pokok' => $this->karyawan->gaji_pokok,
             'tunjangan_jabatan' => $this->karyawan->tunj_jabatan,
             'tunjangan_struktural' => $this->karyawan->tunj_struktural,
@@ -52,25 +65,17 @@ class ProcessPayroll implements ShouldQueue
             'lembur' => $this->karyawan->lembur()->sumLembur($this->bln),
             // 'lain_lain' => 0,
             'insentif' => $this->karyawan->insentif()->bulan($this->bln)->sum('jumlah'),
-            'gaji_total' => array_sum([
-                $this->karyawan->gaji_pokok,
-                $this->karyawan->tunj_jabatan,
-                $this->karyawan->tunj_struktural,
-                $this->karyawan->tunj_fungsional,
-                $this->karyawan->tunjKinerja($data, $this->bln),
-                $this->karyawan->tunj_pendidikan_anak,
-                $this->karyawan->tunj_istri,
-                $this->karyawan->tunj_anak,
-                $this->karyawan->lembur()->sumLembur($this->bln),
-                $this->karyawan->insentif()->bulan($this->bln)->sum('jumlah')
-            ])
+            'gaji_total' => $gatot
         ]);
 
         if ($gaji->historyPotongan->count() > 0) {
             $gaji->deleteHistoryPotongan();
         }
 
-        $gaji->historyPotongan()->createMany($this->karyawan->potongan_array);
+        $pot = $gaji->historyPotongan()->createMany($this->karyawan->potongan_array);
+        $gaji->update([
+            'gaji_total' => $gatot - $pot->sum('jumlah')
+        ]);
     }
 
     // Perhitungan Lembur
@@ -125,7 +130,6 @@ class ProcessPayroll implements ShouldQueue
                     $week_jam_kedelapan = 1*3*1/173*(0.75*$gatot);
                     $week_jam_berikutnya = 0;
                 }
-
             }
 
             $week_jml = $week_jam_pertama + $week_jam_kedelapan + $week_jam_berikutnya;
@@ -157,7 +161,6 @@ class ProcessPayroll implements ShouldQueue
                     $holi_jam_keenam = 1*3*1/173*(0.75*$gatot);
                     $holi_jam_berikutnya = 0;
                 }
-
             }
 
             $holi_jml = $holi_jam_pertama + $holi_jam_keenam + $holi_jam_berikutnya;

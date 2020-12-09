@@ -15,6 +15,8 @@ class CreatePotonganTable extends Migration
     {
         Schema::create('potongan', function (Blueprint $table) {
             $table->id();
+            $table->foreignId('rekening_id');
+            $table->foreign('rekening_id')->references('id')->on('rekenings')->onDelete('cascade');
             $table->string('nama_potongan');
             $table->string('jumlah_potongan');
             $table->enum('type', ['percent', 'decimal']);

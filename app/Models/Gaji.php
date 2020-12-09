@@ -13,6 +13,7 @@ class Gaji extends Model
         'gaji_pokok',
         'tunjangan_jabatan',
         'tunjangan_fungsional',
+        'tunjangan_struktural',
         'tunjangan_kinerja',
         'tunjangan_pendidikan',
         'tunjangan_istri',
@@ -24,6 +25,8 @@ class Gaji extends Model
         'potongan',
         'gaji_total'
     ];
+
+    protected $appends = ['sum_potongan'];
 
     public function karyawan()
     {
@@ -39,6 +42,11 @@ class Gaji extends Model
     {
         // delete all related potongan
         return $this->historyPotongan()->delete();
+    }
+
+    public function getSumPotonganAttribute()
+    {
+        return $this->historyPotongan()->sum('jumlah');
     }
 
     public function historyKinerja()
@@ -84,7 +92,7 @@ class Gaji extends Model
     public function scopeResultKinerja($query, $data)
     {
         $val = $this->historyKinerja()->sumPersentaseKinerja();
-        $result = '';
+        $result = 0;
 
         foreach ($data as $item) {
             if ($val >= $item->min_nilai) {

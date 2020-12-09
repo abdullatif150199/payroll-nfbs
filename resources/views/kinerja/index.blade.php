@@ -228,7 +228,7 @@
                 </h3>
                 <div class="card-options">
                     <button type="button" id="newKinerja" class="btn btn-primary"><i class="fe fe-plus"></i>
-                        Tambah</button>
+                        Tambah/Replace</button>
                 </div>
             </div>
             <div class="table-responsive">

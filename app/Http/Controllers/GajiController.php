@@ -4,9 +4,11 @@ namespace App\Http\Controllers;
 
 use App\Models\Gaji;
 use App\Models\Karyawan;
+use App\Models\NilaiKinerja;
 use Illuminate\Http\Request;
 use Yajra\Datatables\Datatables;
-use App\Jobs\ProcessPayroll;
+use App\Exports\GajiExport;
+use Maatwebsite\Excel\Facades\Excel;
 
 class GajiController extends Controller
 {
@@ -26,25 +28,25 @@ class GajiController extends Controller
         }
 
         return Datatables::of($data)
-            ->editColumn('no_induk', function($data) {
+            ->editColumn('no_induk', function ($data) {
                 return '<span class="text-muted">'. $data->karyawan->no_induk .'</span>';
             })
-            ->editColumn('nama_lengkap', function($data) {
+            ->editColumn('nama_lengkap', function ($data) {
                 return $data->karyawan->nama_lengkap;
             })
-            ->editColumn('gaji_pokok', function($data) {
+            ->editColumn('gaji_pokok', function ($data) {
                 return number_format($data->gaji_pokok);
             })
-            ->editColumn('lembur', function($data) {
+            ->editColumn('lembur', function ($data) {
                 return number_format($data->lembur);
             })
-            ->editColumn('insentif', function($data) {
+            ->editColumn('insentif', function ($data) {
                 return number_format($data->insentif);
             })
-            ->editColumn('lain_lain', function($data) {
+            ->editColumn('lain_lain', function ($data) {
                 return number_format($data->lain_lain);
             })
-            ->editColumn('tunjangan', function($data) {
+            ->editColumn('tunjangan', function ($data) {
                 $total_tunjangan = array_sum([
                     $data->tunjangan_jabatan,
                     $data->tunjangan_fungsional,
@@ -57,22 +59,85 @@ class GajiController extends Controller
 
                 return number_format($total_tunjangan);
             })
-            ->editColumn('potongan', function($data) {
-                return number_format($data->potongan);
+            ->editColumn('potongan', function ($data) {
+                return '<span class="text-danger">- ' . number_format($data->sum_potongan) . '</span>';
             })
-            ->editColumn('gaji_akhir', function($data) {
-                return number_format($data->gaji_akhir);
+            ->editColumn('gaji_akhir', function ($data) {
+                return view('gaji.total', ['data' => $data]);
             })
-            // ->addColumn('actions', function($data) {
-            //     return view('gaji.actions', ['data' => $data]);
-            // })
-            ->rawColumns(['no_induk', 'nama_lengkap', 'gaji_akhir', 'tunjangan', 'gaji_pokok', 'lembur', 'insentif', 'lain_lain', 'potongan'])
+            ->addColumn('actions', function ($data) {
+                return view('gaji.actions', ['data' => $data]);
+            })
+            ->rawColumns(['actions', 'no_induk', 'nama_lengkap', 'gaji_akhir', 'tunjangan', 'gaji_pokok', 'lembur', 'insentif', 'lain_lain', 'potongan'])
             ->make(true);
     }
 
+    public function detail($id)
+    {
+        $gaji = Gaji::with('karyawan')->findOrFail($id);
+
+        return $gaji;
+    }
+
     // Calculate Gaji
-    public function calculate(Request $request)
+    public function prosesUlang(Request $request)
     {
         $bln = $request->tahun .'-'. $request->bulan;
+        $data = NilaiKinerja::all();
+
+        foreach (Gaji::with('karyawan')->where('bulan', $bln)->cursor() as $gaji) {
+            $gatot = array_sum([
+                $gaji->karyawan->gaji_pokok,
+                $gaji->karyawan->tunj_jabatan,
+                $gaji->karyawan->tunj_struktural,
+                $gaji->karyawan->tunj_fungsional,
+                $gaji->karyawan->tunjKinerja($data, $bln),
+                $gaji->karyawan->tunj_pendidikan_anak,
+                $gaji->karyawan->tunj_istri,
+                $gaji->karyawan->tunj_anak,
+                $gaji->karyawan->lembur()->sumLembur($bln),
+                $gaji->karyawan->insentif()->bulan($bln)->sum('jumlah')
+            ]);
+
+            $new = $gaji->karyawan->gaji()->updateOrCreate([
+                'bulan' => $bln,
+            ], [
+                'gaji_pokok' => $gaji->karyawan->gaji_pokok,
+                'tunjangan_jabatan' => $gaji->karyawan->tunj_jabatan,
+                'tunjangan_struktural' => $gaji->karyawan->tunj_struktural,
+                'tunjangan_fungsional' => $gaji->karyawan->tunj_fungsional,
+                'tunjangan_kinerja' => $gaji->karyawan->tunjKinerja($data, $bln),
+                'tunj_pendidikan' => $gaji->karyawan->tunj_pendidikan_anak,
+                'tunjangan_istri' => $gaji->karyawan->tunj_istri,
+                'tunjangan_anak' => $gaji->karyawan->tunj_anak,
+                // 'tunjangan_hari_raya' => $gaji->karyawan->tunj_hari_raya,
+                'lembur' => $gaji->karyawan->lembur()->sumLembur($bln),
+                // 'lain_lain' => 0,
+                'insentif' => $gaji->karyawan->insentif()->bulan($bln)->sum('jumlah'),
+                'gaji_total' => $gatot
+            ]);
+
+            if ($new->historyPotongan->count() > 0) {
+                $new->deleteHistoryPotongan();
+            }
+
+            $pot = $new->historyPotongan()->createMany($gaji->karyawan->potongan_array);
+            $new->update([
+                'gaji_total' => $gatot - $pot->sum('jumlah')
+            ]);
+        }
+
+        return response()->json([
+            'status' => 200,
+            'message' => 'Gaji terpilih berhasil diproses ualng'
+        ]);
+    }
+
+    public function unduh(Request $request)
+    {
+        $bln = $request->tahun .'-'. $request->bulan;
+        $export = new GajiExport($bln);
+
+        return Excel::download($export, 'report.xlsx');
     }
 }

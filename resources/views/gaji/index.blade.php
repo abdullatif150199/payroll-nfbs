@@ -68,8 +68,11 @@
                     </form>
                 </h3>
                 <div class="card-options">
-                    <a href="#confirm" data-toggle="modal" class="btn btn-primary">
-                        <i class="fe fe-list"></i> Proses ulang gaji
+                    <a id="loader-proses-ulang" href="#proses-ulang" data-toggle="modal" class="btn btn-primary mr-2">
+                        <i class="fe fe-rotate-ccw"></i> Proses ulang gaji
+                    </a>
+                    <a href="#unduh-gaji" data-toggle="modal" class="btn btn-dark">
+                        <i class="fe fe-download"></i> Unduh
                     </a>
                 </div>
             </div>
@@ -86,7 +89,7 @@
                             <th>Lain-lain</th>
                             <th>Potongan</th>
                             <th>Gaji Akhir</th>
-                            {{-- <th>Opsi</th> --}}
+                            <th></th>
                         </tr>
                     </thead>
                 </table>
@@ -101,40 +104,98 @@
 
 @push('scripts')
 <script>
-    // $.ajaxSetup({
-    //     headers: {
-    //         'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-    //     }
+    $.ajaxSetup({
+        headers: {
+            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+        }
+    });
+
+    var oTable = $('#daftarGaji').DataTable({
+        serverSide: true,
+        processing: true,
+        select: true,
+        ajax: {
+            url: '{{ route('dash.gaji.datatable') }}',
+            data: function (d) {
+                d.month = $('select[name=year]').val() + '-' + $('select[name=month]').val();
+            }
+        },
+        columns: [
+            {data: 'no_induk'},
+            {data: 'nama_lengkap'},
+            {data: 'gaji_pokok'},
+            {data: 'tunjangan'},
+            {data: 'lembur'},
+            {data: 'insentif'},
+            {data: 'lain_lain'},
+            {data: 'potongan'},
+            {data: 'gaji_akhir'},
+            {data: 'actions', orderable: false, searchable: false}
+        ]
+    });
+    // $('#select-form').submit(function(e) {
+    //     oTable.draw();
+    //     e.preventDefault();
     // });
 
-    $(document).ready(function() {
-        var oTable = $('#daftarGaji').DataTable({
-            serverSide: true,
-            processing: true,
-            select: true,
-            ajax: {
-                url: '{{ route('dash.gaji.datatable') }}',
-                data: function (d) {
-                    d.month = $('select[name=year]').val() + '-' + $('select[name=month]').val();
-                }
+    const formatter = new Intl.NumberFormat('en-US', {
+          style: 'currency',
+          currency: 'IDR'
+    });
+
+
+    function detailGaji(id) {
+        var url = '{{ route("dash.gaji.detail", ":id") }}';
+        url = url.replace(':id', id);
+        $('#loader' + id).show();
+        $.ajax({
+            url: url,
+            type: "GET",
+            dataType: "JSON",
+            success: function(data) {
+                $('.modal-title').text('Detail Gaji ' + data.karyawan.nama_lengkap);
+                $('input[name=gaji_pokok]').val(formatter.format(data.gaji_pokok));
+                $('input[name=tunjangan_jabatan]').val(formatter.format(data.tunjangan_jabatan));
+                $('input[name=tunjangan_fungsional]').val(formatter.format(data.tunjangan_fungsional));
+                $('input[name=tunjangan_struktural]').val(formatter.format(data.tunjangan_struktural));
+                $('input[name=tunjangan_kinerja]').val(formatter.format(data.tunjangan_kinerja));
+                $('input[name=tunjangan_pendidikan]').val(formatter.format(data.tunjangan_pendidikan));
+                $('input[name=tunjangan_istri]').val(formatter.format(data.tunjangan_istri));
+                $('input[name=tunjangan_anak]').val(formatter.format(data.tunjangan_anak));
+                $('input[name=tunjangan_hari_raya]').val(formatter.format(data.tunjangan_hari_raya));
+                $('input[name=lembur]').val(formatter.format(data.lembur));
+                $('input[name=lain_lain]').val(formatter.format(data.lain_lain));
+                $('input[name=insentif]').val(formatter.format(data.insentif));
+                $('input[name=potongan]').val(formatter.format(data.sum_potongan));
+                $('input[name=gaji_total]').val(formatter.format(data.gaji_total));
+                $('#detail-gaji').modal('show');
+                $('#loader' + id).hide();
             },
-            columns: [
-                {data: 'no_induk'},
-                {data: 'nama_lengkap'},
-                {data: 'gaji_pokok'},
-                {data: 'tunjangan'},
-                {data: 'lembur'},
-                {data: 'insentif'},
-                {data: 'lain_lain'},
-                {data: 'potongan'},
-                {data: 'gaji_akhir'},
-                // {data: 'actions', orderable: false, searchable: false}
-            ]
+            error: function() {
+                toastr.error('Data tidak ditemukan', 'Failed');
+            }
         });
-        // $('#select-form').submit(function(e) {
-        //     oTable.draw();
-        //     e.preventDefault();
-        // });
+    }
+
+    $('#proses-ulang form').submit(function(e) {
+        e.preventDefault();
+        url = '{{ route('dash.gaji.prosesUlang') }}';
+        $('#loader-proses-ulang').addClass('btn-loading');
+
+        $.ajax({
+            url: url,
+            type: 'POST',
+            data: $('#proses-ulang form').serialize(),
+            success: function (data) {
+                $('#proses-ulang').modal('hide');
+                $('#loader-proses-ulang').removeClass('btn-loading');
+                oTable.ajax.reload();
+                toastr.success(data.message, "Success");
+            },
+            error: function () {
+                toastr.error('Gagal memproses data', 'Failed');
+            }
+        });
     });
 </script>
 @endpush

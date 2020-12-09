@@ -14,4 +14,9 @@ class Potongan extends Model
     {
         return $this->belongsToMany(Karyawan::class, 'karyawan_potongan')->withPivot('end_at');
     }
+
+    public function rekening()
+    {
+        return $this->belongsTo(Rekening::class);
+    }
 }

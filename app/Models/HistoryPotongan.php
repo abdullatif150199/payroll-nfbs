@@ -8,10 +8,15 @@ class HistoryPotongan extends Model
 {
     protected $table = 'history_potongan';
 
-    protected $fillable = ['nama', 'jumlah'];
+    protected $fillable = ['rekening_id', 'nama', 'jumlah'];
 
     public function gaji()
     {
         return $this->belongsTo(Gaji::class);
+    }
+
+    public function rekening()
+    {
+        return $this->belongsTo(Rekening::class);
     }
 }

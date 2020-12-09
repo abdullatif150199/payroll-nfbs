@@ -62,7 +62,9 @@ Route::group(['prefix' => 'dashboard', 'as' => 'dash.', 'middleware' => ['auth']
         // Daftar Gaji
         Route::get('gaji', 'GajiController@index');
         Route::get('get-gaji', 'GajiController@datatable')->name('gaji.datatable');
-        Route::post('get-gaji', 'GajiController@calculate')->name('gaji.calculate');
+        Route::post('gaji/proses-ulang', 'GajiController@prosesUlang')->name('gaji.prosesUlang');
+        Route::post('gaji/unduh', 'GajiController@unduh')->name('gaji.unduh');
+        Route::get('gaji/{id}/detail', 'GajiController@detail')->name('gaji.detail');
 
         // Daftar Insentif
         Route::get('insentif', 'InsentifController@index');

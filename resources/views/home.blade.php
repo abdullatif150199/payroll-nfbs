@@ -86,7 +86,7 @@
             <div class="col-6">
                 <div class="card">
                     <div class="card-header">
-                        <h3 class="card-title">Data Filled</h3>
+                        <h3 class="card-title">Progres Gaji</h3>
                     </div>
                     <div class="card-body">
                         <div id="chart-donut" style="height: 12rem;">
@@ -114,15 +114,18 @@
 <div class="row row-cards row-deck">
     <div class="col-12">
         <div class="card">
+            <div class="card-header">
+                <h3 class="card-title">Kontrak Karyawan Segera Berakhir</h3>
+            </div>
             <table class="table table-responsive-sm table-hover table-outline table-vcenter card-table">
                 <thead>
                     <tr>
                         <th class="text-center w-1"><i class="icon-people"></i></th>
-                        <th>User</th>
-                        <th>Usage</th>
-                        <th class="text-center">Payment</th>
-                        <th>Activity</th>
-                        <th class="text-center">Satisfaction</th>
+                        <th>Nama</th>
+                        <th>Status</th>
+                        <th>Mulai kerja</th>
+                        <th>Akhir kerja</th>
+                        <th>Satisfaction</th>
                         <th class="text-center"><i class="icon-settings"></i></th>
                     </tr>
                 </thead>
@@ -140,30 +143,26 @@
                             </div>
                         </td>
                         <td>
+                            <span>fgh</span>
+                        </td>
+                        <td>
+                            12-11-2019
+                        </td>
+                        <td>
+                            12-12-2020
+                        </td>
+                        <td>
                             <div class="clearfix">
                                 <div class="float-left">
-                                    <strong>42%</strong>
+                                    <strong>92%</strong>
                                 </div>
                                 <div class="float-right">
-                                    <small class="text-muted">Feb 23, 2020 - Jul 10, 2020</small>
+                                    <small class="text-muted">5 hari lagi</small>
                                 </div>
                             </div>
                             <div class="progress progress-xs">
                                 <div class="progress-bar bg-yellow" role="progressbar" style="width: 42%"
                                     aria-valuenow="42" aria-valuemin="0" aria-valuemax="100"></div>
-                            </div>
-                        </td>
-                        <td class="text-center">
-                            <i class="payment payment-visa"></i>
-                        </td>
-                        <td>
-                            <div class="small text-muted">Last login</div>
-                            <div>4 minutes ago</div>
-                        </td>
-                        <td class="text-center">
-                            <div class="mx-auto chart-circle chart-circle-xs" data-value="0.42" data-thickness="3"
-                                data-color="blue"><canvas width="40" height="40"></canvas>
-                                <div class="chart-circle-value">42%</div>
                             </div>
                         </td>
                         <td class="text-center">

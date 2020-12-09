@@ -9,26 +9,18 @@
                     <div class="media-body">
                         <h4 class="m-0">{{ $data->nama_lengkap }}</h4>
                         <p class="text-muted mb-0">
-                            {{ $data->no_induk }}
-                            &middot;
+                            NIP: {{ $data->no_induk }}
+                            {{-- &middot;
                             @foreach ($data->jabatan as $item)
                             {{ $item->nama_jabatan }}
-                            @endforeach
+                            @endforeach --}}
                         </p>
-                        <ul class="social-links list-inline mb-0 mt-2">
-                            <li class="list-inline-item">
-                                <a href="javascript:void(0)"><i class="fa fa-facebook"></i></a>
-                            </li>
-                            <li class="list-inline-item">
-                                <a href="javascript:void(0)"><i class="fa fa-twitter"></i></a>
-                            </li>
-                            <li class="list-inline-item">
-                                <a href="javascript:void(0)"><i class="fa fa-instagram"></i></a>
-                            </li>
-                            <li class="list-inline-item">
-                                <a href="javascript:void(0)"><i class="fa fa-whatsapp"></i></a>
-                            </li>
-                        </ul>
+                        <a href="https://wa.me/{{ $data->no_hp }}?text=Assalaamualaikum" class="btn btn-outline-success btn-sm" target="_blank">
+                            <span class="fa fa-whatsapp"></span> Chat
+                        </a>
+                        <a href="#" class="btn btn-outline-warning btn-sm">
+                            <span class="fa fa-envelope-o"></span> SMS
+                        </a>
                     </div>
                 </div>
             </div>
