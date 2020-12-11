@@ -1,5 +1,5 @@
 {{-- Modal formDevice --}}
-<div class="modal fade" id="formDevice">
+<div class="modal fade" id="formRole">
     <div class="modal-dialog">
         <div class="modal-content">
 
@@ -16,32 +16,30 @@
                     <div class="row">
                         <div class="col">
                             <div class="form-group">
-                                <label class="form-label">IP Server</label>
-                                <input type="text" name="server_ip" class="form-control" required>
+                                <label class="form-label">Nama Role</label>
+                                <input type="text" name="name" class="form-control" required>
                             </div>
                         </div>
                     </div>
                     <div class="row">
                         <div class="col">
                             <div class="form-group">
-                                <label class="form-label">Port Server</label>
-                                <input type="text" name="server_port" class="form-control">
-                            </div>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col">
-                            <div class="form-group">
-                                <label class="form-label">Serial Number Fingerspot</label>
-                                <input type="text" name="serial_number" class="form-control">
+                                <label class="form-label">Izin Akses</label>
+                                @foreach ($permissions as $key => $value)
+                                    <div class="form-check-inline">
+                                        <label class="form-check-label">
+                                            <input id="permission{{ $key }}" type="checkbox" name="permissions[]" class="form-check-input" value="{{ $key }}">{{ $value }}
+                                        </label>
+                                    </div>
+                                @endforeach
                             </div>
                         </div>
                     </div>
                 </div>
                 <div class="modal-footer">
 
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Batal</button>
-                    <button type="submit" class="btn btn-primary">Tambah</button>
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    <button id="btn-form-role" type="submit" class="btn btn-primary">Tambah</button>
 
                 </div>
             </form>
@@ -50,25 +48,25 @@
     </div>
 </div>
 
-<div class="modal fade" id="hapusDevice">
+<div class="modal fade" id="hapusRole">
     <div class="modal-dialog">
         <div class="modal-content">
 
             <!-- Modal Header -->
             <div class="modal-header">
-                <h4 class="modal-title">Hapus Device Fingerprint</h4>
+                <h4 class="modal-title">Hapus Role</h4>
                 <button type="button" class="close" data-dismiss="modal"></button>
             </div>
 
             <form method="post">
                 {{ csrf_field() }} {{ method_field('DELETE') }}
                 <div class="modal-body">
-
+                    <input type="hidden" name="id">
                 </div>
                 <div class="modal-footer">
 
                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
-                    <button type="submit" class="btn btn-danger">Ya</button>
+                    <button type="submit" class="btn btn-danger">Hapus</button>
 
                 </div>
             </form>

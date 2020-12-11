@@ -51,7 +51,7 @@ class KaryawanController extends Controller
         } else {
             $data = Karyawan::with('persentasekinerja')->select('id', 'nama_lengkap', 'no_induk')
                 ->where('nama_lengkap', 'LIKE', '%'.$request->q.'%')
-                ->whereHas('bidang', function (Builder $query) use($user) {
+                ->whereHas('bidang', function (Builder $query) use ($user) {
                     $query->whereIn('nama_bidang', $user->karyawan->bidang->pluck('nama_bidang'));
                 })->get();
         }
@@ -61,35 +61,52 @@ class KaryawanController extends Controller
 
     public function datatable(Request $request)
     {
+        $user = auth()->user();
+        $data = Karyawan::query();
+
         if ($request->statuskerja != 'berhenti') {
-            $data = Karyawan::with(['jabatan', 'golongan', 'statusKerja', 'unit'])
-                ->when($request->statuskerja, function($q) use($request) {
-                    $q->where('status_kerja_id', $request->statuskerja);
-                })->where('status', '<>', 3)->get();
+            if ($user->hasRole(['admin', 'root'])) {
+                $data->with(['jabatan', 'golongan', 'statusKerja', 'unit'])
+                    ->when($request->statuskerja, function ($q) use ($request) {
+                        $q->where('status_kerja_id', $request->statuskerja);
+                    })
+                    ->where('status', '<>', 3)->get();
+            } else {
+                $data->with(['jabatan', 'golongan', 'statusKerja', 'unit'])
+                    ->when($request->statuskerja, function ($q) use ($request) {
+                        $q->where('status_kerja_id', $request->statuskerja);
+                    })
+                    ->whereHas('bidang', function (Builder $query) use ($user) {
+                        $query->whereIn('nama_bidang', $user->karyawan->bidang->pluck('nama_bidang'));
+                    })
+                    ->orWhereHas('unit', function (Builder $query) use ($user) {
+                        $query->whereIn('nama_unit', $user->karyawan->unit->pluck('nama_unit'));
+                    })->where('status', '<>', 3)->get();
+            }
         } else {
-            $data = Karyawan::with(['jabatan', 'golongan', 'statusKerja', 'unit'])
+            $data->with(['jabatan', 'golongan', 'statusKerja', 'unit'])
                 ->where('status', 3)->get();
         }
 
         return Datatables::of($data)
-            ->addColumn('actions', function($data) {
+            ->addColumn('actions', function ($data) {
                 return view('karyawan.actions', ['data' => $data]);
             })
-            ->editColumn('no_induk', function($data) {
+            ->editColumn('no_induk', function ($data) {
                 return '<span class="text-muted">'. $data->no_induk .'</span>';
             })
-            ->editColumn('jabatan', function($data) {
-                return $data->jabatan->map(function($q) {
+            ->editColumn('jabatan', function ($data) {
+                return $data->jabatan->map(function ($q) {
                     return $q->nama_jabatan;
                 })->implode(',<br>');
             })
-            ->editColumn('golongan', function($data) {
+            ->editColumn('golongan', function ($data) {
                 return $data->golongan->kode_golongan;
             })
-            ->editColumn('unit', function($data) {
+            ->editColumn('unit', function ($data) {
                 return view('karyawan.unit', ['unit' => $data->unit]);
             })
-            ->editColumn('status_kerja', function($data) {
+            ->editColumn('status_kerja', function ($data) {
                 return $data->statusKerja->nama_status_kerja;
             })
             ->rawColumns(['actions', 'jabatan', 'golongan', 'no_induk', 'unit', 'status_kerja'])
@@ -153,7 +170,6 @@ class KaryawanController extends Controller
         )->findOrFail($id);
 
         return view('karyawan.rincian', ['data' => $data]);
-
     }
 
     public function edit($id)

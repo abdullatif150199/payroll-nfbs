@@ -37,9 +37,13 @@ class KinerjaController extends Controller
                 $q->bulan($bulan);
             }])->latest();
         } else {
-            $data->whereHas('bidang', function (Builder $query) use($user) {
+            $data->whereHas('bidang', function (Builder $query) use ($user) {
                 $query->whereIn('nama_bidang', $user->karyawan->bidang->pluck('nama_bidang'));
-            })->with(['gajiOne' => function ($q) use ($bulan) {
+            })
+            ->orWhereHas('unit', function (Builder $query) use ($user) {
+                $query->whereIn('nama_unit', $user->karyawan->unit->pluck('nama_unit'));
+            })
+            ->with(['gajiOne' => function ($q) use ($bulan) {
                 $q->bulan($bulan);
             }])->latest();
         }
@@ -47,16 +51,16 @@ class KinerjaController extends Controller
         $nilai_kinerja = NilaiKinerja::all();
 
         return Datatables::of($data)
-            ->editColumn('no_induk', function($data) {
+            ->editColumn('no_induk', function ($data) {
                 return '<span class="text-muted">'. $data->no_induk .'</span>';
             })
-            ->editColumn('nama_lengkap', function($data) {
+            ->editColumn('nama_lengkap', function ($data) {
                 return view('kinerja.name', ['data' => $data]);
             })
-            ->editColumn('jenis_kinerja', function($data) {
+            ->editColumn('jenis_kinerja', function ($data) {
                 return view('kinerja.types', ['data' => $data]);
             })
-            ->editColumn('nilai_kinerja', function($data) use($nilai_kinerja) {
+            ->editColumn('nilai_kinerja', function ($data) use ($nilai_kinerja) {
                 if ($data->gajiOne && $data->gajiOne->historyKinerja()->exists()) {
                     $val = $data->gajiOne->nilaiKinerja($nilai_kinerja);
                     $res = $data->gajiOne->resultKinerja($nilai_kinerja);
@@ -101,7 +105,7 @@ class KinerjaController extends Controller
         $toArray = [];
         $bln = $request->year . '-' . $request->month;
 
-        foreach($data->persentaseKinerja as $item) {
+        foreach ($data->persentaseKinerja as $item) {
             $toArray[] = [
                 'bulan' => $bln,
                 'title' => $item->title,

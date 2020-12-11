@@ -12,7 +12,11 @@ class UserController extends Controller
 {
     public function index()
     {
-        return view('user.index');
+        $roles = Role::pluck('name', 'id');
+
+        return view('user.index', [
+            'roles' => $roles
+        ]);
     }
 
     public function datatable()
@@ -51,10 +55,7 @@ class UserController extends Controller
 
     public function edit($id)
     {
-        $roles = Role::pluck('name');
-
-        $get = User::find($id);
-        $get->roles = $roles;
+        $get = User::with('roles')->findOrFail($id);
 
         return $get;
     }
@@ -62,5 +63,30 @@ class UserController extends Controller
     public function show(Request $request)
     {
         return $request->user();
+    }
+
+    public function update(Request $request, $id)
+    {
+        $request->validate([
+            'name' => 'required|string|max:255',
+            'username' => 'required|string|max:100|unique:users,username,'.$id,
+            'email' => 'required|string|email|max:255|unique:users,email,'.$id,
+            'roles' => 'required',
+        ]);
+
+        $user = User::findOrFail($id);
+
+        $user->update([
+            'name' => $request->name,
+            'username' => $request->username,
+            'email' => $request->email
+        ]);
+
+        $user->roles()->sync($request->roles);
+
+        return response()->json([
+            'status' => 200,
+            'message' => 'User berhasil diupdate'
+        ]);
     }
 }

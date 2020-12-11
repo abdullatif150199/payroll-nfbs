@@ -29,11 +29,5 @@ class PersentaseKinerjaTableSeeder extends Seeder
                 'persen' => 0.15
             ]
         ]);
-
-        App\Models\Karyawan::All()->each(function ($kar) use ($data){
-            $kar->persentaseKinerja()->attach(
-                [1,2,3,4]
-            );
-        });
     }
 }

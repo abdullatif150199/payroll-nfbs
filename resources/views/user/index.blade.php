@@ -36,7 +36,7 @@
         </h3>
         <div class="card-options">
             {{-- <button type="button" id="newUser" class="btn btn-primary mr-2"><i class="fe fe-plus"></i> Tambah</button> --}}
-            <a href="{{ route('dash.role.index') }}" class="btn btn-primary"><i class="fe fe-shuffle"></i> Role User</a>
+            <a href="{{ route('dash.role.index') }}" class="btn btn-primary"><i class="fe fe-user-check"></i> Role User</a>
         </div>
     </div>
     <div class="table-responsive">
@@ -110,12 +110,9 @@
                 $('input[name=username]').val(data.username);
                 $('input[name=email]').val(data.email);
 
-                $('#checkbox').html('');
-                $.each(data.roles, function (key, value) {
-                    $('#checkbox').append('<div class="form-check-inline"><label class="form-check-label"><input type="checkbox" name="roles[]" class="form-check-input" value="'+ value +'">'+ value +'</label></div>');
+                $.each(data.roles, function (key, val) {
+                    $('#role' + val.id).prop('checked',true);
                 });
-
-
             }
         });
     }
@@ -139,9 +136,10 @@
             success: function (data) {
                 $('#formUser').modal('hide');
                 oTable.ajax.reload();
+                toastr.success(data.message, "Success");
             },
             error: function () {
-                alert('Gagal menambahkan data');
+                toastr.error('Gagal memproses data', 'Failed');
             }
         });
     });

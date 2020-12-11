@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Yajra\Datatables\Datatables;
 use Spatie\Permission\Models\Role;
+use Spatie\Permission\Models\Permission;
 
 class RoleController extends Controller
 {
@@ -15,7 +16,10 @@ class RoleController extends Controller
      */
     public function index()
     {
-        return view('role.index');
+        $permissions = Permission::pluck('name', 'id');
+        return view('role.index', [
+            'permissions' => $permissions
+        ]);
     }
 
     /**
@@ -36,7 +40,17 @@ class RoleController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $this->validate($request, [
+            'name' => 'required|unique:roles,name'
+        ]);
+
+        $role = Role::create(['name' => $request->name]);
+        $role->syncPermissions($request->permissions);
+
+        return response()->json([
+            'status' => 200,
+            'message' => 'Role berhasil ditambahkan'
+        ]);
     }
 
     /**
@@ -58,7 +72,9 @@ class RoleController extends Controller
      */
     public function edit($id)
     {
-        //
+        $get = Role::with('permissions')->findOrFail($id);
+
+        return $get;
     }
 
     /**
@@ -70,7 +86,18 @@ class RoleController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $this->validate($request, [
+            'name' => 'required|unique:roles,name,'.$id
+        ]);
+
+        $role = Role::findOrFail($id);
+        $role->update(['name' => $request->name]);
+        $role->syncPermissions($request->permissions);
+
+        return response()->json([
+            'status' => 200,
+            'message' => 'Role berhasil ditambahkan'
+        ]);
     }
 
     /**
@@ -81,7 +108,12 @@ class RoleController extends Controller
      */
     public function destroy($id)
     {
-        //
+        Role::destroy($id);
+
+        return response()->json([
+            'status' => 200,
+            'message' => 'Role berhasil dihapus'
+        ]);
     }
 
     public function datatable()
@@ -89,11 +121,11 @@ class RoleController extends Controller
         $data = Role::with('permissions')->where('name', '<>', 'root')->get();
 
         return Datatables::of($data)
-            ->editColumn('permission', function($data) {
-                    return str_replace(array('[',']','"'),'', $data->permissions()->pluck('name'));
+            ->editColumn('permission', function ($data) {
+                return str_replace(array('[',']','"'), '', $data->permissions()->pluck('name'));
             })
-            ->addColumn('actions', function($data) {
-                return view('user.actions', ['data' => $data]);
+            ->addColumn('actions', function ($data) {
+                return view('role.actions', ['data' => $data]);
             })
             ->rawColumns(['permission', 'actions'])
             ->make(true);

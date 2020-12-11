@@ -20,7 +20,7 @@ class CreateHistoryPotonganTable extends Migration
             $table->foreignId('rekening_id');
             $table->foreign('rekening_id')->references('id')->on('rekenings')->onDelete('cascade');
             $table->string('nama');
-            $table->decimal('jumlah', 14, 0)->default(0);
+            $table->decimal('jumlah', 14, 2)->default(0);
             $table->timestamps();
         });
     }

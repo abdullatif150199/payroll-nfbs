@@ -11,7 +11,6 @@ class RoleTableSeeder extends Seeder
      */
     public function run()
     {
-        DB::table('roles')->truncate();
         DB::table('roles')->insert([
             [
                 'name' => 'root',
@@ -22,13 +21,17 @@ class RoleTableSeeder extends Seeder
                 'guard_name' => 'web',
             ],
             [
-                'name' => 'Kepala Bidang',
+                'name' => 'kabid',
                 'guard_name' => 'web',
             ],
             [
-                'name' => 'Kepala Unit',
+                'name' => 'kanit',
                 'guard_name' => 'web',
             ],
+            [
+                'name' => 'user',
+                'guard_name' => 'web',
+            ]
         ]);
     }
 }

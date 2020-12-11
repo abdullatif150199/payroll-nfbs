@@ -2,8 +2,8 @@
 @section('content')
 <form class="card">
     <div class="card-body">
-        <h3 class="card-title">Konfigurasi</h3>
-        <div class="row">
+        <h3 class="card-title">Informasi Umum</h3>
+        {{-- <div class="row">
             <div class="col-md-5">
                 <div class="form-group">
                     <label class="form-label">Company</label>
@@ -70,10 +70,10 @@ I'll probably won't, left to my own devices
 But that's the difference in our opinions.</textarea>
                 </div>
             </div>
-        </div>
+        </div> --}}
     </div>
-    <div class="card-footer text-right">
+    {{-- <div class="card-footer text-right">
         <button type="submit" class="btn btn-primary">Update</button>
-    </div>
+    </div> --}}
 </form>
 @endsection

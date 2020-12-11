@@ -35,7 +35,8 @@
             Daftar Role
         </h3>
         <div class="card-options">
-            <a href="{{ route('dash.user.index') }}" class="btn btn-primary"><i class="fe fe-users"></i> Daftar User</a>
+            <a href="{{ route('dash.user.index') }}" class="btn btn-primary mr-2"><i class="fe fe-users"></i> Daftar User</a>
+            <a href="#" id="newRole" class="btn btn-primary"><i class="fe fe-plus"></i> Tambah Role</a>
         </div>
     </div>
     <div class="table-responsive">
@@ -80,66 +81,90 @@
     //     e.preventDefault();
     // });
 
-    $('#newUser').click(function () {
-        $('.modal-title').text('Create User');
-        $('#formUser').modal('show');
+    $('#newRole').click(function () {
+        $('.modal-title').text('Tambah Role');
+        $('#formRole').modal('show');
+        $('#btn-form-role').text('Tambah');
         $('input[name=_method]').val('POST');
-        $('#formUser form')[0].reset();
+        $('#formRole form')[0].reset();
     });
 
-    function editUser(id) {
-        var url = '{{ route('dash.user.edit', ':id') }}';
+    function editRole(id) {
+        var url = '{{ route('dash.role.edit', ':id') }}';
         url = url.replace(':id', id);
         $('input[name=_method]').val('PUT');
-        $('#formUser form')[0].reset();
+        $('#btn-form-role').text('Update');
+        $('#formRole form')[0].reset();
         $.ajax({
             url: url,
             type: 'GET',
             dataType: 'JSON',
             success: function (data) {
-                $('.modal-title').text('Edit User');
-                $('#formUser').modal('show');
+                $('.modal-title').text('Edit Role');
+                $('#formRole').modal('show');
 
                 $('input[name=id]').val(data.id);
-                $('input[name=server_ip]').val(data.server_ip);
-                $('input[name=server_port]').val(data.server_port);
-                $('input[name=serial_number]').val(data.serial_number);
+                $('input[name=name]').val(data.name);
+
+                $.each(data.permissions, function (key, val) {
+                    $('#permission' + val.id).prop('checked',true);
+                });
             }
         });
     }
 
-    $('#formUser form').submit(function(e) {
+    $('#formRole form').submit(function(e) {
         e.preventDefault();
         var id = $('input[name=id]').val();
         var save_method = $('input[name=_method]').val();
 
         if (save_method == 'POST') {
-            url = '{{ route('dash.user.store') }}';
+            url = '{{ route('dash.role.store') }}';
         } else {
-            url_raw = '{{ route('dash.user.update', ':id') }}';
+            url_raw = '{{ route('dash.role.update', ':id') }}';
             url = url_raw.replace(':id', id);
         }
 
         $.ajax({
             url: url,
             type: 'POST',
-            data: $('#formUser form').serialize(),
+            data: $('#formRole form').serialize(),
             success: function (data) {
-                $('#formUser').modal('hide');
+                $('#formRole').modal('hide');
                 oTable.ajax.reload();
+                toastr.success(data.message, "Success");
             },
             error: function () {
-                alert('Gagal menambahkan data');
+                toastr.error('Gagal memproses data', 'Failed');
             }
         });
     });
 
-    function hapusUser(id) {
-        var url = '{{ route('dash.user.destroy', ':id') }}';
-        url = url.replace(':id', id);
-        $('#hapusUser .modal-body').text('Yakin ingin menghapus?');
-        $('#hapusUser form').attr('action', url);
-        $('#hapusUser').modal('show');
+    function hapusRole(id) {
+        $('input[name=id]').val(id);
+        $('#hapusRole .modal-body').text('Yakin ingin menghapus?');
+        $('#hapusRole').modal('show');
     }
+
+    $('#hapusRole form').submit(function(e) {
+        e.preventDefault();
+        var id = $('input[name=id]').val();
+        var url = '{{ route('dash.role.destroy', ':id') }}';
+        url = url.replace(':id', id);
+
+        $.ajax({
+            url: url,
+            type: 'DELETE',
+            data: $('#hapusRole form').serialize(),
+            success: function (data) {
+                $('#hapusRole').modal('hide');
+                oTable.ajax.reload();
+                toastr.success(data.message, "Success");
+            },
+            error: function () {
+                toastr.error('Gagal memproses data', 'Failed');
+            }
+        });
+    });
 </script>
 @endpush

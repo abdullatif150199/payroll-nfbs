@@ -148,8 +148,8 @@
                 </div>
                 <div class="modal-footer">
 
-                    <button type="submit" class="btn btn-danger">Yakin</button>
                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Batal</button>
+                    <button type="submit" class="btn btn-danger">Yakin</button>
 
                 </div>
             </form>
@@ -177,8 +177,8 @@
                 </div>
                 <div class="modal-footer">
 
-                    <button type="submit" class="btn btn-danger">Yakin</button>
                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Batal</button>
+                    <button type="submit" class="btn btn-danger">Yakin</button>
 
                 </div>
             </form>

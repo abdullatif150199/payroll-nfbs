@@ -57,7 +57,15 @@
                         <div class="col">
                             <div class="form-group">
                                 <label class="form-label">Role atau Hak Akses Sebagai:</label>
-                                <div id="checkbox"></div>
+                                @foreach ($roles as $key => $value)
+                                    @if ($value != 'root')
+                                        <div class="form-check-inline">
+                                            <label class="form-check-label">
+                                                <input id="role{{ $key }}" type="checkbox" name="roles[]" class="form-check-input" value="{{ $key }}">{{ $value }}
+                                            </label>
+                                        </div>
+                                    @endif
+                                @endforeach
                             </div>
                         </div>
                     </div>
@@ -65,7 +73,7 @@
                 <div class="modal-footer">
 
                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Batal</button>
-                    <button type="submit" class="btn btn-primary">Tambah</button>
+                    <button type="submit" class="btn btn-primary">Update</button>
 
                 </div>
             </form>
@@ -92,7 +100,7 @@
                 <div class="modal-footer">
 
                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
-                    <button type="submit" class="btn btn-danger">Ya</button>
+                    <button type="submit" class="btn btn-danger">Hapus</button>
 
                 </div>
             </form>
