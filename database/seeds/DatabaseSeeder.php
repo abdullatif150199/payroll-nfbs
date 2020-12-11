@@ -19,7 +19,7 @@ class DatabaseSeeder extends Seeder
         $this->call(JamPerpekanTableSeeder::class);
         $this->call(SettingTableSeeder::class);
         $this->call(RoleTableSeeder::class);
-        $this->call(PermissionTableSeeder::class);
+        $this->call(PermissionSeeder::class);
         // $this->call(MasterSeeder::class);
         // $this->call(JabatanGolonganSeeder::class);
         // $this->call(BidangUnitKaryawanSeeder::class);
