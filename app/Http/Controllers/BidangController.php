@@ -19,13 +19,13 @@ class BidangController extends Controller
         $data = Bidang::all();
 
         return Datatables::of($data)
-            ->editColumn('jml_peserta', function($data) {
-                    return $data->karyawan()->count();
+            ->editColumn('jml_peserta', function ($data) {
+                return $data->karyawan()->count();
             })
-            ->editColumn('jml_unit', function($data) {
-                    return $data->unit()->count();
+            ->editColumn('jml_unit', function ($data) {
+                return $data->unit()->count();
             })
-            ->addColumn('actions', function($data) {
+            ->addColumn('actions', function ($data) {
                 return view('bidang.actions', ['data' => $data]);
             })
             ->rawColumns(['actions', 'jml_peserta', 'jml_unit'])
@@ -35,7 +35,7 @@ class BidangController extends Controller
     public function store(Request $request)
     {
         $this->validate($request, [
-            'nama_bidang' => 'min:2|max:10'
+            'nama_bidang' => 'min:2|max:150'
         ]);
 
         $data = [
