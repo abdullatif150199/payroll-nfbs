@@ -17,6 +17,8 @@ class CreateStatusKerjaTable extends Migration
             $table->id();
             $table->string('nama_status_kerja', 25);
             $table->decimal('persentase_gaji_pokok', 5, 2);
+            $table->tinyInteger('maks_jam_lembur_day')->default(0);
+            $table->tinyInteger('maks_jam_lembur_week')->default(0);
             $table->timestamps();
         });
     }

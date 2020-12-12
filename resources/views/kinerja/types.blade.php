@@ -5,9 +5,9 @@
 <div class="tags">
     @foreach ($data->gajiOne->historyKinerja as $item)
     <span class="tag">
-        {{ $item->title }}
+        {{ $item->title }} di {{ $item->unit }}
         <span class="tag-addon tag-success">{{ $item->value }}</span>
-    </span>
+    </span><br>
     @endforeach
 </div>
 @endif

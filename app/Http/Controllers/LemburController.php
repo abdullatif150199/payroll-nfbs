@@ -134,13 +134,13 @@ class LemburController extends Controller
 
     public function totalLembur($request, $karyawan)
     {
-        $max_jam = $karyawan->jabatan()->first()->maksimal_jam;
+        $max_jam = $karyawan->maks_jam_lembur;
         $tarif = $karyawan->golongan->lembur;
         //  Lembur hari kerja
         if ($request->type == 'day') {
             // kalo lembur lebih dari jam maksimal
-            if ($request->jumlah_jam > $max_jam) {
-                $total_lembur = $max_jam * $tarif;
+            if ($request->jumlah_jam > $max_jam['day']) {
+                $total_lembur = $max_jam['day'] * $tarif;
             } else {
                 $total_lembur = $request->jumlah_jam * $tarif;
             }
@@ -148,7 +148,7 @@ class LemburController extends Controller
         //  Lembur hari libur/ahad
         if ($request->type == 'week') {
             // kalo lembur lebih dari jam maksimal
-            if ($request->jumlah_jam > $max_jam) {
+            if ($request->jumlah_jam > $max_jam['week']) {
                 $total_lembur = $karyawan->golongan->lembur_harian; // tarif lembur harian
             } else {
                 $total_lembur = $request->jumlah_jam * $tarif;

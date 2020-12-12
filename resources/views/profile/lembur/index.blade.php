@@ -70,13 +70,10 @@
         processing: true,
         ajax: "{{ route('profile.lembur.datatable', $id) }}",
         columns: [
-            {data: 'tanggal'},
+            {data: 'tanggal', orderable:false},
             {data: 'total_tarif'},
             {data: 'jumlah_jam'},
             {data: 'actions', orderable:false, searchable:false}
-        ],
-        order: [
-            [0, 'desc']
         ]
     });
 

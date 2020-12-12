@@ -90,7 +90,7 @@ class KinerjaController extends Controller
         ]);
 
         if ($gaji->historyKinerja->count() > 0) {
-            $gaji->deleteHistoryKinerja();
+            $gaji->deleteHistoryKinerja($request->unit);
         }
 
         $store = $gaji->historyKinerja()->createMany($this->kinerjaToArray($request, $karyawan));
@@ -110,7 +110,8 @@ class KinerjaController extends Controller
                 'bulan' => $bln,
                 'title' => $item->title,
                 'value' => $request[$item->title],
-                'after_count' => $item->persen * $request[$item->title]
+                'after_count' => $item->persen * $request[$item->title],
+                'unit' => $request->unit
             ];
         }
 

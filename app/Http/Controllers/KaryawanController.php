@@ -46,10 +46,10 @@ class KaryawanController extends Controller
         $user = auth()->user();
 
         if ($user->hasRole(['admin', 'root'])) {
-            $data = Karyawan::with('persentasekinerja')->select('id', 'nama_lengkap', 'no_induk')
+            $data = Karyawan::with('persentasekinerja', 'unit')->select('id', 'nama_lengkap', 'no_induk')
                 ->where('nama_lengkap', 'LIKE', '%'.$request->q.'%')->get();
         } else {
-            $data = Karyawan::with('persentasekinerja')->select('id', 'nama_lengkap', 'no_induk')
+            $data = Karyawan::with('persentasekinerja', 'unit')->select('id', 'nama_lengkap', 'no_induk')
                 ->where('nama_lengkap', 'LIKE', '%'.$request->q.'%')
                 ->whereHas('bidang', function (Builder $query) use ($user) {
                     $query->whereIn('nama_bidang', $user->karyawan->bidang->pluck('nama_bidang'));

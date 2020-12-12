@@ -278,4 +278,21 @@ class Karyawan extends Model
 
         return $result;
     }
+
+    public function getMaksJamLemburAttribute($value)
+    {
+        $exc = config('var.id_status_kerja_tanpa_lembur');
+        $result['day'] = 0;
+        $result['week'] = 0;
+        $result['holi'] = 0;
+
+        if (in_array($this->status_kerja_id, $exc)) {
+            return $result;
+        } else {
+            $result['day'] = $this->statusKerja->maks_jam_lembur_day;
+            $result['week'] = $this->statusKerja->maks_jam_lembur_week;
+            $result['holi'] = 0;
+            return $result;
+        }
+    }
 }

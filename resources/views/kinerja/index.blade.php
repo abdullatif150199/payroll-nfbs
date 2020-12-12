@@ -362,7 +362,8 @@
                             return {
                                 text: item.nama_lengkap,
                                 id: item.id,
-                                persentase: item.persentasekinerja
+                                persentase: item.persentasekinerja,
+                                unit: item.unit
                             }
                         })
                     };
@@ -371,6 +372,7 @@
             }
         }).on('select2:select', function (e) {
             var data = e.params.data.persentase;
+            var unit = e.params.data.unit;
             // console.log(data.length);
             if (data.length > 0) {
                 var elements = '';
@@ -380,6 +382,17 @@
                 $('#elements').html(elements);
             } else {
                 $('#elements').html('<strong class="text-danger">Daftar kinerja tidak tersedia/belum ditambahkan</strong>');
+            }
+
+            if (unit.length > 0) {
+                var option = '';
+                $.map(unit, function (item) {
+                    option += '<option value="'+ item.nama_unit +'">'+ item.nama_unit +'</option>';
+                });
+                var html = '<div class="row"><div class="col"><div class="form-group"><label class="form-label">Kinerja untuk unit</label><select name="unit" class="form-control" required><option value=""></option>'+ option +'</select></div></div></div>';
+                $('#unit').html(html);
+            } else {
+                $('#unit').html('<strong class="text-danger">Karyawan tidak memiliki unit/belum ditambahkan</strong>');
             }
         });;
     }
@@ -428,9 +441,10 @@
             success: function (data) {
                 $('#formKinerja').modal('hide');
                 oTable.ajax.reload();
+                toastr.success(data.message, "Success");
             },
             error: function () {
-                alert('Gagal menambahkan data');
+                toastr.error("Gagal menambahkan data", "Failed");
             }
         });
     });

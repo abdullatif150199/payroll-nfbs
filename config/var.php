@@ -1,6 +1,5 @@
 <?php
 
 return [
-    'jml_hari_per_pekan' => 6,
-    'max_tunjangan_pendidikan' => 3,
+    'id_status_kerja_tanpa_lembur' => [1, 2],
 ];

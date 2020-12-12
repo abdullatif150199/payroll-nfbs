@@ -104,9 +104,9 @@ class Gaji extends Model
         return $result;
     }
 
-    public function deleteHistoryKinerja()
+    public function deleteHistoryKinerja($unit)
     {
         // delete all related potongan
-        return $this->historyKinerja()->delete();
+        return $this->historyKinerja()->where('unit', $unit)->delete();
     }
 }

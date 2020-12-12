@@ -8,7 +8,7 @@ class HistoryKinerja extends Model
 {
     protected $table = 'history_kinerja';
 
-    protected $fillable = ['title', 'value', 'after_count'];
+    protected $fillable = ['title', 'value', 'after_count', 'unit'];
 
     public function gaji()
     {
@@ -22,6 +22,11 @@ class HistoryKinerja extends Model
 
     public function scopeSumPersentaseKinerja($query)
     {
+        $count = $query->get()->groupBy('unit')->count();
+        if ($count > 1) {
+            return $query->sum('after_count') / $count;
+        }
+
         return $query->sum('after_count');
     }
 }
