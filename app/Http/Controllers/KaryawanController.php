@@ -159,7 +159,7 @@ class KaryawanController extends Controller
             'unit',
             'golongan',
             'jabatan',
-            'kelompokkerja',
+            'kelompokKerja',
             'statuskerja',
             'persentasekinerja',
             'cuti',
@@ -179,7 +179,7 @@ class KaryawanController extends Controller
             'unit',
             'golongan',
             'jabatan',
-            'kelompokkerja',
+            'kelompokKerja',
             'statuskerja',
             'jamPerpekan'
         ])->find($id);
