@@ -117,7 +117,7 @@ Route::group(['prefix' => 'dashboard', 'as' => 'dash.', 'middleware' => ['auth']
 
         Route::group(['prefix' => 'setting'], function () {
             // General Information
-            Route::get('/', 'Settingcontroller@index')->name('setting');
+            Route::get('/', 'SettingController@index')->name('setting');
 
             // User / Role
             Route::resources([
