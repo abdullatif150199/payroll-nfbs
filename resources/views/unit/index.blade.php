@@ -52,7 +52,7 @@
     </div>
 </div>
 
-@include('bidang.modals')
+@include('unit.modals')
 
 @endsection
 

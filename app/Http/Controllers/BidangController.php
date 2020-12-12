@@ -56,7 +56,7 @@ class BidangController extends Controller
     public function update(Request $request, $id)
     {
         $this->validate($request, [
-            'nama_bidang' => 'min:2|max:10'
+            'nama_bidang' => 'min:2|max:150'
         ]);
 
         $update = Bidang::find($id);

@@ -19,13 +19,13 @@ class UnitController extends Controller
         $data = Unit::all();
 
         return Datatables::of($data)
-            ->editColumn('jml_peserta', function($data) {
-                    return $data->karyawan()->count();
+            ->editColumn('jml_peserta', function ($data) {
+                return $data->karyawan()->count();
             })
-            ->editColumn('bidang', function($data) {
-                    return $data->bidang->nama_bidang;
+            ->editColumn('bidang', function ($data) {
+                return $data->bidang->nama_bidang;
             })
-            ->addColumn('actions', function($data) {
+            ->addColumn('actions', function ($data) {
                 return view('unit.actions', ['data' => $data]);
             })
             ->rawColumns(['actions', 'jml_peserta', 'bidang'])
@@ -36,12 +36,12 @@ class UnitController extends Controller
     {
         $this->validate($request, [
             'bidang_id' => 'required',
-            'nama_unit' => 'min:2|max:10'
+            'nama_unit' => 'min:2|max:150'
         ]);
 
         $data = [
             'bidang_id' => $request->bidang_id,
-            'nama_bidang' => $request->nama_bidang
+            'nama_unit' => $request->nama_unit
         ];
 
         $store = Unit::create($data);

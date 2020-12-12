@@ -16,8 +16,8 @@
                     <div class="row">
                         <div class="col">
                             <div class="form-group">
-                                <label class="form-label">Nama bidang</label>
-                                <select name="bidang_id">
+                                <label class="form-label">Nama Unit</label>
+                                <select name="bidang_id" class="form-control" required>
                                     <option value="">Pilih Bidang</option>
                                     @foreach (App\Models\Bidang::pluck('nama_bidang', 'id') as $key => $value)
                                         <option value="{{ $key }}">{{ $value }}</option>

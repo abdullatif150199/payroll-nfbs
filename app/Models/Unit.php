@@ -8,6 +8,8 @@ class Unit extends Model
 {
     protected $table = 'unit';
 
+    protected $fillable = ['bidang_id', 'nama_unit'];
+
     public function karyawan()
     {
         return $this->belongsToMany(Karyawan::class, 'karyawan_unit');
