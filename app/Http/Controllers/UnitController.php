@@ -44,14 +44,17 @@ class UnitController extends Controller
             'nama_unit' => $request->nama_unit
         ];
 
-        $store = Unit::create($data);
+        Unit::create($data);
 
-        return $store;
+        return response()->json([
+            'status' => 200,
+            'message' => 'Unit berhasil ditambahkan'
+        ]);
     }
 
     public function edit($id)
     {
-        $get = Unit::find($id);
+        $get = Unit::with('bidang')->find($id);
         return $get;
     }
 
@@ -59,15 +62,18 @@ class UnitController extends Controller
     {
         $this->validate($request, [
             'bidang_id' => 'required',
-            'nama_bidang' => 'min:2|max:10'
+            'nama_bidang' => 'min:2|max:150'
         ]);
 
         $update = Unit::find($id);
         $update->bidang_id = $request->bidang_id;
-        $update->nama_bidang = $request->nama_bidang;
+        $update->nama_unit = $request->nama_unit;
         $update->update();
 
-        return $update;
+        return response()->json([
+            'status' => 200,
+            'message' => 'Unit berhasil diupdate'
+        ]);
     }
 
     public function destroy($id)
@@ -75,11 +81,17 @@ class UnitController extends Controller
         $get = Unit::with('karyawan')->findOrFail($id);
 
         if ($get->karyawan->count() > 0) {
-            return back()->withError('Unit tidak bisa dihapus');
+            return response()->json([
+                'status' => 403,
+                'message' => 'Unit tidak bisa dihapus'
+            ]);
         }
 
         $get->delete();
 
-        return back();
+        return response()->json([
+            'status' => 200,
+            'message' => 'Unit berhasil dihapus'
+        ]);
     }
 }

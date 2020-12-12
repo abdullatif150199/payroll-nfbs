@@ -32,8 +32,17 @@
                     <div class="row">
                         <div class="col">
                             <div class="form-group">
-                                <label class="form-label">Lembur</label>
+                                <label class="form-label">Tarif Lembur</label>
                                 <input type="text" name="lembur" class="form-control" data-mask="000,000,000" data-mask-reverse="true" autocomplete="off">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col">
+                            <div class="form-group">
+                                <label class="form-label">Tarif Lembur Harian<span class="text-danger">*</span></label>
+                                <input type="text" name="lembur_harian" class="form-control" data-mask="000,000,000" data-mask-reverse="true" autocomplete="off">
+                                <span class="text-danger">*</span><small>Tarif berlaku jk melebihi jam maksimal di hari libur</small>
                             </div>
                         </div>
                     </div>
@@ -41,7 +50,7 @@
                 <div class="modal-footer">
 
                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Batal</button>
-                    <button type="submit" class="btn btn-primary">Tambah</button>
+                    <button id="submit" type="submit" class="btn btn-primary">Tambah</button>
 
                 </div>
             </form>
@@ -63,7 +72,7 @@
             <form method="post">
                 {{ csrf_field() }} {{ method_field('DELETE') }}
                 <div class="modal-body">
-
+                    <input type="hidden" name="id">
                 </div>
                 <div class="modal-footer">
 

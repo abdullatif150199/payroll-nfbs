@@ -8,7 +8,7 @@ class Jabatan extends Model
 {
     protected $table = 'jabatan';
     // no_kode untuk penentuan no_induk
-    protected $fillable = ['nama_jabatan', 'tunjangan_jabatan', 'load', 'maksimal_jam', 'no_kode'];
+    protected $fillable = ['nama_jabatan', 'tunjangan_jabatan', 'load', 'no_kode'];
 
     public function karyawan()
     {

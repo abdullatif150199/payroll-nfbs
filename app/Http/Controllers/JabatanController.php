@@ -19,16 +19,16 @@ class JabatanController extends Controller
         $data = Jabatan::all();
 
         return Datatables::of($data)
-            ->editColumn('jml_peserta', function($data) {
-                    return $data->karyawan()->count();
+            ->editColumn('jml_peserta', function ($data) {
+                return $data->karyawan()->count();
             })
-            ->editColumn('tunjangan_jabatan', function($data) {
-                    return number_format($data->tunjangan_jabatan);
+            ->editColumn('tunjangan_jabatan', function ($data) {
+                return number_format($data->tunjangan_jabatan);
             })
-            ->editColumn('load', function($data) {
-                    return number_format($data->load);
+            ->editColumn('load', function ($data) {
+                return number_format($data->load);
             })
-            ->addColumn('actions', function($data) {
+            ->addColumn('actions', function ($data) {
                 return view('jabatan.actions', ['data' => $data]);
             })
             ->rawColumns(['actions', 'jml_peserta', 'tunjangan_jabatan', 'load'])
@@ -38,14 +38,16 @@ class JabatanController extends Controller
     public function store(Request $request)
     {
         $this->validate($request, [
-            'nama_jabatan' => 'required',
-            'load' => 'required',
-            'maksimal_jam' => 'required'
+            'nama_jabatan' => 'required:min:2',
+            'load' => 'required'
         ]);
 
-        $store = Jabatan::create($request->all());
+        Jabatan::create($request->all());
 
-        return $store;
+        return response()->json([
+            'status' => 200,
+            'message' => 'Jabatan berhasil ditambahkan'
+        ]);
     }
 
     public function edit($jabatan)
@@ -58,13 +60,15 @@ class JabatanController extends Controller
     {
         $this->validate($request, [
             'nama_jabatan' => 'required',
-            'load' => 'required',
-            'maksimal_jam' => 'required'
+            'load' => 'required'
         ]);
 
         $jabatan->update($request->all());
 
-        return $jabatan;
+        return response()->json([
+            'status' => 200,
+            'message' => 'Jabatan berhasil diupdate'
+        ]);
     }
 
     public function destroy($jabatan)
@@ -72,11 +76,17 @@ class JabatanController extends Controller
         $get = Jabatan::with('karyawan')->findOrFail($jabatan);
 
         if ($get->karyawan->count() > 0) {
-            return back()->withError($get->nama_jabatan . ' tidak bisa dihapus');
+            return response()->json([
+                'status' => 403,
+                'message' => 'Jabatan tidak bisa dihapus'
+            ]);
         }
 
         $get->delete();
 
-        return back();
+        return response()->json([
+            'status' => 200,
+            'message' => 'Jabatan berhasil dihapus'
+        ]);
     }
 }

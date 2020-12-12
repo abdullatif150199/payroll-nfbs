@@ -16,7 +16,7 @@
                     <div class="row">
                         <div class="col">
                             <div class="form-group">
-                                <label class="form-label">Nama Unit</label>
+                                <label class="form-label">Nama Bidang</label>
                                 <select name="bidang_id" class="form-control" required>
                                     <option value="">Pilih Bidang</option>
                                     @foreach (App\Models\Bidang::pluck('nama_bidang', 'id') as $key => $value)
@@ -38,7 +38,7 @@
                 <div class="modal-footer">
 
                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Batal</button>
-                    <button type="submit" class="btn btn-primary">Tambah</button>
+                    <button id="submit" type="submit" class="btn btn-primary">Tambah</button>
 
                 </div>
             </form>
@@ -60,7 +60,7 @@
             <form method="post">
                 {{ csrf_field() }} {{ method_field('DELETE') }}
                 <div class="modal-body">
-
+                    <input type="hidden" name="id">
                 </div>
                 <div class="modal-footer">
 

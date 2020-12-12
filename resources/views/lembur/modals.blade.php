@@ -171,9 +171,8 @@
             <form method="post">
                 @csrf
                 @method('DELETE')
-                <input type="hidden" name="id">
                 <div class="modal-body">
-
+                    <input type="hidden" name="id">
                 </div>
                 <div class="modal-footer">
 

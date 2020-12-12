@@ -37,19 +37,11 @@
                             </div>
                         </div>
                     </div>
-                    <div class="row">
-                        <div class="col">
-                            <div class="form-group">
-                                <label class="form-label">Maks Jam Lembur</label>
-                                <input type="number" name="maksimal_jam" class="form-control" required>
-                            </div>
-                        </div>
-                    </div>
                 </div>
                 <div class="modal-footer">
 
                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Batal</button>
-                    <button type="submit" class="btn btn-primary">Tambah</button>
+                    <button id="submit" type="submit" class="btn btn-primary">Tambah</button>
 
                 </div>
             </form>
@@ -72,7 +64,7 @@
                 @csrf
                 @method('DELETE')
                 <div class="modal-body">
-
+                    <input type="hidden" name="id">
                 </div>
                 <div class="modal-footer">
 

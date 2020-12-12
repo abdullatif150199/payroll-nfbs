@@ -46,7 +46,6 @@
                     <th>Jml Peserta</th>
                     <th>Tunj Jabatan</th>
                     <th>Load</th>
-                    <th>Maks Jam Lembur</th>
                     <th>Opsi</th>
                 </tr>
             </thead>
@@ -76,7 +75,6 @@
             {data: 'jml_peserta'},
             {data: 'tunjangan_jabatan'},
             {data: 'load'},
-            {data: 'maksimal_jam'},
             {data: 'actions', orderable: false, searchable: false}
         ]
     });
@@ -96,6 +94,7 @@
         var url = '{{ route('dash.jabatan.edit', ':id') }}';
         url = url.replace(':id', id);
         $('input[name=_method]').val('PUT');
+        $('#submit').text('Update');
         $('#formJabatan form')[0].reset();
         $.ajax({
             url: url,
@@ -132,19 +131,42 @@
             success: function (data) {
                 $('#formJabatan').modal('hide');
                 oTable.ajax.reload();
+                toastr.success(data.message, "Success");
             },
             error: function () {
-                alert('Gagal menambahkan data');
+                toastr.error('Gagal memproses data', 'Failed');
             }
         });
     });
 
     function hapusJabatan(id) {
-        var url = '{{ route('dash.jabatan.destroy', ':id') }}';
-        url = url.replace(':id', id);
+        $('input[name=id]').val(id);
         $('#hapusJabatan .modal-body').text('Yakin ingin menghapus?');
-        $('#hapusJabatan form').attr('action', url);
         $('#hapusJabatan').modal('show');
     }
+
+    $('#hapusJabatan form').submit(function(e) {
+        e.preventDefault();
+        var id = $('input[name=id]').val();
+        var url = '{{ route('dash.jabatan.destroy', ':id') }}';
+        url = url.replace(':id', id);
+
+        $.ajax({
+            url: url,
+            type: "DELETE",
+            success: function (data) {
+                $('#hapusJabatan').modal('hide');
+                oTable.ajax.reload();
+                if (data.status != 200) {
+                    toastr.error(data.message, "Failed");
+                } else {
+                    toastr.success(data.message, "Success");
+                }
+            },
+            error: function () {
+                toastr.error('Gagal memproses data', 'Failed');
+            }
+        });
+    });
 </script>
 @endpush

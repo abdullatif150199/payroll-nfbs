@@ -42,9 +42,12 @@ class BidangController extends Controller
             'nama_bidang' => $request->nama_bidang
         ];
 
-        $store = Bidang::create($data);
+        Bidang::create($data);
 
-        return $store;
+        return response()->json([
+            'status' => 200,
+            'message' => 'Bidang berhasil ditambahkan'
+        ]);
     }
 
     public function edit($id)
@@ -63,7 +66,10 @@ class BidangController extends Controller
         $update->nama_bidang = $request->nama_bidang;
         $update->update();
 
-        return $update;
+        return response()->json([
+            'status' => 200,
+            'message' => 'Bidang berhasil diupdate'
+        ]);
     }
 
     public function destroy($id)
@@ -71,11 +77,17 @@ class BidangController extends Controller
         $get = Bidang::with('karyawan')->findOrFail($id);
 
         if ($get->karyawan->count() > 0) {
-            return back()->withError('Bidang tidak bisa dihapus');
+            return response()->json([
+                'status' => 403,
+                'message' => 'Bidang tidak bisa dihapus'
+            ]);
         }
 
         $get->delete();
 
-        return back();
+        return response()->json([
+            'status' => 200,
+            'message' => 'Bidang berhasil dihapus'
+        ]);
     }
 }

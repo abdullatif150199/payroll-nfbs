@@ -95,6 +95,7 @@
             var url = '{{ route('dash.golongan.edit', ':id') }}';
             url = url.replace(':id', id);
             $('input[name=_method]').val('PUT');
+            $('#submit').text('Update');
             $('#formGolongan form')[0].reset();
             $.ajax({
                 url: url,
@@ -108,6 +109,7 @@
                     $('input[name=kode_golongan]').val(data.kode_golongan);
                     $('input[name=gaji_pokok]').val(data.gaji_pokok);
                     $('input[name=lembur]').val(data.lembur);
+                    $('input[name=lembur_harian]').val(data.lembur_harian);
                 }
             });
         }
@@ -131,20 +133,47 @@
                 success: function (data) {
                     $('#formGolongan').modal('hide');
                     oTable.ajax.reload();
+                    if (data.status != 200) {
+                        toastr.error(data.message, "Failed");
+                    } else {
+                        toastr.success(data.message, "Success");
+                    }
                 },
                 error: function () {
-                    alert('Gagal menambahkan data');
+                    toastr.error('Gagal menambahkan data', 'Failed');
                 }
             });
         });
 
         function hapusGolongan(id) {
-            var url = '{{ route('dash.golongan.destroy', ':id') }}';
-            url = url.replace(':id', id);
+            $('input[name=id]').val(id);
             $('#hapusGolongan .modal-body').text('Yakin ingin menghapus?');
-            $('#hapusGolongan form').attr('action', url);
             $('#hapusGolongan').modal('show');
         }
+
+        $('#hapusGolongan form').submit(function(e) {
+            e.preventDefault();
+            var id = $('input[name=id]').val();
+            var url = '{{ route('dash.golongan.destroy', ':id') }}';
+            url = url.replace(':id', id);
+
+            $.ajax({
+                url: url,
+                type: "DELETE",
+                success: function (data) {
+                    $('#hapusGolongan').modal('hide');
+                    oTable.ajax.reload();
+                    if (data.status != 200) {
+                        toastr.error(data.message, "Failed");
+                    } else {
+                        toastr.success(data.message, "Success");
+                    }
+                },
+                error: function () {
+                    toastr.error('Gagal memproses data', 'Failed');
+                }
+            });
+        });
 
     // });
 </script>

@@ -93,6 +93,7 @@
             var url = '{{ route('dash.bidang.edit', ':id') }}';
             url = url.replace(':id', id);
             $('input[name=_method]').val('PUT');
+            $('#submit').text('Update');
             $('#formBidang form')[0].reset();
             $.ajax({
                 url: url,
@@ -127,20 +128,43 @@
                 success: function (data) {
                     $('#formBidang').modal('hide');
                     oTable.ajax.reload();
+                    toastr.success(data.message, "Success");
                 },
                 error: function () {
-                    alert('Gagal menambahkan data');
+                    toastr.success("Gagal menambahkan data", "Success");
                 }
             });
         });
 
         function hapusBidang(id) {
-            var url = '{{ route("dash.bidang.destroy", ":id") }}';
-            url = url.replace(':id', id);
+            $('input[name=id]').val(id);
             $('#hapusBidang .modal-body').text('Yakin ingin menghapus?');
-            $('#hapusBidang form').attr('action', url);
             $('#hapusBidang').modal('show');
         }
+
+        $('#hapusBidang form').submit(function(e) {
+            e.preventDefault();
+            var id = $('input[name=id]').val();
+            var url = '{{ route('dash.bidang.destroy', ':id') }}';
+            url = url.replace(':id', id);
+
+            $.ajax({
+                url: url,
+                type: "DELETE",
+                success: function (data) {
+                    $('#hapusBidang').modal('hide');
+                    oTable.ajax.reload();
+                    if (data.status != 200) {
+                        toastr.error(data.message, "Failed");
+                    } else {
+                        toastr.success(data.message, "Success");
+                    }
+                },
+                error: function () {
+                    toastr.error('Gagal memproses data', 'Failed');
+                }
+            });
+        });
 
     // });
 </script>

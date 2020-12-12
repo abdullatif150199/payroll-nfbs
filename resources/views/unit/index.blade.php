@@ -93,6 +93,7 @@
             var url = '{{ route('dash.unit.edit', ':id') }}';
             url = url.replace(':id', id);
             $('input[name=_method]').val('PUT');
+            $('#submit').text('Update');
             $('#formUnit form')[0].reset();
             $.ajax({
                 url: url,
@@ -101,9 +102,8 @@
                 success: function (data) {
                     $('.modal-title').text('Edit Unit');
                     $('#formUnit').modal('show');
-
                     $('input[name=id]').val(data.id);
-                    $('input[name=bidang_id]').val(data.bidang_id);
+                    $('select[name=bidang_id]').val(data.bidang.id);
                     $('input[name=nama_unit]').val(data.nama_unit);
                 }
             });
@@ -128,20 +128,43 @@
                 success: function (data) {
                     $('#formUnit').modal('hide');
                     oTable.ajax.reload();
+                    toastr.success(data.message, "Success");
                 },
                 error: function () {
-                    alert('Gagal menambahkan data');
+                    toastr.error('Gagal memproses data', 'Failed');
                 }
             });
         });
 
         function hapusUnit(id) {
-            var url = '{{ route('dash.unit.destroy', ':id') }}';
-            url = url.replace(':id', id);
+            $('input[name=id]').val(id);
             $('#hapusUnit .modal-body').text('Yakin ingin menghapus?');
-            $('#hapusUnit form').attr('action', url);
             $('#hapusUnit').modal('show');
         }
+
+        $('#hapusUnit form').submit(function(e) {
+            e.preventDefault();
+            var id = $('input[name=id]').val();
+            var url = '{{ route('dash.unit.destroy', ':id') }}';
+            url = url.replace(':id', id);
+
+            $.ajax({
+                url: url,
+                type: "DELETE",
+                success: function (data) {
+                    $('#hapusUnit').modal('hide');
+                    oTable.ajax.reload();
+                    if (data.status != 200) {
+                        toastr.error(data.message, "Failed");
+                    } else {
+                        toastr.success(data.message, "Success");
+                    }
+                },
+                error: function () {
+                    toastr.error('Gagal memproses data', 'Failed');
+                }
+            });
+        });
 
     // });
 </script>

@@ -25,7 +25,7 @@
                 <div class="modal-footer">
 
                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Batal</button>
-                    <button type="submit" class="btn btn-primary">Tambah</button>
+                    <button id="submit" type="submit" class="btn btn-primary">Tambah</button>
 
                 </div>
             </form>
@@ -47,7 +47,7 @@
             <form method="post">
                 {{ csrf_field() }} {{ method_field('DELETE') }}
                 <div class="modal-body">
-
+                    <input type="hidden" name="id">
                 </div>
                 <div class="modal-footer">
 
