@@ -116,7 +116,7 @@ Route::group(['prefix' => 'dashboard', 'as' => 'dash.', 'middleware' => ['auth']
         Route::delete('potongan/{potongan_id}/{karyawan_id}/delete', 'PotonganController@detach')->name('potongan.detach');
 
         Route::group(['prefix' => 'setting'], function () {
-            // General
+            // General Information
             Route::get('/', 'Settingcontroller@index')->name('setting');
 
             // User / Role
