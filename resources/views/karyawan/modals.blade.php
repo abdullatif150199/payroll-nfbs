@@ -214,7 +214,7 @@
                         <div class="col-md-3">
                             <div class="form-group">
                                 <label class="form-label">Jabatan</label>
-                                <select class="form-control custom-select" name="jabatan" required>
+                                <select class="form-control custom-select selectize-select" name="jabatan[]" required>
                                     <option value="">Pilih</option>
                                     @foreach ($jabatan as $jab)
                                     <option value="{{ $jab->id }}">{{ $jab->nama_jabatan }}</option>
@@ -595,7 +595,7 @@
                         <div class="col-md-3">
                             <div class="form-group">
                                 <label class="form-label">Jabatan</label>
-                                <select class="form-control custom-select" name="jabatan" id="jabatan" required>
+                                <select class="form-control custom-select selectize-select" name="jabatan[]" id="jabatan" required>
                                     <option value="">Pilih</option>
                                     @foreach ($jabatan as $jab)
                                     <option value="{{ $jab->id }}">{{ $jab->nama_jabatan }}</option>

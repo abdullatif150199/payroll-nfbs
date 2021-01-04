@@ -54,10 +54,12 @@ Route::group(['prefix' => 'dashboard', 'as' => 'dash.', 'middleware' => ['auth']
         Route::get('get-karyawan', 'KaryawanController@datatable')->name('karyawan.datatable');
         Route::post('karyawan', 'KaryawanController@store')->name('karyawan.store');
         Route::get('karyawan/get-name', 'KaryawanController@name')->name('karyawan.name');
+        Route::post('karyawan/sms', 'KaryawanController@sms')->name('karyawan.sms');
         Route::get('karyawan/{id}', 'KaryawanController@show')->name('karyawan.show');
         Route::get('karyawan/{id}/edit', 'KaryawanController@edit')->name('karyawan.edit');
         Route::put('karyawan/{id}', 'KaryawanController@update')->name('karyawan.update');
         Route::put('karyawan/{id}/resign', 'KaryawanController@resign')->name('karyawan.resign');
+        Route::post('karyawan/{id}/estimasi', 'KaryawanController@estimasi')->name('karyawan.estimasi');
 
         // Daftar Gaji
         Route::get('gaji', 'GajiController@index');

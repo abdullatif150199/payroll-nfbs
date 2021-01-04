@@ -155,7 +155,13 @@
                     $('#tk_year').val(data.tanggal_keluar.substr(0,4));
                 }
                 $('#golongan').val(data.golongan_id);
-                $('#jabatan').val(data.jabatan_id);
+                $('#jabatan')[0].selectize.clear();
+                $.each(data.jabatan, function(k,v) {
+                    // console.log($('#jabatan').val(v.id));
+                    var $select = $('#jabatan');
+                    var selectize = $select[0].selectize;
+                    selectize.addItem(v.id);
+                });
                 $('#bidang')[0].selectize.clear();
                 $.each(data.bidang, function(k,v) {
                     // console.log($('#bidang').val(v.id));

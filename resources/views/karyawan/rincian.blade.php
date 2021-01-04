@@ -8,7 +8,7 @@
                     <span class="avatar avatar-xxl mr-5" style="background-image: url(demo/faces/male/21.jpg)"></span>
                     <div class="media-body">
                         <h4 class="m-0">{{ $data->nama_lengkap }}</h4>
-                        <p class="text-muted mb-0">
+                        <p class="text-muted mb-2">
                             NIP: {{ $data->no_induk }}
                             {{-- &middot;
                             @foreach ($data->jabatan as $item)
@@ -18,7 +18,7 @@
                         <a href="https://wa.me/{{ $data->no_hp }}?text=Assalaamualaikum" class="btn btn-outline-success btn-sm" target="_blank">
                             <span class="fa fa-whatsapp"></span> Chat
                         </a>
-                        <a href="#" class="btn btn-outline-warning btn-sm">
+                        <a href="#smsKaryawan" data-toggle="modal" class="btn btn-outline-warning btn-sm">
                             <span class="fa fa-envelope-o"></span> SMS
                         </a>
                     </div>
@@ -88,6 +88,57 @@
                     <div class="tab-pane fade" id="v-pills-estimasi" role="tabpanel"
                         aria-labelledby="v-pills-estimasi-tab">
                         <h3>Estimasi Gaji</h3>
+                        <form id="estimate">
+                            <div class="row">
+                                <div class="col-md-4">
+                                    <div class="form-group">
+                                        <label class="form-label">Golongan</label>
+                                        <select class="form-control" name="golongan">
+                                            <option value=""></option>
+                                            @foreach (App\Models\Golongan::pluck('kode_golongan', 'id') as $key => $value)
+                                                <option value="{{ $key }}">{{ $value }}</option>
+                                            @endforeach
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="form-group">
+                                        <label class="form-label">Kelompok Kerja</label>
+                                        <select class="form-control" name="kelompok_kerja">
+                                            <option value=""></option>
+                                            @foreach (App\Models\KelompokKerja::pluck('grade', 'id') as $key => $value)
+                                                <option value="{{ $key }}">{{ $value }}</option>
+                                            @endforeach
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="form-group">
+                                        <label class="form-label">Status Kerja</label>
+                                        <select class="form-control" name="status_kerja">
+                                            <option value=""></option>
+                                            @foreach (App\Models\StatusKerja::pluck('nama_status_kerja', 'id') as $key => $value)
+                                                <option value="{{ $key }}">{{ $value }}</option>
+                                            @endforeach
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-footer mt-3">
+                                <button id="loader-estimate" class="btn btn-primary btn-block">Dapatkan Estimasi Gaji</button>
+                            </div>
+                        </form>
+                        <div class="alert alert-info mt-4" role="alert" id="resultEstimate" style="display: none;">
+                            <strong>Estimasi Gaji Jika Kinerja Normal</strong>
+                            <div class="m-4">
+                                <p id="gaji_pokok"></p>
+                                <p id="tunj_jabatan"></p>
+                                <p id="tunj_struktural"></p>
+                                <p id="tunj_fungsional"></p>
+                                <p id="tunj_kinerja"></p>
+                                <strong id="gatot" class="text-success"></strong>
+                            </div>
+                        </div>
                     </div>
 
                     <div class="tab-pane fade" id="v-pills-keluarga" role="tabpanel"
@@ -109,4 +160,101 @@
         </div>
     </div>
 </div>
+
+{{-- Modal SMS --}}
+<div class="modal fade" id="smsKaryawan">
+    <div class="modal-dialog">
+        <div class="modal-content">
+
+            <!-- Modal Header -->
+            <div class="modal-header">
+                <h4 class="modal-title">SMS Karyawan</h4>
+                <button type="button" class="close" data-dismiss="modal"></button>
+            </div>
+
+            <form method="post">
+                {{ csrf_field() }}
+                <div class="modal-body">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="form-group">
+                                <label class="form-label">Nomor Tujuan</label>
+                                <input type="text" class="form-control" name="no_hp" value="{{ $data->no_hp }}" readonly>
+                            </div>
+                        </div>
+                        <div class="col-md-12">
+                            <div class="form-group">
+                                <label class="form-label">Isi Pesan</label>
+                                <textarea class="form-control" name="pesan" rows="8" cols="80">Assalaamualaikum...</textarea>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+                    <button type="submit" class="btn btn-primary" id="loader-sms">Kirim</button>
+
+                </div>
+            </form>
+
+        </div>
+    </div>
+</div>
 @endsection
+
+@push('scripts')
+<script type="text/javascript">
+    $.ajaxSetup({
+        headers: {
+            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+        }
+    });
+
+    $('#estimate').submit(function(e) {
+        e.preventDefault();
+        var url = '{{ route("dash.karyawan.estimasi", $data->id) }}';
+        $('#loader-estimate').addClass('btn-loading');
+
+        $.ajax({
+            url: url,
+            type: 'POST',
+            data: $('#estimate').serialize(),
+            success: function (data) {
+                $('#loader-estimate').removeClass('btn-loading');
+                $('#resultEstimate').show();
+                $('#gaji_pokok').html('Gaji Pokok: ' + data.estimate['gaji_pokok']);
+                $('#tunj_jabatan').html('Tunj Jabatan: ' + data.estimate['tunj_jabatan']);
+                $('#tunj_fungsional').html('Tunj Fungsional: ' + data.estimate['tunj_fungsional']);
+                $('#tunj_struktural').html('Tunj Struktural: ' + data.estimate['tunj_struktural']);
+                $('#tunj_kinerja').html('Tunj Kinerja: ' + data.estimate['tunj_kinerja']);
+                $('#gatot').html('Gaji Total: ' + data.estimate['gatot']);
+                toastr.success(data.message, "Success");
+            },
+            error: function () {
+                toastr.error('Gagal memproses data', 'Failed');
+            }
+        });
+    });
+
+    $('#smsKaryawan').submit(function(e) {
+        e.preventDefault();
+        var url = '{{ route("dash.karyawan.sms") }}';
+        $('#loader-sms').addClass('btn-loading');
+
+        $.ajax({
+            url: url,
+            type: 'POST',
+            data: $('#smsKaryawan form').serialize(),
+            success: function (data) {
+                $('#smsKaryawan').modal('hide');
+                $('#loader-sms').removeClass('btn-loading');
+                toastr.success(data.message, "Success");
+            },
+            error: function () {
+                toastr.error('SMS gagal!', 'Failed');
+            }
+        });
+    });
+</script>
+@endpush

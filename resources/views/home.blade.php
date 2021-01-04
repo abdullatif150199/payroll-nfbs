@@ -124,65 +124,66 @@
                         <th>Nama</th>
                         <th>Status</th>
                         <th>Mulai kerja</th>
-                        <th>Akhir kerja</th>
-                        <th>Satisfaction</th>
+                        <th>Akhir kontrak</th>
+                        <th>Masa Kerja</th>
                         <th class="text-center"><i class="icon-settings"></i></th>
                     </tr>
                 </thead>
                 <tbody>
-                    <tr>
-                        <td class="text-center">
-                            <div class="avatar d-block" style="background-image: url(demo/faces/female/26.jpg)">
-                                <span class="avatar-status bg-green"></span>
-                            </div>
-                        </td>
-                        <td>
-                            <div>Admin</div>
-                            <div class="small text-muted">
-                                Registered: Feb 23, 2020
-                            </div>
-                        </td>
-                        <td>
-                            <span>fgh</span>
-                        </td>
-                        <td>
-                            12-11-2019
-                        </td>
-                        <td>
-                            12-12-2020
-                        </td>
-                        <td>
-                            <div class="clearfix">
-                                <div class="float-left">
-                                    <strong>92%</strong>
+                    @foreach ($kontrak as $val)
+                        <tr>
+                            <td class="text-center">
+                                <div class="avatar d-block" style="background-image: url(demo/faces/female/26.jpg)">
+                                    <span class="avatar-status bg-green"></span>
                                 </div>
-                                <div class="float-right">
-                                    <small class="text-muted">5 hari lagi</small>
+                            </td>
+                            <td>
+                                <div>{{ $val->nama_lengkap }}</div>
+                                <div class="small text-muted">
+                                    Registered: {{ date('M d, Y', strtotime($val->created_at)) }}
                                 </div>
-                            </div>
-                            <div class="progress progress-xs">
-                                <div class="progress-bar bg-yellow" role="progressbar" style="width: 42%"
-                                    aria-valuenow="42" aria-valuemin="0" aria-valuemax="100"></div>
-                            </div>
-                        </td>
-                        <td class="text-center">
-                            <div class="item-action dropdown">
-                                <a href="javascript:void(0)" data-toggle="dropdown" class="icon"><i
-                                        class="fe fe-more-vertical"></i></a>
-                                <div class="dropdown-menu dropdown-menu-right">
-                                    <a href="javascript:void(0)" class="dropdown-item"><i
-                                            class="dropdown-icon fe fe-tag"></i> Action </a>
-                                    <a href="javascript:void(0)" class="dropdown-item"><i
-                                            class="dropdown-icon fe fe-edit-2"></i> Another action </a>
-                                    <a href="javascript:void(0)" class="dropdown-item"><i
-                                            class="dropdown-icon fe fe-message-square"></i> Something else here</a>
-                                    <div class="dropdown-divider"></div>
-                                    <a href="javascript:void(0)" class="dropdown-item"><i
-                                            class="dropdown-icon fe fe-link"></i> Separated link</a>
+                            </td>
+                            <td>
+                                {{ $val->statuskerja->nama_status_kerja }}
+                            </td>
+                            <td>
+                                {{ date('d-m-Y', strtotime($val->tanggal_masuk)) }}
+                            </td>
+                            <td>
+                                {{ date('d-m-Y', strtotime($val->contract_expired)) }}
+                            </td>
+                            <td>
+                                <div class="clearfix">
+                                    <div class="float-left">
+                                        <strong>{{ days_diff($val->contract_expired, $val->tanggal_masuk) . ' hari lagi' }}</strong>
+                                    </div>
+                                    <div class="float-right">
+                                        <small class="text-muted">{{ date('d M Y', strtotime($val->tanggal_masuk)) .' - '. date('d M Y', strtotime($val->contract_expired)) }}</small>
+                                    </div>
                                 </div>
-                            </div>
-                        </td>
-                    </tr>
+                                <div class="progress progress-xs">
+                                    <div class="progress-bar bg-{{ percent_time($val->contract_expired, $val->tanggal_masuk) == 100 ? 'red' : 'yellow'}}" role="progressbar" style="width: {{ percent_time($val->contract_expired, $val->tanggal_masuk) .'%' }}" aria-valuenow="{{ percent_time($val->contract_expired, $val->tanggal_masuk) }}" aria-valuemin="0" aria-valuemax="100"></div>
+                                </div>
+                            </td>
+                            <td class="text-center">
+                                <div class="item-action dropdown">
+                                    <a href="javascript:void(0)" data-toggle="dropdown" class="icon"><i
+                                            class="fe fe-more-vertical"></i></a>
+                                    <div class="dropdown-menu dropdown-menu-right">
+                                        <a href="javascript:void(0)" class="dropdown-item"><i
+                                                class="dropdown-icon fe fe-tag"></i> Action </a>
+                                        <a href="javascript:void(0)" class="dropdown-item"><i
+                                                class="dropdown-icon fe fe-edit-2"></i> Another action </a>
+                                        <a href="javascript:void(0)" class="dropdown-item"><i
+                                                class="dropdown-icon fe fe-message-square"></i> Something else here</a>
+                                        <div class="dropdown-divider"></div>
+                                        <a href="javascript:void(0)" class="dropdown-item"><i
+                                                class="dropdown-icon fe fe-link"></i> Separated link</a>
+                                    </div>
+                                </div>
+                            </td>
+                        </tr>
+                    @endforeach
                 </tbody>
             </table>
         </div>

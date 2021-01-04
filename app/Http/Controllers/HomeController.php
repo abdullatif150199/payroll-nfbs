@@ -29,7 +29,7 @@ class HomeController extends Controller
     public function index()
     {
         $title = 'Dashboard';
-        $karyawan = Karyawan::all();
+        $karyawan = Karyawan::get();
         $bidang = Bidang::count();
         $unit = Unit::count();
         $golongan = Golongan::count();
@@ -39,6 +39,7 @@ class HomeController extends Controller
 
         $barChart = $karyawan->groupBy('status_kerja_id');
         $pieChart = $karyawan->groupBy('golongan_id');
+        $kontrak = $karyawan->where('contract_expired', '>=', now());
 
         return view('home', [
             'karyawan' => $karyawan,
@@ -49,7 +50,8 @@ class HomeController extends Controller
             'cuti' => $cuti,
             'title' => $title,
             'barChart' => $barChart,
-            'pieChart' => $pieChart
+            'pieChart' => $pieChart,
+            'kontrak' => $kontrak
         ]);
     }
 }

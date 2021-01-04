@@ -250,3 +250,56 @@ function setting($key)
 
     return (is_array($key)) ? array_only($setting, $key) : $setting[$key];
 }
+
+/**
+ * function for sending SMS
+ */
+function sendSms($mobile, $pesan)
+{
+    $curl = curl_init();
+    curl_setopt_array($curl, array(
+        CURLOPT_RETURNTRANSFER => 1,
+        CURLOPT_URL => 'http://api.nusasms.com/api/v3/sendsms/plain',
+        CURLOPT_POST => true,
+        CURLOPT_POSTFIELDS => array(
+            'user' => 'nfbsserang_api',
+            'password' => 'nfbsserang_api',
+            'SMSText' => $pesan,
+            'GSM' => $mobile
+        )
+    ));
+    $resp = curl_exec($curl);
+    if (!$resp) {
+        return false;
+    } else {
+        return true;
+    }
+    curl_close($curl);
+}
+
+/**
+ * function for sending SMS OTP
+ */
+function sendSmsOtp($mobile, $pesan)
+{
+    $curl = curl_init();
+    curl_setopt_array($curl, array(
+        CURLOPT_RETURNTRANSFER => 1,
+        CURLOPT_URL => 'http://api.nusasms.com/api/v3/sendsms/plain',
+        CURLOPT_POST => true,
+        CURLOPT_POSTFIELDS => array(
+            'user' => 'nfbsserang_api',
+            'password' => 'nfbsserang_api',
+            'SMSText' => $pesan,
+            'GSM' => $mobile,
+            'otp' => 'Y'
+        )
+    ));
+    $resp = curl_exec($curl);
+    if (!$resp) {
+        return false;
+    } else {
+        return true;
+    }
+    curl_close($curl);
+}

@@ -39,6 +39,10 @@ class SettingTableSeeder extends Seeder
             [
                 'key' => 'tarif_load',
                 'value' => 20000,
+            ],
+            [
+                'key' => 'no_urut_induk_terbaru',
+                'value' => 1
             ]
         ]);
     }

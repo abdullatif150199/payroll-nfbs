@@ -15,6 +15,7 @@ use App\Models\Jabatan;
 use App\Models\Bidang;
 use App\Models\Unit;
 use App\Models\User;
+use App\Models\Setting;
 
 class KaryawanController extends Controller
 {
@@ -128,14 +129,24 @@ class KaryawanController extends Controller
         $user = User::create([
             'name' => $request->nama_lengkap,
             'username' => $username,
-            'email' => $request->nama_lengkap . '@example.com',
+            'email' => str_replace(' ', '', strtolower($request->nama_lengkap)) . '@example.com',
             'password' => bcrypt($request->birth['day'] . $request->birth['month'] . $request->birth['year']),
         ]);
 
+        // dapatkan no_induk
+        $kel = KelompokKerja::findOrFail($request->kelompok_kerja);
+        $setting = Setting::where('key', 'no_urut_induk_terbaru')->first();
+        $first = $kel->no_kode;
+        $second = $request->tanggal_masuk['year'] - config('var.tahun_berdiri');
+        $third = $setting->value;
+        $no_induk = $first . $second . $third;
+
+        dd($no_induk);
+
         $request->merge([
             'user_id' => $user->id,
+            'no_induk' => $no_induk,
             'golongan_id' => $request->golongan,
-            'jabatan_id' => $request->jabatan,
             'status_kerja_id' => $request->status_kerja,
             'kelompok_kerja_id' => $request->kelompok_kerja,
             'jam_perpekan_id' => $request->jam_perpekan,
@@ -145,8 +156,11 @@ class KaryawanController extends Controller
         ]);
 
         $karyawan = Karyawan::create($request->all());
+        $karyawan->jabatan()->attach($request->jabatan);
         $karyawan->bidang()->attach($request->bidang);
         $karyawan->unit()->attach($request->unit);
+
+        $setting->increment('no_urut_induk_terbaru');
 
         return redirect()->back()->withSuccess(sprintf('Karyawan %s berhasil di tambahkan', $karyawan->nama_lengkap));
     }
@@ -194,7 +208,6 @@ class KaryawanController extends Controller
     {
         $request->merge([
             'golongan_id' => $request->golongan,
-            'jabatan_id' => $request->jabatan,
             'status_kerja_id' => $request->status_kerja,
             'kelompok_kerja_id' => $request->kelompok_kerja,
             'jam_perpekan_id' => $request->jam_perpekan,
@@ -207,6 +220,7 @@ class KaryawanController extends Controller
         $karyawan = Karyawan::findOrFail($id);
         $karyawan->fill($request->all());
         $karyawan->save();
+        $karyawan->jabatan()->sync($request->jabatan);
         $karyawan->bidang()->sync($request->bidang);
         $karyawan->unit()->sync($request->unit);
 
@@ -216,9 +230,50 @@ class KaryawanController extends Controller
     public function resign($id)
     {
         $karyawan = Karyawan::findOrFail($id);
+        $karyawan->tanggal_keluar = date('Y-m-d');
         $karyawan->status = 3;
         $karyawan->save();
 
         return redirect()->back()->withSuccess(sprintf('Karyawan %s telah resign :(', $karyawan->nama_lengkap));
+    }
+
+    public function estimasi(Request $request, $id)
+    {
+        $karyawan = Karyawan::findOrFail($id);
+        $golongan = Golongan::findOrFail($request->golongan);
+        $kelompok_kerja = KelompokKerja::findOrFail($request->kelompok_kerja);
+        $status_kerja = StatusKerja::findOrFail($request->status_kerja);
+        $tunj_fungsional = $golongan->gaji_pokok * $kelompok_kerja->persen;
+
+        $data = [
+            'gaji_pokok' => number_format($golongan->gaji_pokok),
+            'tunj_jabatan' => number_format($karyawan->tunj_jabatan),
+            'tunj_struktural' => number_format($karyawan->tunj_struktural),
+            'tunj_fungsional' => number_format($tunj_fungsional),
+            'tunj_kinerja' => number_format($kelompok_kerja->kinerja_normal),
+            'gatot' => number_format(array_sum([
+                $golongan->gaji_pokok,
+                $karyawan->tunj_jabatan,
+                $karyawan->tunj_struktural,
+                $tunj_fungsional,
+                $kelompok_kerja->kinerja_normal
+            ]))
+        ];
+
+        return response()->json([
+            'status' => 200,
+            'estimate' => $data,
+            'message' => 'Estimasi gaji berhasil diperoleh'
+        ]);
+    }
+
+    public function sms(Request $request)
+    {
+        sendSms($request->no_hp, $request->pesan);
+
+        return response()->json([
+            'status' => 200,
+            'message' => 'SMS terkirim!'
+        ]);
     }
 }
