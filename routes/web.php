@@ -24,6 +24,7 @@ Route::group(['prefix' => 'profile', 'as' => 'profile.', 'middleware' => ['auth'
     Route::get('gaji', 'Profile\GajiController@index')->name('gaji.index');
     Route::get('get-gaji/{id}', 'Profile\GajiController@datatable')->name('gaji.datatable');
     Route::get('gaji/{id}/detail', 'Profile\GajiController@detail')->name('gaji.detail');
+    Route::get('gaji/{id}/print', 'Profile\GajiController@slip')->name('gaji.slip');
 
     Route::get('lembur', 'Profile\LemburController@index')->name('lembur.index');
     Route::post('lembur', 'Profile\LemburController@store')->name('lembur.store');
@@ -69,6 +70,7 @@ Route::group(['prefix' => 'dashboard', 'as' => 'dash.', 'middleware' => ['auth']
         Route::post('gaji/proses-ulang', 'GajiController@prosesUlang')->name('gaji.prosesUlang');
         Route::post('gaji/unduh', 'GajiController@unduh')->name('gaji.unduh');
         Route::get('gaji/{id}/detail', 'GajiController@detail')->name('gaji.detail');
+        Route::get('gaji/{id}/print', 'GajiController@slip')->name('gaji.slip');
 
         // Daftar Insentif
         Route::get('insentif', 'InsentifController@index');

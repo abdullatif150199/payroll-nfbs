@@ -38,4 +38,28 @@ class GajiController extends ProfileController
 
         return view('profile.gaji.detail', ['gaji' => $gaji]);
     }
+
+    public function slip($id)
+    {
+        $data = Gaji::with('karyawan')->findOrFail($id);
+        $data->pendapatan = array_sum([
+            $data->gaji_pokok,
+            $data->tunjangan_jabatan,
+            $data->tunjangan_struktural,
+            $data->tunjangan_fungsional,
+            $data->tunjangan_kinerja,
+            $data->tunjangan_pendidikan_anak,
+            $data->tunjangan_istri,
+            $data->tunjangan_anak,
+            $data->lembur,
+            $data->insentif
+        ]);
+
+        $potongan = $data->historyPotongan()->get();
+
+        return view('profile.gaji.slip', [
+            'data' => $data,
+            'potongan' => $potongan
+        ]);
+    }
 }
