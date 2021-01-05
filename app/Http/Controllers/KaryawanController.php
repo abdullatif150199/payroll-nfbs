@@ -116,23 +116,6 @@ class KaryawanController extends Controller
 
     public function store(KaryawanFormRequest $request)
     {
-        $username = strtok($request->nama_lengkap, ' ') . substr($request->birth['year'], -2);
-        $check = User::where('username', $username)->first();
-
-        if ($check) {
-            $username = strtok($request->nama_lengkap, ' ') . $request->birth['month'];
-            if (User::where('username', $username)->first()) {
-                $username = strtok($request->nama_lengkap, ' ') . $request->birth['day'];
-            }
-        }
-
-        $user = User::create([
-            'name' => $request->nama_lengkap,
-            'username' => $username,
-            'email' => str_replace(' ', '', strtolower($request->nama_lengkap)) . '@example.com',
-            'password' => bcrypt($request->birth['day'] . $request->birth['month'] . $request->birth['year']),
-        ]);
-
         // dapatkan no_induk
         $kel = KelompokKerja::findOrFail($request->kelompok_kerja);
         $setting = Setting::where('key', 'no_urut_induk_terbaru')->first();
@@ -141,7 +124,18 @@ class KaryawanController extends Controller
         $third = $setting->value;
         $no_induk = $first . $second . $third;
 
-        dd($no_induk);
+        // Check username
+        $check = User::where('username', $no_induk)->first();
+        if ($check) {
+            $no_induk = $first . $second . mt_rand(111, 999);
+        }
+
+        $user = User::create([
+            'name' => $request->nama_lengkap,
+            'username' => $no_induk,
+            'email' => $request->email,
+            'password' => bcrypt($request->birth['day'] . $request->birth['month'] . $request->birth['year']),
+        ]);
 
         $request->merge([
             'user_id' => $user->id,
@@ -152,6 +146,7 @@ class KaryawanController extends Controller
             'jam_perpekan_id' => $request->jam_perpekan,
             'tanggal_lahir' => $request->birth['year'].'-'.$request->birth['month'].'-'.$request->birth['day'],
             'tanggal_masuk' => $request->tanggal_masuk['year'].'-'.$request->tanggal_masuk['month'].'-'.$request->tanggal_masuk['day'],
+            'contract_expired' => $request->akhir_kontrak['year'].'-'.$request->akhir_kontrak['month'].'-'.$request->akhir_kontrak['day'],
             'no_hp' => str_replace(' ', '', $request->no_hp)
         ]);
 
@@ -160,7 +155,7 @@ class KaryawanController extends Controller
         $karyawan->bidang()->attach($request->bidang);
         $karyawan->unit()->attach($request->unit);
 
-        $setting->increment('no_urut_induk_terbaru');
+        $setting->increment('value');
 
         return redirect()->back()->withSuccess(sprintf('Karyawan %s berhasil di tambahkan', $karyawan->nama_lengkap));
     }
@@ -214,6 +209,7 @@ class KaryawanController extends Controller
             'tanggal_lahir' => $request->birth['year'].'-'.$request->birth['month'].'-'.$request->birth['day'],
             'tanggal_masuk' => $request->tanggal_masuk['year'].'-'.$request->tanggal_masuk['month'].'-'.$request->tanggal_masuk['day'],
             'tanggal_keluar' => $request->tanggal_keluar['year'].'-'.$request->tanggal_keluar['month'].'-'.$request->tanggal_keluar['day'],
+            'contract_expired' => $request->akhir_kontrak['year'].'-'.$request->akhir_kontrak['month'].'-'.$request->akhir_kontrak['day'],
             'no_hp' => str_replace(' ', '', $request->no_hp)
         ]);
 

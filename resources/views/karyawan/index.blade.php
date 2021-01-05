@@ -149,6 +149,9 @@
                 $('#tm_day').val(data.tanggal_masuk.substr(-2,2));
                 $('#tm_month').val(data.tanggal_masuk.substr(5,2));
                 $('#tm_year').val(data.tanggal_masuk.substr(0,4));
+                $('#ak_day').val(data.contract_expired.substr(-2,2));
+                $('#ak_month').val(data.contract_expired.substr(5,2));
+                $('#ak_year').val(data.contract_expired.substr(0,4));
                 if (data.tanggal_keluar !== null) {
                     $('#tk_day').val(data.tanggal_keluar.substr(-2,2));
                     $('#tk_month').val(data.tanggal_keluar.substr(5,2));
