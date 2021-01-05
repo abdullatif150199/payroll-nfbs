@@ -23,7 +23,7 @@ class GajiController extends ProfileController
                 return '<span class="text-muted">'. yearMonth($data->bulan, 'H') .'</span>';
             })
             ->editColumn('gaji_akhir', function ($data) {
-                return number_format($data->gaji_akhir);
+                return number_format($data->gaji_total);
             })
             ->addColumn('actions', function ($data) {
                 return view('profile.gaji.actions', ['data' => $data]);
