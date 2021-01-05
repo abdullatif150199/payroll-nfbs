@@ -13,6 +13,7 @@
 
 Route::get('/', 'HomeController@index');
 Route::get('/home', 'HomeController@index')->name('home');
+Route::get('/coming-soon', 'HomeController@coming')->name('coming-soon');
 
 Auth::routes(['register' => false]);
 
@@ -22,6 +23,7 @@ Route::group(['prefix' => 'profile', 'as' => 'profile.', 'middleware' => ['auth'
 
     Route::get('gaji', 'Profile\GajiController@index')->name('gaji.index');
     Route::get('get-gaji/{id}', 'Profile\GajiController@datatable')->name('gaji.datatable');
+    Route::get('gaji/{id}/detail', 'Profile\GajiController@detail')->name('gaji.detail');
 
     Route::get('lembur', 'Profile\LemburController@index')->name('lembur.index');
     Route::post('lembur', 'Profile\LemburController@store')->name('lembur.store');

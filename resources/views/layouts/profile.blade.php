@@ -87,8 +87,8 @@
                                             </a>
                                         </div>
                                     </div>
-                                    <button type="button" class="btn btn-primary btn-block mb-4">Evaluasi
-                                        Ibadah</button>
+                                    <a href="{{ route('coming-soon') }}" class="btn btn-primary btn-block mb-4">Evaluasi
+                                        Ibadah</a>
                                 </div>
                                 @yield('content')
                             </div>

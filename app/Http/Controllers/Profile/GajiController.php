@@ -31,4 +31,11 @@ class GajiController extends ProfileController
             ->rawColumns(['actions', 'bulan', 'gaji_akhir'])
             ->make(true);
     }
+
+    public function detail($id)
+    {
+        $gaji = Gaji::with('karyawan')->findOrFail($id);
+
+        return view('profile.gaji.detail', ['gaji' => $gaji]);
+    }
 }

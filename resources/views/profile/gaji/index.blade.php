@@ -37,9 +37,9 @@
             <table class="table table-responsive-sm table-hover table-outline table-vcenter card-table" id="gajiTable">
                 <thead>
                     <tr>
+                        <th>Opsi</th>
                         <th>Bulan</th>
                         <th>Gaji Akhir</th>
-                        <th>Opsi</th>
                     </tr>
                 </thead>
             </table>
@@ -55,11 +55,11 @@
         processing: true,
         ajax: "{{ route('profile.gaji.datatable', $id) }}",
         columns: [
+            {data: 'actions', orderable: false, searchable: false},
             {data: 'bulan'},
-            {data: 'gaji_akhir'},
-            {data: 'actions', orderable: false, searchable: false}
+            {data: 'gaji_akhir'}
         ],
-        order: [[ 0, 'desc' ]]
+        order: [[ 1, 'desc' ]]
     });
 </script>
 @endpush

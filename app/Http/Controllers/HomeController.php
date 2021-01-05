@@ -54,4 +54,9 @@ class HomeController extends Controller
             'kontrak' => $kontrak
         ]);
     }
+
+    public function coming()
+    {
+        return view('soon');
+    }
 }

@@ -21,7 +21,7 @@ class ProfileController extends Controller
 
     public function edit($username)
     {
-        $user = User::whereUsername($username)->first();
+        $user = User::with('karyawan')->whereUsername($username)->first();
 
         return view('profile.edit', ['user' => $user]);
     }

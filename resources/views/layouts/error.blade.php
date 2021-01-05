@@ -10,16 +10,7 @@
     <link rel="stylesheet" href="{{ asset('css/font-awesome.min.css') }}">
     <link rel="stylesheet"
         href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,300i,400,400i,500,500i,600,600i,700,700i&amp;subset=latin-ext">
-    <link href="{{ asset('admin/assets/css/dashboard.css') }}" rel="stylesheet" />
-    @stack('styles')
-    <script src="{{ asset('admin/assets/js/require.min.js') }}"></script>
-    <script>
-        requirejs.config({
-            baseUrl: '.'
-        });
-    </script>
-    <script src="{{ asset('admin/assets/js/dashboard.js') }}"></script>
-    @stack('scripts')
+    <link href="{{ asset('css/dashboard.css') }}" rel="stylesheet" />
 </head>
 
 <body class="">
@@ -30,4 +21,5 @@
     </div>
 </body>
 
+<script src="{{ asset('js/dashboard.js') }}"></script>
 </html>
