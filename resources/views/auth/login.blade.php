@@ -3,7 +3,7 @@
 <form class="card" action="{{ route('login') }}" method="POST">
     @csrf
     <div class="card-body p-6">
-        <div class="card-title">Login to your account</div>
+        <div class="card-title">Masuk menggunakan akun</div>
         <div class="form-group">
             <label for="username" class="form-label">Username</label>
             <input type="text" name="username" class="form-control" placeholder="Username"
@@ -15,7 +15,7 @@
         <div class="form-group">
             <label class="form-label" for="password">
                 Password
-                <a href="{!! url(config('tabler.urls.forgot', 'password/reset')) !!}" class="float-right small">I forgot
+                <a href="{!! url(config('tabler.urls.forgot', 'password/reset')) !!}" class="float-right small">Lupa
                     password</a>
             </label>
             <input type="password" name="password" class="form-control" placeholder="Password"
@@ -27,15 +27,15 @@
         <div class="form-group">
             <label class="custom-control custom-checkbox">
                 <input type="checkbox" name="remember" class="custom-control-input">
-                <span class="custom-control-label">Remember me</span>
+                <span class="custom-control-label">Ingat saya</span>
             </label>
         </div>
         <div class="form-footer">
-            <button type="submit" class="btn btn-primary btn-block">Sign in</button>
+            <button type="submit" class="btn btn-primary btn-block">Masuk</button>
         </div>
     </div>
 </form>
 <div class="text-center text-muted">
-    Don't have account yet? <a href="{!! url(config('tabler.url.register', 'register')) !!}">Sign up</a>
+    {{-- Don't have account yet? <a href="{!! url(config('tabler.url.register', 'register')) !!}">Sign up</a> --}}
 </div>
 @stop
