@@ -93,6 +93,7 @@
             var url = '{{ route('dash.statusKerja.edit', ':id') }}';
             url = url.replace(':id', id);
             $('input[name=_method]').val('PUT');
+            $('#submit').text('Update');
             $('#formStatusKerja form')[0].reset();
             $.ajax({
                 url: url,
@@ -128,9 +129,10 @@
                 success: function (data) {
                     $('#formStatusKerja').modal('hide');
                     oTable.ajax.reload();
+                    toastr.success(data.message, "Success");
                 },
                 error: function () {
-                    alert('Gagal menambahkan data');
+                    toastr.error("Gagal memproses data", "Failed");
                 }
             });
         });

@@ -26,7 +26,8 @@
                             <div class="form-group">
                                 <label class="form-label">Persentase</label>
                                 <div class="input-group">
-                                    <input type="number" name="persentase_gaji_pokok" step="any" class="form-control" placeholder="Persentase" aria-describedby="basic-addon2">
+                                    <input type="number" name="persentase_gaji_pokok" step="any" class="form-control"
+                                        placeholder="Persentase" aria-describedby="basic-addon2">
                                     <span class="input-group-append" id="basic-addon2">
                                         <span class="input-group-text">&percnt; GATOT</span>
                                     </span>
@@ -38,7 +39,7 @@
                 <div class="modal-footer">
 
                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Batal</button>
-                    <button type="submit" class="btn btn-primary">Tambah</button>
+                    <button type="submit" id="submit" class="btn btn-primary">Tambah</button>
 
                 </div>
             </form>
