@@ -106,7 +106,7 @@ class Karyawan extends Model
 
     public function kelompokKerja()
     {
-        return $this->belongsTo(kelompokKerja::class);
+        return $this->belongsTo(KelompokKerja::class);
     }
 
     // Get gaji Pokok
