@@ -15,7 +15,8 @@
                             {{ $item->nama_jabatan }}
                             @endforeach --}}
                         </p>
-                        <a href="https://wa.me/{{ $data->no_hp }}?text=Assalaamualaikum" class="btn btn-outline-success btn-sm" target="_blank">
+                        <a href="https://wa.me/{{ $data->no_hp }}?text=Assalaamualaikum"
+                            class="btn btn-outline-success btn-sm" target="_blank">
                             <span class="fa fa-whatsapp"></span> Chat
                         </a>
                         <a href="#smsKaryawan" data-toggle="modal" class="btn btn-outline-warning btn-sm">
@@ -66,7 +67,7 @@
                 <li class="list-group-item py-5 tab-content">
                     <div class="tab-pane fade show active" id="v-pills-rincian" role="tabpanel"
                         aria-labelledby="v-pills-rincian-tab">
-                        <h3>Rincian Karyawan</h3>
+                        <h3>Rincian Pegawai</h3>
                         NIK: <h5>{{ $data->nik }}</h5>
                         Tempat, tanggal lahir: <h5>
                             {{ $data->tempat_lahir . ', ' . date('d M Y', strtotime($data->tanggal_lahir)) }}</h5>
@@ -95,8 +96,9 @@
                                         <label class="form-label">Golongan</label>
                                         <select class="form-control" name="golongan">
                                             <option value=""></option>
-                                            @foreach (App\Models\Golongan::pluck('kode_golongan', 'id') as $key => $value)
-                                                <option value="{{ $key }}">{{ $value }}</option>
+                                            @foreach (App\Models\Golongan::pluck('kode_golongan', 'id') as $key =>
+                                            $value)
+                                            <option value="{{ $key }}">{{ $value }}</option>
                                             @endforeach
                                         </select>
                                     </div>
@@ -107,7 +109,7 @@
                                         <select class="form-control" name="kelompok_kerja">
                                             <option value=""></option>
                                             @foreach (App\Models\KelompokKerja::pluck('grade', 'id') as $key => $value)
-                                                <option value="{{ $key }}">{{ $value }}</option>
+                                            <option value="{{ $key }}">{{ $value }}</option>
                                             @endforeach
                                         </select>
                                     </div>
@@ -117,15 +119,17 @@
                                         <label class="form-label">Status Kerja</label>
                                         <select class="form-control" name="status_kerja">
                                             <option value=""></option>
-                                            @foreach (App\Models\StatusKerja::pluck('nama_status_kerja', 'id') as $key => $value)
-                                                <option value="{{ $key }}">{{ $value }}</option>
+                                            @foreach (App\Models\StatusKerja::pluck('nama_status_kerja', 'id') as $key
+                                            => $value)
+                                            <option value="{{ $key }}">{{ $value }}</option>
                                             @endforeach
                                         </select>
                                     </div>
                                 </div>
                             </div>
                             <div class="form-footer mt-3">
-                                <button id="loader-estimate" class="btn btn-primary btn-block">Dapatkan Estimasi Gaji</button>
+                                <button id="loader-estimate" class="btn btn-primary btn-block">Dapatkan Estimasi
+                                    Gaji</button>
                             </div>
                         </form>
                         <div class="alert alert-info mt-4" role="alert" id="resultEstimate" style="display: none;">
@@ -168,7 +172,7 @@
 
             <!-- Modal Header -->
             <div class="modal-header">
-                <h4 class="modal-title">SMS Karyawan</h4>
+                <h4 class="modal-title">SMS Pegawai</h4>
                 <button type="button" class="close" data-dismiss="modal"></button>
             </div>
 
@@ -179,13 +183,15 @@
                         <div class="col-md-12">
                             <div class="form-group">
                                 <label class="form-label">Nomor Tujuan</label>
-                                <input type="text" class="form-control" name="no_hp" value="{{ $data->no_hp }}" readonly>
+                                <input type="text" class="form-control" name="no_hp" value="{{ $data->no_hp }}"
+                                    readonly>
                             </div>
                         </div>
                         <div class="col-md-12">
                             <div class="form-group">
                                 <label class="form-label">Isi Pesan</label>
-                                <textarea class="form-control" name="pesan" rows="8" cols="80">Assalaamualaikum...</textarea>
+                                <textarea class="form-control" name="pesan" rows="8"
+                                    cols="80">Assalaamualaikum...</textarea>
                             </div>
                         </div>
                     </div>

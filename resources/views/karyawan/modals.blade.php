@@ -5,7 +5,7 @@
 
             <!-- Modal Header -->
             <div class="modal-header">
-                <h4 class="modal-title">Tambah Karyawan</h4>
+                <h4 class="modal-title">Tambah Pegawai</h4>
                 <button type="button" class="close" data-dismiss="modal"></button>
             </div>
 
@@ -320,7 +320,7 @@
                         </div>
                         <div class="col-md-3">
                             <div class="form-group">
-                                <label class="form-label">Status Karyawan</label>
+                                <label class="form-label">Status Pegawai</label>
                                 <select name="status" class="form-control custom-select">
                                     <option value="">Pilih</option>
                                     <option value="1">Guru</option>
@@ -384,7 +384,7 @@
 
             <!-- Modal Header -->
             <div class="modal-header">
-                <h4 class="modal-title">Edit Karyawan</h4>
+                <h4 class="modal-title">Edit Pegawai</h4>
                 <button type="button" class="close" data-dismiss="modal"></button>
             </div>
 
@@ -641,7 +641,8 @@
                         <div class="col-md-3">
                             <div class="form-group">
                                 <label class="form-label">Jabatan</label>
-                                <select class="form-control custom-select selectize-select" name="jabatan[]" id="jabatan" required>
+                                <select class="form-control custom-select selectize-select" name="jabatan[]"
+                                    id="jabatan" required>
                                     <option value="">Pilih</option>
                                     @foreach ($jabatan as $jab)
                                     <option value="{{ $jab->id }}">{{ $jab->nama_jabatan }}</option>
@@ -702,7 +703,7 @@
                         </div>
                         <div class="col-md-3">
                             <div class="form-group">
-                                <label class="form-label">Status Karyawan</label>
+                                <label class="form-label">Status Pegawai</label>
                                 <select name="status" id="status" class="form-control custom-select">
                                     <option value="">Pilih</option>
                                     <option value="1">Guru</option>
@@ -1174,7 +1175,7 @@
 
             <!-- Modal Header -->
             <div class="modal-header">
-                <h4 class="modal-title">Resign Karyawan</h4>
+                <h4 class="modal-title">Resign Pegawai</h4>
                 <button type="button" class="close" data-dismiss="modal"></button>
             </div>
 

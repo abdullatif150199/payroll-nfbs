@@ -13,19 +13,19 @@ class PermissionSeeder extends Seeder
     {
         DB::table('permissions')->insert([
             [
-                'name' => 'daftar karyawan',
+                'name' => 'daftar pegawai',
                 'guard_name' => 'web',
             ],
             [
-                'name' => 'tambah karyawan',
+                'name' => 'tambah pegawai',
                 'guard_name' => 'web',
             ],
             [
-                'name' => 'edit karyawan',
+                'name' => 'edit pegawai',
                 'guard_name' => 'web',
             ],
             [
-                'name' => 'resign karyawan',
+                'name' => 'resign pegawai',
                 'guard_name' => 'web',
             ],
             [

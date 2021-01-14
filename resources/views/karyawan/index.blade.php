@@ -35,7 +35,7 @@
             <div class="card-header">
                 <h3 class="card-title">
                     <form class="form-inline mb-0" action="{{ route('dash.karyawan.datatable') }}" method="post">
-                        <label for="status_kerja" class="mr-sm-3">Daftar Karyawan </label>
+                        <label for="status_kerja" class="mr-sm-3">Daftar Pegawai </label>
                         <div class="row gutters-xs">
                             <div class="col">
                                 <select id="statuskerja" class="form-control"
@@ -50,7 +50,7 @@
                         </div>
                     </form>
                 </h3>
-                @can('tambah karyawan')
+                @can('tambah pegawai')
                 <div class="card-options">
                     <a href="#modalCreate" data-toggle="modal" data-backdrop="static" class="btn btn-primary"><i
                             class="fe fe-plus"></i>
