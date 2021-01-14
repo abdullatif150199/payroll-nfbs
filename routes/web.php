@@ -53,16 +53,16 @@ Route::group(['prefix' => 'dashboard', 'as' => 'dash.', 'middleware' => ['auth']
         Route::get('/', 'HomeController@index')->name('home');
 
         // Karyawan
-        Route::get('karyawan', 'KaryawanController@index');
-        Route::get('get-karyawan', 'KaryawanController@datatable')->name('karyawan.datatable');
-        Route::post('karyawan', 'KaryawanController@store')->name('karyawan.store');
-        Route::get('karyawan/get-name', 'KaryawanController@name')->name('karyawan.name');
-        Route::post('karyawan/sms', 'KaryawanController@sms')->name('karyawan.sms');
-        Route::get('karyawan/{id}', 'KaryawanController@show')->name('karyawan.show');
-        Route::get('karyawan/{id}/edit', 'KaryawanController@edit')->name('karyawan.edit');
-        Route::put('karyawan/{id}', 'KaryawanController@update')->name('karyawan.update');
-        Route::put('karyawan/{id}/resign', 'KaryawanController@resign')->name('karyawan.resign');
-        Route::post('karyawan/{id}/estimasi', 'KaryawanController@estimasi')->name('karyawan.estimasi');
+        Route::get('pegawai', 'KaryawanController@index');
+        Route::get('get-pegawai', 'KaryawanController@datatable')->name('karyawan.datatable');
+        Route::post('pegawai', 'KaryawanController@store')->name('karyawan.store');
+        Route::get('pegawai/get-name', 'KaryawanController@name')->name('karyawan.name');
+        Route::post('pegawai/sms', 'KaryawanController@sms')->name('karyawan.sms');
+        Route::get('pegawai/{id}', 'KaryawanController@show')->name('karyawan.show');
+        Route::get('pegawai/{id}/edit', 'KaryawanController@edit')->name('karyawan.edit');
+        Route::put('pegawai/{id}', 'KaryawanController@update')->name('karyawan.update');
+        Route::put('pegawai/{id}/resign', 'KaryawanController@resign')->name('karyawan.resign');
+        Route::post('pegawai/{id}/estimasi', 'KaryawanController@estimasi')->name('karyawan.estimasi');
 
         // Daftar Gaji
         Route::get('gaji', 'GajiController@index');
@@ -92,7 +92,7 @@ Route::group(['prefix' => 'dashboard', 'as' => 'dash.', 'middleware' => ['auth']
         Route::get('kinerja', 'KinerjaController@index');
         Route::get('get-kinerja', 'KinerjaController@datatable')->name('kinerja.datatable');
         Route::post('kinerja', 'KinerjaController@store')->name('kinerja.store');
-        Route::get('kinerja-karyawan/{id}', 'KinerjaController@show')->name('kinerja.show');
+        Route::get('kinerja-pegawai/{id}', 'KinerjaController@show')->name('kinerja.show');
         Route::post('kinerja/{id}/attach', 'KinerjaController@attach')->name('kinerja.attach');
         Route::get('kinerja/{id}/edit', 'KinerjaController@edit')->name('kinerja.edit');
         Route::put('kinerja/{id}', 'KinerjaController@update')->name('kinerja.update');
@@ -116,7 +116,7 @@ Route::group(['prefix' => 'dashboard', 'as' => 'dash.', 'middleware' => ['auth']
         Route::get('potongan/get-name', 'PotonganController@name')->name('potongan.name');
         Route::get('potongan/{id}/edit', 'PotonganController@edit')->name('potongan.edit');
         Route::post('potongan/{id}/attach', 'PotonganController@attach')->name('potongan.attach');
-        Route::get('potongan-karyawan/{id}', 'PotonganController@show')->name('potongan.show');
+        Route::get('potongan-pegawai/{id}', 'PotonganController@show')->name('potongan.show');
         Route::put('potongan/{id}', 'PotonganController@update')->name('potongan.update');
         Route::delete('potongan/{id}', 'PotonganController@destroy')->name('potongan.destroy');
         Route::delete('potongan/{potongan_id}/{karyawan_id}/delete', 'PotonganController@detach')->name('potongan.detach');
