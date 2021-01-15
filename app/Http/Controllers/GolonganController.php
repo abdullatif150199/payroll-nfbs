@@ -40,15 +40,13 @@ class GolonganController extends Controller
         $this->validate($request, [
             'kode_golongan' => 'min:2|max:10',
             'gaji_pokok' => 'min:4|max:14',
-            'lembur' => 'min:4|max:14',
-            'lembur_harian' => 'required'
+            'lembur' => 'min:4|max:14'
         ]);
 
         $data = [
             'kode_golongan' => $request->kode_golongan,
             'gaji_pokok' => preg_replace('/\D/', '', $request->gaji_pokok),
-            'lembur' => preg_replace('/\D/', '', $request->lembur),
-            'lembur_harian' => preg_replace('/\D/', '', $request->lembur_harian)
+            'lembur' => preg_replace('/\D/', '', $request->lembur)
         ];
 
         Golongan::create($data);
@@ -70,15 +68,13 @@ class GolonganController extends Controller
         $this->validate($request, [
             'kode_golongan' => 'min:2|max:10',
             'gaji_pokok' => 'min:4|max:14',
-            'lembur' => 'min:4|max:14',
-            'lembur_harian' => 'required'
+            'lembur' => 'min:4|max:14'
         ]);
 
         $update = Golongan::find($id);
         $update->kode_golongan = $request->kode_golongan;
         $update->gaji_pokok = preg_replace('/\D/', '', $request->gaji_pokok);
         $update->lembur = preg_replace('/\D/', '', $request->lembur);
-        $update->lembur_harian = preg_replace('/\D/', '', $request->lembur_harian);
         $update->update();
 
         return response()->json([

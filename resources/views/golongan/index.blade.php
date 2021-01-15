@@ -109,7 +109,6 @@
                     $('input[name=kode_golongan]').val(data.kode_golongan);
                     $('input[name=gaji_pokok]').val(data.gaji_pokok);
                     $('input[name=lembur]').val(data.lembur);
-                    $('input[name=lembur_harian]').val(data.lembur_harian);
                 }
             });
         }

@@ -25,7 +25,8 @@
                         <div class="col">
                             <div class="form-group">
                                 <label class="form-label">Gaji Pokok</label>
-                                <input type="text" name="gaji_pokok" class="form-control" data-mask="000,000,000" data-mask-reverse="true" autocomplete="off">
+                                <input type="text" name="gaji_pokok" class="form-control" data-mask="000,000,000"
+                                    data-mask-reverse="true" autocomplete="off">
                             </div>
                         </div>
                     </div>
@@ -33,16 +34,8 @@
                         <div class="col">
                             <div class="form-group">
                                 <label class="form-label">Tarif Lembur</label>
-                                <input type="text" name="lembur" class="form-control" data-mask="000,000,000" data-mask-reverse="true" autocomplete="off">
-                            </div>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col">
-                            <div class="form-group">
-                                <label class="form-label">Tarif Lembur Harian<span class="text-danger">*</span></label>
-                                <input type="text" name="lembur_harian" class="form-control" data-mask="000,000,000" data-mask-reverse="true" autocomplete="off">
-                                <span class="text-danger">*</span><small>Tarif berlaku jk melebihi jam maksimal di hari libur</small>
+                                <input type="text" name="lembur" class="form-control" data-mask="000,000,000"
+                                    data-mask-reverse="true" autocomplete="off">
                             </div>
                         </div>
                     </div>
