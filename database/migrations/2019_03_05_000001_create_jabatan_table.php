@@ -18,7 +18,7 @@ class CreateJabatanTable extends Migration
             $table->foreignId('kelompok_kerja_id')->nullable();
             $table->foreign('kelompok_kerja_id')->references('id')->on('kelompok_kerja')->onDelete('cascade');
             $table->string('nama_jabatan', 100);
-            $table->decimal('tunjangan_jabatan', 10, 2)->default(0);
+            $table->decimal('tunjangan_jabatan', 10, 0)->default(0);
             $table->tinyInteger('load')->default(0);
             $table->timestamps();
         });

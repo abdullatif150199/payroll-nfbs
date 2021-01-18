@@ -239,8 +239,8 @@
                             <th>Nama Lengkap</th>
                             <th>Jml Jam</th>
                             <th>Tarif</th>
-                            <th>Keterangan</th>
                             <th>Tipe</th>
+                            <th>Keterangan</th>
                             <th>Status</th>
                             <th></th>
                         </tr>
@@ -279,8 +279,8 @@
             {data: 'nama_lengkap'},
             {data: 'jumlah_jam'},
             {data: 'total_tarif'},
-            {data: 'keterangan'},
             {data: 'type'},
+            {data: 'keterangan'},
             {data: 'status'},
             {data: 'actions', orderable: false, searchable: false}
         ]
@@ -295,6 +295,19 @@
         $('input[name=_method]').val('POST');
         $('#formLembur form')[0].reset();
         selectName('.cari');
+    });
+
+    $('#type').change(function () {
+        if ($('#type').val() !== 'day') {
+            $('#input_tarif').show();
+            if ($('#type').val() === 'week') {
+                $('#week').show();
+            } else {
+                $('#week').hide();
+            }
+        } else {
+            $('#input_tarif').hide();
+        }
     });
 
     function selectName(att) {
@@ -421,6 +434,9 @@
                 $('input[name=id]').val(data.id);
                 $('input[name=jumlah_jam]').val(data.jumlah_jam);
                 $('input[name=type]').val(data.type);
+                if (data.type === 'holi') {
+                    $('#manual').show();
+                }
             }
         });
     }

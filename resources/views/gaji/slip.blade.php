@@ -3,6 +3,16 @@
 
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <style media="print">
+        @page {
+            size: auto;
+            margin: 0;
+        }
+
+        body {
+            -webkit-print-color-adjust: exact !important;
+        }
+    </style>
     <style type="text/css" nonce="">
         body,
         td,
@@ -275,16 +285,22 @@
                                                                 </tr>
                                                                 <tr>
                                                                     <td>
-                                                                        <table cellspacing="0" cellpadding="0" border="0" width="600" align="center" style="border-collapse:collapse;background-color:#ffffff;margin:0 auto">
+                                                                        <table cellspacing="0" cellpadding="0"
+                                                                            border="0" width="600" align="center"
+                                                                            style="border-collapse:collapse;background-color:#ffffff;margin:0 auto">
                                                                             <tbody>
                                                                                 <tr>
                                                                                     <td style="padding:0 20px 0">
-                                                                                        <table cellspacing="0" cellpadding="0" width="100%" style="border-collapse:collapse;color:#ffffff">
+                                                                                        <table cellspacing="0"
+                                                                                            cellpadding="0" width="100%"
+                                                                                            style="border-collapse:collapse;color:#ffffff">
                                                                                             <tbody>
                                                                                                 <tr>
                                                                                                     <td width="280">
-                                                                                                        <a href="#" target="_blank">
-                                                                                                            <img src="{{ asset('images/inv-logo.png') }}" width="150">
+                                                                                                        <a href="#"
+                                                                                                            target="_blank">
+                                                                                                            <img src="{{ asset('images/inv-logo.png') }}"
+                                                                                                                width="150">
                                                                                                         </a>
                                                                                                     </td>
                                                                                                 </tr>
@@ -294,14 +310,26 @@
                                                                                 </tr>
                                                                                 <tr>
                                                                                     <td style="padding:36px 20px 18px">
-                                                                                        <table cellpadding="0" cellspacing="0" border="0" width="100%" style="border-collapse:collapse;font-size:15px">
+                                                                                        <table cellpadding="0"
+                                                                                            cellspacing="0" border="0"
+                                                                                            width="100%"
+                                                                                            style="border-collapse:collapse;font-size:15px">
                                                                                             <tbody>
                                                                                                 <tr>
-                                                                                                    <td style="color:#4e4e4e;line-height:25px">
-                                                                                                        <div style="font-size:16px;color:rgba(49,53,59,0.96);line-height:1.43">
-                                                                                                            Hai <strong>{{ $data->karyawan->nama_lengkap }}</strong>
+                                                                                                    <td
+                                                                                                        style="color:#4e4e4e;line-height:25px">
+                                                                                                        <div
+                                                                                                            style="font-size:16px;color:rgba(49,53,59,0.96);line-height:1.43">
+                                                                                                            Hai
+                                                                                                            <strong>{{ $data->karyawan->nama_lengkap }}</strong>
                                                                                                         </div>
-                                                                                                        <div style="color:rgba(49,53,59,0.96);font-size:20px;font-weight:bold;margin:16px 0 20px">Berikut informasi gaji kamu di bulan {{ yearMonth($data->bulan, 'H') }}
+                                                                                                        <div
+                                                                                                            style="color:rgba(49,53,59,0.96);font-size:20px;font-weight:bold;margin:16px 0 20px">
+                                                                                                            Berikut
+                                                                                                            informasi
+                                                                                                            gaji kamu di
+                                                                                                            bulan
+                                                                                                            {{ yearMonth($data->bulan, 'H') }}
                                                                                                         </div>
                                                                                                     </td>
                                                                                                 </tr>
@@ -312,11 +340,15 @@
 
                                                                                 <tr>
                                                                                     <td style="padding:0 20px">
-                                                                                        <table cellpadding="0" cellspacing="0" border="0" width="100%" style="border-collapse:collapse">
+                                                                                        <table cellpadding="0"
+                                                                                            cellspacing="0" border="0"
+                                                                                            width="100%"
+                                                                                            style="border-collapse:collapse">
                                                                                             <tbody>
                                                                                                 <tr>
                                                                                                     <td width="50%">
-                                                                                                        <strong style="font-size:14px;color:rgba(49,53,59,0.68)">Pendapatan:</strong>
+                                                                                                        <strong
+                                                                                                            style="font-size:14px;color:rgba(49,53,59,0.68)">Pendapatan:</strong>
                                                                                                     </td>
                                                                                                 </tr>
                                                                                             </tbody>
@@ -326,41 +358,89 @@
 
                                                                                 <tr>
                                                                                     <td style="padding:10px 20px">
-                                                                                        <table cellpadding="0" cellspacing="0" border="0" width="100%" style="border-collapse:collapse;border-bottom:1px solid #e4eaf3">
+                                                                                        <table cellpadding="0"
+                                                                                            cellspacing="0" border="0"
+                                                                                            width="100%"
+                                                                                            style="border-collapse:collapse;border-bottom:1px solid #e4eaf3">
                                                                                             <tbody>
                                                                                                 <tr>
-                                                                                                    <td width="50%" style="font-size:12px;color:rgba(49,53,59,0.68);">
-                                                                                                        <table cellpadding="0" cellspacing="0" border="0" width="100%" style="border-collapse:collapse">
+                                                                                                    <td width="50%"
+                                                                                                        style="font-size:12px;color:rgba(49,53,59,0.68);">
+                                                                                                        <table
+                                                                                                            cellpadding="0"
+                                                                                                            cellspacing="0"
+                                                                                                            border="0"
+                                                                                                            width="100%"
+                                                                                                            style="border-collapse:collapse">
                                                                                                             <tbody>
                                                                                                                 <tr>
-                                                                                                                    <td style="padding:0 0 12px">Gaji Pokok</td>
+                                                                                                                    <td
+                                                                                                                        style="padding:0 0 12px">
+                                                                                                                        Gaji
+                                                                                                                        Pokok
+                                                                                                                    </td>
                                                                                                                 </tr>
                                                                                                                 <tr>
-                                                                                                                    <td style="padding:0 0 12px">Tunjangan Jabatan</td>
+                                                                                                                    <td
+                                                                                                                        style="padding:0 0 12px">
+                                                                                                                        Tunjangan
+                                                                                                                        Jabatan
+                                                                                                                    </td>
                                                                                                                 </tr>
                                                                                                                 <tr>
-                                                                                                                    <td style="padding:0 0 12px">Tunjangan Fungsional</td>
+                                                                                                                    <td
+                                                                                                                        style="padding:0 0 12px">
+                                                                                                                        Tunjangan
+                                                                                                                        Fungsional
+                                                                                                                    </td>
                                                                                                                 </tr>
                                                                                                                 <tr>
-                                                                                                                    <td style="padding:0 0 12px">Tunjangan Struktural</td>
+                                                                                                                    <td
+                                                                                                                        style="padding:0 0 12px">
+                                                                                                                        Tunjangan
+                                                                                                                        Struktural
+                                                                                                                    </td>
                                                                                                                 </tr>
                                                                                                                 <tr>
-                                                                                                                    <td style="padding:0 0 12px">Tunjangan Kinerja</td>
+                                                                                                                    <td
+                                                                                                                        style="padding:0 0 12px">
+                                                                                                                        Tunjangan
+                                                                                                                        Kinerja
+                                                                                                                    </td>
                                                                                                                 </tr>
                                                                                                                 <tr>
-                                                                                                                    <td style="padding:0 0 12px">Tunjangan Pendidikan Anak</td>
+                                                                                                                    <td
+                                                                                                                        style="padding:0 0 12px">
+                                                                                                                        Tunjangan
+                                                                                                                        Pendidikan
+                                                                                                                        Anak
+                                                                                                                    </td>
                                                                                                                 </tr>
                                                                                                                 <tr>
-                                                                                                                    <td style="padding:0 0 12px">Tunjangan Istri</td>
+                                                                                                                    <td
+                                                                                                                        style="padding:0 0 12px">
+                                                                                                                        Tunjangan
+                                                                                                                        Istri
+                                                                                                                    </td>
                                                                                                                 </tr>
                                                                                                                 <tr>
-                                                                                                                    <td style="padding:0 0 12px">Tunjangan Anak</td>
+                                                                                                                    <td
+                                                                                                                        style="padding:0 0 12px">
+                                                                                                                        Tunjangan
+                                                                                                                        Anak
+                                                                                                                    </td>
                                                                                                                 </tr>
                                                                                                                 <tr>
-                                                                                                                    <td style="padding:0 0 12px">Lembur</td>
+                                                                                                                    <td
+                                                                                                                        style="padding:0 0 12px">
+                                                                                                                        Lembur
+                                                                                                                    </td>
                                                                                                                 </tr>
                                                                                                                 <tr>
-                                                                                                                    <td style="padding:0 0 12px">Insentif</td>
+                                                                                                                    <td
+                                                                                                                        style="padding:0 0 12px">
+                                                                                                                        Insentif
+                                                                                                                    </td>
                                                                                                                 </tr>
                                                                                                                 {{-- <tr>
                                                                                                                     <td style="padding:0 0 12px">Lainnya</td>
@@ -368,245 +448,375 @@
                                                                                                             </tbody>
                                                                                                         </table>
                                                                                                     </td>
-                                                                                                    <td width="50%" align="right" style="font-size:12px;font-weight:bold;text-align:right;color:rgba(49,53,59,0.96);padding:0 0 8px">
-                                                                                                        <table cellpadding="0" cellspacing="0" border="0" width="100%" style="border-collapse:collapse">
+                                                                                                    <td width="50%"
+                                                                                                        align="right"
+                                                                                                        style="font-size:12px;font-weight:bold;text-align:right;color:rgba(49,53,59,0.96);padding:0 0 8px">
+                                                                                                        <table
+                                                                                                            cellpadding="0"
+                                                                                                            cellspacing="0"
+                                                                                                            border="0"
+                                                                                                            width="100%"
+                                                                                                            style="border-collapse:collapse">
                                                                                                             <tbody>
                                                                                                                 <tr>
-                                                                                                                    <td style="padding:0 0 12px">Rp {{ number_format($data->gaji_pokok) }}</td>
+                                                                                                                    <td
+                                                                                                                        style="padding:0 0 12px">
+                                                                                                                        Rp
+                                                                                                                        {{ number_format($data->gaji_pokok) }}
+                                                                                                                    </td>
                                                                                                                 </tr>
                                                                                                                 <tr>
-                                                                                                                    <td style="padding:0 0 12px">Rp {{ number_format($data->tunjangan_jabatan) }}</td>
+                                                                                                                    <td
+                                                                                                                        style="padding:0 0 12px">
+                                                                                                                        Rp
+                                                                                                                        {{ number_format($data->tunjangan_jabatan) }}
+                                                                                                                    </td>
                                                                                                                 </tr>
                                                                                                                 <tr>
-                                                                                                                    <td style="padding:0 0 12px">Rp {{ number_format($data->tunjangan_fungsional) }}</td>
+                                                                                                                    <td
+                                                                                                                        style="padding:0 0 12px">
+                                                                                                                        Rp
+                                                                                                                        {{ number_format($data->tunjangan_fungsional) }}
+                                                                                                                    </td>
                                                                                                                 </tr>
                                                                                                                 <tr>
-                                                                                                                    <td style="padding:0 0 12px">Rp {{ number_format($data->tunjangan_stuktural) }}</td>
+                                                                                                                    <td
+                                                                                                                        style="padding:0 0 12px">
+                                                                                                                        Rp
+                                                                                                                        {{ number_format($data->tunjangan_stuktural) }}
+                                                                                                                    </td>
                                                                                                                 </tr>
                                                                                                                 <tr>
-                                                                                                                    <td style="padding:0 0 12px">Rp {{ number_format($data->tunjangan_kinerja) }}</td>
+                                                                                                                    <td
+                                                                                                                        style="padding:0 0 12px">
+                                                                                                                        Rp
+                                                                                                                        {{ number_format($data->tunjangan_kinerja) }}
+                                                                                                                    </td>
                                                                                                                 </tr>
                                                                                                                 <tr>
-                                                                                                                    <td style="padding:0 0 12px">Rp {{ number_format($data->tunjangan_pendidikan) }}</td>
+                                                                                                                    <td
+                                                                                                                        style="padding:0 0 12px">
+                                                                                                                        Rp
+                                                                                                                        {{ number_format($data->tunjangan_pendidikan) }}
+                                                                                                                    </td>
                                                                                                                 </tr>
                                                                                                                 <tr>
-                                                                                                                    <td style="padding:0 0 12px">Rp {{ number_format($data->tunjangan_istri) }}</td>
+                                                                                                                    <td
+                                                                                                                        style="padding:0 0 12px">
+                                                                                                                        Rp
+                                                                                                                        {{ number_format($data->tunjangan_istri) }}
+                                                                                                                    </td>
                                                                                                                 </tr>
                                                                                                                 <tr>
-                                                                                                                    <td style="padding:0 0 12px">Rp {{ number_format($data->tunjangan_anak) }}</td>
+                                                                                                                    <td
+                                                                                                                        style="padding:0 0 12px">
+                                                                                                                        Rp
+                                                                                                                        {{ number_format($data->tunjangan_anak) }}
+                                                                                                                    </td>
                                                                                                                 </tr>
                                                                                                                 <tr>
-                                                                                                                    <td style="padding:0 0 12px">Rp {{ number_format($data->lembur) }}</td>
+                                                                                                                    <td
+                                                                                                                        style="padding:0 0 12px">
+                                                                                                                        Rp
+                                                                                                                        {{ number_format($data->lembur) }}
+                                                                                                                    </td>
                                                                                                                 </tr>
                                                                                                                 <tr>
-                                                                                                                    <td style="padding:0 0 12px">Rp {{ number_format($data->insentif) }}</td>
+                                                                                                                    <td
+                                                                                                                        style="padding:0 0 12px">
+                                                                                                                        Rp
+                                                                                                                        {{ number_format($data->insentif) }}
+                                                                                                                    </td>
                                                                                                                 </tr>
                                                                                                                 {{-- <tr>
-                                                                                                                    <td style="padding:0 0 12px">Rp {{ number_format($data->lain_lain) }}</td>
-                                                                                                                </tr> --}}
-                                                                                                            </tbody>
-                                                                                                        </table>
+                                                                                                                    <td style="padding:0 0 12px">Rp {{ number_format($data->lain_lain) }}
                                                                                                     </td>
-                                                                                                </tr>
+                                                                                                </tr> --}}
                                                                                             </tbody>
                                                                                         </table>
                                                                                     </td>
                                                                                 </tr>
+                                                                            </tbody>
+                                                                        </table>
+                                                                    </td>
+                                                                </tr>
 
+                                                                <tr>
+                                                                    <td style="padding:0 20px 28px">
+                                                                        <table cellpadding="0" cellspacing="0"
+                                                                            border="0" width="100%"
+                                                                            style="border-collapse:collapse;font-size:14px">
+                                                                            <tbody>
                                                                                 <tr>
-                                                                                    <td style="padding:0 20px 28px">
-                                                                                        <table cellpadding="0" cellspacing="0" border="0" width="100%" style="border-collapse:collapse;font-size:14px">
-                                                                                            <tbody>
-                                                                                                <tr>
-                                                                                                    <td width="50%">
-                                                                                                        <div style="color:rgba(49,53,59,0.96);font-weight:bold">Total Pendapatan</div>
-                                                                                                    </td>
-                                                                                                    <td width="50%" align="right">
-                                                                                                        <div style="font-weight:bold;color:#fa591d">Rp {{ number_format($data->pendapatan) }}</div>
-                                                                                                    </td>
-                                                                                                </tr>
-                                                                                            </tbody>
-                                                                                        </table>
+                                                                                    <td width="50%">
+                                                                                        <div
+                                                                                            style="color:rgba(49,53,59,0.96);font-weight:bold">
+                                                                                            Total Pendapatan</div>
                                                                                     </td>
-                                                                                </tr>
-
-                                                                                <tr>
-                                                                                    <td style="padding:0 20px">
-                                                                                        <table cellpadding="0" cellspacing="0" border="0" width="100%" style="border-collapse:collapse">
-                                                                                            <tbody>
-                                                                                                <tr>
-                                                                                                    <td width="50%">
-                                                                                                        <strong style="font-size:14px;color:rgba(49,53,59,0.68)">Pengeluaran:</strong>
-                                                                                                    </td>
-                                                                                                </tr>
-                                                                                            </tbody>
-                                                                                        </table>
-                                                                                    </td>
-                                                                                </tr>
-
-                                                                                <tr>
-                                                                                    <td style="padding:10px 20px">
-                                                                                        <table cellpadding="0" cellspacing="0" border="0" width="100%" style="border-collapse:collapse;border-bottom:1px solid #e4eaf3">
-                                                                                            <tbody>
-                                                                                                @foreach ($potongan as $item)
-                                                                                                    <tr>
-                                                                                                        <td width="50%" style="font-size:12px;color:rgba(49,53,59,0.68)">
-                                                                                                            <table cellpadding="0" cellspacing="0" border="0" width="100%" style="border-collapse:collapse">
-                                                                                                                <tbody>
-                                                                                                                    <tr>
-                                                                                                                        <td style="padding:0 0 12px">{{ $item->nama }}</td>
-                                                                                                                    </tr>
-                                                                                                                </tbody>
-                                                                                                            </table>
-                                                                                                        </td>
-                                                                                                        <td width="50%" align="right" style="font-size:12px;font-weight:bold;text-align:right;color:rgba(49,53,59,0.96)">
-                                                                                                            <table cellpadding="0" cellspacing="0" border="0" width="100%" style="border-collapse:collapse">
-                                                                                                                <tbody>
-                                                                                                                    <tr>
-                                                                                                                        <td style="padding:0 0 12px">Rp {{ number_format($item->jumlah) }}</td>
-                                                                                                                    </tr>
-                                                                                                                </tbody>
-                                                                                                            </table>
-                                                                                                        </td>
-                                                                                                    </tr>
-                                                                                                @endforeach
-                                                                                            </tbody>
-                                                                                        </table>
-                                                                                    </td>
-                                                                                </tr>
-
-                                                                                <tr>
-                                                                                    <td style="padding:0 20px 24px">
-                                                                                        <table cellpadding="0" cellspacing="0" border="0" width="100%" style="border-collapse:collapse;font-size:14px">
-                                                                                            <tbody>
-                                                                                                <tr>
-                                                                                                    <td width="50%">
-                                                                                                        <div style="color:rgba(49,53,59,0.96);font-weight:bold">Total Pengeluaran</div>
-                                                                                                    </td>
-                                                                                                    <td width="50%" align="right">
-                                                                                                        <div style="font-weight:bold;color:#fa591d">Rp {{ number_format($potongan->sum('jumlah')) }}</div>
-                                                                                                    </td>
-                                                                                                </tr>
-                                                                                            </tbody>
-                                                                                        </table>
-                                                                                    </td>
-                                                                                </tr>
-
-
-                                                                                <tr>
-                                                                                    <td style="padding:24px 20px">
-                                                                                        <table cellspacing="0" cellpadding="0" border="0" width="100%" style="border-collapse:collapse;background-color:#f3f4f5;border-radius:12px">
-                                                                                            <tbody>
-                                                                                                <tr>
-                                                                                                    <td style="padding:16px 24px">
-                                                                                                        <table cellpadding="0" cellspacing="0" border="0" width="100%" style="border-collapse:collapse;font-size:14px">
-                                                                                                            <tbody>
-                                                                                                                <tr>
-                                                                                                                    <td style="text-align:right;vertical-align:middle;font-weight:bold;padding:0 10px">Gaji Bersih: </td>
-                                                                                                                    <td style="text-align:left;vertical-align:middle;"><div style="font-weight:bold;color:#fa591d">Rp {{ number_format($data->gaji_total) }}</div></td>
-                                                                                                                </tr>
-                                                                                                            </tbody>
-                                                                                                        </table>
-                                                                                                    </td>
-                                                                                                </tr>
-                                                                                            </tbody>
-                                                                                        </table>
-                                                                                    </td>
-                                                                                </tr>
-
-                                                                                <tr>
-                                                                                    <td style="padding:24px 20px">
-                                                                                        <div style="font-size:12px;color:rgba(49,53,59,0.96);line-height:1.5">
-                                                                                            Slip gaji ini dibuat secara otomatis. Jika terdapat masalah, silakan
-                                                                                            <a href="#" style="font-weight:bold;color:#03ac0e;text-decoration:none" target="_blank">hubungi personalia</a>.
+                                                                                    <td width="50%" align="right">
+                                                                                        <div
+                                                                                            style="font-weight:bold;color:#fa591d">
+                                                                                            Rp
+                                                                                            {{ number_format($data->pendapatan) }}
                                                                                         </div>
                                                                                     </td>
                                                                                 </tr>
+                                                                            </tbody>
+                                                                        </table>
+                                                                    </td>
+                                                                </tr>
+
+                                                                <tr>
+                                                                    <td style="padding:0 20px">
+                                                                        <table cellpadding="0" cellspacing="0"
+                                                                            border="0" width="100%"
+                                                                            style="border-collapse:collapse">
+                                                                            <tbody>
                                                                                 <tr>
-                                                                                    <td>
-                                                                                        <table style="max-width:100%;border-collapse:collapse;border-spacing:0;width:100%;clear:both!important;background-color:transparent;margin:0 0 10px;padding:0"
-                                                                                            bgcolor="transparent">
+                                                                                    <td width="50%">
+                                                                                        <strong
+                                                                                            style="font-size:14px;color:rgba(49,53,59,0.68)">Pengeluaran:</strong>
+                                                                                    </td>
+                                                                                </tr>
+                                                                            </tbody>
+                                                                        </table>
+                                                                    </td>
+                                                                </tr>
+
+                                                                <tr>
+                                                                    <td style="padding:10px 20px">
+                                                                        <table cellpadding="0" cellspacing="0"
+                                                                            border="0" width="100%"
+                                                                            style="border-collapse:collapse;border-bottom:1px solid #e4eaf3">
+                                                                            <tbody>
+                                                                                @foreach ($potongan as $item)
+                                                                                <tr>
+                                                                                    <td width="50%"
+                                                                                        style="font-size:12px;color:rgba(49,53,59,0.68)">
+                                                                                        <table cellpadding="0"
+                                                                                            cellspacing="0" border="0"
+                                                                                            width="100%"
+                                                                                            style="border-collapse:collapse">
                                                                                             <tbody>
-                                                                                                <tr style="margin:0;padding:0">
-                                                                                                    <td style="margin:0;padding:0"></td>
-                                                                                                    <td style="display:block!important;max-width:600px!important;clear:both!important;margin:0 auto;padding:0px">
-                                                                                                        <table border="0" cellpadding="0" cellspacing="0" width="100%" style="border-collapse:collapse">
+                                                                                                <tr>
+                                                                                                    <td
+                                                                                                        style="padding:0 0 12px">
+                                                                                                        {{ $item->nama }}
+                                                                                                    </td>
+                                                                                                </tr>
+                                                                                            </tbody>
+                                                                                        </table>
+                                                                                    </td>
+                                                                                    <td width="50%" align="right"
+                                                                                        style="font-size:12px;font-weight:bold;text-align:right;color:rgba(49,53,59,0.96)">
+                                                                                        <table cellpadding="0"
+                                                                                            cellspacing="0" border="0"
+                                                                                            width="100%"
+                                                                                            style="border-collapse:collapse">
+                                                                                            <tbody>
+                                                                                                <tr>
+                                                                                                    <td
+                                                                                                        style="padding:0 0 12px">
+                                                                                                        Rp
+                                                                                                        {{ number_format($item->jumlah) }}
+                                                                                                    </td>
+                                                                                                </tr>
+                                                                                            </tbody>
+                                                                                        </table>
+                                                                                    </td>
+                                                                                </tr>
+                                                                                @endforeach
+                                                                            </tbody>
+                                                                        </table>
+                                                                    </td>
+                                                                </tr>
+
+                                                                <tr>
+                                                                    <td style="padding:0 20px 24px">
+                                                                        <table cellpadding="0" cellspacing="0"
+                                                                            border="0" width="100%"
+                                                                            style="border-collapse:collapse;font-size:14px">
+                                                                            <tbody>
+                                                                                <tr>
+                                                                                    <td width="50%">
+                                                                                        <div
+                                                                                            style="color:rgba(49,53,59,0.96);font-weight:bold">
+                                                                                            Total Pengeluaran</div>
+                                                                                    </td>
+                                                                                    <td width="50%" align="right">
+                                                                                        <div
+                                                                                            style="font-weight:bold;color:#fa591d">
+                                                                                            Rp
+                                                                                            {{ number_format($potongan->sum('jumlah')) }}
+                                                                                        </div>
+                                                                                    </td>
+                                                                                </tr>
+                                                                            </tbody>
+                                                                        </table>
+                                                                    </td>
+                                                                </tr>
+
+
+                                                                <tr>
+                                                                    <td style="padding:24px 20px">
+                                                                        <table cellspacing="0" cellpadding="0"
+                                                                            border="0" width="100%"
+                                                                            style="border-collapse:collapse;background-color:#f3f4f5;border-radius:12px">
+                                                                            <tbody>
+                                                                                <tr>
+                                                                                    <td style="padding:16px 24px">
+                                                                                        <table cellpadding="0"
+                                                                                            cellspacing="0" border="0"
+                                                                                            width="100%"
+                                                                                            style="border-collapse:collapse;font-size:14px">
+                                                                                            <tbody>
+                                                                                                <tr>
+                                                                                                    <td
+                                                                                                        style="text-align:right;vertical-align:middle;font-weight:bold;padding:0 10px">
+                                                                                                        Gaji Bersih:
+                                                                                                    </td>
+                                                                                                    <td
+                                                                                                        style="text-align:left;vertical-align:middle;">
+                                                                                                        <div
+                                                                                                            style="font-weight:bold;color:#fa591d">
+                                                                                                            Rp
+                                                                                                            {{ number_format($data->gaji_total) }}
+                                                                                                        </div>
+                                                                                                    </td>
+                                                                                                </tr>
+                                                                                            </tbody>
+                                                                                        </table>
+                                                                                    </td>
+                                                                                </tr>
+                                                                            </tbody>
+                                                                        </table>
+                                                                    </td>
+                                                                </tr>
+
+                                                                <tr>
+                                                                    <td style="padding:24px 20px">
+                                                                        <div
+                                                                            style="font-size:12px;color:rgba(49,53,59,0.96);line-height:1.5">
+                                                                            Slip gaji ini dibuat secara otomatis. Jika
+                                                                            terdapat masalah, silakan
+                                                                            <a href="#"
+                                                                                style="font-weight:bold;color:#03ac0e;text-decoration:none"
+                                                                                target="_blank">hubungi personalia</a>.
+                                                                        </div>
+                                                                    </td>
+                                                                </tr>
+                                                                <tr>
+                                                                    <td>
+                                                                        <table
+                                                                            style="max-width:100%;border-collapse:collapse;border-spacing:0;width:100%;clear:both!important;background-color:transparent;margin:0 0 10px;padding:0"
+                                                                            bgcolor="transparent">
+                                                                            <tbody>
+                                                                                <tr style="margin:0;padding:0">
+                                                                                    <td style="margin:0;padding:0"></td>
+                                                                                    <td
+                                                                                        style="display:block!important;max-width:600px!important;clear:both!important;margin:0 auto;padding:0px">
+                                                                                        <table border="0"
+                                                                                            cellpadding="0"
+                                                                                            cellspacing="0" width="100%"
+                                                                                            style="border-collapse:collapse">
+                                                                                            <tbody>
+                                                                                                <tr>
+                                                                                                    <td valign="top"
+                                                                                                        width="252"
+                                                                                                        style="padding:0px 20px">
+                                                                                                        <table
+                                                                                                            border="0"
+                                                                                                            style="border-collapse:collapse;margin-top:0px">
                                                                                                             <tbody>
                                                                                                                 <tr>
-                                                                                                                    <td valign="top" width="252" style="padding:0px 20px">
-                                                                                                                        <table border="0" style="border-collapse:collapse;margin-top:0px">
+                                                                                                                    <td style="font-size:12px;color:rgba(49,53,59,0.68);margin-bottom:10px"
+                                                                                                                        colspan="2">
+                                                                                                                        Aplikasi
+                                                                                                                        menggunakan<br>
+                                                                                                                    </td>
+                                                                                                                </tr>
+                                                                                                                <tr>
+                                                                                                                    <td
+                                                                                                                        style="padding:2px">
+                                                                                                                    </td>
+                                                                                                                </tr>
+                                                                                                                <tr>
+                                                                                                                    <td>
+                                                                                                                        <a href="#"
+                                                                                                                            style="padding:0 5px 0 0"
+                                                                                                                            target="_blank">
+                                                                                                                            <img src="{{ asset('images/logo.png') }}"
+                                                                                                                                alt="Appstore"
+                                                                                                                                height="40">
+                                                                                                                        </a>
+                                                                                                                    </td>
+                                                                                                                </tr>
+                                                                                                            </tbody>
+                                                                                                        </table>
+                                                                                                    </td>
+                                                                                                    <td valign="top"
+                                                                                                        width="280"
+                                                                                                        align="right"
+                                                                                                        style="padding:0px 20px">
+                                                                                                        <table
+                                                                                                            border="0"
+                                                                                                            style="border-collapse:collapse;margin-top:0px">
+                                                                                                            <tbody>
+                                                                                                                <tr>
+                                                                                                                    <td style="font-size:12px;color:rgba(37,62,99,0.68);margin-bottom:10px"
+                                                                                                                        align="right">
+                                                                                                                        Ikuti
+                                                                                                                        Kami
+                                                                                                                    </td>
+                                                                                                                </tr>
+                                                                                                                <tr>
+                                                                                                                    <td
+                                                                                                                        style="padding:2px">
+                                                                                                                    </td>
+                                                                                                                </tr>
+                                                                                                                <tr>
+                                                                                                                    <td>
+                                                                                                                        <table
+                                                                                                                            cellpadding="0"
+                                                                                                                            cellspacing="0"
+                                                                                                                            border="0"
+                                                                                                                            width="100%"
+                                                                                                                            style="border-collapse:collapse">
                                                                                                                             <tbody>
                                                                                                                                 <tr>
-                                                                                                                                    <td style="font-size:12px;color:rgba(49,53,59,0.68);margin-bottom:10px" colspan="2">Aplikasi menggunakan<br>
+                                                                                                                                    <td
+                                                                                                                                        valign="middle">
+                                                                                                                                        <a href="#"
+                                                                                                                                            style="padding:0 5px"
+                                                                                                                                            target="_blank">
+                                                                                                                                            <img src="{{ asset('images/facebook.png') }}"
+                                                                                                                                                alt="Facebook"
+                                                                                                                                                height="32">
+                                                                                                                                        </a>
                                                                                                                                     </td>
-                                                                                                                                </tr>
-                                                                                                                                <tr>
-                                                                                                                                    <td style="padding:2px"></td>
-                                                                                                                                </tr>
-                                                                                                                                <tr>
-                                                                                                                                    <td>
-                                                                                                                                        <a href="#" style="padding:0 5px 0 0" target="_blank">
-                                                                                                                                            <img src="{{ asset('images/logo.png') }}" alt="Appstore" height="40">
+                                                                                                                                    <td
+                                                                                                                                        valign="middle">
+                                                                                                                                        <a href="#"
+                                                                                                                                            style="padding:0 5px"
+                                                                                                                                            target="_blank">
+                                                                                                                                            <img src="{{ asset('images/twitter.png') }}"
+                                                                                                                                                alt="Twitter"
+                                                                                                                                                height="28">
+                                                                                                                                        </a>
+                                                                                                                                    </td>
+                                                                                                                                    <td
+                                                                                                                                        valign="middle">
+                                                                                                                                        <a href="#"
+                                                                                                                                            style="padding:0 0 0 5px"
+                                                                                                                                            target="_blank">
+                                                                                                                                            <img src="{{ asset('images/instagram.png') }}"
+                                                                                                                                                alt="Instagram"
+                                                                                                                                                height="32">
                                                                                                                                         </a>
                                                                                                                                     </td>
                                                                                                                                 </tr>
                                                                                                                             </tbody>
                                                                                                                         </table>
-                                                                                                                    </td>
-                                                                                                                    <td valign="top" width="280" align="right" style="padding:0px 20px">
-                                                                                                                        <table border="0" style="border-collapse:collapse;margin-top:0px">
-                                                                                                                            <tbody>
-                                                                                                                                <tr>
-                                                                                                                                    <td style="font-size:12px;color:rgba(37,62,99,0.68);margin-bottom:10px" align="right">Ikuti Kami</td>
-                                                                                                                                </tr>
-                                                                                                                                <tr>
-                                                                                                                                    <td style="padding:2px"></td>
-                                                                                                                                </tr>
-                                                                                                                                <tr>
-                                                                                                                                    <td>
-                                                                                                                                        <table cellpadding="0" cellspacing="0" border="0" width="100%" style="border-collapse:collapse">
-                                                                                                                                            <tbody>
-                                                                                                                                                <tr>
-                                                                                                                                                    <td valign="middle">
-                                                                                                                                                        <a href="#" style="padding:0 5px" target="_blank">
-                                                                                                                                                            <img src="{{ asset('images/facebook.png') }}" alt="Facebook" height="32">
-                                                                                                                                                        </a>
-                                                                                                                                                    </td>
-                                                                                                                                                    <td valign="middle">
-                                                                                                                                                        <a href="#" style="padding:0 5px" target="_blank">
-                                                                                                                                                            <img src="{{ asset('images/twitter.png') }}" alt="Twitter" height="28">
-                                                                                                                                                        </a>
-                                                                                                                                                    </td>
-                                                                                                                                                    <td valign="middle">
-                                                                                                                                                        <a href="#" style="padding:0 0 0 5px" target="_blank">
-                                                                                                                                                            <img src="{{ asset('images/instagram.png') }}" alt="Instagram" height="32">
-                                                                                                                                                        </a>
-                                                                                                                                                    </td>
-                                                                                                                                                </tr>
-                                                                                                                                            </tbody>
-                                                                                                                                        </table>
-                                                                                                                                    </td>
-                                                                                                                                </tr>
-                                                                                                                            </tbody>
-                                                                                                                        </table>
-                                                                                                                    </td>
-                                                                                                                </tr>
-                                                                                                            </tbody>
-                                                                                                        </table>
-                                                                                                    </td>
-                                                                                                </tr>
-                                                                                            </tbody>
-                                                                                        </table>
-                                                                                        <table align="center">
-                                                                                            <tbody>
-                                                                                                <tr style="margin:0;padding:0 0 0 0">
-                                                                                                    <td style="display:block!important;width:600px!important;clear:both!important;margin:0 auto;padding:0">
-                                                                                                        <table cellspacing="0" cellpadding="0" border="0" width="100%"
-                                                                                                            style="border-collapse:collapse;font-size:12px;color:rgba(49,53,59,0.68);border-top:1px solid #e5e7e9">
-                                                                                                            <tbody>
-                                                                                                                <tr>
-                                                                                                                    <td width="600" align="center" style="padding:16px 20px">
-                                                                                                                        1999-2021, NFBS Serang
                                                                                                                     </td>
                                                                                                                 </tr>
                                                                                                             </tbody>
@@ -619,22 +829,50 @@
                                                                                 </tr>
                                                                             </tbody>
                                                                         </table>
+                                                                        <table align="center">
+                                                                            <tbody>
+                                                                                <tr style="margin:0;padding:0 0 0 0">
+                                                                                    <td
+                                                                                        style="display:block!important;width:600px!important;clear:both!important;margin:0 auto;padding:0">
+                                                                                        <table cellspacing="0"
+                                                                                            cellpadding="0" border="0"
+                                                                                            width="100%"
+                                                                                            style="border-collapse:collapse;font-size:12px;color:rgba(49,53,59,0.68);border-top:1px solid #e5e7e9">
+                                                                                            <tbody>
+                                                                                                <tr>
+                                                                                                    <td width="600"
+                                                                                                        align="center"
+                                                                                                        style="padding:16px 20px">
+                                                                                                        1999-2021, NFBS
+                                                                                                        Serang
+                                                                                                    </td>
+                                                                                                </tr>
+                                                                                            </tbody>
+                                                                                        </table>
+                                                                                    </td>
+                                                                                </tr>
+                                                                            </tbody>
+                                                                        </table>
                                                                     </td>
                                                                 </tr>
                                                             </tbody>
                                                         </table>
-                                                    </div>
-                                                </font>
-                                            </div>
                                         </td>
                                     </tr>
                                 </tbody>
                             </table>
-                        </td>
-                    </tr>
-                </tbody>
-            </table>
         </div>
+        </font>
+    </div>
+    </td>
+    </tr>
+    </tbody>
+    </table>
+    </td>
+    </tr>
+    </tbody>
+    </table>
+    </div>
     </div>
     <script type="text/javascript" nonce="">
         // <![CDATA[

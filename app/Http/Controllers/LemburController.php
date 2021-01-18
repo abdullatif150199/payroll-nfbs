@@ -35,13 +35,16 @@ class LemburController extends Controller
             ->editColumn('total_tarif', function ($data) {
                 return number_format($data->total_tarif);
             })
+            ->addColumn('type', function ($data) {
+                return view('lembur.tipe', ['data' => $data]);
+            })
             ->addColumn('status', function ($data) {
                 return view('lembur.status', ['data' => $data]);
             })
             ->addColumn('actions', function ($data) {
                 return view('lembur.actions', ['data' => $data]);
             })
-            ->rawColumns(['status', 'actions', 'no_induk', 'nama_lengkap', 'total_tarif'])
+            ->rawColumns(['type', 'status', 'actions', 'no_induk', 'nama_lengkap', 'total_tarif'])
             ->make(true);
     }
 
@@ -84,7 +87,11 @@ class LemburController extends Controller
 
         if ($status = $request->status) {
             if ($status == 'approve') {
-                $total_lembur = $this->totalLembur($request, $lembur->karyawan);
+                if ($lembur->type === 'holi') {
+                    $total_lembur = $request->total_tarif;
+                } else {
+                    $total_lembur = $this->totalLembur($request, $lembur->karyawan);
+                }
 
                 $lembur->update([
                     'total_tarif' => $total_lembur,
@@ -145,19 +152,19 @@ class LemburController extends Controller
                 $total_lembur = $request->jumlah_jam * $tarif;
             }
         }
-        //  Lembur hari libur/ahad
+        //  Lembur hari libur
         if ($request->type == 'week') {
             // kalo lembur lebih dari jam maksimal
             if ($request->jumlah_jam > $max_jam['week']) {
-                $total_lembur = $karyawan->golongan->lembur_harian; // tarif lembur harian
+                $total_lembur = $request->total_tarif; // tarif lembur harian
             } else {
                 $total_lembur = $request->jumlah_jam * $tarif;
             }
         }
-        //  Lembur hari semester/hari raya
+        //  Lembur hari raya, sebelum dan sesudah hari raya
         if ($request->type == 'holi') {
             // kalo lembur lebih dari jam maksimal
-            $total_lembur = $karyawan->golongan->lembur_harian; // 2x tarif lembur harian
+            $total_lembur = $request->total_tarif; // 2x tarif lembur harian
         }
 
         return $total_lembur;

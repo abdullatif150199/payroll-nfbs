@@ -26,8 +26,7 @@ class GolonganSeeder extends Seeder
                 $data[] = [
                     'kode_golongan' => $i . $a,
                     'gaji_pokok' => 0,
-                    'lembur' => $lembur,
-                    'lembur_harian' => 0
+                    'lembur' => $lembur
                 ];
             }
         }

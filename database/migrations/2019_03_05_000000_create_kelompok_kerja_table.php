@@ -17,7 +17,7 @@ class CreateKelompokKerjaTable extends Migration
             $table->id();
             $table->char('grade');
             $table->decimal('persen', 5, 2)->comment('dari gapok');
-            $table->decimal('kinerja_normal', 14, 2);
+            $table->decimal('kinerja_normal', 14, 0);
             $table->tinyInteger('no_kode')->default(0);
             $table->timestamps();
         });

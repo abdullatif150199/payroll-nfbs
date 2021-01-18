@@ -25,8 +25,32 @@
                     <div class="row">
                         <div class="col">
                             <div class="form-group">
+                                <label class="form-label">Hari lembur</label>
+                                <select name="type" class="form-control" id="type">
+                                    <option value="">Pilih</option>
+                                    <option value="day">Hari kerja</option>
+                                    <option value="week">Hari libur</option>
+                                    <option value="holi">Hari raya</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col">
+                            <div class="form-group">
                                 <label class="form-label">Jumlah Jam</label>
                                 <input type="number" name="jumlah_jam" class="form-control" required>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row" id="input_tarif" style="display: none">
+                        <div class="col">
+                            <div class="form-group">
+                                <label class="form-label">Tarif yang diperoleh</label>
+                                <input type="text" name="total_tarif" class="form-control" data-mask="000,000,000"
+                                    data-mask-reverse="true" autocomplete="off">
+                                <small class="text-info" id="week" style="display: none">**Masukan tarif jika melebihi
+                                    jam maksimal</small>
                             </div>
                         </div>
                     </div>
@@ -68,19 +92,6 @@
                                     <option value=""></option>
                                     @for ($i=2018; $i <= date('Y'); $i++) <option value="{{$i}}">{{$i}}</option>
                                         @endfor
-                                </select>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col">
-                            <div class="form-group">
-                                <label class="form-label">Hari lembur</label>
-                                <select name="type" class="form-control">
-                                    <option value="">Pilih</option>
-                                    <option value="day">Hari kerja</option>
-                                    <option value="week">Hari libur</option>
-                                    <option value="holi">Hari Libur Semester/Hari raya</option>
                                 </select>
                             </div>
                         </div>
@@ -133,12 +144,21 @@
                             </div>
                         </div>
                     </div>
+                    <div class="row" id="manual" style="display: none">
+                        <div class="col">
+                            <div class="form-group">
+                                <label class="form-label">Tarif yang diperoleh</label>
+                                <input type="text" name="total_tarif" class="form-control" data-mask="000,000,000"
+                                    data-mask-reverse="true" autocomplete="off">
+                            </div>
+                        </div>
+                    </div>
                     <div class="row">
                         <div class="col">
                             <div class="form-group">
                                 <label class="form-label">Persetujuan</label>
                                 <select class="form-control" name="status" required>
-                                    <option value=""></option>
+                                    <option value="">Pilih</option>
                                     <option value="approve">Setujui</option>
                                     <option value="disapprove">Tidak Setuju</option>
                                 </select>

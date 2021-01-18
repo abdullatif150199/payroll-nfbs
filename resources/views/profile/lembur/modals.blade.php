@@ -71,7 +71,7 @@
                                     <option value="">Pilih</option>
                                     <option value="day">Hari kerja</option>
                                     <option value="week">Hari libur</option>
-                                    <option value="holi">Hari Libur Semester/Hari raya</option>
+                                    <option value="holi">Hari raya</option>
                                 </select>
                             </div>
                         </div>
