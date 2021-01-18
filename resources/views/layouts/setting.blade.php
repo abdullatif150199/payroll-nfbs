@@ -91,7 +91,7 @@
                                                 </tr>
                                                 <tr>
                                                     <td width="1"><i
-                                                            class="{{ Route::is('dash.user') ? 'fa fa-circle' : 'fa fa-circle-o' }} text-primary"></i>
+                                                            class="{{ Route::is('dash.user.index') ? 'fa fa-circle' : 'fa fa-circle-o' }} text-primary"></i>
                                                     </td>
                                                     <td><a href="{{ route('dash.user.index') }}">Users</a></td>
                                                 </tr>
@@ -158,6 +158,13 @@
                                                             class="{{ Route::is('dash.jamPerpekan') ? 'fa fa-circle' : 'fa fa-circle-o' }} text-primary"></i>
                                                     </td>
                                                     <td><a href="{{ route('dash.jamPerpekan') }}">Jml Jam Perpekan</a>
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td width="1"><i
+                                                            class="{{ Route::is('dash.tariflembur') ? 'fa fa-circle' : 'fa fa-circle-o' }} text-primary"></i>
+                                                    </td>
+                                                    <td><a href="{{ route('dash.tariflembur') }}">Tarif Lembur</a>
                                                     </td>
                                                 </tr>
                                                 <tr>

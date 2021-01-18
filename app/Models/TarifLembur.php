@@ -7,4 +7,6 @@ use Illuminate\Database\Eloquent\Model;
 class TarifLembur extends Model
 {
     protected $table = 'tarif_lembur';
+
+    protected $fillable = ['golongan', 'kelompok', 'tarif'];
 }
