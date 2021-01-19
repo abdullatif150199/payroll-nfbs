@@ -120,7 +120,7 @@
 
 {{-- Detail Gaji --}}
 <div class="modal fade" id="detail-gaji">
-    <div class="modal-dialog modal-lg">
+    <div class="modal-dialog">
         <div class="modal-content">
 
             <!-- Modal Header -->
@@ -130,93 +130,116 @@
             </div>
 
             <div class="modal-body">
-                <div id="bulan"></div>
-                <div class="row">
-                    <div class="col-md-3">
-                      <div class="form-group">
-                        <label class="form-label">Gaji Pokok</label>
-                        <input type="text" name="gaji_pokok" class="form-control" disabled>
-                      </div>
-                    </div>
-                    <div class="col-md-3">
-                      <div class="form-group">
-                        <label class="form-label">Tunjangan Jabatan</label>
-                        <input type="text" name="tunjangan_jabatan" class="form-control" disabled>
-                      </div>
-                    </div>
-                    <div class="col-md-3">
-                      <div class="form-group">
-                        <label class="form-label">Tunjangan Fungsional</label>
-                        <input type="text" name="tunjangan_fungsional" class="form-control" disabled>
-                      </div>
-                    </div>
-                    <div class="col-md-3">
-                      <div class="form-group">
-                        <label class="form-label">Tunjangan Struktural</label>
-                        <input type="text" name="tunjangan_struktural" class="form-control" disabled>
-                      </div>
-                    </div>
-                    <div class="col-md-3">
-                      <div class="form-group">
-                        <label class="form-label">Tunjangan Kinerja</label>
-                        <input type="text" name="tunjangan_kinerja" class="form-control" disabled>
-                      </div>
-                    </div>
-                    <div class="col-md-3">
-                      <div class="form-group">
-                        <label class="form-label">Tunjangan Pendidikan</label>
-                        <input type="text" name="tunjangan_pendidikan" class="form-control" disabled>
-                      </div>
-                    </div>
-                    <div class="col-md-3">
-                      <div class="form-group">
-                        <label class="form-label">Tunjangan Istri</label>
-                        <input type="text" name="tunjangan_istri" class="form-control" disabled>
-                      </div>
-                    </div>
-                    <div class="col-md-3">
-                      <div class="form-group">
-                        <label class="form-label">Tunjangan Anak</label>
-                        <input type="text" name="tunjangan_anak" class="form-control" disabled>
-                      </div>
-                    </div>
-                    <div class="col-md-3">
-                      <div class="form-group">
-                        <label class="form-label">Tunjangan Hari Raya</label>
-                        <input type="text" name="tunjangan_hari_raya" class="form-control" disabled>
-                      </div>
-                    </div>
-                    <div class="col-md-3">
-                      <div class="form-group">
-                        <label class="form-label">Lembur</label>
-                        <input type="text" name="lembur" class="form-control" disabled>
-                      </div>
-                    </div>
-                    <div class="col-md-3">
-                      <div class="form-group">
-                        <label class="form-label">Lain lain</label>
-                        <input type="text" name="lain_lain" class="form-control" disabled>
-                      </div>
-                    </div>
-                    <div class="col-md-3">
-                      <div class="form-group">
-                        <label class="form-label">Insentif</label>
-                        <input type="text" name="insentif" class="form-control" disabled>
-                      </div>
-                    </div>
-                    <div class="col-md-6">
-                      <div class="form-group">
-                        <label class="form-label">Potongan</label>
-                        <input type="text" name="potongan" class="form-control is-invalid" disabled>
-                      </div>
-                    </div>
-                    <div class="col-md-6">
-                      <div class="form-group">
-                        <label class="form-label">Gaji Akhir</label>
-                        <input type="text" name="gaji_total" class="form-control is-valid" disabled>
-                      </div>
-                    </div>
-                  </div>
+                <div class="card">
+                    <table class="table card-table table-vcenter">
+                        <tbody>
+                            <tr>
+                                <td>
+                                    Gaji Pokok
+                                </td>
+                                <td class="text-right">
+                                    <strong id="gaji_pokok"></strong>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    Tunjangan Jabatan
+                                </td>
+                                <td class="text-right">
+                                    <strong id="tunjangan_jabatan"></strong>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    Tunjangan Fungsional
+                                </td>
+                                <td class="text-right">
+                                    <strong id="tunjangan_fungsional"></strong>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    Tunjangan Struktural
+                                </td>
+                                <td class="text-right">
+                                    <strong id="tunjangan_struktural"></strong>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    Tunjangan Kinerja
+                                </td>
+                                <td class="text-right">
+                                    <strong id="tunjangan_kinerja"></strong>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    Tunjangan Pendidikan
+                                </td>
+                                <td class="text-right">
+                                    <strong id="tunjangan_pendidikan"></strong>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    Tunjangan Istri
+                                </td>
+                                <td class="text-right">
+                                    <strong id="tunjangan_istri"></strong>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    Tunjangan Anak
+                                </td>
+                                <td class="text-right">
+                                    <strong id="tunjangan_anak"></strong>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    Insentif
+                                </td>
+                                <td class="text-right">
+                                    <strong id="insentif"></strong>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    Lembur
+                                </td>
+                                <td class="text-right">
+                                    <strong id="lembur"></strong>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    Lain-lain
+                                </td>
+                                <td class="text-right">
+                                    <strong id="lain_lain"></strong>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    Potongan
+                                </td>
+                                <td class="text-right">
+                                    <strong id="potongan"></strong>
+                                </td>
+                            </tr>
+                            <tr class="bg-info text-white">
+                                <td>
+                                    GAJI AKHIR
+                                </td>
+                                <td class="text-right">
+                                    <strong id="gaji_total"></strong>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>

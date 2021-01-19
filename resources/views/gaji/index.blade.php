@@ -154,20 +154,20 @@
             dataType: "JSON",
             success: function(data) {
                 $('.modal-title').text('Detail Gaji ' + data.karyawan.nama_lengkap);
-                $('input[name=gaji_pokok]').val(formatter.format(data.gaji_pokok));
-                $('input[name=tunjangan_jabatan]').val(formatter.format(data.tunjangan_jabatan));
-                $('input[name=tunjangan_fungsional]').val(formatter.format(data.tunjangan_fungsional));
-                $('input[name=tunjangan_struktural]').val(formatter.format(data.tunjangan_struktural));
-                $('input[name=tunjangan_kinerja]').val(formatter.format(data.tunjangan_kinerja));
-                $('input[name=tunjangan_pendidikan]').val(formatter.format(data.tunjangan_pendidikan));
-                $('input[name=tunjangan_istri]').val(formatter.format(data.tunjangan_istri));
-                $('input[name=tunjangan_anak]').val(formatter.format(data.tunjangan_anak));
-                $('input[name=tunjangan_hari_raya]').val(formatter.format(data.tunjangan_hari_raya));
-                $('input[name=lembur]').val(formatter.format(data.lembur));
-                $('input[name=lain_lain]').val(formatter.format(data.lain_lain));
-                $('input[name=insentif]').val(formatter.format(data.insentif));
-                $('input[name=potongan]').val(formatter.format(data.sum_potongan));
-                $('input[name=gaji_total]').val(formatter.format(data.gaji_total));
+                $('#gaji_pokok').text(formatter.format(data.gaji_pokok));
+                $('#tunjangan_jabatan').text(formatter.format(data.tunjangan_jabatan));
+                $('#tunjangan_fungsional').text(formatter.format(data.tunjangan_fungsional));
+                $('#tunjangan_struktural').text(formatter.format(data.tunjangan_struktural));
+                $('#tunjangan_kinerja').text(formatter.format(data.tunjangan_kinerja));
+                $('#tunjangan_pendidikan').text(formatter.format(data.tunjangan_pendidikan));
+                $('#tunjangan_istri').text(formatter.format(data.tunjangan_istri));
+                $('#tunjangan_anak').text(formatter.format(data.tunjangan_anak));
+                $('#tunjangan_hari_raya').text(formatter.format(data.tunjangan_hari_raya));
+                $('#lembur').text(formatter.format(data.lembur));
+                $('#lain_lain').text(formatter.format(data.lain_lain));
+                $('#insentif').text(formatter.format(data.insentif));
+                $('#potongan').text(formatter.format(data.sum_potongan));
+                $('#gaji_total').text(formatter.format(data.gaji_total));
                 $('#detail-gaji').modal('show');
                 $('#loader' + id).hide();
             },
