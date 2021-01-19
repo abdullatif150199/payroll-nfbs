@@ -32,7 +32,7 @@
 <div class="col-lg-8">
     <div class="card">
         <div class="card-header">
-            Daftar Kehadiran
+            DAFTAR KEHADIRAN
             <div class="card-options">
                 <a class="btn btn-info" href="?list=pilihan"><i class="fe fe-list"></i> Persentase Kehadiran</a>
             </div>

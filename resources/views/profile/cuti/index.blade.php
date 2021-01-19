@@ -44,7 +44,7 @@
     @endif
     <div class="card">
         <div class="card-header">
-            Daftar Cuti
+            DAFTAR CUTI
             <div class="card-options">
                 <a class="btn btn-primary" href="{{ route('profile.cuti.create') }}">
                     <i class="fe fe-plus"></i> Ajukan Cuti

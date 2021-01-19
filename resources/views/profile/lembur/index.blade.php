@@ -37,7 +37,7 @@
     @endif
     <div class="card">
         <div class="card-header">
-            Daftar Lembur
+            DAFTAR LEMBUR
             <div class="card-options">
                 <button type="button" id="newLembur" class="btn btn-primary">
                     <i class="fe fe-plus"></i> Ajukan Lembur
@@ -45,7 +45,8 @@
             </div>
         </div>
         <div class="table-responsive">
-            <table class="table table-responsive-sm table-hover table-outline table-vcenter card-table" id="lemburTable">
+            <table class="table table-responsive-sm table-hover table-outline table-vcenter card-table"
+                id="lemburTable">
                 <thead>
                     <tr>
                         <th>Tanggal</th>

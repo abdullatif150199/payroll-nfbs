@@ -31,7 +31,7 @@
 <div class="col-lg-8">
     <div class="card">
         <div class="card-header">
-            Daftar Gaji
+            DAFTAR GAJI
         </div>
         <div class="table-responsive">
             <table class="table table-responsive-sm table-hover table-outline table-vcenter card-table" id="gajiTable">
