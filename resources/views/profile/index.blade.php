@@ -8,7 +8,7 @@
         <div class="card-body">
             Informasi untuk pegawai,
             Pengumuman,
-            dll.
+            dll. <strong>Segera hadir, ditunggu ya &#128526;</strong>
         </div>
     </div>
 </div>
