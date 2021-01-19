@@ -34,11 +34,9 @@
                                 <label class="form-label">Kelompok</label>
                                 <select name="kelompok" class="form-control">
                                     <option value="">Pilih</option>
-                                    <option value="A">A</option>
-                                    <option value="B">B</option>
-                                    <option value="C">C</option>
-                                    <option value="D">D</option>
-                                    <option value="E">E</option>
+                                    @foreach (App\Models\KelompokKerja::pluck('grade') as $item)
+                                    <option value="{{ $item }}">{{ $item }}</option>
+                                    @endforeach
                                 </select>
                             </div>
                         </div>

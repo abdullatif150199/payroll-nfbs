@@ -43,17 +43,6 @@
                             </div>
                         </div>
                     </div>
-                    <div class="row" id="input_tarif" style="display: none">
-                        <div class="col">
-                            <div class="form-group">
-                                <label class="form-label">Tarif yang diperoleh</label>
-                                <input type="text" name="total_tarif" class="form-control" data-mask="000,000,000"
-                                    data-mask-reverse="true" autocomplete="off">
-                                <small class="text-info" id="week" style="display: none">**Masukan tarif jika melebihi
-                                    jam maksimal</small>
-                            </div>
-                        </div>
-                    </div>
                     <div class="row">
                         <div class="col">
                             <div class="form-group">
@@ -104,6 +93,19 @@
                             </div>
                         </div>
                     </div>
+                    <div class="mb-4">
+                        <a href="#" id="tarif_manual">Input tarif secara manual</a>
+                    </div>
+
+                    <div class="row bg-blue-lightest" id="input_tarif" style="display: none;">
+                        <div class="col">
+                            <div class="form-group">
+                                <label class="form-label">Tarif yang diperoleh</label>
+                                <input type="text" name="tarif_manual" class="form-control" data-mask="000,000,000"
+                                    data-mask-reverse="true" autocomplete="off">
+                            </div>
+                        </div>
+                    </div>
                 </div>
                 <div class="modal-footer">
 
@@ -144,15 +146,6 @@
                             </div>
                         </div>
                     </div>
-                    <div class="row" id="manual" style="display: none">
-                        <div class="col">
-                            <div class="form-group">
-                                <label class="form-label">Tarif yang diperoleh</label>
-                                <input type="text" name="total_tarif" class="form-control" data-mask="000,000,000"
-                                    data-mask-reverse="true" autocomplete="off">
-                            </div>
-                        </div>
-                    </div>
                     <div class="row">
                         <div class="col">
                             <div class="form-group">
@@ -162,6 +155,20 @@
                                     <option value="approve">Setujui</option>
                                     <option value="disapprove">Tidak Setuju</option>
                                 </select>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="mb-4">
+                        <a href="#" id="manual">Input tarif secara manual</a>
+                    </div>
+
+                    <div class="row bg-blue-lightest" id="input_manual" style="display: none;">
+                        <div class="col">
+                            <div class="form-group">
+                                <label class="form-label">Tarif yang diperoleh</label>
+                                <input type="text" name="tarif_manual" class="form-control" data-mask="000,000,000"
+                                    data-mask-reverse="true" autocomplete="off">
                             </div>
                         </div>
                     </div>

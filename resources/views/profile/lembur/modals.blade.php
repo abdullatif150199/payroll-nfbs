@@ -16,6 +16,19 @@
                     <div class="row">
                         <div class="col">
                             <div class="form-group">
+                                <label class="form-label">Hari lembur</label>
+                                <select name="type" class="form-control">
+                                    <option value="">Pilih</option>
+                                    <option value="day">Hari kerja</option>
+                                    <option value="week">Hari libur</option>
+                                    <option value="holi">Hari raya</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col">
+                            <div class="form-group">
                                 <label class="form-label">Jumlah Jam</label>
                                 <input type="number" name="jumlah_jam" class="form-control" required>
                             </div>
@@ -59,19 +72,6 @@
                                     <option value=""></option>
                                     @for ($i=2018; $i <= date('Y'); $i++) <option value="{{$i}}">{{$i}}</option>
                                         @endfor
-                                </select>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col">
-                            <div class="form-group">
-                                <label class="form-label">Hari lembur</label>
-                                <select name="type" class="form-control">
-                                    <option value="">Pilih</option>
-                                    <option value="day">Hari kerja</option>
-                                    <option value="week">Hari libur</option>
-                                    <option value="holi">Hari raya</option>
                                 </select>
                             </div>
                         </div>

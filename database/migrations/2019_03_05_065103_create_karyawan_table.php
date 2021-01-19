@@ -20,6 +20,8 @@ class CreateKaryawanTable extends Migration
             $table->foreign('user_id')->references('id')->on('users')->onDelete('restrict');
             $table->foreignId('golongan_id');
             $table->foreign('golongan_id')->references('id')->on('golongan')->onDelete('restrict');
+            $table->foreignId('tarif_lembur_id')->nullable();
+            $table->foreign('tarif_lembur_id')->references('id')->on('tarif_lembur')->onDelete('restrict');
             $table->foreignId('status_kerja_id');
             $table->foreign('status_kerja_id')->references('id')->on('status_kerja')->onDelete('restrict');
             $table->foreignId('kelompok_kerja_id');

@@ -297,16 +297,13 @@
         selectName('.cari');
     });
 
-    $('#type').change(function () {
-        if ($('#type').val() !== 'day') {
-            $('#input_tarif').show();
-            if ($('#type').val() === 'week') {
-                $('#week').show();
-            } else {
-                $('#week').hide();
-            }
-        } else {
+    $('#tarif_manual').click(function () {
+        if ($('#input_tarif:visible').length) {
             $('#input_tarif').hide();
+            $('#tarif_manual').text('Input tarif secara manual');
+        } else {
+            $('#input_tarif').show();
+            $('#tarif_manual').text('Batalkan tarif manual');
         }
     });
 
@@ -434,9 +431,16 @@
                 $('input[name=id]').val(data.id);
                 $('input[name=jumlah_jam]').val(data.jumlah_jam);
                 $('input[name=type]').val(data.type);
-                if (data.type === 'holi') {
-                    $('#manual').show();
-                }
+
+                $('#manual').click(function () {
+                    if ($('#input_manual:visible').length) {
+                        $('#input_manual').hide();
+                        $('#manual').text('Input tarif secara manual');
+                    } else {
+                        $('#input_manual').show();
+                        $('#manual').text('Batalkan tarif manual');
+                    }
+                });
             }
         });
     }

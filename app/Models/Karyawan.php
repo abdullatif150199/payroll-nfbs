@@ -109,6 +109,12 @@ class Karyawan extends Model
         return $this->belongsTo(KelompokKerja::class);
     }
 
+    // Tarif Lembur
+    public function tarifLembur()
+    {
+        return $this->belongsTo(TarifLembur::class);
+    }
+
     // Get gaji Pokok
     public function getGajiPokokAttribute($value)
     {

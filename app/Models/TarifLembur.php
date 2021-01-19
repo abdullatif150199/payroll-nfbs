@@ -9,4 +9,9 @@ class TarifLembur extends Model
     protected $table = 'tarif_lembur';
 
     protected $fillable = ['golongan', 'kelompok', 'tarif'];
+
+    public function karyawan()
+    {
+        return $this->hasMany(Karyawan::class);
+    }
 }
