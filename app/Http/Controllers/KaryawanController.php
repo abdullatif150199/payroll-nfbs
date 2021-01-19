@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Http\Requests\KaryawanFormRequest;
 use Illuminate\Database\Eloquent\Builder;
 use Yajra\Datatables\Datatables;
+use App\Jobs\AddTarifLembur;
 use App\Models\Karyawan;
 use App\Models\StatusKerja;
 use App\Models\KelompokKerja;
@@ -155,6 +156,8 @@ class KaryawanController extends Controller
         $karyawan->bidang()->attach($request->bidang);
         $karyawan->unit()->attach($request->unit);
 
+        AddTarifLembur::dispatch($karyawan);
+
         $setting->increment('value');
 
         return redirect()->back()->withSuccess(sprintf('Karyawan %s berhasil di tambahkan', $karyawan->nama_lengkap));
@@ -219,6 +222,8 @@ class KaryawanController extends Controller
         $karyawan->jabatan()->sync($request->jabatan);
         $karyawan->bidang()->sync($request->bidang);
         $karyawan->unit()->sync($request->unit);
+
+        AddTarifLembur::dispatch($karyawan);
 
         return redirect()->back()->withSuccess(sprintf('Karyawan %s berhasil di update', $karyawan->nama_lengkap));
     }

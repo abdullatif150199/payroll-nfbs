@@ -22,7 +22,7 @@ class TransferSheetExport implements FromView, WithTitle, WithColumnFormatting
     {
         $data = $this->generator(
             Gaji::whereHas('karyawan', function ($q) {
-                $q->where('pembayaran', 'cash');
+                $q->where('pembayaran', 'transfer');
             })
             ->where('bulan', $this->bln)
             ->cursor()

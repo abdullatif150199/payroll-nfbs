@@ -21,7 +21,7 @@ class AddTarifLembur implements ShouldQueue
      *
      * @return void
      */
-    public function __construct(Karyawan $karyawan)
+    public function __construct($karyawan)
     {
         $this->karyawan = $karyawan;
     }
