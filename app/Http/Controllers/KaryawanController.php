@@ -94,6 +94,9 @@ class KaryawanController extends Controller
             ->addColumn('actions', function ($data) {
                 return view('karyawan.actions', ['data' => $data]);
             })
+            ->editColumn('nama_lengkap', function ($data) {
+                return view('karyawan.nama', ['data' => $data]);
+            })
             ->editColumn('no_induk', function ($data) {
                 return '<span class="text-muted">'. $data->no_induk .'</span>';
             })
@@ -111,7 +114,7 @@ class KaryawanController extends Controller
             ->editColumn('status_kerja', function ($data) {
                 return $data->statusKerja->nama_status_kerja;
             })
-            ->rawColumns(['actions', 'jabatan', 'golongan', 'no_induk', 'unit', 'status_kerja'])
+            ->rawColumns(['actions', 'nama_lengkap', 'jabatan', 'golongan', 'no_induk', 'unit', 'status_kerja'])
             ->make(true);
     }
 

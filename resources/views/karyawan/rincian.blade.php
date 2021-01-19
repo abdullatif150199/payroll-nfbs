@@ -67,28 +67,64 @@
                 <li class="list-group-item py-5 tab-content">
                     <div class="tab-pane fade show active" id="v-pills-rincian" role="tabpanel"
                         aria-labelledby="v-pills-rincian-tab">
-                        <h3>Rincian Pegawai</h3>
-                        NIK: <h5>{{ $data->nik }}</h5>
-                        Tempat, tanggal lahir: <h5>
-                            {{ $data->tempat_lahir . ', ' . date('d M Y', strtotime($data->tanggal_lahir)) }}</h5>
-                        Jenis Kelamin: <h5>{{ $data->jenis_kelamin == 'L' ? 'Laki-laki' : 'Perempuan' }}</h5>
-                        Status Pernikahan: <h5>{{ $data->status_pernikahan == 'M' ? 'Menikah' : 'Belum Menikah' }}</h5>
-                        Alamat: <h5>{{ $data->alamat }}</h5>
-                        No. HP: <h5>{{ $data->no_hp }}</h5>
-                        Pendidikan:
-                        <h5>
-                            {{ $data->nama_pendidikan .' - '. $data->tahun_lulus }} <br>
-                            {{ $data->pendidikan_terakhir .' - '. $data->jurusan }}
-                        </h5>
-                        Tanggal Masuk: <h5>{{ $data->tanggal_masuk }}</h5>
-                        @if ($data->status === '3')
-                        Tanggal Keluar: <h5>{{ $data->tanggal_keluar }}</h5>
-                        @endif
+                        <div class="card-category text-muted text-left mb-4">
+                            Rincian Pegawai
+                        </div>
+                        <table class="table card-table table-striped table-vcenter">
+                            <tbody>
+                                <tr>
+                                    <td>NIK</td>
+                                    <td>{{ $data->nik }}</td>
+                                </tr>
+                                <tr>
+                                    <td>Tanggal Lahir</td>
+                                    <td>
+                                        {{ $data->tempat_lahir . ', ' . date('d M Y', strtotime($data->tanggal_lahir)) }}
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>Jenis Kelamin</td>
+                                    <td>{{ $data->jenis_kelamin == 'L' ? 'Laki-laki' : 'Perempuan' }}</td>
+                                </tr>
+                                <tr>
+                                    <td>Status Pernikahan</td>
+                                    <td>{{ $data->status_pernikahan == 'M' ? 'Menikah' : 'Belum Menikah' }}</td>
+                                </tr>
+                                <tr>
+                                    <td>Alamat</td>
+                                    <td>{{ $data->alamat }}</td>
+                                </tr>
+                                <tr>
+                                    <td>No. HP</td>
+                                    <td>{{ $data->no_hp }}</td>
+                                </tr>
+                                <tr>
+                                    <td>Pendidikan</td>
+                                    <td>{{ $data->nama_pendidikan .' ('. $data->tahun_lulus .')' }}</td>
+                                </tr>
+                                <tr>
+                                    <td>Jurusan</td>
+                                    <td>{{ $data->pendidikan_terakhir .' - '. $data->jurusan }}</td>
+                                </tr>
+                                <tr>
+                                    <td>No. HP</td>
+                                    <td>{{ $data->tanggal_masuk }}</td>
+                                </tr>
+                                @if ($data->status === '3')
+                                <tr>
+                                    <td>Tanggal Keluar</td>
+                                    <td>{{ $data->tanggal_keluar }}</td>
+                                </tr>
+                                @endif
+                            </tbody>
+                        </table>
                     </div>
 
                     <div class="tab-pane fade" id="v-pills-estimasi" role="tabpanel"
                         aria-labelledby="v-pills-estimasi-tab">
-                        <h3>Estimasi Gaji</h3>
+                        <div class="card-category text-muted text-left mb-4">
+                            Estimasi Gaji
+                        </div>
                         <form id="estimate">
                             <div class="row">
                                 <div class="col-md-4">
@@ -147,17 +183,42 @@
 
                     <div class="tab-pane fade" id="v-pills-keluarga" role="tabpanel"
                         aria-labelledby="v-pills-keluarga-tab">
-                        <h3>Keluarga</h3>
+                        <div class="card-category text-muted text-left mb-4">
+                            Keluarga
+                        </div>
                         @foreach ($data->keluarga as $keluarga)
-                        <p>{{ $keluarga->nama }} - {{ $keluarga->statusKeluarga->status }}</p>
+                        <table class="table card-table table-striped table-vcenter">
+                            <tbody>
+                                <tr>
+                                    <td>{{ $keluarga->nama }}</td>
+                                    <td>{{ $keluarga->statusKeluarga->status }}</td>
+                                </tr>
+                            </tbody>
+                        </table>
                         @endforeach
                     </div>
 
                     <div class="tab-pane fade" id="v-pills-rekening" role="tabpanel"
                         aria-labelledby="v-pills-rekening-tab">
-                        <h3>Rekening</h3>
-                        <p>{{ $data->nama_bank }}</p>
-                        <p>No. Rek: {{ $data->no_rekening }} a.n {{ $data->rekening_atas_nama }}</p>
+                        <div class="card-category text-muted text-left mb-4">
+                            Rekening
+                        </div>
+                        <table class="table card-table table-striped table-vcenter">
+                            <thead>
+                                <tr>
+                                    <th>Nama Bank</th>
+                                    <th>No. Rekening</th>
+                                    <th>Atas Nama</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>{{ $data->nama_bank }}</td>
+                                    <td><strong>{{ $data->no_rekening }}</strong></td>
+                                    <td>{{ $data->rekening_atas_nama }}</td>
+                                </tr>
+                            </tbody>
+                        </table>
                     </div>
                 </li>
             </ul>

@@ -26,6 +26,41 @@
     .paginate_button .page-link {
         padding: 0.3rem 0.5rem
     }
+
+    .hovertip {
+        position: relative;
+        display: inline-block;
+        border-bottom: 1px dotted black;
+    }
+
+    .hovertip .hovertiptext {
+        visibility: hidden;
+        width: 120px;
+        background-color: black;
+        color: #fff;
+        text-align: center;
+        border-radius: 6px;
+        padding: 5px 0;
+        position: absolute;
+        z-index: 1;
+        top: -5px;
+        left: 110%;
+    }
+
+    .hovertip .hovertiptext::after {
+        content: "";
+        position: absolute;
+        top: 50%;
+        right: 100%;
+        margin-top: -5px;
+        border-width: 5px;
+        border-style: solid;
+        border-color: transparent black transparent transparent;
+    }
+
+    .hovertip:hover .hovertiptext {
+        visibility: visible;
+    }
 </style>
 @endpush
 @section('content')
@@ -68,7 +103,6 @@
                             <th>Jabatan</th>
                             <th>Gol</th>
                             <th>Unit</th>
-                            <th>No. HP</th>
                             <th>Status Kerja</th>
                             <th></th>
                         </tr>
@@ -108,7 +142,6 @@
                 {data: 'jabatan'},
                 {data: 'golongan'},
                 {data: 'unit'},
-                {data: 'no_hp'},
                 {data: 'status_kerja'},
                 {data: 'actions', orderable: false, searchable: false}
             ]
