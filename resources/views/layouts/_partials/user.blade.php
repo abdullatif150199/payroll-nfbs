@@ -4,9 +4,7 @@
         <span class="nav-unread"></span>
     </a>
     <div class="dropdown-menu dropdown-menu-right dropdown-menu-arrow">
-        <a href="javascript:void(0)" class="dropdown-item">Lorem ipsum dolor sit amet, consectetur </a>
-        <div class="dropdown-divider"></div>
-        <a href="javascript:void(0)" class="dropdown-item">Lorem ipsum dolor sit amet, consectetur </a>
+        <a href="javascript:void(0)" class="dropdown-item">Tidak ada notifikasi</a>
         <div class="dropdown-divider"></div>
         <a href="javascript:void(0)" class="dropdown-item text-center">Lihat lainnya...</a>
     </div>
@@ -25,12 +23,12 @@
             <i class="dropdown-icon fe fe-user"></i> Profile
         </a>
         @if (!Auth::user()->hasRole('user'))
-            <a class="dropdown-item" href="{{ route('dash.home') }}">
-                <i class="dropdown-icon fe fe-grid"></i> Dashboard
-            </a>
-            <a class="dropdown-item" href="{!! url(config('tabler.urls.settings')) !!}">
-                <i class="dropdown-icon fe fe-settings"></i> Setting
-            </a>
+        <a class="dropdown-item" href="{{ route('dash.home') }}">
+            <i class="dropdown-icon fe fe-grid"></i> Dashboard
+        </a>
+        <a class="dropdown-item" href="{!! url(config('tabler.urls.settings')) !!}">
+            <i class="dropdown-icon fe fe-settings"></i> Setting
+        </a>
         @endif
         <a class="dropdown-item" href="{{ route('logout') }}"
             onclick="event.preventDefault(); document.getElementById('logout-form').submit();">

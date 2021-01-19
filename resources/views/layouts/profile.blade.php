@@ -80,7 +80,7 @@
                                         <div class="card-body text-center">
                                             <img class="card-profile-img" src="/images/src/user.jpg">
                                             <h3 class="mb-0">{{ Auth::user()->name }}</h3>
-                                            <p class="text-muted mb-2">{{ Auth::user()->karyawan->no_induk }}</p>
+                                            <p class="text-muted mb-2">NIP. {{ Auth::user()->karyawan->no_induk }}</p>
                                             <a href="{{ route('profile.detail', Auth::user()->username) }}"
                                                 class="btn btn-outline-primary btn-sm">
                                                 <span class="fe fe-edit"></span> Detail
