@@ -24,7 +24,7 @@ class CutiController extends ProfileController
         $request->merge(['karyawan_id' => $this->getId()]);
         Cuti::create($request->all());
 
-        return redirect()->route('profile.cuti')
+        return redirect()->route('profile.cuti.index')
                 ->with('success', 'Request berhasil di buat!');
     }
 
