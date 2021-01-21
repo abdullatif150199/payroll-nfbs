@@ -55,6 +55,11 @@ class HomeController extends Controller
         ]);
     }
 
+    public function toLogin()
+    {
+        return redirect()->route('login');
+    }
+
     public function coming()
     {
         return view('soon');

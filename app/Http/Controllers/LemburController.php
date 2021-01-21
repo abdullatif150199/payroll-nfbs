@@ -58,7 +58,7 @@ class LemburController extends Controller
         $bln = $request->year . '-' . $request->month;
         $karyawan = Karyawan::with('golongan', 'jabatan')->find($request->karyawan_id);
 
-        $total_lembur = !empty($request->tarif_manual) ? $request->tarif_manual : $this->totalLembur($request, $karyawan);
+        $total_lembur = !empty($request->tarif_manual) ? preg_replace('/\D/', '', $request->tarif_manual) : $this->totalLembur($request, $karyawan);
 
         $request->merge([
             'bulan' => $bln,
@@ -87,7 +87,7 @@ class LemburController extends Controller
 
         if ($status = $request->status) {
             if ($status == 'approve') {
-                $total_lembur = !empty($request->tarif_manual) ? $request->tarif_manual : $this->totalLembur($request, $lembur->karyawan);
+                $total_lembur = !empty($request->tarif_manual) ? preg_replace('/\D/', '', $request->tarif_manual) : $this->totalLembur($request, $lembur->karyawan);
 
                 $lembur->update([
                     'total_tarif' => $total_lembur,
@@ -101,7 +101,7 @@ class LemburController extends Controller
                 ]);
             }
         } else {
-            $total_lembur = !empty($request->tarif_manual) ? $request->tarif_manual : $this->totalLembur($request, $lembur->karyawan);
+            $total_lembur = !empty($request->tarif_manual) ? preg_replace('/\D/', '', $request->tarif_manual) : $this->totalLembur($request, $lembur->karyawan);
 
             $request->merge([
                 'bulan' => $bln,

@@ -97,6 +97,12 @@
                                                 </tr>
                                                 <tr>
                                                     <td width="1"><i
+                                                            class="{{ Route::is('dash.rekening') ? 'fa fa-circle' : 'fa fa-circle-o' }} text-primary"></i>
+                                                    </td>
+                                                    <td><a href="{{ route('dash.rekening') }}">Rekening Cover</a></td>
+                                                </tr>
+                                                <tr>
+                                                    <td width="1"><i
                                                             class="{{ Route::is('dash.golongan') ? 'fa fa-circle' : 'fa fa-circle-o' }} text-primary"></i>
                                                     </td>
                                                     <td><a href="{{ route('dash.golongan') }}">Golongan</a></td>

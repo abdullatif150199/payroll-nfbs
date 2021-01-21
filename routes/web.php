@@ -11,7 +11,7 @@
 |
 */
 
-Route::get('/', 'HomeController@index');
+Route::get('/', 'HomeController@toLogin');
 Route::get('/home', 'HomeController@index')->name('home');
 Route::get('/coming-soon', 'HomeController@coming')->name('coming-soon');
 
@@ -233,6 +233,14 @@ Route::group(['prefix' => 'dashboard', 'as' => 'dash.', 'middleware' => ['auth']
             Route::get('tarif-lembur/{id}/edit', 'TarifLemburController@edit')->name('tariflembur.edit');
             Route::put('tarif-lembur/{id}', 'TarifLemburController@update')->name('tariflembur.update');
             Route::delete('tarif-lembur/{id}', 'TarifLemburController@destroy')->name('tariflembur.destroy');
+
+            // Rekening
+            Route::get('rekening', 'RekeningController@index')->name('rekening');
+            Route::get('get-rekening', 'RekeningController@datatable')->name('rekening.datatable');
+            Route::post('rekening', 'RekeningController@store')->name('rekening.store');
+            Route::get('rekening/{id}/edit', 'RekeningController@edit')->name('rekening.edit');
+            Route::put('rekening/{id}', 'RekeningController@update')->name('rekening.update');
+            Route::delete('rekening/{id}', 'RekeningController@destroy')->name('rekening.destroy');
         });
     });
 });
