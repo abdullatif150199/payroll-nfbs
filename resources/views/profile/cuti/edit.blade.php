@@ -23,7 +23,7 @@
             Edit Cuti
         </div>
         <div class="card-body">
-            <form action="{{ route('profile.editCuti', $data->id) }}" method="POST">
+            <form action="{{ route('profile.cuti.update', $data->id) }}" method="POST">
                 @include('profile.cuti.form')
 
                 <button type="submit" class="btn btn-primary">Submit</button>

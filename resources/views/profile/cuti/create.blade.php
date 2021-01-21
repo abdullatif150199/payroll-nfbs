@@ -11,7 +11,7 @@
             Request Cuti
         </div>
         <div class="card-body">
-            <form action="{{ route('profile.storeCuti') }}" method="POST">
+            <form action="{{ route('profile.cuti.store') }}" method="POST">
                 @include('profile.cuti.form')
 
                 <button type="submit" class="btn btn-primary">Submit</button>
