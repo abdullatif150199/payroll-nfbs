@@ -19,6 +19,7 @@ class CreateKaryawanPotonganTable extends Migration
             $table->foreign('karyawan_id')->references('id')->on('karyawan')->onDelete('cascade');
             $table->foreign('potongan_id')->references('id')->on('potongan')->onDelete('cascade');
             $table->date('end_at')->nullable();
+            $table->string('keterangan')->nullable();
         });
     }
 

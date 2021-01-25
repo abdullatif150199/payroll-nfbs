@@ -185,17 +185,27 @@
                         aria-labelledby="v-pills-keluarga-tab">
                         <div class="card-category text-muted text-left mb-4">
                             Keluarga
+                            <span class="pull-right">
+                                <a href="#formKeluarga" data-toggle="modal" class="btn btn-primary"
+                                    title="Tambah keluarga">
+                                    <i class="fe fe-plus"></i>
+                                </a>
+                            </span>
                         </div>
-                        @foreach ($data->keluarga as $keluarga)
                         <table class="table card-table table-striped table-vcenter">
+                            <thead>
+                                <tr>
+                                    <th>Nama</th>
+                                    <th>Status</th>
+                                    <th></th>
+                                </tr>
+                            </thead>
                             <tbody>
                                 <tr>
-                                    <td>{{ $keluarga->nama }}</td>
-                                    <td>{{ $keluarga->statusKeluarga->status }}</td>
+                                    <td colspan="3" class="text-center">Tidak tersedia</td>
                                 </tr>
                             </tbody>
                         </table>
-                        @endforeach
                     </div>
 
                     <div class="tab-pane fade" id="v-pills-rekening" role="tabpanel"
@@ -268,6 +278,188 @@
         </div>
     </div>
 </div>
+
+{{-- Modal keluarga --}}
+<div class="modal fade" id="formKeluarga">
+    <div class="modal-dialog">
+        <div class="modal-content">
+
+            <!-- Modal Header -->
+            <div class="modal-header">
+                <h4 class="modal-title">Keluarga</h4>
+                <button type="button" class="close" data-dismiss="modal"></button>
+            </div>
+
+            <form method="post">
+                {{ csrf_field() }}
+                <input type="hidden" name="karyawan_id" value="{{ $data->id }}">
+                <div class="modal-body">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="form-group">
+                                <label class="form-label">Nama Keluarga</label>
+                                <input type="text" class="form-control" name="nama" required>
+                            </div>
+                        </div>
+                        <div class="col-md-12">
+                            <div class="form-group">
+                                <label class="form-label">Tanggal Lahir</label>
+                                <div class="row gutters-xs">
+                                    <div class="col-3">
+                                        <select name="birth[day]" class="form-control custom-select" id="day" required>
+                                            <option value="">Hari</option>
+                                            @for ($i=1; $i <= 31; $i++) <option value="{{sprintf('%02d', $i)}}">
+                                                {{sprintf('%02d', $i)}}</option>
+                                                @endfor
+                                        </select>
+                                    </div>
+                                    <div class="col-5">
+                                        <select name="birth[month]" class="form-control custom-select" id="month"
+                                            required>
+                                            <option value="">Bulan</option>
+                                            <option value="01">Januari</option>
+                                            <option value="02">Februari</option>
+                                            <option value="03">Maret</option>
+                                            <option value="04">April</option>
+                                            <option value="05">Mei</option>
+                                            <option value="06">Juni</option>
+                                            <option value="07">Juli</option>
+                                            <option value="08">Augustus</option>
+                                            <option value="09">September</option>
+                                            <option value="10">Oktober</option>
+                                            <option value="11">November</option>
+                                            <option value="12">Desember</option>
+                                        </select>
+                                    </div>
+                                    <div class="col-4">
+                                        <select name="birth[year]" class="form-control custom-select" id="year"
+                                            required>
+                                            <option value="">Tahun</option>
+                                            @for ($i=date('Y'); $i >= date('Y') - 100; $i--)
+                                            <option value="{{$i}}">{{$i}}</option>
+                                            @endfor
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-12">
+                            <div class="form-group">
+                                <label class="form-label">Status Keluarga</label>
+                                <select name="status_keluarga_id" class="form-control">
+                                    <option value="">Pilih</option>
+                                    @foreach (App\Models\StatusKeluarga::pluck('id', 'status') as $key => $value)
+                                    <option value="{{ $value }}">{{ $key }}</option>
+                                    @endforeach
+                                </select>
+                            </div>
+                        </div>
+                        <div id="tunj_pendidikan" style="display: none">
+                            <div class="col-md-12">
+                                <div class="form-group">
+                                    <label class="form-label">Jml Tunjangan Pendidikan</label>
+                                    <input type="text" class="form-control" name="tunjangan_pendidikan"
+                                        data-mask="000,000,000" data-mask-reverse="true" autocomplete="off">
+                                </div>
+                            </div>
+                            <div class="col-md-12">
+                                <div class="form-group">
+                                    <label class="form-label">Akhir Tunjangan Pendidikan</label>
+                                    <div class="row gutters-xs">
+                                        <div class="col-3">
+                                            <select name="atp[day]" class="form-control custom-select" id="day"
+                                                required>
+                                                <option value="">Hari</option>
+                                                @for ($i=1; $i <= 31; $i++) <option value="{{sprintf('%02d', $i)}}">
+                                                    {{sprintf('%02d', $i)}}</option>
+                                                    @endfor
+                                            </select>
+                                        </div>
+                                        <div class="col-5">
+                                            <select name="atp[month]" class="form-control custom-select" id="month"
+                                                required>
+                                                <option value="">Bulan</option>
+                                                <option value="01">Januari</option>
+                                                <option value="02">Februari</option>
+                                                <option value="03">Maret</option>
+                                                <option value="04">April</option>
+                                                <option value="05">Mei</option>
+                                                <option value="06">Juni</option>
+                                                <option value="07">Juli</option>
+                                                <option value="08">Augustus</option>
+                                                <option value="09">September</option>
+                                                <option value="10">Oktober</option>
+                                                <option value="11">November</option>
+                                                <option value="12">Desember</option>
+                                            </select>
+                                        </div>
+                                        <div class="col-4">
+                                            <select name="atp[year]" class="form-control custom-select" id="year"
+                                                required>
+                                                <option value="">Tahun</option>
+                                                @for ($i=date('Y'); $i >= date('Y') - 100; $i--)
+                                                <option value="{{$i}}">{{$i}}</option>
+                                                @endfor
+                                            </select>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-12">
+                            <div class="form-group">
+                                <label class="form-label">Akhir Tunjangan Keluarga</label>
+                                <div class="row gutters-xs">
+                                    <div class="col-3">
+                                        <select name="atk[day]" class="form-control custom-select" id="day" required>
+                                            <option value="">Hari</option>
+                                            @for ($i=1; $i <= 31; $i++) <option value="{{sprintf('%02d', $i)}}">
+                                                {{sprintf('%02d', $i)}}</option>
+                                                @endfor
+                                        </select>
+                                    </div>
+                                    <div class="col-5">
+                                        <select name="atk[month]" class="form-control custom-select" id="month"
+                                            required>
+                                            <option value="">Bulan</option>
+                                            <option value="01">Januari</option>
+                                            <option value="02">Februari</option>
+                                            <option value="03">Maret</option>
+                                            <option value="04">April</option>
+                                            <option value="05">Mei</option>
+                                            <option value="06">Juni</option>
+                                            <option value="07">Juli</option>
+                                            <option value="08">Augustus</option>
+                                            <option value="09">September</option>
+                                            <option value="10">Oktober</option>
+                                            <option value="11">November</option>
+                                            <option value="12">Desember</option>
+                                        </select>
+                                    </div>
+                                    <div class="col-4">
+                                        <select name="atk[year]" class="form-control custom-select" id="year" required>
+                                            <option value="">Tahun</option>
+                                            @for ($i=date('Y'); $i >= date('Y') - 100; $i--)
+                                            <option value="{{$i}}">{{$i}}</option>
+                                            @endfor
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+                    <button type="submit" class="btn btn-primary" id="loader-sms">Tambah</button>
+
+                </div>
+            </form>
+
+        </div>
+    </div>
+</div>
 @endsection
 
 @push('scripts')
@@ -320,6 +512,27 @@
             },
             error: function () {
                 toastr.error('SMS gagal!', 'Failed');
+            }
+        });
+    });
+
+    $('#formKeluarga form').submit(function(e) {
+        e.preventDefault();
+        var url = '{{ route("dash.keluarga.store") }}';
+        $('#loader-keluarga').addClass('btn-loading');
+
+        $.ajax({
+            url: url,
+            type: 'POST',
+            data: $('#formKeluarga form').serialize(),
+            success: function (data) {
+                $('#loader-keluarga').removeClass('btn-loading');
+                $('#resultKeluarga').show();
+                $('#gatot').html('Gaji Total: ' + data.estimate['gatot']);
+                toastr.success(data.message, "Success");
+            },
+            error: function () {
+                toastr.error('Gagal memproses data', 'Failed');
             }
         });
     });

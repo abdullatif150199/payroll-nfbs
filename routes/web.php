@@ -121,6 +121,12 @@ Route::group(['prefix' => 'dashboard', 'as' => 'dash.', 'middleware' => ['auth']
         Route::delete('potongan/{id}', 'PotonganController@destroy')->name('potongan.destroy');
         Route::delete('potongan/{potongan_id}/{karyawan_id}/delete', 'PotonganController@detach')->name('potongan.detach');
 
+        // keluarga
+        Route::post('keluarga', 'KeluargaController@store')->name('keluarga.store');
+        Route::get('keluarga/{id}/edit', 'KeluargaController@edit')->name('keluarga.edit');
+        Route::put('keluarga/{id}', 'KeluargaController@update')->name('keluarga.update');
+        Route::delete('keluarga/{id}', 'KeluargaController@destroy')->name('keluarga.destroy');
+
         Route::group(['prefix' => 'setting'], function () {
             // General Information
             Route::get('/', 'SettingController@index')->name('setting');

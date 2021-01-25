@@ -8,6 +8,16 @@ class Keluarga extends Model
 {
     protected $table = 'keluarga';
 
+    protected $fillable = [
+        'karyawan_id',
+        'nama',
+        'status_keluarga_id',
+        'tanggal_lahir',
+        'tunjangan_pendidikan',
+        'akhir_tunj_pendidikan',
+        'akhir_tunj_keluarga'
+    ];
+
     protected $dates = ['akhir_tunj_keluarga'];
 
     public function karyawan()
