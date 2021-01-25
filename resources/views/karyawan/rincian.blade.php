@@ -197,13 +197,33 @@
                                 <tr>
                                     <th>Nama</th>
                                     <th>Status</th>
+                                    <th>Tunj Keluarga Sampai</th>
                                     <th></th>
                                 </tr>
                             </thead>
-                            <tbody>
+                            <tbody id="row">
+                                @if ($data->keluarga->count() > 0)
+                                @foreach ($data->keluarga as $item)
+                                <tr>
+                                    <td>{{ $item->nama }}</td>
+                                    <td><strong>{{ $item->statusKeluarga->status }}</strong></td>
+                                    <td><strong>{{ date('d M Y', strtotime($item->akhir_tunj_keluarga)) }}</strong></td>
+                                    <td>
+                                        <a class="icon mr-2" onclick="editKeluarga({{ $item->id }})" title="edit">
+                                            <i class="fe fe-edit"></i>
+                                        </a>
+
+                                        <a class="icon" onclick="hapusKeluarga({{ $item->id }})" title="hapus">
+                                            <i class="fe fe-trash"></i>
+                                        </a>
+                                    </td>
+                                </tr>
+                                @endforeach
+                                @else
                                 <tr>
                                     <td colspan="3" class="text-center">Tidak tersedia</td>
                                 </tr>
+                                @endif
                             </tbody>
                         </table>
                     </div>
@@ -346,7 +366,7 @@
                         <div class="col-md-12">
                             <div class="form-group">
                                 <label class="form-label">Status Keluarga</label>
-                                <select name="status_keluarga_id" class="form-control">
+                                <select name="status_keluarga_id" id="status_keluarga" class="form-control">
                                     <option value="">Pilih</option>
                                     @foreach (App\Models\StatusKeluarga::pluck('id', 'status') as $key => $value)
                                     <option value="{{ $value }}">{{ $key }}</option>
@@ -367,8 +387,7 @@
                                     <label class="form-label">Akhir Tunjangan Pendidikan</label>
                                     <div class="row gutters-xs">
                                         <div class="col-3">
-                                            <select name="atp[day]" class="form-control custom-select" id="day"
-                                                required>
+                                            <select name="atp[day]" class="form-control custom-select">
                                                 <option value="">Hari</option>
                                                 @for ($i=1; $i <= 31; $i++) <option value="{{sprintf('%02d', $i)}}">
                                                     {{sprintf('%02d', $i)}}</option>
@@ -376,8 +395,7 @@
                                             </select>
                                         </div>
                                         <div class="col-5">
-                                            <select name="atp[month]" class="form-control custom-select" id="month"
-                                                required>
+                                            <select name="atp[month]" class="form-control custom-select">
                                                 <option value="">Bulan</option>
                                                 <option value="01">Januari</option>
                                                 <option value="02">Februari</option>
@@ -394,8 +412,7 @@
                                             </select>
                                         </div>
                                         <div class="col-4">
-                                            <select name="atp[year]" class="form-control custom-select" id="year"
-                                                required>
+                                            <select name="atp[year]" class="form-control custom-select">
                                                 <option value="">Tahun</option>
                                                 @for ($i=date('Y'); $i >= date('Y') - 100; $i--)
                                                 <option value="{{$i}}">{{$i}}</option>
@@ -411,7 +428,7 @@
                                 <label class="form-label">Akhir Tunjangan Keluarga</label>
                                 <div class="row gutters-xs">
                                     <div class="col-3">
-                                        <select name="atk[day]" class="form-control custom-select" id="day" required>
+                                        <select name="atk[day]" class="form-control custom-select">
                                             <option value="">Hari</option>
                                             @for ($i=1; $i <= 31; $i++) <option value="{{sprintf('%02d', $i)}}">
                                                 {{sprintf('%02d', $i)}}</option>
@@ -419,8 +436,7 @@
                                         </select>
                                     </div>
                                     <div class="col-5">
-                                        <select name="atk[month]" class="form-control custom-select" id="month"
-                                            required>
+                                        <select name="atk[month]" class="form-control custom-select">
                                             <option value="">Bulan</option>
                                             <option value="01">Januari</option>
                                             <option value="02">Februari</option>
@@ -437,7 +453,7 @@
                                         </select>
                                     </div>
                                     <div class="col-4">
-                                        <select name="atk[year]" class="form-control custom-select" id="year" required>
+                                        <select name="atk[year]" class="form-control custom-select">
                                             <option value="">Tahun</option>
                                             @for ($i=date('Y'); $i >= date('Y') - 100; $i--)
                                             <option value="{{$i}}">{{$i}}</option>
@@ -452,7 +468,7 @@
                 <div class="modal-footer">
 
                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
-                    <button type="submit" class="btn btn-primary" id="loader-sms">Tambah</button>
+                    <button type="submit" class="btn btn-primary" id="submit-keluarga">Tambah</button>
 
                 </div>
             </form>
@@ -467,6 +483,15 @@
     $.ajaxSetup({
         headers: {
             'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+        }
+    });
+
+    $('#status_keluarga').change(function () {
+        var val = $(this).val();
+        if (val == '3') {
+            $('#tunj_pendidikan').show();
+        } else {
+            $('#tunj_pendidikan').hide();
         }
     });
 
@@ -519,17 +544,18 @@
     $('#formKeluarga form').submit(function(e) {
         e.preventDefault();
         var url = '{{ route("dash.keluarga.store") }}';
-        $('#loader-keluarga').addClass('btn-loading');
+        $('#submit-keluarga').addClass('btn-loading');
 
         $.ajax({
             url: url,
             type: 'POST',
             data: $('#formKeluarga form').serialize(),
             success: function (data) {
-                $('#loader-keluarga').removeClass('btn-loading');
-                $('#resultKeluarga').show();
-                $('#gatot').html('Gaji Total: ' + data.estimate['gatot']);
-                toastr.success(data.message, "Success");
+                $("#formKeluarga form")[0].reset();
+                $('#submit-keluarga').removeClass('btn-loading');
+                $('#row').append('<tr><td>'+ data.nama +'</td><td><strong>'+ data.status_keluarga.status +'</strong></td><td><strong>'+ data.atk +'</strong></td><td><a class="icon mr-2" onclick="editKeluarga('+ data.id +')" title="edit"><i class="fe fe-edit"></i></a><a class="icon" onclick="hapusKeluarga('+ data.id +')" title="hapus"><i class="fe fe-trash"></i></a></td></tr>');
+                $('#formKeluarga').modal('hide');
+                toastr.success("Data berhasil diproses", "Success");
             },
             error: function () {
                 toastr.error('Gagal memproses data', 'Failed');

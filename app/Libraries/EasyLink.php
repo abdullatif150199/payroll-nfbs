@@ -11,7 +11,9 @@ class EasyLink
     {
         $curl = curl_init();
         set_time_limit(0);
-        curl_setopt_array($curl, array(
+        curl_setopt_array(
+            $curl,
+            array(
                 CURLOPT_PORT => $port,
                 CURLOPT_URL => "http://" . $url,
                 CURLOPT_RETURNTRANSFER => true,
