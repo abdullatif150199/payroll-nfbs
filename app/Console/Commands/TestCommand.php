@@ -43,6 +43,36 @@ class TestCommand extends Command
      */
     public function handle()
     {
+        $this->fingerTest();
+    }
+
+    public function fingerTest()
+    {
+        $finger = new EasyLink;
+        $device = Device::find(1);
+
+        $serial = $device->serial_number;
+        $port = $device->server_port;
+        $ip = $device->server_ip;
+        $scanlogs = $finger->newScan($serial, $port, $ip);
+
+        // kalo True
+        if ($scanlogs->Result) {
+            foreach ($scanlogs->Data as $scan) {
+                dd($scan);
+                $karyawan = Karyawan::where('pin', $scan->PIN)->first();
+                $karyawan->kehadiran()->create([
+                        'jam_masuk' => date('H:i:s', strtotime($scan->ScanDate)),
+                        'tanggal' => date('Y-m-d', strtotime($scan->ScanDate))
+                    ]);
+            }
+        }
+
+        return $this->info('finish');
+    }
+
+    public function testGaji()
+    {
         $data = NilaiKinerja::all();
         $karyawan = Karyawan::find(1);
         $gaji = Gaji::find(7);
@@ -66,30 +96,5 @@ class TestCommand extends Command
         $this->info('lembur: ' . $karyawan->lembur()->sumLembur($this->bln));
         // 'lain_lain' => 0,
         $this->info('insentif: ' . $karyawan->insentif()->bulan($this->bln)->sum('jumlah'));
-    }
-
-    public function fingerTest()
-    {
-        $finger = new EasyLink;
-        $devices = Device::all();
-
-        foreach ($devices as $device) {
-            $serial = $device->serial_number;
-            $port = $device->server_port;
-            $ip = $device->server_ip;
-            $scanlogs = $finger->newScan($serial, $port, $ip);
-
-            // kalo True
-            if ($scanlogs->Result) {
-                foreach ($scanlogs->Data as $scan) {
-                    $karyawan = Karyawan::where('pin', $scan->PIN)->first();
-                    $karyawan->kehadiranHariIni()->update([
-                        'jam_pulang' => date('H:i:s', strtotime($scan->ScanDate))
-                    ]);
-                }
-            }
-        }
-
-        return $this->info('finish');
     }
 }

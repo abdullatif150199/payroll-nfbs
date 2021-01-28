@@ -7,14 +7,14 @@ use App\Libraries\EasyLink;
 use App\Models\Karyawan;
 use App\Models\Device;
 
-class ScanlogShift extends Command
+class ScanlogNonShift extends Command
 {
     /**
      * The name and signature of the console command.
      *
      * @var string
      */
-    protected $signature = 'scanlog:shift';
+    protected $signature = 'scanlog:nonshift';
 
     /**
      * The console command description.
@@ -42,7 +42,7 @@ class ScanlogShift extends Command
     {
         $finger = new EasyLink;
         $devices = Device::where('tipe', '1')->get();
-        $ioMode = ['1' => 'shift 1 masuk', '2' => 'shift 2 pulang', '3' => 'shift 2 masuk', '4' => 'shift 2 pulang'];
+        $ioMode = ['1' => 'masuk', '2' => 'istirahat', '3' => 'kembali', '4' => 'pulang'];
 
         foreach ($devices as $device) {
             $serial = $device->serial_number;
@@ -55,7 +55,7 @@ class ScanlogShift extends Command
                 foreach ($scanlogs->Data as $scan) {
                     $karyawan = Karyawan::where('no_induk', $scan->PIN)->first();
 
-                    // Masuk shift 1
+                    // Masuk
                     if ($scan->IOMode === 1) {
                         $karyawan->kehadiran()->updateOrCreate([
                             'tanggal' => date('Y-m-d', strtotime($scan->ScanDate))
@@ -64,44 +64,26 @@ class ScanlogShift extends Command
                         ]);
                     }
 
-                    // Pulang shift 1
+                    // Istirahat
                     if ($scan->IOMode === 2) {
                         $karyawan->kehadiran()->updateOrCreate([
                             'tanggal' => date('Y-m-d', strtotime($scan->ScanDate))
                         ], [
-                            'jam_pulang' => date('H:i:s', strtotime($scan->ScanDate))
+                            'jam_istirahat' => date('H:i:s', strtotime($scan->ScanDate))
                         ]);
                     }
 
-                    // Masuk shift 2
+                    // Kembali
                     if ($scan->IOMode === 3) {
                         $karyawan->kehadiran()->updateOrCreate([
                             'tanggal' => date('Y-m-d', strtotime($scan->ScanDate))
                         ], [
-                            'jam_masuk' => date('H:i:s', strtotime($scan->ScanDate))
+                            'jam_kembali' => date('H:i:s', strtotime($scan->ScanDate))
                         ]);
                     }
 
-                    // Pulang shift 2
+                    // Pulang
                     if ($scan->IOMode === 4) {
-                        $karyawan->kehadiran()->updateOrCreate([
-                            'tanggal' => date('Y-m-d', strtotime($scan->ScanDate))
-                        ], [
-                            'jam_pulang' => date('H:i:s', strtotime($scan->ScanDate))
-                        ]);
-                    }
-
-                    // Masuk shift 3
-                    if ($scan->IOMode === 5) {
-                        $karyawan->kehadiran()->updateOrCreate([
-                            'tanggal' => date('Y-m-d', strtotime($scan->ScanDate))
-                        ], [
-                            'jam_masuk' => date('H:i:s', strtotime($scan->ScanDate))
-                        ]);
-                    }
-
-                    // Pulang shift 3
-                    if ($scan->IOMode === 6) {
                         $karyawan->kehadiran()->updateOrCreate([
                             'tanggal' => date('Y-m-d', strtotime($scan->ScanDate))
                         ], [

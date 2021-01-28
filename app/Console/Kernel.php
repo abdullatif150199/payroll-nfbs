@@ -13,10 +13,8 @@ class Kernel extends ConsoleKernel
      * @var array
      */
     protected $commands = [
-        Commands\ScanlogMasuk::class,
-        Commands\ScanlogIstirahat::class,
-        Commands\ScanlogKembali::class,
-        Commands\ScanlogPulang::class,
+        Commands\ScanlogNonShift::class,
+        Commands\ScanlogShift::class,
     ];
 
     /**
@@ -27,18 +25,12 @@ class Kernel extends ConsoleKernel
      */
     protected function schedule(Schedule $schedule)
     {
-        $schedule->command('scanlog:masuk')
+        $schedule->command('scanlog:nonshift')
                 ->withoutOverlapping()
-                ->between('05:30', '9:00');
-        $schedule->command('scanlog:istirahat')
+                ->everyThirtyMinutes();
+        $schedule->command('scanlog:shift')
                 ->withoutOverlapping()
-                ->between('11:00', '12:45');
-        $schedule->command('scanlog:kembali')
-                ->withoutOverlapping()
-                ->between('12:50', '14:30');
-        $schedule->command('scanlog:pulang')
-                ->withoutOverlapping()
-                ->between('15:00', '17:00');
+                ->everyThirtyMinutes();
     }
 
     /**
