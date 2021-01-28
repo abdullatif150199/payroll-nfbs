@@ -11,7 +11,7 @@
 |
 */
 
-Route::get('/', 'HomeController@toLogin');
+// Route::get('/', 'HomeController@toLogin');
 Route::get('/home', 'HomeController@index')->name('home');
 Route::get('/coming-soon', 'HomeController@coming')->name('coming-soon');
 
