@@ -204,7 +204,7 @@
                             <tbody id="row">
                                 @if ($data->keluarga->count() > 0)
                                 @foreach ($data->keluarga as $item)
-                                <tr>
+                                <tr id="r{{ $item->id }}">
                                     <td>{{ $item->nama }}</td>
                                     <td><strong>{{ $item->statusKeluarga->status }}</strong></td>
                                     <td><strong>{{ date('d M Y', strtotime($item->akhir_tunj_keluarga)) }}</strong></td>
@@ -256,226 +256,8 @@
     </div>
 </div>
 
-{{-- Modal SMS --}}
-<div class="modal fade" id="smsKaryawan">
-    <div class="modal-dialog">
-        <div class="modal-content">
+@include('karyawan.modals_rincian')
 
-            <!-- Modal Header -->
-            <div class="modal-header">
-                <h4 class="modal-title">SMS Pegawai</h4>
-                <button type="button" class="close" data-dismiss="modal"></button>
-            </div>
-
-            <form method="post">
-                {{ csrf_field() }}
-                <div class="modal-body">
-                    <div class="row">
-                        <div class="col-md-12">
-                            <div class="form-group">
-                                <label class="form-label">Nomor Tujuan</label>
-                                <input type="text" class="form-control" name="no_hp" value="{{ $data->no_hp }}"
-                                    readonly>
-                            </div>
-                        </div>
-                        <div class="col-md-12">
-                            <div class="form-group">
-                                <label class="form-label">Isi Pesan</label>
-                                <textarea class="form-control" name="pesan" rows="8"
-                                    cols="80">Assalaamualaikum...</textarea>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="modal-footer">
-
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
-                    <button type="submit" class="btn btn-primary" id="loader-sms">Kirim</button>
-
-                </div>
-            </form>
-
-        </div>
-    </div>
-</div>
-
-{{-- Modal keluarga --}}
-<div class="modal fade" id="formKeluarga">
-    <div class="modal-dialog">
-        <div class="modal-content">
-
-            <!-- Modal Header -->
-            <div class="modal-header">
-                <h4 class="modal-title">Keluarga</h4>
-                <button type="button" class="close" data-dismiss="modal"></button>
-            </div>
-
-            <form method="post">
-                {{ csrf_field() }}
-                <input type="hidden" name="karyawan_id" value="{{ $data->id }}">
-                <div class="modal-body">
-                    <div class="row">
-                        <div class="col-md-12">
-                            <div class="form-group">
-                                <label class="form-label">Nama Keluarga</label>
-                                <input type="text" class="form-control" name="nama" required>
-                            </div>
-                        </div>
-                        <div class="col-md-12">
-                            <div class="form-group">
-                                <label class="form-label">Tanggal Lahir</label>
-                                <div class="row gutters-xs">
-                                    <div class="col-3">
-                                        <select name="birth[day]" class="form-control custom-select" id="day" required>
-                                            <option value="">Hari</option>
-                                            @for ($i=1; $i <= 31; $i++) <option value="{{sprintf('%02d', $i)}}">
-                                                {{sprintf('%02d', $i)}}</option>
-                                                @endfor
-                                        </select>
-                                    </div>
-                                    <div class="col-5">
-                                        <select name="birth[month]" class="form-control custom-select" id="month"
-                                            required>
-                                            <option value="">Bulan</option>
-                                            <option value="01">Januari</option>
-                                            <option value="02">Februari</option>
-                                            <option value="03">Maret</option>
-                                            <option value="04">April</option>
-                                            <option value="05">Mei</option>
-                                            <option value="06">Juni</option>
-                                            <option value="07">Juli</option>
-                                            <option value="08">Augustus</option>
-                                            <option value="09">September</option>
-                                            <option value="10">Oktober</option>
-                                            <option value="11">November</option>
-                                            <option value="12">Desember</option>
-                                        </select>
-                                    </div>
-                                    <div class="col-4">
-                                        <select name="birth[year]" class="form-control custom-select" id="year"
-                                            required>
-                                            <option value="">Tahun</option>
-                                            @for ($i=date('Y'); $i >= date('Y') - 100; $i--)
-                                            <option value="{{$i}}">{{$i}}</option>
-                                            @endfor
-                                        </select>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-md-12">
-                            <div class="form-group">
-                                <label class="form-label">Status Keluarga</label>
-                                <select name="status_keluarga_id" id="status_keluarga" class="form-control">
-                                    <option value="">Pilih</option>
-                                    @foreach (App\Models\StatusKeluarga::pluck('id', 'status') as $key => $value)
-                                    <option value="{{ $value }}">{{ $key }}</option>
-                                    @endforeach
-                                </select>
-                            </div>
-                        </div>
-                        <div id="tunj_pendidikan" style="display: none">
-                            <div class="col-md-12">
-                                <div class="form-group">
-                                    <label class="form-label">Jml Tunjangan Pendidikan</label>
-                                    <input type="text" class="form-control" name="tunjangan_pendidikan"
-                                        data-mask="000,000,000" data-mask-reverse="true" autocomplete="off">
-                                </div>
-                            </div>
-                            <div class="col-md-12">
-                                <div class="form-group">
-                                    <label class="form-label">Akhir Tunjangan Pendidikan</label>
-                                    <div class="row gutters-xs">
-                                        <div class="col-3">
-                                            <select name="atp[day]" class="form-control custom-select">
-                                                <option value="">Hari</option>
-                                                @for ($i=1; $i <= 31; $i++) <option value="{{sprintf('%02d', $i)}}">
-                                                    {{sprintf('%02d', $i)}}</option>
-                                                    @endfor
-                                            </select>
-                                        </div>
-                                        <div class="col-5">
-                                            <select name="atp[month]" class="form-control custom-select">
-                                                <option value="">Bulan</option>
-                                                <option value="01">Januari</option>
-                                                <option value="02">Februari</option>
-                                                <option value="03">Maret</option>
-                                                <option value="04">April</option>
-                                                <option value="05">Mei</option>
-                                                <option value="06">Juni</option>
-                                                <option value="07">Juli</option>
-                                                <option value="08">Augustus</option>
-                                                <option value="09">September</option>
-                                                <option value="10">Oktober</option>
-                                                <option value="11">November</option>
-                                                <option value="12">Desember</option>
-                                            </select>
-                                        </div>
-                                        <div class="col-4">
-                                            <select name="atp[year]" class="form-control custom-select">
-                                                <option value="">Tahun</option>
-                                                @for ($i=date('Y'); $i >= date('Y') - 100; $i--)
-                                                <option value="{{$i}}">{{$i}}</option>
-                                                @endfor
-                                            </select>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-md-12">
-                            <div class="form-group">
-                                <label class="form-label">Akhir Tunjangan Keluarga</label>
-                                <div class="row gutters-xs">
-                                    <div class="col-3">
-                                        <select name="atk[day]" class="form-control custom-select">
-                                            <option value="">Hari</option>
-                                            @for ($i=1; $i <= 31; $i++) <option value="{{sprintf('%02d', $i)}}">
-                                                {{sprintf('%02d', $i)}}</option>
-                                                @endfor
-                                        </select>
-                                    </div>
-                                    <div class="col-5">
-                                        <select name="atk[month]" class="form-control custom-select">
-                                            <option value="">Bulan</option>
-                                            <option value="01">Januari</option>
-                                            <option value="02">Februari</option>
-                                            <option value="03">Maret</option>
-                                            <option value="04">April</option>
-                                            <option value="05">Mei</option>
-                                            <option value="06">Juni</option>
-                                            <option value="07">Juli</option>
-                                            <option value="08">Augustus</option>
-                                            <option value="09">September</option>
-                                            <option value="10">Oktober</option>
-                                            <option value="11">November</option>
-                                            <option value="12">Desember</option>
-                                        </select>
-                                    </div>
-                                    <div class="col-4">
-                                        <select name="atk[year]" class="form-control custom-select">
-                                            <option value="">Tahun</option>
-                                            @for ($i=date('Y'); $i >= date('Y') - 100; $i--)
-                                            <option value="{{$i}}">{{$i}}</option>
-                                            @endfor
-                                        </select>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="modal-footer">
-
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
-                    <button type="submit" class="btn btn-primary" id="submit-keluarga">Tambah</button>
-
-                </div>
-            </form>
-
-        </div>
-    </div>
-</div>
 @endsection
 
 @push('scripts')
@@ -543,8 +325,16 @@
 
     $('#formKeluarga form').submit(function(e) {
         e.preventDefault();
-        var url = '{{ route("dash.keluarga.store") }}';
+        var id = $('input[name=id]').val();
+        var save_method = $('input[name=_method]').val();
         $('#submit-keluarga').addClass('btn-loading');
+
+        if (save_method == 'POST') {
+            url = '{{ route('dash.keluarga.store') }}';
+        } else {
+            url_raw = '{{ route('dash.keluarga.update', ':id') }}';
+            url = url_raw.replace(':id', id);
+        }
 
         $.ajax({
             url: url,
@@ -553,9 +343,72 @@
             success: function (data) {
                 $("#formKeluarga form")[0].reset();
                 $('#submit-keluarga').removeClass('btn-loading');
-                $('#row').append('<tr><td>'+ data.nama +'</td><td><strong>'+ data.status_keluarga.status +'</strong></td><td><strong>'+ data.atk +'</strong></td><td><a class="icon mr-2" onclick="editKeluarga('+ data.id +')" title="edit"><i class="fe fe-edit"></i></a><a class="icon" onclick="hapusKeluarga('+ data.id +')" title="hapus"><i class="fe fe-trash"></i></a></td></tr>');
+                $('#row').append('<tr id="r'+ data.id +'"><td>'+ data.nama +'</td><td><strong>'+ data.status_keluarga.status +'</strong></td><td><strong>'+ data.atk +'</strong></td><td><a class="icon mr-2" onclick="editKeluarga('+ data.id +')" title="edit"><i class="fe fe-edit"></i></a><a class="icon" onclick="hapusKeluarga('+ data.id +')" title="hapus"><i class="fe fe-trash"></i></a></td></tr>');
                 $('#formKeluarga').modal('hide');
                 toastr.success("Data berhasil diproses", "Success");
+            },
+            error: function () {
+                toastr.error('Gagal memproses data', 'Failed');
+            }
+        });
+    });
+
+    function editKeluarga(id) {
+        var url = '{{ route('dash.keluarga.edit', ':id') }}';
+        url = url.replace(':id', id);
+        $('input[name=_method]').val('PUT');
+        $('#select2').remove();
+        $('#formKeluarga form')[0].reset();
+        $.ajax({
+            url: url,
+            type: 'GET',
+            dataType: 'JSON',
+            success: function (data) {
+                $('#formKeluarga').modal('show');
+                var date = data.tanggal_lahir;
+                var arr = date.split("-");
+                var akhir_tunj_keluarga = data.akhir_tunj_keluarga;
+                var atk = akhir_tunj_keluarga.split("-");
+                $('input[name=nama]').val(data.nama);
+                $('#birth_day').val(arr[2]);
+                $('#birth_month').val(arr[1]);
+                $('#birth_year').val(arr[0]);
+                $('#atk_day').val(arr[2]);
+                $('#atk_month').val(arr[1]);
+                $('#atk_year').val(arr[0]);
+                $('#status_keluarga').val(data.status_keluarga_id);
+                $('#status_keluarga').change(function () {
+                    var val = $(this).val();
+                    if (val == '3') {
+                        $('#tunj_pendidikan').show();
+                    } else {
+                        $('#tunj_pendidikan').hide();
+                    }
+                });
+
+            }
+        });
+    }
+
+    function hapusKeluarga(id) {
+        $('input[name=id]').val(id);
+        $('#hapusKeluarga .modal-body').text('Yakin ingin menghapus?');
+        $('#hapusKeluarga').modal('show');
+    }
+
+    $('#hapusKeluarga form').submit(function(e) {
+        e.preventDefault();
+        var id = $('input[name=id]').val();
+        var url = '{{ route('dash.keluarga.destroy', ':id') }}';
+        url = url.replace(':id', id);
+
+        $.ajax({
+            url: url,
+            type: "DELETE",
+            success: function (data) {
+                $('#hapusKeluarga').modal('hide');
+                $('#r' + id).remove();
+                toastr.success(data.message, "Success");
             },
             error: function () {
                 toastr.error('Gagal memproses data', 'Failed');

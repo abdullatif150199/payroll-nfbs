@@ -3,7 +3,9 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Jobs\ProcessPayroll;
 use App\Models\Keluarga;
+use App\Models\Karyawan;
 
 class KeluargaController extends Controller
 {
@@ -27,5 +29,26 @@ class KeluargaController extends Controller
         $keluarga->load('statusKeluarga');
 
         return response()->json($keluarga, 200);
+    }
+
+    public function edit($id)
+    {
+        $get = Keluarga::findOrFail($id);
+        return $get;
+    }
+
+    public function destroy($id)
+    {
+        $get = Keluarga::findOrFail($id);
+        $bln = $get->bulan;
+        $karyawan = Karyawan::findOrFail($get->karyawan_id);
+        $get->delete();
+
+        ProcessPayroll::dispatch($karyawan, $bln);
+
+        return response()->json([
+            'status' => 200,
+            'message' => 'Keluarga berhasil dihapus'
+        ]);
     }
 }
