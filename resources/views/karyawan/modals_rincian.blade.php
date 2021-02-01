@@ -52,8 +52,9 @@
                 <button type="button" class="close" data-dismiss="modal"></button>
             </div>
 
-            <form method="post">
-                {{ csrf_field() }}
+            <form>
+                @csrf
+                @method('POST')
                 <input type="hidden" name="id">
                 <input type="hidden" name="karyawan_id" value="{{ $data->id }}">
                 <div class="modal-body">

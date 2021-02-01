@@ -20,7 +20,7 @@ class KeluargaController extends Controller
             'nama' => $request->nama,
             'status_keluarga_id' => $request->status_keluarga_id,
             'tanggal_lahir' => $request->birth['year'] .'-'. $request->birth['month'] .'-'. $request->birth['day'],
-            'tunjangan_pendidikan' => $request->tunjangan_pendidikan,
+            'tunjangan_pendidikan' => $request->tunjangan_pendidikan ? preg_replace('/\D/', '', $request->tunjangan_pendidikan) : 0,
             'akhir_tunj_penidikan' => $request->atp['year'] .'-'. $request->atp['month'] .'-'. $request->atp['day'],
             'akhir_tunj_keluarga' => $request->atk['year'] .'-'. $request->birth['month'] .'-'. $request->atk['day'],
         ]);
@@ -34,7 +34,33 @@ class KeluargaController extends Controller
     public function edit($id)
     {
         $get = Keluarga::findOrFail($id);
+        $get['atk'] = $get->akhir_tunj_keluarga->format('Y-m-d');
         return $get;
+    }
+
+    public function update(Request $request, $id)
+    {
+        $request->validate([
+            'nama' => 'required|min:3|max:150'
+        ]);
+
+        $keluarga = Keluarga::findOrFail($id);
+
+        $data = [
+            'nama' => $request->nama,
+            'status_keluarga_id' => $request->status_keluarga_id,
+            'tanggal_lahir' => $request->birth['year'] .'-'. $request->birth['month'] .'-'. $request->birth['day'],
+            'tunjangan_pendidikan' => $request->tunjangan_pendidikan ? preg_replace('/\D/', '', $request->tunjangan_pendidikan) : 0,
+            'akhir_tunj_penidikan' => $request->atp['year'] .'-'. $request->atp['month'] .'-'. $request->atp['day'],
+            'akhir_tunj_keluarga' => $request->atk['year'] .'-'. $request->birth['month'] .'-'. $request->atk['day'],
+        ];
+
+        $keluarga->update($data);
+
+        $keluarga['atk'] = date('d M Y', strtotime($keluarga->akhir_tunj_keluarga));
+        $keluarga->load('statusKeluarga');
+
+        return response()->json($keluarga, 200);
     }
 
     public function destroy($id)

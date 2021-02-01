@@ -186,10 +186,9 @@
                         <div class="card-category text-muted text-left mb-4">
                             Keluarga
                             <span class="pull-right">
-                                <a href="#formKeluarga" data-toggle="modal" class="btn btn-primary"
-                                    title="Tambah keluarga">
+                                <button id="newKeluarga" class="btn btn-primary" title="Tambah keluarga">
                                     <i class="fe fe-plus"></i>
-                                </a>
+                                </button>
                             </span>
                         </div>
                         <table class="table card-table table-striped table-vcenter">
@@ -205,9 +204,30 @@
                                 @if ($data->keluarga->count() > 0)
                                 @foreach ($data->keluarga as $item)
                                 <tr id="r{{ $item->id }}">
-                                    <td>{{ $item->nama }}</td>
-                                    <td><strong>{{ $item->statusKeluarga->status }}</strong></td>
-                                    <td><strong>{{ date('d M Y', strtotime($item->akhir_tunj_keluarga)) }}</strong></td>
+                                    <td>
+                                        <div>{{ $item->nama }}</div>
+                                        @if ($item->status_keluarga_id === config('var.status_keluarga_id'))
+                                        <div class="small text-muted">
+                                            Tunjangan Pendidikan
+                                        </div>
+                                        @endif
+                                    </td>
+                                    <td>
+                                        <div>{{ $item->statusKeluarga->status }}</div>
+                                        @if ($item->status_keluarga_id === config('var.status_keluarga_id'))
+                                        <div class="small text-muted">
+                                            {{ number_format($item->tunjangan_pendidikan) }}
+                                        </div>
+                                        @endif
+                                    </td>
+                                    <td>
+                                        <strong>{{ date('d M Y', strtotime($item->akhir_tunj_keluarga)) }}</strong>
+                                        @if ($item->status_keluarga_id === config('var.status_keluarga_id'))
+                                        <div class="small text-muted">
+                                            {{ date('d M Y', strtotime($item->akhir_tunj_pendidikan)) }}
+                                        </div>
+                                        @endif
+                                    </td>
                                     <td>
                                         <a class="icon mr-2" onclick="editKeluarga({{ $item->id }})" title="edit">
                                             <i class="fe fe-edit"></i>
@@ -219,10 +239,6 @@
                                     </td>
                                 </tr>
                                 @endforeach
-                                @else
-                                <tr>
-                                    <td colspan="3" class="text-center">Tidak tersedia</td>
-                                </tr>
                                 @endif
                             </tbody>
                         </table>
@@ -266,6 +282,13 @@
         headers: {
             'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
         }
+    });
+
+    $('#newKeluarga').click(function () {
+        $('.modal-title').text('Tambah Keluarga');
+        $('#formKeluarga').modal('show');
+        $('input[name=_method]').val('POST');
+        $('#formKeluarga form')[0].reset();
     });
 
     $('#status_keluarga').change(function () {
@@ -334,6 +357,7 @@
         } else {
             url_raw = '{{ route('dash.keluarga.update', ':id') }}';
             url = url_raw.replace(':id', id);
+            console.log(save_method);
         }
 
         $.ajax({
@@ -343,7 +367,12 @@
             success: function (data) {
                 $("#formKeluarga form")[0].reset();
                 $('#submit-keluarga').removeClass('btn-loading');
-                $('#row').append('<tr id="r'+ data.id +'"><td>'+ data.nama +'</td><td><strong>'+ data.status_keluarga.status +'</strong></td><td><strong>'+ data.atk +'</strong></td><td><a class="icon mr-2" onclick="editKeluarga('+ data.id +')" title="edit"><i class="fe fe-edit"></i></a><a class="icon" onclick="hapusKeluarga('+ data.id +')" title="hapus"><i class="fe fe-trash"></i></a></td></tr>');
+                if (save_method == 'PUT') {
+                    $('#r'+ data.id +'').html('<td>'+ data.nama +'</td><td><strong>'+ data.status_keluarga.status +'</strong></td><td><strong>'+ data.atk +'</strong></td><td><a class="icon mr-2" onclick="editKeluarga('+ data.id +')" title="edit"><i class="fe fe-edit"></i></a><a class="icon" onclick="hapusKeluarga('+ data.id +')" title="hapus"><i class="fe fe-trash"></i></a></td>');
+                }
+                if (save_method == 'POST') {
+                    $('#row').append('<tr id="r'+ data.id +'"><td>'+ data.nama +'</td><td><strong>'+ data.status_keluarga.status +'</strong></td><td><strong>'+ data.atk +'</strong></td><td><a class="icon mr-2" onclick="editKeluarga('+ data.id +')" title="edit"><i class="fe fe-edit"></i></a><a class="icon" onclick="hapusKeluarga('+ data.id +')" title="hapus"><i class="fe fe-trash"></i></a></td></tr>');
+                }
                 $('#formKeluarga').modal('hide');
                 toastr.success("Data berhasil diproses", "Success");
             },
@@ -356,36 +385,39 @@
     function editKeluarga(id) {
         var url = '{{ route('dash.keluarga.edit', ':id') }}';
         url = url.replace(':id', id);
+        $('#formKeluarga form')[0].reset();
         $('input[name=_method]').val('PUT');
         $('#select2').remove();
-        $('#formKeluarga form')[0].reset();
         $.ajax({
             url: url,
             type: 'GET',
             dataType: 'JSON',
             success: function (data) {
                 $('#formKeluarga').modal('show');
+                $('input[name=id]').val(data.id);
                 var date = data.tanggal_lahir;
                 var arr = date.split("-");
-                var akhir_tunj_keluarga = data.akhir_tunj_keluarga;
-                var atk = akhir_tunj_keluarga.split("-");
+                var atk = data.atk;
+                var atk = atk.split("-");
+                console.log(atk);
                 $('input[name=nama]').val(data.nama);
                 $('#birth_day').val(arr[2]);
                 $('#birth_month').val(arr[1]);
                 $('#birth_year').val(arr[0]);
-                $('#atk_day').val(arr[2]);
-                $('#atk_month').val(arr[1]);
-                $('#atk_year').val(arr[0]);
+                $('#atk_day').val(atk[2]);
+                $('#atk_month').val(atk[1]);
+                $('#atk_year').val(atk[0]);
                 $('#status_keluarga').val(data.status_keluarga_id);
-                $('#status_keluarga').change(function () {
-                    var val = $(this).val();
-                    if (val == '3') {
-                        $('#tunj_pendidikan').show();
-                    } else {
-                        $('#tunj_pendidikan').hide();
-                    }
-                });
-
+                var atp = data.akhir_tunj_pendidikan;
+                var atp = atp.split("-");
+                console.log(atp);
+                $('#atp_day').val(atp[2]);
+                $('#atp_month').val(atp[1]);
+                $('#atp_year').val(atp[0]);
+                $('input[name=tunjangan_pendidikan]').val(data.tunjangan_pendidikan);
+                if (data.status_keluarga_id == '3') {
+                    $('#tunj_pendidikan').show();
+                }
             }
         });
     }

@@ -19,13 +19,13 @@ class StatusKeluargaController extends Controller
         $data = StatusKeluarga::all();
 
         return Datatables::of($data)
-            ->editColumn('persentase', function($data) {
+            ->editColumn('persentase', function ($data) {
                 return $data->to_persen . '% dari GAPOK';
             })
-            ->editColumn('jml_peserta', function($data) {
+            ->editColumn('jml_peserta', function ($data) {
                 return $data->keluarga()->count();
             })
-            ->addColumn('actions', function($data) {
+            ->addColumn('actions', function ($data) {
                 return view('status_keluarga.actions', ['data' => $data]);
             })
             ->rawColumns(['actions', 'persentase', 'jml_peserta'])
@@ -72,6 +72,13 @@ class StatusKeluargaController extends Controller
 
     public function destroy($id)
     {
+        if ($id == config('var.status_keluarga_id')) {
+            return response()->json([
+                'status' => 403,
+                'message' => 'Item ini tidak boleh dihapus'
+            ]);
+        }
+
         $get = StatusKeluarga::with('keluarga')->findOrFail($id);
 
         if ($get->keluarga->count() > 0) {
