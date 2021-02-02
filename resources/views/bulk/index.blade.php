@@ -32,43 +32,78 @@
 <div class="card">
     <div class="card-header">
         <h3 class="card-title">
-            Bulk Upload
+            Bulk Import
         </h3>
         <div class="card-options">
-            <a href="#confirm" data-toggle="modal" class="btn btn-primary">
-                <i class="fe fe-plus"></i> Tambah Data Dari Spreadsheet
-            </a>
+            <a href="/files/format_import.xlsx" class="btn btn-secondary" download="FormatImport">Download format
+                excel</a>
         </div>
     </div>
-    @if (!empty($errorItems))
-    <div class="table-responsive">
-        <table class="table card-table table-vcenter text-nowra" id="errorTable">
-            <thead>
-                <tr>
-                    <th>IP Server</th>
-                    <th>Port Server</th>
-                    <th>Serial Number</th>
-                    <th>Tipe</th>
-                    <th>Opsi</th>
-                </tr>
-            </thead>
-            <tbody>
-                @foreach ($errorItems as $item)
-                <tr>
-                    <td>adgagag</td>
-                    <td>adgagag</td>
-                    <td>adgagag</td>
-                    <td>adgagag</td>
-                    <td>adgagag</td>
-                </tr>
-                @endforeach
-            </tbody>
+    <div class="card-body">
+        @if (session('status'))
+        <div class="alert alert-success" role="alert">
+            {{ session('status') }}
+        </div>
+        @endif
+
+        @if (isset($errors) && $errors->any())
+        <div class="alert alert-danger">
+            @foreach ($errors->all() as $error)
+            {{ $error }}
+            @endforeach
+        </div>
+        @endif
+
+        <form action="{{ route('dash.bulkImport.store') }}" method="post" enctype="multipart/form-data">
+            @csrf
+
+            <div class="form-group">
+                {{-- <label class="form-label">Browse file</label> --}}
+                <div class="row gutters-xs">
+                    <div class="col">
+                        <input type="file" name="file" class="form-control custom-file" required>
+                    </div>
+                    <span class="col-auto">
+                        <button class="btn btn-primary" type="submit">
+                            <i class="fe fe-upload"></i> Import data
+                        </button>
+                    </span>
+                </div>
+            </div>
+        </form>
+
+        @if (session()->has('failures'))
+        <strong class="card-title text-danger">Mohon perbaiki kesalahan berikut pada file excel anda!</strong>
+        <table class="table card-table table-vcenter text-nowra table-danger">
+            <tr class="bg-danger">
+                <th class="text-white">Baris</th>
+                <th class="text-white">Kolom</th>
+                <th class="text-white">Pesan Error</th>
+                <th class="text-white">Isian</th>
+            </tr>
+
+            @foreach (session()->get('failures') as $validation)
+            <tr>
+                <td>{{ $validation->row() }}</td>
+                <td>{{ $validation->attribute() }}</td>
+                <td>
+                    <ul>
+                        @foreach ($validation->errors() as $e)
+                        <li>{{ $e }}</li>
+                        @endforeach
+                    </ul>
+                </td>
+                <td>
+                    {{ $validation->values()[$validation->attribute()] }}
+                </td>
+            </tr>
+            @endforeach
         </table>
+        @endif
     </div>
-    @endif
 </div>
 
-@include('bulk.modals')
+{{-- @include('bulk.modals') --}}
 
 @endsection
 

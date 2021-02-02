@@ -173,8 +173,8 @@ Route::group(['prefix' => 'dashboard', 'as' => 'dash.', 'middleware' => ['auth']
             Route::post('device/{id}/check', 'DeviceController@check')->name('device.check');
 
             // Bulk Upload
-            Route::get('bulk-upload', 'BulkUploadController@index')->name('bulkUpload');
-            Route::post('bulk-upload', 'BulkUploadController@store')->name('bulkUpload.store');
+            Route::get('bulk-import', 'BulkImportController@index')->name('bulkImport');
+            Route::post('bulk-import', 'BulkImportController@store')->name('bulkImport.store');
 
             // Bidang
             Route::get('bidang', 'BidangController@index')->name('bidang');

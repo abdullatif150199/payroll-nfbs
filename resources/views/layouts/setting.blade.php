@@ -175,9 +175,9 @@
                                                 </tr>
                                                 <tr>
                                                     <td width="1"><i
-                                                            class="{{ Route::is('dash.bulkUpload') ? 'fa fa-circle' : 'fa fa-circle-o' }} text-primary"></i>
+                                                            class="{{ Route::is('dash.bulkImport') ? 'fa fa-circle' : 'fa fa-circle-o' }} text-primary"></i>
                                                     </td>
-                                                    <td><a href="{{ route('dash.bulkUpload') }}">Bulk Upload</a></td>
+                                                    <td><a href="{{ route('dash.bulkImport') }}">Bulk Import</a></td>
                                                 </tr>
                                                 <tr>
                                                     <td width="1"><i
