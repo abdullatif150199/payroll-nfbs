@@ -105,7 +105,7 @@ class BulkImport implements
         return [
             'nama_lengkap' => ['string', 'required'],
             'no_induk' => ['required', 'digits:6'],
-            '*.email' => ['email', 'unique:users,email'],
+            '*.email' => ['required', 'email', 'unique:users,email'],
             'nik' => ['numeric', 'required', 'digits:16'],
             'alamat' => ['string', 'required'],
             'nama_pendidikan' => ['string', 'required'],
@@ -199,6 +199,9 @@ class BulkImport implements
     {
         return [
             'nama_lengkap.required' => ':attribute tidak boleh kosong',
+            'email.required' => ':attribute tidak boleh kosong',
+            'email.email' => ':attribute harus merupakan email',
+            'email.unique' => ':attribute sudah tersedia',
             'no_induk.required' => ':attribute tidak boleh kosong',
             'no_induk.digits' => ':attribute harus 6 digit',
             'nik.required' => ':attribute tidak boleh kosong',
