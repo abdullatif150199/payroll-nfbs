@@ -43,6 +43,8 @@ class BulkImport implements
             'password' => bcrypt(date('dmY', strtotime($row['tanggal_lahir'])))
         ]);
 
+        $user->assignRole('user');
+
         $user->karyawan()->create([
             'golongan_id' => Cache::get('golongan')[strtoupper($row['golongan'])],
             'status_kerja_id' => Cache::get('status_kerja')[$row['status_kerja']],

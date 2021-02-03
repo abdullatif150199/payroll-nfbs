@@ -141,6 +141,8 @@ class KaryawanController extends Controller
             'password' => bcrypt($request->birth['day'] . $request->birth['month'] . $request->birth['year']),
         ]);
 
+        $user->assignRole('user');
+
         $request->merge([
             'user_id' => $user->id,
             'no_induk' => $no_induk,
