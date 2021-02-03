@@ -206,7 +206,7 @@
                                 <tr id="r{{ $item->id }}">
                                     <td>
                                         <div>{{ $item->nama }}</div>
-                                        @if ($item->tunjangan_pendidikan !== null)
+                                        @if (!empty($item->tunjangan_pendidikan))
                                         @if ($item->status_keluarga_id === config('var.status_keluarga_id'))
                                         <div class="small text-muted">
                                             Tunjangan Pendidikan
@@ -216,7 +216,7 @@
                                     </td>
                                     <td>
                                         <div>{{ $item->statusKeluarga->status }}</div>
-                                        @if ($item->tunjangan_pendidikan !== null)
+                                        @if (!empty($item->tunjangan_pendidikan))
                                         @if ($item->status_keluarga_id === config('var.status_keluarga_id'))
                                         <div class="small text-muted">
                                             {{ number_format($item->tunjangan_pendidikan) }}
@@ -226,7 +226,7 @@
                                     </td>
                                     <td>
                                         <strong>{{ date('d M Y', strtotime($item->akhir_tunj_keluarga)) }}</strong>
-                                        @if ($item->tunjangan_pendidikan !== null)
+                                        @if (!empty($item->tunjangan_pendidikan))
                                         @if ($item->status_keluarga_id === config('var.status_keluarga_id'))
                                         <div class="small text-muted">
                                             {{ date('d M Y', strtotime($item->akhir_tunj_pendidikan)) }}
