@@ -206,26 +206,32 @@
                                 <tr id="r{{ $item->id }}">
                                     <td>
                                         <div>{{ $item->nama }}</div>
+                                        @if ($item->tunjangan_pendidikan !== null)
                                         @if ($item->status_keluarga_id === config('var.status_keluarga_id'))
                                         <div class="small text-muted">
                                             Tunjangan Pendidikan
                                         </div>
                                         @endif
+                                        @endif
                                     </td>
                                     <td>
                                         <div>{{ $item->statusKeluarga->status }}</div>
+                                        @if ($item->tunjangan_pendidikan !== null)
                                         @if ($item->status_keluarga_id === config('var.status_keluarga_id'))
                                         <div class="small text-muted">
                                             {{ number_format($item->tunjangan_pendidikan) }}
                                         </div>
                                         @endif
+                                        @endif
                                     </td>
                                     <td>
                                         <strong>{{ date('d M Y', strtotime($item->akhir_tunj_keluarga)) }}</strong>
+                                        @if ($item->tunjangan_pendidikan !== null)
                                         @if ($item->status_keluarga_id === config('var.status_keluarga_id'))
                                         <div class="small text-muted">
                                             {{ date('d M Y', strtotime($item->akhir_tunj_pendidikan)) }}
                                         </div>
+                                        @endif
                                         @endif
                                     </td>
                                     <td>
