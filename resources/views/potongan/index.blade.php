@@ -190,7 +190,23 @@
     <div class="col-12">
         <div class="card">
             <div class="card-header">
-                <h3 class="card-title">Daftar Potongan</h3>
+                <h3 class="card-title">
+                    <form class="form-inline mb-0" action="{{ route('dash.karyawan.datatable') }}" method="post">
+                        <label for="status_kerja" class="mr-sm-3">Daftar Potongan</label>
+                        <label for="status_kerja" class="mr-sm-3">Bidang </label>
+                        <div class="row gutters-xs">
+                            <div class="col">
+                                <select name="bidang" class="form-control"
+                                    onchange="$('#potonganTable').DataTable().draw()">
+                                    <option value="">Semua bidang</option>
+                                    @foreach (App\Models\Bidang::get() as $bid)
+                                    <option value="{{ $bid->id }}">{{ $bid->nama_bidang }}</option>
+                                    @endforeach
+                                </select>
+                            </div>
+                        </div>
+                    </form>
+                </h3>
                 <div class="card-options">
                     <a href="#daftarPotongan" data-toggle="modal" data-backdrop="static" class="btn btn-primary"><i
                             class="fe fe-list"></i> Daftar Potongan</a>
@@ -224,7 +240,12 @@
             serverSide: true,
             processing: true,
             select: true,
-            ajax: '{{ route('dash.potongan.datatable') }}',
+            ajax: {
+                url: '{{ route('dash.potongan.datatable') }}',
+                data: function (d) {
+                    d.bidang = $('select[name=bidang]').val();
+                }
+            },
             columns: [
                 {data: 'no_induk'},
                 {data: 'nama_lengkap'},

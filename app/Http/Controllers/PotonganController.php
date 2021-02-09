@@ -31,9 +31,15 @@ class PotonganController extends Controller
         return response()->json($data);
     }
 
-    public function datatable()
+    public function datatable(Request $request)
     {
-        $data = Karyawan::with('potongan')->get();
+        $data = Karyawan::with('potongan')
+            ->when($request->bidang, function ($query) use ($request) {
+                $query->whereHas('bidang', function ($q) use ($request) {
+                    $q->where('id', $request->bidang);
+                });
+            })
+            ->get();
 
         return Datatables::of($data)
             ->addColumn('actions', function ($data) {
