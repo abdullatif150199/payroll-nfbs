@@ -26,18 +26,23 @@ class KinerjaController extends Controller
     {
         $bulan = $request->bulan;
         $user = auth()->user();
-        $data = Karyawan::query();
 
         if (!$request->bulan) {
             $bulan = date('Y-m');
         }
 
         if ($user->hasRole(['admin', 'root'])) {
-            $data->with(['gajiOne' => function ($q) use ($bulan) {
+            $data = Karyawan::with(['gajiOne' => function ($q) use ($bulan) {
                 $q->bulan($bulan);
-            }])->latest();
+            }])
+            ->when($request->bidang, function ($q) use ($request) {
+                $q->whereHas('bidang', function ($query) use ($request) {
+                    $query->where('id', $request->bidang);
+                });
+            })
+            ->latest();
         } else {
-            $data->whereHas('bidang', function (Builder $query) use ($user) {
+            $data = Karyawan::whereHas('bidang', function (Builder $query) use ($user) {
                 $query->whereIn('nama_bidang', $user->karyawan->bidang->pluck('nama_bidang'));
             })
             ->orWhereHas('unit', function (Builder $query) use ($user) {
@@ -45,7 +50,8 @@ class KinerjaController extends Controller
             })
             ->with(['gajiOne' => function ($q) use ($bulan) {
                 $q->bulan($bulan);
-            }])->latest();
+            }])
+            ->latest();
         }
 
         $nilai_kinerja = NilaiKinerja::all();

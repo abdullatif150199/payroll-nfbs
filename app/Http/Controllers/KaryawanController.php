@@ -64,29 +64,34 @@ class KaryawanController extends Controller
     public function datatable(Request $request)
     {
         $user = auth()->user();
-        $data = Karyawan::query();
 
-        if ($request->statuskerja != 'berhenti') {
-            if ($user->hasRole(['admin', 'root'])) {
-                $data->with(['jabatan', 'golongan', 'statusKerja', 'unit'])
-                    ->when($request->statuskerja, function ($q) use ($request) {
-                        $q->where('status_kerja_id', $request->statuskerja);
-                    })
-                    ->where('status', '<>', 3)->get();
-            } else {
-                $data->with(['jabatan', 'golongan', 'statusKerja', 'unit'])
-                    ->when($request->statuskerja, function ($q) use ($request) {
-                        $q->where('status_kerja_id', $request->statuskerja);
-                    })
-                    ->whereHas('bidang', function (Builder $query) use ($user) {
-                        $query->whereIn('nama_bidang', $user->karyawan->bidang->pluck('nama_bidang'));
-                    })
-                    ->orWhereHas('unit', function (Builder $query) use ($user) {
-                        $query->whereIn('nama_unit', $user->karyawan->unit->pluck('nama_unit'));
-                    })->where('status', '<>', 3)->get();
-            }
+        if ($user->hasRole(['admin', 'root'])) {
+            $data = Karyawan::with(['jabatan', 'golongan', 'statusKerja', 'unit'])
+                ->when($request->statuskerja, function ($q) use ($request) {
+                    $q->where('status_kerja_id', $request->statuskerja);
+                })
+                ->when($request->bidang, function ($q) use ($request) {
+                    $q->whereHas('bidang', function ($query) use ($request) {
+                        $query->where('id', $request->bidang);
+                    });
+                })
+                ->where('status', '<>', 3)->get();
         } else {
-            $data->with(['jabatan', 'golongan', 'statusKerja', 'unit'])
+            $data = Karyawan::with(['jabatan', 'golongan', 'statusKerja', 'unit'])
+                ->when($request->statuskerja, function ($q) use ($request) {
+                    $q->where('status_kerja_id', $request->statuskerja);
+                })
+                ->whereHas('bidang', function (Builder $query) use ($user) {
+                    $query->whereIn('nama_bidang', $user->karyawan->bidang->pluck('nama_bidang'));
+                })
+                ->orWhereHas('unit', function (Builder $query) use ($user) {
+                    $query->whereIn('nama_unit', $user->karyawan->unit->pluck('nama_unit'));
+                })
+                ->where('status', '<>', 3)->get();
+        }
+
+        if ($request->statuskerja == 'berhenti') {
+            $data = Karyawan::with(['jabatan', 'golongan', 'statusKerja', 'unit'])
                 ->where('status', 3)->get();
         }
 
@@ -102,7 +107,7 @@ class KaryawanController extends Controller
             })
             ->editColumn('jabatan', function ($data) {
                 return $data->jabatan->map(function ($q) {
-                    return $q->nama_jabatan;
+                    return $q->nama_jabatan ?? null;
                 })->implode(',<br>');
             })
             ->editColumn('golongan', function ($data) {
@@ -248,17 +253,18 @@ class KaryawanController extends Controller
         $karyawan = Karyawan::findOrFail($id);
         $golongan = Golongan::findOrFail($request->golongan);
         $kelompok_kerja = KelompokKerja::findOrFail($request->kelompok_kerja);
-        $status_kerja = StatusKerja::findOrFail($request->status_kerja);
         $tunj_fungsional = $golongan->gaji_pokok * $kelompok_kerja->persen;
+        $status_kerja = StatusKerja::findOrFail($request->status_kerja);
+        $gaji_pokok = $golongan->gaji_pokok * $status_kerja->persentase_gaji_pokok;
 
         $data = [
-            'gaji_pokok' => number_format($golongan->gaji_pokok),
+            'gaji_pokok' => number_format($gaji_pokok),
             'tunj_jabatan' => number_format($karyawan->tunj_jabatan),
             'tunj_struktural' => number_format($karyawan->tunj_struktural),
             'tunj_fungsional' => number_format($tunj_fungsional),
             'tunj_kinerja' => number_format($kelompok_kerja->kinerja_normal),
             'gatot' => number_format(array_sum([
-                $golongan->gaji_pokok,
+                $gaji_pokok,
                 $karyawan->tunj_jabatan,
                 $karyawan->tunj_struktural,
                 $tunj_fungsional,

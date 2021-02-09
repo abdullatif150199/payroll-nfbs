@@ -195,7 +195,7 @@
                 <h3 class="card-title">
                     <form class="form-inline" action="{{ route('dash.kinerja.datatable') }}" method="post">
                         <label for="month" class="mr-sm-3">Bulan </label>
-                        <div class="row gutters-xs">
+                        <div class="row gutters-xs mr-2">
                             <div class="col">
                                 <select name="month" class="form-control custom-select"
                                     onchange="$('#daftarKinerja').DataTable().draw()">
@@ -221,6 +221,18 @@
                                     @for ($i=2018; $i <= date('Y'); $i++) <option {{ date('Y') == $i ? 'selected' : ''}}
                                         value="{{$i}}">{{$i}}</option>
                                         @endfor
+                                </select>
+                            </div>
+                        </div>
+                        <label for="status_kerja" class="mr-sm-3">Bidang </label>
+                        <div class="row gutters-xs">
+                            <div class="col">
+                                <select name="bidang" class="form-control"
+                                    onchange="$('#daftarKinerja').DataTable().draw()">
+                                    <option value="">Semua bidang</option>
+                                    @foreach (App\Models\Bidang::get() as $bid)
+                                    <option value="{{ $bid->id }}">{{ $bid->nama_bidang }}</option>
+                                    @endforeach
                                 </select>
                             </div>
                         </div>
@@ -268,13 +280,14 @@
             url: '{{ route('dash.kinerja.datatable') }}',
             data: function (d) {
                 d.bulan = $('select[name=year]').val() + '-' + $('select[name=month]').val();
+                d.bidang = $('select[name=bidang]').val();
             }
         },
         columns: [
             {data: 'no_induk'},
             {data: 'nama_lengkap'},
-            {data: 'jenis_kinerja'},
-            {data: 'nilai_kinerja'}
+            {data: 'jenis_kinerja', searchable: false, orderable: false},
+            {data: 'nilai_kinerja', searchable: false, orderable: false}
         ]
     });
 

@@ -159,9 +159,9 @@
                                         <div class="col-4">
                                             <select id="atp_year" name="atp[year]" class="form-control custom-select">
                                                 <option value="">Tahun</option>
-                                                @for ($i=date('Y'); $i >= date('Y') - 100; $i--)
-                                                <option value="{{$i}}">{{$i}}</option>
-                                                @endfor
+                                                @for ($i=date('Y'); $i <= date('Y') + 50; $i++) <option value="{{$i}}">
+                                                    {{$i}}</option>
+                                                    @endfor
                                             </select>
                                         </div>
                                     </div>
@@ -200,9 +200,9 @@
                                     <div class="col-4">
                                         <select id="atk_year" name="atk[year]" class="form-control custom-select">
                                             <option value="">Tahun</option>
-                                            @for ($i=date('Y'); $i >= date('Y') - 100; $i--)
-                                            <option value="{{$i}}">{{$i}}</option>
-                                            @endfor
+                                            @for ($i=date('Y'); $i <= date('Y') + 50; $i++) <option value="{{$i}}">
+                                                {{$i}}</option>
+                                                @endfor
                                         </select>
                                     </div>
                                 </div>

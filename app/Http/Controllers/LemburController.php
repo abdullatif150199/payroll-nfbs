@@ -18,12 +18,15 @@ class LemburController extends Controller
 
     public function datatable(Request $request)
     {
-        if (!$request->bulan) {
-            $bulan = date('Y-m');
-            $data = Lembur::with('karyawan')->bulan($bulan)->latest()->get();
-        } else {
-            $data = Lembur::with('karyawan')->bulan($request->bulan)->latest()->get();
-        }
+        $bulan = $request->bulan ?? date('Y-m');
+
+        $data = Lembur::with('karyawan')
+            ->when($request->bidang, function ($query) use ($request) {
+                $query->whereHas('karyawan.bidang', function ($q) use ($request) {
+                    $q->where('id', $request->bidang);
+                });
+            })
+            ->bulan($bulan)->latest()->get();
 
         return Datatables::of($data)
             ->editColumn('no_induk', function ($data) {

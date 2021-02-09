@@ -118,7 +118,7 @@ class Karyawan extends Model
     // Get gaji Pokok
     public function getGajiPokokAttribute($value)
     {
-        return $this->golongan->gaji_pokok;
+        return $this->golongan->gaji_pokok * $this->statusKerja->persentase_gaji_pokok;
     }
 
     // Get Tunjangan Anak

@@ -71,15 +71,27 @@
                 <h3 class="card-title">
                     <form class="form-inline mb-0" action="{{ route('dash.karyawan.datatable') }}" method="post">
                         <label for="status_kerja" class="mr-sm-3">Daftar Pegawai </label>
-                        <div class="row gutters-xs">
+                        <div class="row gutters-xs mr-2">
                             <div class="col">
-                                <select id="statuskerja" class="form-control"
+                                <select name="statuskerja" class="form-control"
                                     onchange="$('#karyawanTable').DataTable().draw()">
                                     <option value="">Aktif</option>
                                     @foreach ($status_kerja as $item)
                                     <option value="{{ $item->id }}">{{ $item->nama_status_kerja }}</option>
                                     @endforeach
                                     <option value="berhenti">Resign/Berhenti</option>
+                                </select>
+                            </div>
+                        </div>
+                        <label for="status_kerja" class="mr-sm-3">Bidang </label>
+                        <div class="row gutters-xs">
+                            <div class="col">
+                                <select name="bidang" class="form-control"
+                                    onchange="$('#karyawanTable').DataTable().draw()">
+                                    <option value="">Semua bidang</option>
+                                    @foreach ($bidang as $bid)
+                                    <option value="{{ $bid->id }}">{{ $bid->nama_bidang }}</option>
+                                    @endforeach
                                 </select>
                             </div>
                         </div>
@@ -132,7 +144,8 @@
             ajax: {
                 url: '{{ route('dash.karyawan.datatable') }}',
                 data: function (d) {
-                    d.statuskerja = $('#statuskerja').val();
+                    d.statuskerja = $('select[name=statuskerja]').val();
+                    d.bidang = $('select[name=bidang]').val();
                 }
             },
             columns: [

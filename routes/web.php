@@ -13,6 +13,7 @@
 
 Route::get('/', 'HomeController@toLogin');
 Route::get('/home', 'HomeController@index')->name('home');
+Route::post('/mark-as-read', 'HomeController@markAsRead')->name('mark-as-read');
 Route::get('/coming-soon', 'HomeController@coming')->name('coming-soon');
 
 Auth::routes(['register' => false]);

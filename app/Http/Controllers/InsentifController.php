@@ -17,24 +17,28 @@ class InsentifController extends Controller
 
     public function datatable(Request $request)
     {
-        if (!$request->bulan) {
-            $bulan = date('Y-m');
-            $data = Insentif::with('karyawan')->where('bulan', $bulan)->get();
-        } else {
-            $data = Insentif::with('karyawan')->where('bulan', $request->bulan)->get();
-        }
+        $bulan = $request->bulan ?? date('Y-m');
+
+        $data = Insentif::with('karyawan')
+                ->when($request->bidang, function ($query) use ($request) {
+                    $query->whereHas('karyawan.bidang', function ($q) use ($request) {
+                        $q->where('id', $request->bidang);
+                    });
+                })
+                ->where('bulan', $bulan)
+                ->get();
 
         return Datatables::of($data)
-            ->editColumn('no_induk', function($data) {
+            ->editColumn('no_induk', function ($data) {
                 return '<span class="text-muted">'. $data->karyawan->no_induk .'</span>';
             })
-            ->editColumn('nama_lengkap', function($data) {
+            ->editColumn('nama_lengkap', function ($data) {
                 return $data->karyawan->nama_lengkap;
             })
-            ->editColumn('jumlah', function($data) {
+            ->editColumn('jumlah', function ($data) {
                 return number_format($data->jumlah);
             })
-            ->addColumn('actions', function($data) {
+            ->addColumn('actions', function ($data) {
                 return view('insentif.actions', ['data' => $data]);
             })
             ->rawColumns(['actions', 'no_induk', 'nama_lengkap', 'jumlah'])

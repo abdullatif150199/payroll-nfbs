@@ -303,3 +303,16 @@ function sendSmsOtp($mobile, $pesan)
     }
     curl_close($curl);
 }
+
+function expiry_date($expiry, $today = null)
+{
+    if (is_null($today)) {
+        $today = now();
+    }
+
+    if (strtotime($today) >= strtotime($expiry)) {
+        return true;
+    }
+
+    return false;
+}

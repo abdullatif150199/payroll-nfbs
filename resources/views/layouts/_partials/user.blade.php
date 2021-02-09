@@ -1,12 +1,20 @@
 <div class="dropdown d-none d-md-flex">
     <a class="nav-link icon" data-toggle="dropdown">
         <i class="fe fe-bell"></i>
-        <span class="nav-unread"></span>
+        {{-- <span class="nav-unread"></span> --}}
+        @if (Auth::user()->unreadNotifications->count() > 0)
+        <span class="badge badge-danger">{{ Auth::user()->unreadNotifications->count() }}</span>
+        @endif
     </a>
     <div class="dropdown-menu dropdown-menu-right dropdown-menu-arrow">
-        <a href="javascript:void(0)" class="dropdown-item">Tidak ada notifikasi</a>
-        <div class="dropdown-divider"></div>
-        <a href="javascript:void(0)" class="dropdown-item text-center">Lihat lainnya...</a>
+        @forelse (Auth::user()->unreadNotifications as $notif)
+        <a href="#" data-id="{{ $notif->id }}" data-link="{{ $notif->data['link'] }}"
+            class="dropdown-item mark-as-read bg-blue-lightest">
+            {!! $notif->data['message'] !!}
+        </a>
+        @empty
+        <div class="text-center">tidak ada notifikasi terbaru</div>
+        @endforelse
     </div>
 </div>
 
@@ -39,3 +47,38 @@
         </form>
     </div>
 </div>
+
+@push('scripts')
+<script>
+    $.ajaxSetup({
+        headers: {
+            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+        }
+    });
+
+    function sendMarkRequest(id = null) {
+        return $.ajax("{{ route('mark-as-read') }}", {
+            method: 'POST',
+            data: {
+                id
+            }
+        });
+    }
+
+    $(function() {
+        $('.mark-as-read').click(function() {
+            let request = sendMarkRequest($(this).data('id'));
+            request.done(() => {
+                window.location.href = $(this).data('link');
+            });
+        });
+
+        $('#mark-all').click(function() {
+            let request = sendMarkRequest();
+            request.done(() => {
+                $('div.bg-blue-lightest').remove();
+            })
+        });
+    })
+</script>
+@endpush

@@ -15,6 +15,7 @@ class Kernel extends ConsoleKernel
     protected $commands = [
         Commands\ScanlogNonShift::class,
         Commands\ScanlogShift::class,
+        Commands\CheckExpiredPotongan::class,
     ];
 
     /**
@@ -31,6 +32,10 @@ class Kernel extends ConsoleKernel
         $schedule->command('scanlog:shift')
                 ->withoutOverlapping()
                 ->everyThirtyMinutes();
+
+        $schedule->command('potongan:expired')
+                ->withoutOverlapping()
+                ->daily();
     }
 
     /**
