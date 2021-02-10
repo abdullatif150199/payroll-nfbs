@@ -56,7 +56,7 @@ class Karyawan extends Model
 
     public function potongan()
     {
-        return $this->belongsToMany(Potongan::class, 'karyawan_potongan')->withPivot('end_at');
+        return $this->belongsToMany(Potongan::class, 'karyawan_potongan')->withPivot(['end_at', 'qty']);
     }
 
     public function lembur()

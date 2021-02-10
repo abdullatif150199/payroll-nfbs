@@ -132,7 +132,7 @@ class PotonganController extends Controller
     {
         $karyawan = Karyawan::with('potongan')->findOrFail($id);
         $date = $request->end_at['year'].'-'.$request->end_at['month'].'-28';
-        $karyawan->potongan()->sync([$request->potongan_id => ['end_at' => $date]], false);
+        $karyawan->potongan()->sync([$request->potongan_id => ['end_at' => $date, 'qty' => $request->qty]], false);
 
         return redirect()->back()->withSuccess("Potongan berhasil di tambahkan ke {$karyawan->nama_lengkap}.");
     }
@@ -148,5 +148,17 @@ class PotonganController extends Controller
     public function destroy($id)
     {
         Potongan::destroy($id);
+    }
+
+    public function updatePivot(Request $request)
+    {
+        $potongan = Potongan::with('karyawan')->findOrFail($request->potongan_id);
+        $date = $request->end_at['year'].'-'.$request->end_at['month'].'-28';
+        $potongan->karyawan()->sync([$request->karyawan_id => ['end_at' => $date, 'qty' => $request->qty]], false);
+        $potongan->qty = $request->qty;
+        $potongan->end_at = $date;
+        $potongan->end_at_format = date('M Y', strtotime($date));
+
+        return response()->json($potongan, 200);
     }
 }

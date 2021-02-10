@@ -118,6 +118,7 @@ Route::group(['prefix' => 'dashboard', 'as' => 'dash.', 'middleware' => ['auth']
         Route::get('potongan/{id}/edit', 'PotonganController@edit')->name('potongan.edit');
         Route::post('potongan/{id}/attach', 'PotonganController@attach')->name('potongan.attach');
         Route::get('potongan-pegawai/{id}', 'PotonganController@show')->name('potongan.show');
+        Route::put('potongan/update-pivot', 'PotonganController@updatePivot')->name('potongan.updatePivote');
         Route::put('potongan/{id}', 'PotonganController@update')->name('potongan.update');
         Route::delete('potongan/{id}', 'PotonganController@destroy')->name('potongan.destroy');
         Route::delete('potongan/{potongan_id}/{karyawan_id}/delete', 'PotonganController@detach')->name('potongan.detach');

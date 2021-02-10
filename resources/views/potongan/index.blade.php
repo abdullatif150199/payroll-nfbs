@@ -439,7 +439,7 @@
     }
 
     function deleteModal(potongan_id, name, karyawan_id) {
-        var url = '{{ route('dash.potongan.edit', ':potongan_i') }}';
+        var url = '{{ route('dash.potongan.edit', ':potongan_id') }}';
         url = url.replace(':potongan_id', potongan_id);
         var url_delete = '{{ route('dash.potongan.detach', ['potongan_id' => ':potongan_id', 'karyawan_id' => ':karyawan_id']) }}';
         url_delete = url_delete.replace(':potongan_id', potongan_id);

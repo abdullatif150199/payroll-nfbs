@@ -40,6 +40,8 @@
                         aria-controls="v-pills-keluarga" aria-selected="false">Keluarga</a>
                     <a class="nav-link" id="v-pills-rekening-tab" data-toggle="pill" href="#v-pills-rekening" role="tab"
                         aria-controls="v-pills-rekening" aria-selected="false">Rekening</a>
+                    <a class="nav-link" id="v-pills-potongan-tab" data-toggle="pill" href="#v-pills-potongan" role="tab"
+                        aria-controls="v-pills-potongan" aria-selected="false">Potongan</a>
                 </div>
             </div>
         </div>
@@ -272,6 +274,46 @@
                             </tbody>
                         </table>
                     </div>
+
+                    <div class="tab-pane fade" id="v-pills-potongan" role="tabpanel"
+                        aria-labelledby="v-pills-potongan-tab">
+                        <div class="card-category text-muted text-left mb-4">
+                            Potongan
+                        </div>
+                        <table class="table card-table table-striped table-vcenter">
+                            <thead>
+                                <tr>
+                                    <th>Nama Potongan</th>
+                                    <th>Jml Potongan</th>
+                                    <th>Telah terpotong</th>
+                                    <th>Expiry Date</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @forelse ($data->potongan as $item)
+                                <tr>
+                                    <td>{{ $item->nama_potongan }}</td>
+                                    <td>{{ $item->jumlah_potongan }}</td>
+                                    <td id="qty{{ $item->id }}">{{ $item->pivot->qty }} kali</td>
+                                    <th>
+                                        <span id="ed{{ $item->id }}">
+                                            {{ date('M Y', strtotime($item->pivot->end_at)) }}
+                                        </span>
+                                        <a href="#" id="edit{{ $item->id }}" class="icon mr-2 edit-expiry"
+                                            data-expiry="{{ $item->pivot->end_at }}" data-potongan="{{ $item->id }}"
+                                            data-qty="{{ $item->pivot->qty }}" title="Edit">
+                                            <i class="fe fe-edit text-warning"></i>
+                                        </a>
+                                    </th>
+                                </tr>
+                                @empty
+                                <tr class="text-center">
+                                    <td colspan="5">tidak ada potongan</td>
+                                </tr>
+                                @endforelse
+                            </tbody>
+                        </table>
+                    </div>
                 </li>
             </ul>
         </div>
@@ -363,7 +405,6 @@
         } else {
             url_raw = '{{ route('dash.keluarga.update', ':id') }}';
             url = url_raw.replace(':id', id);
-            console.log(save_method);
         }
 
         $.ajax({
@@ -447,6 +488,37 @@
                 $('#hapusKeluarga').modal('hide');
                 $('#r' + id).remove();
                 toastr.success(data.message, "Success");
+            },
+            error: function () {
+                toastr.error('Gagal memproses data', 'Failed');
+            }
+        });
+    });
+
+    $('.edit-expiry').click(function () {
+        var date = $(this).data('expiry').split('-');
+        $('#end_month').val(date[1]);
+        $('#end_year').val(date[0]);
+        $('input[name=potongan_id]').val($(this).data('potongan'));
+        $('#qty').val($(this).data('qty'));
+        $('#expiryDate').modal('show');
+    });
+
+    $('#expiryDate form').submit(function(e) {
+        e.preventDefault();
+        var url = '{{ route('dash.potongan.updatePivote') }}';
+
+        $.ajax({
+            url: url,
+            type: "PUT",
+            data: $('#expiryDate form').serialize(),
+            success: function (data) {
+                $('#qty'+ data.id).text(data.qty);
+                $('#ed'+ data.id).text(data.end_at_format);
+                $('#edit'+ data.id).data('expiry', data.end_at);
+                $('#edit'+ data.id).data('qty', data.qty);
+                $('#expiryDate').modal('hide');
+                toastr.success('Expiry date berhasil diupdate', "Success");
             },
             error: function () {
                 toastr.error('Gagal memproses data', 'Failed');

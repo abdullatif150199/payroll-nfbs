@@ -22,7 +22,7 @@ class KaryawanController extends Controller
 {
     public function index()
     {
-        $title = 'Karyawan';
+        $title = 'Pegawai';
         $bidang = Bidang::select('id', 'nama_bidang')->get();
         $golongan = Golongan::select('id', 'kode_golongan')->get();
         $jabatan = Jabatan::select('id', 'nama_jabatan')->get();

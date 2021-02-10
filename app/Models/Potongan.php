@@ -12,7 +12,7 @@ class Potongan extends Model
 
     public function karyawan()
     {
-        return $this->belongsToMany(Karyawan::class, 'karyawan_potongan')->withPivot('end_at');
+        return $this->belongsToMany(Karyawan::class, 'karyawan_potongan')->withPivot(['end_at', 'qty']);
     }
 
     public function rekening()

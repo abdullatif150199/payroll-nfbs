@@ -53,6 +53,14 @@
                             </div>
                         </div>
                     </div>
+                    <div class="row">
+                        <div class="col">
+                            <div class="form-group">
+                                <label class="form-label">Jml yang telah terpotong</label>
+                                <input type="number" name="qty" class="form-control" min="0">
+                            </div>
+                        </div>
+                    </div>
                 </div>
                 <div class="modal-footer">
 
@@ -216,7 +224,8 @@
                                 <select class="form-control custom-select" name="rekening_id" required>
                                     <option value="">Pilih</option>
                                     @foreach ($rekening as $rek)
-                                        <option value="{{ $rek->id }}">{{ $rek->atas_nama .' ('. $rek->keterangan .')' }}</option>
+                                    <option value="{{ $rek->id }}">{{ $rek->atas_nama .' ('. $rek->keterangan .')' }}
+                                    </option>
                                     @endforeach
                                 </select>
                             </div>
