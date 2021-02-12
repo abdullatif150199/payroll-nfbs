@@ -3,6 +3,7 @@
 namespace App\Console\Commands;
 
 use Illuminate\Console\Command;
+use Illuminate\Support\Facades\Notification;
 use App\Notifications\Reminder;
 use App\Models\Karyawan;
 use App\Models\User;
@@ -49,7 +50,12 @@ class CheckExpiredPotongan extends Command
                 if (expiry_date($item->pivot->end_at)) {
                     $data['link'] = route('dash.karyawan.show', $kar->id);
                     $data['message'] = "Potongan <b>{$item->nama_potongan}</b> atas nama <b>{$kar->nama_lengkap}</b> telah berakhir";
-                    User::find(1)->notify(new Reminder($data));
+                    $users = User::whereHas('roles', function ($query) {
+                        $query->where('name', 'admin');
+                    })
+                    ->get();
+
+                    Notification::send($users, new Reminder($data));
                 }
             }
         }
