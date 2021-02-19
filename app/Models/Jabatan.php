@@ -7,8 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 class Jabatan extends Model
 {
     protected $table = 'jabatan';
-    // no_kode untuk penentuan no_induk
-    protected $fillable = ['nama_jabatan', 'tunjangan_jabatan', 'load', 'no_kode'];
+    protected $fillable = ['nama_jabatan', 'tunjangan_jabatan', 'load', 'jml_jam_ajar'];
 
     public function karyawan()
     {

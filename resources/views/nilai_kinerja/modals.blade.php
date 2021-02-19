@@ -24,13 +24,9 @@
                     <div class="row">
                         <div class="col">
                             <div class="form-group">
-                                <label class="form-label">Minimal</label>
+                                <label class="form-label">Nilai Minimal</label>
                                 <div class="input-group">
-                                    <input type="text" name="min_nilai" step="any" class="form-control"
-                                        placeholder="Persentase" aria-describedby="basic-addon2">
-                                    <span class="input-group-append" id="basic-addon2">
-                                        <span class="input-group-text">&percnt;</span>
-                                    </span>
+                                    <input type="number" name="min_nilai" step="any" class="form-control">
                                 </div>
                             </div>
                         </div>

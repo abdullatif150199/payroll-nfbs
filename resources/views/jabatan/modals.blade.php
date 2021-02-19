@@ -24,7 +24,7 @@
                     <div class="row">
                         <div class="col">
                             <div class="form-group">
-                                <label class="form-label">Tunjangan Jabatan</label>
+                                <label class="form-label">Tunjangan Jabatan <span class="text-danger">*</span></label>
                                 <input type="text" name="tunjangan_jabatan" class="form-control">
                             </div>
                         </div>
@@ -32,9 +32,23 @@
                     <div class="row">
                         <div class="col">
                             <div class="form-group">
-                                <label class="form-label">Load</label>
+                                <label class="form-label">Load <span class="text-danger">*</span></label>
                                 <input type="text" name="load" class="form-control" required>
                             </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col">
+                            <div class="form-group">
+                                <label class="form-label">Jam Ajar <span class="text-danger">*</span></label>
+                                <input type="text" name="jml_jam_ajar" class="form-control" required>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row mt-4">
+                        <div class="col">
+                            <span class="text-danger">*</span>
+                            <small>Berikan nilai 0 jika kosong/tidak ada</small>
                         </div>
                     </div>
                 </div>

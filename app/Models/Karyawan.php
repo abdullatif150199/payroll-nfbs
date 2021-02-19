@@ -178,11 +178,16 @@ class Karyawan extends Model
         return $this->jabatan()->sum('load');
     }
 
+    public function sumJamAjar()
+    {
+        return $this->jabatan()->sum('jml_jam_ajar');
+    }
+
     // Get Tunjangan Struktural
     public function getTunjStrukturalAttribute($value)
     {
         if ($this->status == 1) {
-            $load = ($this->sumLoad() + $this->jamPerpekan->jml_jam_ngajar) - $this->jamPerpekan->jml_jam;
+            $load = ($this->sumLoad() + $this->sumJamAjar()) - $this->jamPerpekan->jml_jam;
 
             return $load > 0 ? ($load * setting('tarif_load')) : 0;
         }

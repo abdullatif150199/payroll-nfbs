@@ -44,8 +44,9 @@
                 <tr>
                     <th>Nama Jabatan</th>
                     <th>Jml Peserta</th>
-                    <th>Tunj Jabatan</th>
                     <th>Load</th>
+                    <th>Jam Ajar</th>
+                    <th>Tunj Jabatan</th>
                     <th>Opsi</th>
                 </tr>
             </thead>
@@ -73,8 +74,9 @@
         columns: [
             {data: 'nama_jabatan'},
             {data: 'jml_peserta'},
-            {data: 'tunjangan_jabatan'},
             {data: 'load'},
+            {data: 'jml_jam_ajar'},
+            {data: 'tunjangan_jabatan'},
             {data: 'actions', orderable: false, searchable: false}
         ]
     });

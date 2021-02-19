@@ -9,7 +9,7 @@ class KelompokKerja extends Model
     protected $table = 'kelompok_kerja';
 
     protected $fillable = [
-        'grade', 'persen', 'kinerja_normal'
+        'grade', 'persen', 'kinerja_normal', 'no_kode'
     ];
 
     protected $appends = ['to_persen'];

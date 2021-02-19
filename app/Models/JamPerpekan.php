@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 class JamPerpekan extends Model
 {
     protected $table = 'jam_perpekan';
-    protected $fillable = ['keterangan', 'jml_jam', 'jml_jam_ngajar', 'jml_hari'];
+    protected $fillable = ['keterangan', 'jml_jam', 'jml_hari'];
 
     public function karyawan()
     {
