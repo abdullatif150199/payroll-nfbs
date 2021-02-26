@@ -122,6 +122,10 @@ Route::group(['prefix' => 'dashboard', 'as' => 'dash.', 'middleware' => ['auth']
         Route::put('potongan/{id}', 'PotonganController@update')->name('potongan.update');
         Route::delete('potongan/{id}', 'PotonganController@destroy')->name('potongan.destroy');
         Route::delete('potongan/{potongan_id}/{karyawan_id}/delete', 'PotonganController@detach')->name('potongan.detach');
+        Route::prefix('potongan')->group(function () {
+            Route::get('pajak', 'PajakController@index')->name('pajak');
+            Route::get('get-pajak', 'PajakController@datatable')->name('pajak.datatable');
+        });
 
         // keluarga
         Route::post('keluarga', 'KeluargaController@store')->name('keluarga.store');
@@ -138,10 +142,12 @@ Route::group(['prefix' => 'dashboard', 'as' => 'dash.', 'middleware' => ['auth']
             Route::resources([
                 'user' => 'UserController',
                 'role' => 'RoleController',
+                'tax' => 'TaxController'
             ]);
 
             Route::get('get-user', 'UserController@datatable')->name('user.datatable');
             Route::get('get-role', 'RoleController@datatable')->name('role.datatable');
+            Route::get('get-tax', 'TaxController@datatable')->name('tax.datatable');
 
             // Jabatan
             Route::get('jabatan', 'JabatanController@index')->name('jabatan');

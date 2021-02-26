@@ -36,6 +36,8 @@ class ProcessPayroll implements ShouldQueue
     public function handle()
     {
         $data = NilaiKinerja::all();
+        $tax = $this->karyawan->tax;
+        $thr = 0; //$this->karyawan->tunj_hari_raya
 
         $gatot = array_sum([
             $this->karyawan->gaji_pokok,
@@ -50,6 +52,15 @@ class ProcessPayroll implements ShouldQueue
             $this->karyawan->insentif()->bulan($this->bln)->sum('jumlah')
         ]);
 
+        $gaji_pertahun = $gatot * 12;
+        $penghasilan_bruto = $gaji_pertahun + $thr;
+        $biaya_jabatan = $tax->persentase_biaya_jabatan * $penghasilan_bruto;
+        $penghasilan_neto = $penghasilan_bruto - $biaya_jabatan;
+        $ptkp_pertahun = $tax->ptkp_pertahun;
+        $pkp_pertahun = $penghasilan_neto > $ptkp_pertahun ? $penghasilan_neto - $ptkp_pertahun : 0;
+        $pph21_pertahun = $tax->persentase_pph21 * $pkp_pertahun;
+        $pph21_perbulan = $pph21_pertahun / 12;
+
         $gaji = $this->karyawan->gaji()->updateOrCreate([
             'bulan' => $this->bln,
         ], [
@@ -61,13 +72,30 @@ class ProcessPayroll implements ShouldQueue
             'tunj_pendidikan' => $this->karyawan->tunj_pendidikan_anak,
             'tunjangan_istri' => $this->karyawan->tunj_istri,
             'tunjangan_anak' => $this->karyawan->tunj_anak,
-            // 'tunjangan_hari_raya' => $this->karyawan->tunj_hari_raya,
+            'tunjangan_hari_raya' => $thr,
             'lembur' => $this->karyawan->lembur()->sumLembur($this->bln),
             // 'lain_lain' => 0,
             'insentif' => $this->karyawan->insentif()->bulan($this->bln)->sum('jumlah'),
             'gaji_total' => $gatot
         ]);
 
+        // update atau create tax history
+        $gaji->taxHistory()->updateOrCreate([
+            'id' => $gaji->taxHistory->id
+        ], [
+            'gaji_perbulan' => $gatot,
+            'gaji_pertahun' => $gaji_pertahun,
+            'thr' => $thr,
+            'penghasilan_bruto' => $penghasilan_bruto,
+            'biaya_jabatan' => $biaya_jabatan,
+            'penghasilan_neto' => $penghasilan_neto,
+            'ptkp_pertahun' => $ptkp_pertahun,
+            'pkp_pertahun' => $pkp_pertahun,
+            'pph21_pertahun' => $pph21_pertahun,
+            'pph21_perbulan' => $pph21_perbulan
+        ]);
+
+        // hapus semua history potongan sebelum di update
         if ($gaji->historyPotongan->count() > 0) {
             $gaji->deleteHistoryPotongan();
         }

@@ -84,6 +84,11 @@ class Karyawan extends Model
         return $this->hasOne(Gaji::class)->latest('updated_at');
     }
 
+    public function tax()
+    {
+        return $this->belongsTo(Tax::class);
+    }
+
     public function user()
     {
         return $this->belongsTo(User::class);

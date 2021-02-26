@@ -38,6 +38,11 @@ class Gaji extends Model
         return $this->hasMany(HistoryPotongan::class);
     }
 
+    public function taxHistory()
+    {
+        return $this->hasOne(TaxHistory::class);
+    }
+
     public function deleteHistoryPotongan()
     {
         // delete all related potongan

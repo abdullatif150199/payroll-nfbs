@@ -86,6 +86,9 @@ class GajiController extends Controller
         $data = NilaiKinerja::all();
 
         foreach (Gaji::with('karyawan')->where('bulan', $bln)->cursor() as $gaji) {
+            $tax = $gaji->karyawan->tax;
+            $thr = 0;
+
             $gatot = array_sum([
                 $gaji->karyawan->gaji_pokok,
                 $gaji->karyawan->tunj_jabatan,
@@ -99,6 +102,15 @@ class GajiController extends Controller
                 $gaji->karyawan->insentif()->bulan($bln)->sum('jumlah')
             ]);
 
+            $gaji_pertahun = $gatot * 12;
+            $penghasilan_bruto = $gaji_pertahun + $thr;
+            $biaya_jabatan = $tax->persentase_biaya_jabatan * $penghasilan_bruto;
+            $penghasilan_neto = $penghasilan_bruto - $biaya_jabatan;
+            $ptkp_pertahun = $tax->ptkp_pertahun;
+            $pkp_pertahun = $penghasilan_neto > $ptkp_pertahun ? $penghasilan_neto - $ptkp_pertahun : 0;
+            $pph21_pertahun = $tax->persentase_pph21 * $pkp_pertahun;
+            $pph21_perbulan = $pph21_pertahun / 12;
+
             $new = $gaji->karyawan->gaji()->updateOrCreate([
                 'bulan' => $bln,
             ], [
@@ -110,11 +122,27 @@ class GajiController extends Controller
                 'tunj_pendidikan' => $gaji->karyawan->tunj_pendidikan_anak,
                 'tunjangan_istri' => $gaji->karyawan->tunj_istri,
                 'tunjangan_anak' => $gaji->karyawan->tunj_anak,
-                // 'tunjangan_hari_raya' => $gaji->karyawan->tunj_hari_raya,
+                'tunjangan_hari_raya' => $thr,
                 'lembur' => $gaji->karyawan->lembur()->sumLembur($bln),
                 // 'lain_lain' => 0,
                 'insentif' => $gaji->karyawan->insentif()->bulan($bln)->sum('jumlah'),
                 'gaji_total' => $gatot
+            ]);
+
+            // update atau create tax history
+            $gaji->taxHistory()->updateOrCreate([
+                'id' => $gaji->taxHistory->id
+            ], [
+                'gaji_perbulan' => $gatot,
+                'gaji_pertahun' => $gaji_pertahun,
+                'thr' => $thr,
+                'penghasilan_bruto' => $penghasilan_bruto,
+                'biaya_jabatan' => $biaya_jabatan,
+                'penghasilan_neto' => $penghasilan_neto,
+                'ptkp_pertahun' => $ptkp_pertahun,
+                'pkp_pertahun' => $pkp_pertahun,
+                'pph21_pertahun' => $pph21_pertahun,
+                'pph21_perbulan' => $pph21_perbulan
             ]);
 
             if ($new->historyPotongan->count() > 0) {

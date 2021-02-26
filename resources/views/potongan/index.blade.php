@@ -192,7 +192,6 @@
             <div class="card-header">
                 <h3 class="card-title">
                     <form class="form-inline mb-0" action="{{ route('dash.karyawan.datatable') }}" method="post">
-                        <label for="status_kerja" class="mr-sm-3">Daftar Potongan</label>
                         <label for="status_kerja" class="mr-sm-3">Bidang </label>
                         <div class="row gutters-xs">
                             <div class="col">
@@ -208,6 +207,8 @@
                     </form>
                 </h3>
                 <div class="card-options">
+                    <a href="{{ route('dash.pajak') }}" class="btn btn-primary mr-2"><i class="fe fe-pie-chart"></i>
+                        Pajak</a>
                     <a href="#daftarPotongan" data-toggle="modal" data-backdrop="static" class="btn btn-primary"><i
                             class="fe fe-list"></i> Daftar Potongan</a>
                 </div>

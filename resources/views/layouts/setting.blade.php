@@ -9,7 +9,7 @@
     <!-- CSRF Token -->
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
-    <title>{{ isset($title) ? $title .' | '. config('tabler.suffix') : config('tabler.suffix') }}</title>
+    <title>Setting {{ isset($title) ? $title .' | '. config('tabler.suffix') : config('tabler.suffix') }}</title>
     <link rel="stylesheet" href="{{ asset('css/font-awesome.min.css') }}">
     <link rel="stylesheet"
         href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,300i,400,400i,500,500i,600,600i,700,700i&amp;subset=latin-ext">
@@ -171,6 +171,13 @@
                                                             class="{{ Route::is('dash.tariflembur') ? 'fa fa-circle' : 'fa fa-circle-o' }} text-primary"></i>
                                                     </td>
                                                     <td><a href="{{ route('dash.tariflembur') }}">Tarif Lembur</a>
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td width="1"><i
+                                                            class="{{ Route::is('dash.tax.index') ? 'fa fa-circle' : 'fa fa-circle-o' }} text-primary"></i>
+                                                    </td>
+                                                    <td><a href="{{ route('dash.tax.index') }}">Pajak</a>
                                                     </td>
                                                 </tr>
                                                 <tr>
