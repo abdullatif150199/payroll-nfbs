@@ -23,7 +23,8 @@ class Gaji extends Model
         'lain_lain',
         'insentif',
         'potongan',
-        'gaji_total'
+        'gaji_total',
+        'gaji_akhir'
     ];
 
     protected $appends = ['sum_potongan'];

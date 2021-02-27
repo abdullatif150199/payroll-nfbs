@@ -37,14 +37,12 @@ class GajiController extends Controller
             ->editColumn('gaji_pokok', function ($data) {
                 return number_format($data->gaji_pokok);
             })
-            ->editColumn('lembur', function ($data) {
-                return number_format($data->lembur);
+            ->editColumn('gatot', function ($data) {
+                return number_format($data->gaji_total);
             })
-            ->editColumn('insentif', function ($data) {
-                return number_format($data->insentif);
-            })
-            ->editColumn('lain_lain', function ($data) {
-                return number_format($data->lain_lain);
+            ->editColumn('lainnya', function ($data) {
+                $lainnya = $data->lembur + $data->insentif + $data->lain_lain;
+                return number_format($lainnya);
             })
             ->editColumn('tunjangan', function ($data) {
                 $total_tunjangan = array_sum([
@@ -60,15 +58,15 @@ class GajiController extends Controller
                 return number_format($total_tunjangan);
             })
             ->editColumn('potongan', function ($data) {
-                return '<span class="text-danger">- ' . number_format($data->sum_potongan) . '</span>';
+                return view('gaji.potongan', ['data' => $data]);
             })
             ->editColumn('gaji_akhir', function ($data) {
-                return view('gaji.total', ['data' => $data]);
+                return view('gaji.akhir', ['data' => $data]);
             })
             ->addColumn('actions', function ($data) {
                 return view('gaji.actions', ['data' => $data]);
             })
-            ->rawColumns(['actions', 'no_induk', 'nama_lengkap', 'gaji_akhir', 'tunjangan', 'gaji_pokok', 'lembur', 'insentif', 'lain_lain', 'potongan'])
+            ->rawColumns(['actions', 'no_induk', 'nama_lengkap', 'gatot', 'gaji_akhir', 'tunjangan', 'gaji_pokok', 'lainnya', 'potongan'])
             ->make(true);
     }
 
@@ -130,7 +128,7 @@ class GajiController extends Controller
             ]);
 
             // update atau create tax history
-            $gaji->taxHistory()->updateOrCreate([
+            $pajak = $gaji->taxHistory()->updateOrCreate([
                 'id' => $gaji->taxHistory->id ?? null
             ], [
                 'gaji_perbulan' => $gatot,
@@ -151,7 +149,7 @@ class GajiController extends Controller
 
             $pot = $new->historyPotongan()->createMany($gaji->karyawan->potongan_array);
             $new->update([
-                'gaji_total' => $gatot - $pot->sum('jumlah')
+                'gaji_akhir' => $gatot - ($pot->sum('jumlah') - $pajak->pph21_perbulan)
             ]);
         }
 

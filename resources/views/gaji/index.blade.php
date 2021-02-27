@@ -71,7 +71,7 @@
                     <a id="loader-proses-ulang" href="#proses-ulang" data-toggle="modal" class="btn btn-primary mr-2">
                         <i class="fe fe-rotate-ccw"></i> Proses ulang gaji
                     </a>
-                    <a href="#unduh-gaji" data-toggle="modal" class="btn btn-dark">
+                    <a href="#unduh-gaji" data-toggle="modal" class="btn btn-primary">
                         <i class="fe fe-download"></i> Unduh
                     </a>
                 </div>
@@ -84,9 +84,8 @@
                             <th>Nama Lengkap</th>
                             <th>Gaji Pokok</th>
                             <th>Tunjangan</th>
-                            <th>Lembur</th>
-                            <th>Insentif</th>
-                            <th>Lain-lain</th>
+                            <th>Lainnya</th>
+                            <th>Gaji Total</th>
                             <th>Potongan</th>
                             <th>Gaji Akhir</th>
                             <th></th>
@@ -125,9 +124,8 @@
             {data: 'nama_lengkap'},
             {data: 'gaji_pokok'},
             {data: 'tunjangan'},
-            {data: 'lembur'},
-            {data: 'insentif'},
-            {data: 'lain_lain'},
+            {data: 'lainnya'},
+            {data: 'gatot'},
             {data: 'potongan'},
             {data: 'gaji_akhir'},
             {data: 'actions', orderable: false, searchable: false}
