@@ -38,6 +38,11 @@ class Karyawan extends Model
         return $this->hasMany(Kehadiran::class);
     }
 
+    public function attendanceApel()
+    {
+        return $this->hasMany(AttendanceApel::class);
+    }
+
     public function kehadiranHariIni()
     {
         return $this->hasOne(Kehadiran::class)->where('tanggal', date('Y-m-d'));

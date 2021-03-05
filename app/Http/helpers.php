@@ -316,3 +316,22 @@ function expiry_date($expiry, $today = null)
 
     return false;
 }
+
+function to_hari($item)
+{
+    $items = [
+        'Sunday' => 'Ahad',
+        'Monday' => 'Senin',
+        'Tuesday' => 'Selasa',
+        'Wednesday' => 'Rabu',
+        'Thursday' => 'Kamis',
+        'Friday' => 'Jumat',
+        'Saturday' => 'Sabtu'
+    ];
+
+    if (!empty($item)) {
+        return $items[$item];
+    }
+
+    return null;
+}

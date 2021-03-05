@@ -18,7 +18,7 @@ class CreateDevicesTable extends Migration
             $table->string('server_ip', 20);
             $table->string('server_port', 5);
             $table->string('serial_number', 40);
-            $table->enum('tipe', ['1', '2'])->default('1')->comment('1 == gk ada yang shift', '2 == ada yg shift dan non shift');
+            $table->enum('tipe', ['1', '2', '3'])->default('1')->comment('1 == gk ada yang shift', '2 == ada yg shift dan non shift');
             $table->timestamps();
         });
     }

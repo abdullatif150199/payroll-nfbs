@@ -1,52 +1,51 @@
-{{-- Modal formDevice --}}
-<div class="modal fade" id="formDevice">
+{{-- Modal --}}
+<div class="modal fade" id="formJadwal">
     <div class="modal-dialog">
         <div class="modal-content">
 
             <!-- Modal Header -->
             <div class="modal-header">
-                <h4 class="modal-title"></h4>
+                <h4 class="modal-title">Tambah Jadwal</h4>
                 <button type="button" class="close" data-dismiss="modal"></button>
             </div>
 
             <form method="post">
                 <div class="modal-body">
-                    {{ csrf_field() }} {{ method_field('POST') }}
+                    @csrf
+                    @method('POST')
                     <input type="hidden" name="id">
+                    <input type="hidden" name="req" value="store-jadwal">
                     <div class="row">
                         <div class="col">
                             <div class="form-group">
-                                <label class="form-label">IP Server</label>
-                                <input type="text" name="server_ip" class="form-control" required>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col">
-                            <div class="form-group">
-                                <label class="form-label">Port Server</label>
-                                <input type="text" name="server_port" class="form-control">
-                            </div>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col">
-                            <div class="form-group">
-                                <label class="form-label">Serial Number Fingerspot</label>
-                                <input type="text" name="serial_number" class="form-control">
-                            </div>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col">
-                            <div class="form-group">
-                                <label class="form-label">Tipe</label>
-                                <select name="tipe" class="form-control">
+                                <label class="form-label">Hari</label>
+                                <select name="day_name" class="form-control" required>
                                     <option value="">Pilih</option>
-                                    <option value="1">non shift</option>
-                                    <option value="2">shift</option>
-                                    <option value="3">untuk apel</option>
+                                    <option value="Sunday">Ahad</option>
+                                    <option value="Monday">Senin</option>
+                                    <option value="Tuesday">Selasa</option>
+                                    <option value="Wednesday">Rabu</option>
+                                    <option value="Thursday">Kamis</option>
+                                    <option value="Friday">Jumat</option>
+                                    <option value="Saturday">Sabtu</option>
                                 </select>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col">
+                            <div class="form-group">
+                                <label class="form-label">Waktu Mulai</label>
+                                <input type="text" name="start_time_at" class="form-control"
+                                    placeholder="contoh. 07:00">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col">
+                            <div class="form-group">
+                                <label class="form-label">Waktu Selesai</label>
+                                <input type="text" name="end_time_at" class="form-control" placeholder="contoh. 07:20">
                             </div>
                         </div>
                     </div>
@@ -54,7 +53,7 @@
                 <div class="modal-footer">
 
                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Batal</button>
-                    <button type="submit" class="btn btn-primary">Tambah</button>
+                    <button type="submit" class="btn btn-primary">Submit</button>
 
                 </div>
             </form>
@@ -63,25 +62,27 @@
     </div>
 </div>
 
-<div class="modal fade" id="hapusDevice">
+<div class="modal fade" id="hapusJadwal">
     <div class="modal-dialog">
         <div class="modal-content">
 
             <!-- Modal Header -->
             <div class="modal-header">
-                <h4 class="modal-title">Hapus Device Fingerprint</h4>
+                <h4 class="modal-title">Hapus Jadwal</h4>
                 <button type="button" class="close" data-dismiss="modal"></button>
             </div>
 
             <form method="post">
                 {{ csrf_field() }} {{ method_field('DELETE') }}
+                <input type="hidden" name="id">
+                <input type="hidden" name="req" value="destroy-jadwal">
                 <div class="modal-body">
-
+                    Yakin ingin menghapus?
                 </div>
                 <div class="modal-footer">
 
                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
-                    <button type="submit" class="btn btn-danger">Ya</button>
+                    <button type="submit" class="btn btn-danger">Hapus</button>
 
                 </div>
             </form>

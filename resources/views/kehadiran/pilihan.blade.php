@@ -74,7 +74,7 @@
                             <th class="w-1">No. Induk</th>
                             <th>Nama Lengkap</th>
                             <th>Jml Jam</th>
-                            <th class="text-center">Persentase Kehadiran</th>
+                            <th class="text-center">Persentase</th>
                         </tr>
                     </thead>
                 </table>

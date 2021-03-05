@@ -164,6 +164,6 @@
                 toastr.error('Gagal memproses data', 'Failed');
             }
         });
-    })
+    });
 </script>
 @endpush

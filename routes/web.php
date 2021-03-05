@@ -103,8 +103,12 @@ Route::group(['prefix' => 'dashboard', 'as' => 'dash.', 'middleware' => ['auth']
         Route::get('kehadiran', 'KehadiranController@index')->name('kehadiran');
         Route::get('get-kehadiran', 'KehadiranController@datatable')->name('kehadiran.datatable');
         Route::get('get-pilihan', 'KehadiranController@pilihan')->name('kehadiran.pilihan');
+        Route::get('get-apel', 'KehadiranController@apel')->name('kehadiran.apel');
+        Route::get('get-jadwal', 'KehadiranController@jadwal')->name('kehadiran.jadwal');
+        Route::post('kehadiran/store', 'KehadiranController@store')->name('kehadiran.store');
         Route::get('kehadiran/{id}/edit', 'KehadiranController@edit')->name('kehadiran.edit');
         Route::put('kehadiran/{id}', 'KehadiranController@update')->name('kehadiran.update');
+        Route::delete('kehadiran/{id}', 'KehadiranController@destroy')->name('kehadiran.destroy');
 
         // Cuti
         Route::get('cuti', 'CutiController@index');

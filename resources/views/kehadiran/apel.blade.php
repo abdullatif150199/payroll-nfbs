@@ -2,6 +2,7 @@
 @push('styles')
 <link rel="stylesheet" href="{{ asset('css/dataTables.bootstrap4.min.css') }}">
 <link rel="stylesheet" href="{{ asset('css/select.dataTables.min.css') }}">
+<link rel="stylesheet" href="{{ asset('css/jquery.datetimepicker.css') }}">
 <style>
     .dataTables_length {
         padding-left: 1rem;
@@ -38,16 +39,17 @@
                     <div class="row gutters-xs">
                         <div class="col">
                             <select name="day" class="form-control custom-select"
-                                onchange="$('#kehadiranTable').DataTable().draw()">
+                                onchange="$('#apelTable').DataTable().draw()">
                                 <option value="">Tahun</option>
                                 @for ($i=1; $i <= 31; $i++) <option {{ date('d') == $i ? 'selected' : ''}}
-                                    value="{{$i}}">{{$i}}</option>
+                                    value="{{$i}}">{{$i}}
+                                    </option>
                                     @endfor
                             </select>
                         </div>
                         <div class="col">
                             <select name="month" class="form-control custom-select"
-                                onchange="$('#kehadiranTable').DataTable().draw()">
+                                onchange="$('#apelTable').DataTable().draw()">
                                 <option value="">Bulan</option>
                                 <option {{ date('m') == '01' ? 'selected' : ''}} value="01">Januari</option>
                                 <option {{ date('m') == '02' ? 'selected' : ''}} value="02">Februari</option>
@@ -65,34 +67,44 @@
                         </div>
                         <div class="col">
                             <select name="year" class="form-control custom-select"
-                                onchange="$('#kehadiranTable').DataTable().draw()">
+                                onchange="$('#apelTable').DataTable().draw()">
                                 <option value="">Tahun</option>
                                 @for ($i=2018; $i <= date('Y'); $i++) <option {{ date('Y') == $i ? 'selected' : ''}}
-                                    value="{{$i}}">{{$i}}</option>
+                                    value="{{$i}}">
+                                    {{$i}}</option>
                                     @endfor
+                            </select>
+                        </div>
+                    </div>
+                    <label for="month" class="ml-sm-3 mr-sm-3">Bidang</label>
+                    <div class="row gutters-xs">
+                        <div class="col">
+                            <select name="bidang" class="form-control" onchange="$('#apelTable').DataTable().draw()">
+                                <option value="">Nama Bidang</option>
                             </select>
                         </div>
                     </div>
                 </form>
                 <div class="card-options">
-                    <a class="btn btn-primary mr-2" href="?list=apel"><i class="fe fe-check-square"></i> Apel</a>
-                    <a class="btn btn-primary" href="?list=persentase"><i class="fe fe-bar-chart-2"></i> Persentase
-                        Kehadiran</a>
+                    <a class="btn btn-primary mr-2" href="{{ route('dash.kehadiran') }}?list=jadwal-apel">
+                        <i class="fe fe-calendar"></i> Jadwal Apel
+                    </a>
+                    <a class="btn btn-primary" href="{{ route('dash.kehadiran') }}?list=persentase-apel">
+                        <i class="fe fe-bar-chart-2"></i> Persentase Apel
+                    </a>
                 </div>
             </div>
             <div class="table-responsive">
                 <table class="table table-responsive-sm table-hover table-outline table-vcenter card-table"
-                    id="kehadiranTable">
+                    id="apelTable">
                     <thead>
                         <tr>
                             <th class="w-1">No. Induk</th>
                             <th>Nama Lengkap</th>
-                            <th>Masuk</th>
-                            <th>Istirahat</th>
-                            <th>Kembali</th>
-                            <th>Pulang</th>
-                            <th>Jml Jam</th>
-                            <th class="text-center"></th>
+                            <th>Jam Masuk</th>
+                            <th>Hari</th>
+                            <th>Tanggal</th>
+                            <th></th>
                         </tr>
                     </thead>
                 </table>
@@ -100,20 +112,17 @@
         </div>
     </div>
 </div>
-
-@include('kehadiran.modals')
-
 @endsection
 
 @push('scripts')
+<script src="{{ asset('js/jquery.datetimepicker.full.min.js') }}"></script>
 <script>
-    // $(document).ready(function() {
-    var oTable = $('#kehadiranTable').DataTable({
+    var oTable = $('#apelTable').DataTable({
         serverSide: true,
         processing: true,
         select: true,
         ajax: {
-            url: '{{ route('dash.kehadiran.datatable') }}',
+            url: '{{ route('dash.kehadiran.apel') }}',
             data: function (d) {
                 d.tanggal = $('select[name=year]').val() + '-' + $('select[name=month]').val() + '-' + $('select[name=day]').val();
             }
@@ -121,12 +130,10 @@
         columns: [
             {data: 'no_induk'},
             {data: 'nama_lengkap'},
-            {data: 'jam_masuk'},
-            {data: 'jam_istirahat'},
-            {data: 'jam_kembali'},
-            {data: 'jam_pulang'},
-            {data: 'jumlah_jam'},
-            {data: 'actions', orderable: false, searchable: false}
+            {data: 'masuk'},
+            {data: 'hari'},
+            {data: 'tanggal'},
+            {data: 'actions', orderable:false, searchable:false}
         ]
     });
 
@@ -178,6 +185,6 @@
             }
         });
     });
-// });
+
 </script>
 @endpush

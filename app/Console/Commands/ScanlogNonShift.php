@@ -41,8 +41,10 @@ class ScanlogNonShift extends Command
     public function handle()
     {
         $finger = new EasyLink;
-        $devices = Device::where('tipe', '1')->get();
+        $devices = Device::whereIn('tipe', ['1', '3'])->get();
         $ioMode = ['1' => 'masuk', '2' => 'istirahat', '3' => 'kembali', '4' => 'pulang'];
+
+        $apelDays = ApelDay::pluck('day_name')->toArray();
 
         foreach ($devices as $device) {
             $serial = $device->serial_number;
@@ -57,6 +59,17 @@ class ScanlogNonShift extends Command
 
                     // Masuk
                     if ($scan->IOMode === 1) {
+                        if ($device->tipe == '3') {
+                            if (in_array(date('l'), $apelDays)) {
+                                $karyawan->attendanceApel()->updateOrCreate([
+                                    'tanggal' => date('Y-m-d', strtotime($scan->ScanDate))
+                                ], [
+                                    'hari' => date('l'),
+                                    'masuk' => date('H:i:s', strtotime($scan->ScanDate))
+                                ]);
+                            }
+                        }
+
                         $karyawan->kehadiran()->updateOrCreate([
                             'tanggal' => date('Y-m-d', strtotime($scan->ScanDate))
                         ], [
