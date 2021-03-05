@@ -20,7 +20,19 @@ class DeviceController extends Controller
 
         return Datatables::of($data)
             ->editColumn('tipe', function ($data) {
-                return $data->tipe == '2' ? 'shift|non shift' : 'non shift';
+                switch ($data->tipe) {
+                    case '1':
+                        return 'non shift';
+                        break;
+
+                    case '2':
+                        return 'shift|non shift';
+                        break;
+
+                    default:
+                        return 'untuk apel';
+                        break;
+                }
             })
             ->addColumn('actions', function ($data) {
                 return view('device.actions', ['data' => $data]);
