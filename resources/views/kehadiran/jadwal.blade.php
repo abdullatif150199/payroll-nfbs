@@ -119,6 +119,7 @@
             success: function (data) {
                 $('#formJadwal').modal('hide');
                 oTable.ajax.reload();
+                $('#formJadwal form')[0].reset();
                 toastr.success('Data berhasil diproses');
             },
             error: function () {
