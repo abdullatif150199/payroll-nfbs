@@ -6,6 +6,7 @@ use Illuminate\Console\Command;
 use App\Libraries\EasyLink;
 use App\Models\Karyawan;
 use App\Models\Device;
+use App\Models\ApelDay;
 
 class ScanlogNonShift extends Command
 {
