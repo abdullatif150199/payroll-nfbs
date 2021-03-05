@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class AttendanceApel extends Model
 {
-    protected $fillable = ['masuk', 'tanggal'];
+    protected $fillable = ['hari', 'masuk', 'tanggal'];
 
     public function karyawan()
     {
