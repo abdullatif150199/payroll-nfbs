@@ -107,7 +107,7 @@
                 $('input[name=server_ip]').val(data.server_ip);
                 $('input[name=server_port]').val(data.server_port);
                 $('input[name=serial_number]').val(data.serial_number);
-                $('input[name=tipe]').val(data.tipe);
+                $('select[name=tipe]').val(data.tipe);
             }
         });
     }
