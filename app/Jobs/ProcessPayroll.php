@@ -81,7 +81,7 @@ class ProcessPayroll implements ShouldQueue
 
         // update atau create tax history
         $gaji->taxHistory()->updateOrCreate([
-            'id' => $gaji->taxHistory->id
+            'id' => $gaji->taxHistory->id ?? null
         ], [
             'gaji_perbulan' => $gatot,
             'gaji_pertahun' => $gaji_pertahun,

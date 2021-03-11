@@ -168,7 +168,7 @@ class KaryawanController extends Controller
 
         $setting->increment('value');
 
-        return redirect()->back()->withSuccess(sprintf('Karyawan %s berhasil di tambahkan', $karyawan->nama_lengkap));
+        return redirect()->back()->withSuccess(sprintf('Pegawai %s berhasil di tambahkan', $karyawan->nama_lengkap));
     }
 
     public function show($id)
@@ -233,7 +233,7 @@ class KaryawanController extends Controller
 
         AddTarifLembur::dispatch($karyawan);
 
-        return redirect()->back()->withSuccess(sprintf('Karyawan %s berhasil di update', $karyawan->nama_lengkap));
+        return redirect()->back()->withSuccess(sprintf('Pegawai %s berhasil di update', $karyawan->nama_lengkap));
     }
 
     public function resign($id)
@@ -243,7 +243,7 @@ class KaryawanController extends Controller
         $karyawan->status = 3;
         $karyawan->save();
 
-        return redirect()->back()->withSuccess(sprintf('Karyawan %s telah resign :(', $karyawan->nama_lengkap));
+        return redirect()->back()->withSuccess(sprintf('Pegawai %s telah resign :(', $karyawan->nama_lengkap));
     }
 
     public function estimasi(Request $request, $id)

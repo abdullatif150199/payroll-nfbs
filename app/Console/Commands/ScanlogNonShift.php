@@ -71,7 +71,7 @@ class ScanlogNonShift extends Command
                             }
                         }
 
-                        $karyawan->kehadiran()->updateOrCreate([
+                        $karyawan->kehadiran()->firstOrCreate([
                             'tanggal' => date('Y-m-d', strtotime($scan->ScanDate))
                         ], [
                             'jam_masuk' => date('H:i:s', strtotime($scan->ScanDate))
