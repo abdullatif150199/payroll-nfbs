@@ -185,6 +185,10 @@ Route::group(['prefix' => 'dashboard', 'as' => 'dash.', 'middleware' => ['auth']
             Route::delete('device/{id}', 'DeviceController@destroy')->name('device.destroy');
             Route::post('device/{id}/check', 'DeviceController@check')->name('device.check');
 
+            // Data Fingerprint
+            Route::get('fingerprint', 'FingerprintController@index')->name('fingerprint.index');
+            Route::get('get-fingerprint', 'FingerprintController@datatable')->name('fingerprint.datatable');
+
             // Bulk Upload
             Route::get('bulk-import', 'BulkImportController@index')->name('bulkImport');
             Route::post('bulk-import', 'BulkImportController@store')->name('bulkImport.store');

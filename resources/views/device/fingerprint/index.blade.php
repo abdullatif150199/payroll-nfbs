@@ -32,11 +32,10 @@
 <div class="card">
     <div class="card-header">
         <h3 class="card-title">
-            Daftar Device Fingerprint
+            Daftar Sidik Jari Pegawai
         </h3>
         <div class="card-options">
             <a href="#" class="btn btn-primary mr-2"><i class="fe fe-list"></i> Data Fingerprint</a>
-            <button type="button" id="newDevice" class="btn btn-primary"><i class="fe fe-plus"></i> Tambah</button>
         </div>
     </div>
     <div class="table-responsive">

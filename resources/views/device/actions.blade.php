@@ -1,5 +1,5 @@
 <a href="{{ route('dash.device.check', $data->id) }}" class="btn btn-info btn-sm" onclick="event.preventDefault();
-    document.getElementById('check-form{{ $data->id }}').submit();" title="check">
+    document.getElementById('check-form{{ $data->id }}').submit();" title="cek koneksi">
     <i class="fe fe-check-square"></i>
 </a>
 

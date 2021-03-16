@@ -16,6 +16,7 @@ use App\Models\Jabatan;
 use App\Models\Bidang;
 use App\Models\Unit;
 use App\Models\User;
+use App\Models\Tax;
 use App\Models\Setting;
 
 class KaryawanController extends Controller
@@ -30,6 +31,7 @@ class KaryawanController extends Controller
         $status_kerja = StatusKerja::select('id', 'nama_status_kerja')->get();
         $kelompok_kerja = KelompokKerja::select('id', 'grade')->get();
         $jam_perpekan = JamPerpekan::select('id', 'jml_jam', 'keterangan')->get();
+        $taxes = Tax::pluck('kode', 'id');
 
         return view('karyawan.index', [
             'title' => $title,
@@ -39,7 +41,8 @@ class KaryawanController extends Controller
             'unit' => $unit,
             'status_kerja' => $status_kerja,
             'kelompok_kerja' => $kelompok_kerja,
-            'jam_perpekan' => $jam_perpekan
+            'jam_perpekan' => $jam_perpekan,
+            'taxes' => $taxes
         ]);
     }
 
@@ -168,7 +171,10 @@ class KaryawanController extends Controller
 
         $setting->increment('value');
 
-        return redirect()->back()->withSuccess(sprintf('Pegawai %s berhasil di tambahkan', $karyawan->nama_lengkap));
+        return response()->json([
+            'status' => 200,
+            'message' => sprintf('Pegawai %s telah ditambahkan', $karyawan->nama_lengkap)
+        ]);
     }
 
     public function show($id)
@@ -233,7 +239,10 @@ class KaryawanController extends Controller
 
         AddTarifLembur::dispatch($karyawan);
 
-        return redirect()->back()->withSuccess(sprintf('Pegawai %s berhasil di update', $karyawan->nama_lengkap));
+        return response()->json([
+            'status' => 200,
+            'message' => sprintf('Pegawai %s telah diupdate', $karyawan->nama_lengkap)
+        ]);
     }
 
     public function resign($id)

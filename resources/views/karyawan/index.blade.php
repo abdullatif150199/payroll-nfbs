@@ -99,9 +99,8 @@
                 </h3>
                 @can('tambah pegawai')
                 <div class="card-options">
-                    <a href="#modalCreate" data-toggle="modal" data-backdrop="static" class="btn btn-primary"><i
-                            class="fe fe-plus"></i>
-                        Tambah</a>
+                    <button id="newKaryawan" class="btn btn-primary"><i class="fe fe-plus"></i>
+                        Tambah</button>
                 </div>
                 @endcan
             </div>
@@ -113,7 +112,7 @@
                             <th>Nama Lengkap</th>
                             <th>JK</th>
                             <th>Jabatan</th>
-                            <th>Gol</th>
+                            <th>Gol/Kel</th>
                             <th>Unit</th>
                             <th>Status Kerja</th>
                             <th></th>
@@ -136,48 +135,56 @@
         }
     });
 
-    $(document).ready(function() {
-        var oTable = $('#karyawanTable').DataTable({
-            serverSide: true,
-            processing: true,
-            select: true,
-            ajax: {
-                url: '{{ route('dash.karyawan.datatable') }}',
-                data: function (d) {
-                    d.statuskerja = $('select[name=statuskerja]').val();
-                    d.bidang = $('select[name=bidang]').val();
-                }
-            },
-            columns: [
-                {data: 'no_induk'},
-                {data: 'nama_lengkap'},
-                {data: 'jenis_kelamin'},
-                {data: 'jabatan'},
-                {data: 'golongan'},
-                {data: 'unit'},
-                {data: 'status_kerja'},
-                {data: 'actions', orderable: false, searchable: false}
-            ]
-        });
+    var oTable = $('#karyawanTable').DataTable({
+        serverSide: true,
+        processing: true,
+        select: true,
+        ajax: {
+            url: '{{ route('dash.karyawan.datatable') }}',
+            data: function (d) {
+                d.statuskerja = $('select[name=statuskerja]').val();
+                d.bidang = $('select[name=bidang]').val();
+            }
+        },
+        columns: [
+            {data: 'no_induk'},
+            {data: 'nama_lengkap'},
+            {data: 'jenis_kelamin'},
+            {data: 'jabatan'},
+            {data: 'golongan'},
+            {data: 'unit'},
+            {data: 'status_kerja'},
+            {data: 'actions', orderable: false, searchable: false}
+        ]
+    });
 
-        $('.selectize-select').selectize({
-            maxItems: 3
-        });
+    $('.selectize-select').selectize({
+        maxItems: 3
+    });
+
+    $('#newKaryawan').click(function () {
+        $('.modal-title').text('Tambah Pegawai');
+        $('#formKaryawan').modal('show');
+        $('input[name=_method]').val('POST');
+        $('#formKaryawan form')[0].reset();
+        $('#formKaryawan').modal('show');
+        $('.bk').hidden();
     });
 
     function editKaryawan(id) {
-        $('#formEdit')[0].reset();
         var url = '{{ route("dash.karyawan.edit", ":id") }}';
         url = url.replace(':id', id);
+        $('.modal-title').text('Edit Pegawai');
+        $('input[name=_method]').val('PUT');
+        $('.bk').show();
+        $('#formKaryawan form')[0].reset();
         $.ajax({
             url: url,
             type: "GET",
             dataType: "JSON",
             success: function(data) {
                 // console.log(JSON.stringify(data.bidang, null, 2));
-                var url_update = '{{ route("dash.karyawan.update", ":id") }}';
-                url = url_update.replace(':id', id);
-                $('#formEdit').attr('action', url);
+                $('input[name=id]').val(data.id);
                 $('#nama_lengkap').val(data.nama_lengkap);
                 $('#jenis_kelamin').val(data.jenis_kelamin);
                 $('#tempat_lahir').val(data.tempat_lahir);
@@ -235,13 +242,41 @@
                 $('#kelompok_kerja').val(data.kelompok_kerja_id);
                 $('#jam_perpekan').val(data.jam_perpekan_id);
                 $('#status').val(data.status);
-                $('#modalEdit').modal('show');
+                $('#tax_id').val(data.tax_id);
+                $('#formKaryawan').modal('show');
             },
             error: function() {
-                alert('Data tidak ditemukan');
+                toastr.error('Gagal memproses data', 'Failed');
             }
         });
     }
+
+    $('#formKaryawan form').submit(function(e) {
+        e.preventDefault();
+            var id = $('input[name=id]').val();
+            var save_method = $('input[name=_method]').val();
+
+        if (save_method == 'POST') {
+            url = '{{ route('dash.karyawan.store') }}';
+        } else {
+            url_raw = '{{ route('dash.karyawan.update', ':id') }}';
+            url = url_raw.replace(':id', id);
+        }
+
+        $.ajax({
+            url: url,
+            type: 'POST',
+            data: $('#formKaryawan form').serialize(),
+            success: function (data) {
+                $('#formKaryawan').modal('hide');
+                oTable.ajax.reload();
+                toastr.success(data.message, "Success");
+            },
+            error: function () {
+                toastr.error('Gagal memproses data', 'Failed');
+            }
+        });
+    });
 
     function resignKaryawan(id, name) {
         var url = '{{ route("dash.karyawan.resign", ":id") }}';

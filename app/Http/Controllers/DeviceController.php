@@ -19,25 +19,13 @@ class DeviceController extends Controller
         $data = Device::all();
 
         return Datatables::of($data)
-            ->editColumn('tipe', function ($data) {
-                switch ($data->tipe) {
-                    case '1':
-                        return 'non shift';
-                        break;
-
-                    case '2':
-                        return 'shift|non shift';
-                        break;
-
-                    default:
-                        return 'untuk apel';
-                        break;
-                }
+            ->editColumn('keterangan', function ($data) {
+                return view('device.tipe', ['data' => $data]);
             })
             ->addColumn('actions', function ($data) {
                 return view('device.actions', ['data' => $data]);
             })
-            ->rawColumns(['tipe', 'actions'])
+            ->rawColumns(['keterangan', 'actions'])
             ->make(true);
     }
 
