@@ -112,7 +112,7 @@ class KaryawanController extends Controller
                 return view('karyawan.jabatan', ['jabatan' => $data->jabatan]);
             })
             ->editColumn('golongan', function ($data) {
-                return $data->golongan->kode_golongan;
+                return $data->golongan->kode_golongan .'/'. $data->kelompokKerja->grade;
             })
             ->editColumn('unit', function ($data) {
                 return view('karyawan.unit', ['unit' => $data->unit]);
