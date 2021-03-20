@@ -52,6 +52,7 @@ class CreateKaryawanTable extends Migration
             $table->foreignId('tax_id')->nullable();
             $table->foreign('tax_id')->references('id')->on('taxes')->onDelete('restrict');
             $table->date('contract_expired')->nullable();
+            $table->enum('pembayaran', ['cash', 'transfer'])->nullable();
             $table->timestamps();
         });
     }
