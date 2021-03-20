@@ -39,7 +39,7 @@ class BulkImport implements
         $user = User::create([
             'username' => $row['no_induk'],
             'name' => $row['nama_lengkap'],
-            'email' => $row['email'],
+            'email' => $row['email'] ?? null,
             'password' => bcrypt(date('dmY', strtotime($row['tanggal_lahir'])))
         ]);
 
@@ -56,7 +56,7 @@ class BulkImport implements
             'tanggal_lahir' => $this->dateToSql($row['tanggal_lahir']),
             'jenis_kelamin' => strtoupper($row['jenis_kelamin']),
             'status_pernikahan' => strtoupper($row['status_pernikahan']),
-            'alamat' => $row['alamat'],
+            'alamat' => $row['alamat'] ?? null,
             'no_hp' => $row['no_hp'],
             'nama_pendidikan' => $row['nama_pendidikan'],
             'pendidikan_terakhir' => strtoupper($row['pendidikan_terakhir']),
@@ -79,19 +79,19 @@ class BulkImport implements
     public function rules(): array
     {
         $golongan = Cache::remember('golongan', 60, function () {
-            return Golongan::pluck('id', 'kode_golongan');
+            return Golongan::pluck('id', 'kode_golongan')->toArray();
         });
         $jabatan = Cache::remember('jabatan', 60, function () {
-            return Jabatan::pluck('id', 'nama_jabatan');
+            return Jabatan::pluck('id', 'nama_jabatan')->toArray();
         });
         $status_kerja = Cache::remember('status_kerja', 60, function () {
-            return StatusKerja::pluck('id', 'nama_status_kerja');
+            return StatusKerja::pluck('id', 'nama_status_kerja')->toArray();
         });
         $kelompok_kerja = Cache::remember('kelompok_kerja', 60, function () {
-            return KelompokKerja::pluck('id', 'grade');
+            return KelompokKerja::pluck('id', 'grade')->toArray();
         });
         $jam_perpekan = Cache::remember('jam_perpekan', 60, function () {
-            return JamPerpekan::pluck('id', 'jml_jam');
+            return JamPerpekan::pluck('id', 'jml_jam')->toArray();
         });
 
         $status = Cache::remember('status', 60, function () {
@@ -107,9 +107,9 @@ class BulkImport implements
         return [
             'nama_lengkap' => ['string', 'required'],
             'no_induk' => ['required', 'digits:6'],
-            '*.email' => ['required', 'email', 'unique:users,email'],
+            '*.email' => ['nullable', 'email', 'unique:users,email'],
             'nik' => ['numeric', 'required', 'digits:16'],
-            'alamat' => ['string', 'required'],
+            'alamat' => ['string', 'nullable'],
             'nama_pendidikan' => ['string', 'required'],
             'tahun_lulus' => ['numeric', 'nullable', 'digits:4'],
             'nama_bank' => ['string', 'nullable'],
