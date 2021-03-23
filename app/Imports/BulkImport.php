@@ -4,10 +4,12 @@ namespace App\Imports;
 
 use App\Models\User;
 use App\Models\Golongan;
+use App\Models\Bidang;
 use App\Models\Jabatan;
 use App\Models\StatusKerja;
 use App\Models\KelompokKerja;
 use App\Models\JamPerpekan;
+use App\Jobs\BulkImportJobs;
 use Maatwebsite\Excel\Concerns\ToModel;
 use Maatwebsite\Excel\Concerns\Importable;
 use Maatwebsite\Excel\Concerns\SkipsOnError;
@@ -45,7 +47,7 @@ class BulkImport implements
 
         $user->assignRole('user');
 
-        $user->karyawan()->create([
+        $karyawan = $user->karyawan()->create([
             'golongan_id' => Cache::get('golongan')[strtoupper($row['golongan'])],
             'status_kerja_id' => Cache::get('status_kerja')[$row['status_kerja']],
             'kelompok_kerja_id' => Cache::get('kelompok_kerja')[strtoupper($row['kelompok_kerja'])],
@@ -73,6 +75,8 @@ class BulkImport implements
             'pembayaran' => $row['pembayaran']
         ]);
 
+        BulkImportJobs::dispatch($row['jabatan'], $karyawan);
+
         return $user;
     }
 
@@ -80,6 +84,9 @@ class BulkImport implements
     {
         $golongan = Cache::remember('golongan', 60, function () {
             return Golongan::pluck('id', 'kode_golongan')->toArray();
+        });
+        $bidang = Cache::remember('bidang', 60, function () {
+            return Bidang::pluck('id', 'nama_bidang')->toArray();
         });
         $jabatan = Cache::remember('jabatan', 60, function () {
             return Jabatan::pluck('id', 'nama_jabatan')->toArray();
@@ -106,7 +113,7 @@ class BulkImport implements
 
         return [
             'nama_lengkap' => ['string', 'required'],
-            'no_induk' => ['required', 'digits:6'],
+            'no_induk' => ['required', 'digits:6', 'unique:users,username'],
             '*.email' => ['nullable', 'email', 'unique:users,email'],
             'nik' => ['numeric', 'required', 'digits:16'],
             'alamat' => ['string', 'nullable'],
@@ -131,7 +138,7 @@ class BulkImport implements
                     $onFailure('format contract_expired salah');
                 }
             }],
-            'no_hp' => ['numeric', function ($attribute, $value, $onFailure) {
+            'no_hp' => ['nullable', 'numeric', function ($attribute, $value, $onFailure) {
                 if (strlen($value) > 14) {
                     $onFailure('no_hp tidak boleh lebih dari 14 digit');
                 }
@@ -142,6 +149,11 @@ class BulkImport implements
             'golongan' => ['required', function ($attribute, $value, $onFailure) use ($golongan) {
                 if (!isset($golongan[strtoupper($value)])) {
                     $onFailure('golongan tidak sesuai dengan database');
+                }
+            }],
+            'bidang' => ['required', function ($attribute, $value, $onFailure) use ($bidang) {
+                if (!isset($bidang[$value])) {
+                    $onFailure('Bidang tidak sesuai dengan database');
                 }
             }],
             'jabatan' => ['required', function ($attribute, $value, $onFailure) use ($jabatan) {
@@ -206,10 +218,11 @@ class BulkImport implements
             'email.unique' => ':attribute sudah tersedia',
             'no_induk.required' => ':attribute tidak boleh kosong',
             'no_induk.digits' => ':attribute harus 6 digit',
+            'no_induk.unique' => ':attribute sudah tersedia',
             'nik.required' => ':attribute tidak boleh kosong',
             'nik.numeric' => ':attribute harus berupa angka',
             'nik.digits' => ':attribute harus 16 digit',
-            'tempat_lahir.numeric' => ':attribute tidak boleh kosong',
+            'tempat_lahir.required' => ':attribute tidak boleh kosong',
             'alamat.required' => ':attribute tidak boleh kosong',
             'nama_pendidikan.required' => ':attribute tidak boleh kosong'
         ];
@@ -230,7 +243,7 @@ class BulkImport implements
         try {
             return \Carbon\Carbon::instance(\PhpOffice\PhpSpreadsheet\Shared\Date::excelToDateTimeObject($value));
         } catch (\ErrorException $e) {
-            return \Carbon\Carbon::createFromFormat($format, $value);
+            return \Carbon\Carbon::createFromFormat($format, $value) ?? false;
         }
     }
 

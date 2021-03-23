@@ -23,6 +23,15 @@
                         </div>
                         <div class="col-md-6">
                             <div class="form-group">
+                                <label class="form-label">NIK</label>
+                                <input class="form-control" name="nik" id="nik" required>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row bg-blue-lightest">
+                        <div class="col-md-3">
+                            <div class="form-group">
                                 <label class="form-label">Jenis Kelamin</label>
                                 <select class="form-control custom-select" name="jenis_kelamin" id="jenis_kelamin"
                                     required>
@@ -32,16 +41,13 @@
                                 </select>
                             </div>
                         </div>
-                    </div>
-
-                    <div class="row bg-blue-lightest">
-                        <div class="col-md-6">
+                        <div class="col-md-4">
                             <div class="form-group">
                                 <label class="form-label">Tempat Lahir</label>
                                 <input type="text" name="tempat_lahir" class="form-control" id="tempat_lahir" required>
                             </div>
                         </div>
-                        <div class="col-md-6">
+                        <div class="col-md-5">
                             <div class="form-group">
                                 <label class="form-label">Tanggal Lahir</label>
                                 <div class="row gutters-xs">

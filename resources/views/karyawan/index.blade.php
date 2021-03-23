@@ -186,6 +186,7 @@
                 // console.log(JSON.stringify(data.bidang, null, 2));
                 $('input[name=id]').val(data.id);
                 $('#nama_lengkap').val(data.nama_lengkap);
+                $('#nik').val(data.nik);
                 $('#jenis_kelamin').val(data.jenis_kelamin);
                 $('#tempat_lahir').val(data.tempat_lahir);
                 $('#day').val(data.tanggal_lahir.substr(-2,2));

@@ -109,7 +109,7 @@
                 $('input[name=nama_jabatan]').val(data.nama_jabatan);
                 $('input[name=tunjangan_jabatan]').val(data.tunjangan_jabatan);
                 $('input[name=load]').val(data.load);
-                $('input[name=maksimal_jam]').val(data.maksimal_jam);
+                $('input[name=jml_jam_ajar]').val(data.jml_jam_ajar);
             }
         });
     }

@@ -83,9 +83,12 @@
             </tr>
 
             @foreach (session()->get('failures') as $validation)
+            {{-- @php
+                dd($validation->values());
+            @endphp --}}
             <tr>
-                <td>{{ $validation->row() }}</td>
-                <td>{{ $validation->attribute() }}</td>
+                <td>{{ $validation->row() ?? null }}</td>
+                <td>{{ $validation->attribute() ?? null }}</td>
                 <td>
                     <ul>
                         @foreach ($validation->errors() as $e)
@@ -94,7 +97,7 @@
                     </ul>
                 </td>
                 <td>
-                    {{ $validation->values()[$validation->attribute()] }}
+                    {{ $validation->values()[$validation->attribute()] ?? null }}
                 </td>
             </tr>
             @endforeach

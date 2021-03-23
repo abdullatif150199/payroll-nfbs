@@ -8,6 +8,7 @@ use App\Models\NilaiKinerja;
 use App\Models\Karyawan;
 use App\Models\Device;
 use App\Models\Gaji;
+use App\Models\Jabatan;
 
 class TestCommand extends Command
 {
@@ -43,6 +44,8 @@ class TestCommand extends Command
      */
     public function handle()
     {
+        $jab = Jabatan::pluck('id', 'nama_jabatan')->toArray();
+        dd($jab);
         $data = NilaiKinerja::all();
         $karyawan = Karyawan::find(1);
         $gaji = Gaji::with('taxHistory')->find(1);
