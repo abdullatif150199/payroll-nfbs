@@ -24,7 +24,7 @@ app('router')->setCompiledRoutes(
         array (
           0 => 
           array (
-            '_route' => 'generated::XL7HjYX2igpe6VCb',
+            '_route' => 'generated::NYcOuu28pfo8va4w',
           ),
           1 => NULL,
           2 => 
@@ -44,7 +44,7 @@ app('router')->setCompiledRoutes(
         array (
           0 => 
           array (
-            '_route' => 'generated::WmUPStwwYppxCBHc',
+            '_route' => 'generated::fj8tZlRA320fWosg',
           ),
           1 => NULL,
           2 => 
@@ -140,7 +140,7 @@ app('router')->setCompiledRoutes(
         array (
           0 => 
           array (
-            '_route' => 'generated::ljiFKsk8hBSeZjxG',
+            '_route' => 'generated::a1MhWGg2aoEW7238',
           ),
           1 => NULL,
           2 => 
@@ -250,7 +250,7 @@ app('router')->setCompiledRoutes(
         array (
           0 => 
           array (
-            '_route' => 'generated::DDhHX2YPrQkuf3WH',
+            '_route' => 'generated::jsZmpHvYzgpMinIe',
           ),
           1 => NULL,
           2 => 
@@ -559,7 +559,7 @@ app('router')->setCompiledRoutes(
         array (
           0 => 
           array (
-            '_route' => 'dash.generated::cFTzMTOep4Vx9y6W',
+            '_route' => 'dash.generated::VEy2xwDKXinXjl1Z',
           ),
           1 => NULL,
           2 => 
@@ -637,7 +637,7 @@ app('router')->setCompiledRoutes(
         array (
           0 => 
           array (
-            '_route' => 'dash.generated::kR93naGo7eWlz65o',
+            '_route' => 'dash.generated::jwjc8NlVL1s5hqQM',
           ),
           1 => NULL,
           2 => 
@@ -693,7 +693,7 @@ app('router')->setCompiledRoutes(
         array (
           0 => 
           array (
-            '_route' => 'dash.generated::S03nKkmKTrlF85lq',
+            '_route' => 'dash.generated::ZcBwVG8hetfQEIOw',
           ),
           1 => NULL,
           2 => 
@@ -749,7 +749,7 @@ app('router')->setCompiledRoutes(
         array (
           0 => 
           array (
-            '_route' => 'dash.generated::YSJVuA4v5cZzSEtE',
+            '_route' => 'dash.generated::KZNHNBu2aszNhGoF',
           ),
           1 => NULL,
           2 => 
@@ -924,7 +924,7 @@ app('router')->setCompiledRoutes(
         array (
           0 => 
           array (
-            '_route' => 'dash.generated::UU5esSSQu2wcbSPY',
+            '_route' => 'dash.generated::JstdF6KgoIqiPIxx',
           ),
           1 => NULL,
           2 => 
@@ -964,7 +964,7 @@ app('router')->setCompiledRoutes(
         array (
           0 => 
           array (
-            '_route' => 'dash.generated::dQTKP6PUcVD4s1iV',
+            '_route' => 'dash.generated::632CEmEYzIYTtaYS',
           ),
           1 => NULL,
           2 => 
@@ -2028,6 +2028,62 @@ app('router')->setCompiledRoutes(
           6 => NULL,
         ),
       ),
+      '/dashboard/setting/jam-ajar' => 
+      array (
+        0 => 
+        array (
+          0 => 
+          array (
+            '_route' => 'dash.jamAjar',
+          ),
+          1 => NULL,
+          2 => 
+          array (
+            'GET' => 0,
+            'HEAD' => 1,
+          ),
+          3 => NULL,
+          4 => false,
+          5 => false,
+          6 => NULL,
+        ),
+        1 => 
+        array (
+          0 => 
+          array (
+            '_route' => 'dash.jamAjar.store',
+          ),
+          1 => NULL,
+          2 => 
+          array (
+            'POST' => 0,
+          ),
+          3 => NULL,
+          4 => false,
+          5 => false,
+          6 => NULL,
+        ),
+      ),
+      '/dashboard/setting/get-jam-ajar' => 
+      array (
+        0 => 
+        array (
+          0 => 
+          array (
+            '_route' => 'dash.jamAjar.datatable',
+          ),
+          1 => NULL,
+          2 => 
+          array (
+            'GET' => 0,
+            'HEAD' => 1,
+          ),
+          3 => NULL,
+          4 => false,
+          5 => false,
+          6 => NULL,
+        ),
+      ),
       '/dashboard/setting/tarif-lembur' => 
       array (
         0 => 
@@ -2143,7 +2199,7 @@ app('router')->setCompiledRoutes(
     ),
     2 => 
     array (
-      0 => '{^(?|/p(?|assword/reset/([^/]++)(*:34)|rofile/(?|([^/]++)/detail(*:66)|g(?|et\\-(?|gaji/([^/]++)(*:97)|lembur/([^/]++)(*:119)|kehadiran/([^/]++)(*:145)|cuti/([^/]++)(*:166))|aji/([^/]++)/(?|detail(*:197)|print(*:210)))|lembur/([^/]++)(?|(*:238))|cuti/([^/]++)(?|/edit(*:268)|(*:276))))|/dashboard/(?|p(?|egawai/([^/]++)(?|(*:323)|/(?|e(?|dit(*:342)|stimasi(*:357))|resign(*:372))|(*:381))|otongan(?|/(?|([^/]++)(?|/(?|edit(*:423)|attach(*:437)|([^/]++)/delete(*:460))|(*:469))|pajak(*:483)|get\\-pajak(*:501))|\\-pegawai/([^/]++)(*:528)))|gaji/([^/]++)/(?|detail(*:561)|print(*:574))|insentif/([^/]++)(?|/edit(*:608)|(*:616))|lembur/([^/]++)(?|/edit(*:648)|(*:656))|k(?|inerja(?|\\-pegawai/([^/]++)(*:696)|/([^/]++)(?|/(?|attach(*:726)|edit(*:738))|(*:747)))|e(?|hadiran/([^/]++)(?|/edit(*:785)|(*:793))|luarga/([^/]++)(?|/edit(*:825)|(*:833))))|setting/(?|u(?|ser/([^/]++)(?|(*:874)|/edit(*:887)|(*:895))|nit/([^/]++)(?|/edit(*:924)|(*:932)))|r(?|ole/([^/]++)(?|(*:961)|/edit(*:974)|(*:982))|ekening/([^/]++)(?|/edit(*:1015)|(*:1024)))|ta(?|x/([^/]++)(?|(*:1053)|/edit(*:1067)|(*:1076))|rif\\-lembur/([^/]++)(?|/edit(*:1114)|(*:1123)))|ja(?|batan/([^/]++)(?|/edit(*:1161)|(*:1170))|m\\-perpekan/([^/]++)(?|/edit(*:1208)|(*:1217)))|golongan/([^/]++)(?|/edit(*:1253)|(*:1262))|kelompok\\-kerja/([^/]++)(?|/edit(*:1304)|(*:1313))|device/([^/]++)(?|/(?|edit(*:1349)|check(*:1363))|(*:1373))|bidang/([^/]++)(?|/edit(*:1406)|(*:1415))|status\\-ke(?|luarga/([^/]++)(?|/edit(*:1461)|(*:1470))|rja/([^/]++)(?|/edit(*:1500)|(*:1509)))|persentase\\-kinerja/([^/]++)(?|/edit(*:1556)|(*:1565))|nilai\\-kinerja/([^/]++)(?|/edit(*:1606)|(*:1615)))))/?$}sDu',
+      0 => '{^(?|/p(?|assword/reset/([^/]++)(*:34)|rofile/(?|([^/]++)/detail(*:66)|g(?|et\\-(?|gaji/([^/]++)(*:97)|lembur/([^/]++)(*:119)|kehadiran/([^/]++)(*:145)|cuti/([^/]++)(*:166))|aji/([^/]++)/(?|detail(*:197)|print(*:210)))|lembur/([^/]++)(?|(*:238))|cuti/([^/]++)(?|/edit(*:268)|(*:276))))|/dashboard/(?|p(?|egawai/([^/]++)(?|(*:323)|/(?|e(?|dit(*:342)|stimasi(*:357))|resign(*:372))|(*:381))|otongan(?|/(?|([^/]++)(?|/(?|edit(*:423)|attach(*:437)|([^/]++)/delete(*:460))|(*:469))|pajak(*:483)|get\\-pajak(*:501))|\\-pegawai/([^/]++)(*:528)))|gaji/([^/]++)/(?|detail(*:561)|print(*:574))|insentif/([^/]++)(?|/edit(*:608)|(*:616))|lembur/([^/]++)(?|/edit(*:648)|(*:656))|k(?|inerja(?|\\-pegawai/([^/]++)(*:696)|/([^/]++)(?|/(?|attach(*:726)|edit(*:738))|(*:747)))|e(?|hadiran/([^/]++)(?|/edit(*:785)|(*:793))|luarga/([^/]++)(?|/edit(*:825)|(*:833))))|setting/(?|u(?|ser/([^/]++)(?|(*:874)|/edit(*:887)|(*:895))|nit/([^/]++)(?|/edit(*:924)|(*:932)))|r(?|ole/([^/]++)(?|(*:961)|/edit(*:974)|(*:982))|ekening/([^/]++)(?|/edit(*:1015)|(*:1024)))|ta(?|x/([^/]++)(?|(*:1053)|/edit(*:1067)|(*:1076))|rif\\-lembur/([^/]++)(?|/edit(*:1114)|(*:1123)))|ja(?|batan/([^/]++)(?|/edit(*:1161)|(*:1170))|m\\-(?|perpekan/([^/]++)(?|/edit(*:1211)|(*:1220))|ajar/([^/]++)(?|/edit(*:1251)|(*:1260))))|golongan/([^/]++)(?|/edit(*:1297)|(*:1306))|kelompok\\-kerja/([^/]++)(?|/edit(*:1348)|(*:1357))|device/([^/]++)(?|/(?|edit(*:1393)|check(*:1407))|(*:1417))|bidang/([^/]++)(?|/edit(*:1450)|(*:1459))|status\\-ke(?|luarga/([^/]++)(?|/edit(*:1505)|(*:1514))|rja/([^/]++)(?|/edit(*:1544)|(*:1553)))|persentase\\-kinerja/([^/]++)(?|/edit(*:1600)|(*:1609))|nilai\\-kinerja/([^/]++)(?|/edit(*:1650)|(*:1659)))))/?$}sDu',
     ),
     3 => 
     array (
@@ -3661,7 +3717,7 @@ app('router')->setCompiledRoutes(
           6 => NULL,
         ),
       ),
-      1208 => 
+      1211 => 
       array (
         0 => 
         array (
@@ -3684,7 +3740,7 @@ app('router')->setCompiledRoutes(
           6 => NULL,
         ),
       ),
-      1217 => 
+      1220 => 
       array (
         0 => 
         array (
@@ -3725,7 +3781,71 @@ app('router')->setCompiledRoutes(
           6 => NULL,
         ),
       ),
-      1253 => 
+      1251 => 
+      array (
+        0 => 
+        array (
+          0 => 
+          array (
+            '_route' => 'dash.jamAjar.edit',
+          ),
+          1 => 
+          array (
+            0 => 'jam',
+          ),
+          2 => 
+          array (
+            'GET' => 0,
+            'HEAD' => 1,
+          ),
+          3 => NULL,
+          4 => false,
+          5 => false,
+          6 => NULL,
+        ),
+      ),
+      1260 => 
+      array (
+        0 => 
+        array (
+          0 => 
+          array (
+            '_route' => 'dash.jamAjar.update',
+          ),
+          1 => 
+          array (
+            0 => 'jam',
+          ),
+          2 => 
+          array (
+            'PUT' => 0,
+          ),
+          3 => NULL,
+          4 => false,
+          5 => true,
+          6 => NULL,
+        ),
+        1 => 
+        array (
+          0 => 
+          array (
+            '_route' => 'dash.jamAjar.destroy',
+          ),
+          1 => 
+          array (
+            0 => 'jam',
+          ),
+          2 => 
+          array (
+            'DELETE' => 0,
+          ),
+          3 => NULL,
+          4 => false,
+          5 => true,
+          6 => NULL,
+        ),
+      ),
+      1297 => 
       array (
         0 => 
         array (
@@ -3748,7 +3868,7 @@ app('router')->setCompiledRoutes(
           6 => NULL,
         ),
       ),
-      1262 => 
+      1306 => 
       array (
         0 => 
         array (
@@ -3789,7 +3909,7 @@ app('router')->setCompiledRoutes(
           6 => NULL,
         ),
       ),
-      1304 => 
+      1348 => 
       array (
         0 => 
         array (
@@ -3812,7 +3932,7 @@ app('router')->setCompiledRoutes(
           6 => NULL,
         ),
       ),
-      1313 => 
+      1357 => 
       array (
         0 => 
         array (
@@ -3834,7 +3954,7 @@ app('router')->setCompiledRoutes(
           6 => NULL,
         ),
       ),
-      1349 => 
+      1393 => 
       array (
         0 => 
         array (
@@ -3857,7 +3977,7 @@ app('router')->setCompiledRoutes(
           6 => NULL,
         ),
       ),
-      1363 => 
+      1407 => 
       array (
         0 => 
         array (
@@ -3879,7 +3999,7 @@ app('router')->setCompiledRoutes(
           6 => NULL,
         ),
       ),
-      1373 => 
+      1417 => 
       array (
         0 => 
         array (
@@ -3920,7 +4040,7 @@ app('router')->setCompiledRoutes(
           6 => NULL,
         ),
       ),
-      1406 => 
+      1450 => 
       array (
         0 => 
         array (
@@ -3943,7 +4063,7 @@ app('router')->setCompiledRoutes(
           6 => NULL,
         ),
       ),
-      1415 => 
+      1459 => 
       array (
         0 => 
         array (
@@ -3984,7 +4104,7 @@ app('router')->setCompiledRoutes(
           6 => NULL,
         ),
       ),
-      1461 => 
+      1505 => 
       array (
         0 => 
         array (
@@ -4007,7 +4127,7 @@ app('router')->setCompiledRoutes(
           6 => NULL,
         ),
       ),
-      1470 => 
+      1514 => 
       array (
         0 => 
         array (
@@ -4048,7 +4168,7 @@ app('router')->setCompiledRoutes(
           6 => NULL,
         ),
       ),
-      1500 => 
+      1544 => 
       array (
         0 => 
         array (
@@ -4071,7 +4191,7 @@ app('router')->setCompiledRoutes(
           6 => NULL,
         ),
       ),
-      1509 => 
+      1553 => 
       array (
         0 => 
         array (
@@ -4112,7 +4232,7 @@ app('router')->setCompiledRoutes(
           6 => NULL,
         ),
       ),
-      1556 => 
+      1600 => 
       array (
         0 => 
         array (
@@ -4135,7 +4255,7 @@ app('router')->setCompiledRoutes(
           6 => NULL,
         ),
       ),
-      1565 => 
+      1609 => 
       array (
         0 => 
         array (
@@ -4176,7 +4296,7 @@ app('router')->setCompiledRoutes(
           6 => NULL,
         ),
       ),
-      1606 => 
+      1650 => 
       array (
         0 => 
         array (
@@ -4199,7 +4319,7 @@ app('router')->setCompiledRoutes(
           6 => NULL,
         ),
       ),
-      1615 => 
+      1659 => 
       array (
         0 => 
         array (
@@ -4255,7 +4375,7 @@ app('router')->setCompiledRoutes(
   ),
   'attributes' => 
   array (
-    'generated::XL7HjYX2igpe6VCb' => 
+    'generated::NYcOuu28pfo8va4w' => 
     array (
       'methods' => 
       array (
@@ -4277,7 +4397,7 @@ app('router')->setCompiledRoutes(
         'where' => 
         array (
         ),
-        'as' => 'generated::XL7HjYX2igpe6VCb',
+        'as' => 'generated::NYcOuu28pfo8va4w',
       ),
       'fallback' => false,
       'defaults' => 
@@ -4292,7 +4412,7 @@ app('router')->setCompiledRoutes(
       'lockSeconds' => NULL,
       'waitSeconds' => NULL,
     ),
-    'generated::WmUPStwwYppxCBHc' => 
+    'generated::fj8tZlRA320fWosg' => 
     array (
       'methods' => 
       array (
@@ -4313,7 +4433,7 @@ app('router')->setCompiledRoutes(
         'where' => 
         array (
         ),
-        'as' => 'generated::WmUPStwwYppxCBHc',
+        'as' => 'generated::fj8tZlRA320fWosg',
       ),
       'fallback' => false,
       'defaults' => 
@@ -4471,7 +4591,7 @@ app('router')->setCompiledRoutes(
       'lockSeconds' => NULL,
       'waitSeconds' => NULL,
     ),
-    'generated::ljiFKsk8hBSeZjxG' => 
+    'generated::a1MhWGg2aoEW7238' => 
     array (
       'methods' => 
       array (
@@ -4491,7 +4611,7 @@ app('router')->setCompiledRoutes(
         'where' => 
         array (
         ),
-        'as' => 'generated::ljiFKsk8hBSeZjxG',
+        'as' => 'generated::a1MhWGg2aoEW7238',
       ),
       'fallback' => false,
       'defaults' => 
@@ -4719,7 +4839,7 @@ app('router')->setCompiledRoutes(
       'lockSeconds' => NULL,
       'waitSeconds' => NULL,
     ),
-    'generated::DDhHX2YPrQkuf3WH' => 
+    'generated::jsZmpHvYzgpMinIe' => 
     array (
       'methods' => 
       array (
@@ -4739,7 +4859,7 @@ app('router')->setCompiledRoutes(
         'where' => 
         array (
         ),
-        'as' => 'generated::DDhHX2YPrQkuf3WH',
+        'as' => 'generated::jsZmpHvYzgpMinIe',
       ),
       'fallback' => false,
       'defaults' => 
@@ -5965,7 +6085,7 @@ app('router')->setCompiledRoutes(
       'lockSeconds' => NULL,
       'waitSeconds' => NULL,
     ),
-    'dash.generated::cFTzMTOep4Vx9y6W' => 
+    'dash.generated::VEy2xwDKXinXjl1Z' => 
     array (
       'methods' => 
       array (
@@ -5983,7 +6103,7 @@ app('router')->setCompiledRoutes(
         ),
         'uses' => 'App\\Http\\Controllers\\GajiController@index',
         'controller' => 'App\\Http\\Controllers\\GajiController@index',
-        'as' => 'dash.generated::cFTzMTOep4Vx9y6W',
+        'as' => 'dash.generated::VEy2xwDKXinXjl1Z',
         'namespace' => 'App\\Http\\Controllers',
         'prefix' => '/dashboard',
         'where' => 
@@ -6191,7 +6311,7 @@ app('router')->setCompiledRoutes(
       'lockSeconds' => NULL,
       'waitSeconds' => NULL,
     ),
-    'dash.generated::kR93naGo7eWlz65o' => 
+    'dash.generated::jwjc8NlVL1s5hqQM' => 
     array (
       'methods' => 
       array (
@@ -6209,7 +6329,7 @@ app('router')->setCompiledRoutes(
         ),
         'uses' => 'App\\Http\\Controllers\\InsentifController@index',
         'controller' => 'App\\Http\\Controllers\\InsentifController@index',
-        'as' => 'dash.generated::kR93naGo7eWlz65o',
+        'as' => 'dash.generated::jwjc8NlVL1s5hqQM',
         'namespace' => 'App\\Http\\Controllers',
         'prefix' => '/dashboard',
         'where' => 
@@ -6416,7 +6536,7 @@ app('router')->setCompiledRoutes(
       'lockSeconds' => NULL,
       'waitSeconds' => NULL,
     ),
-    'dash.generated::S03nKkmKTrlF85lq' => 
+    'dash.generated::ZcBwVG8hetfQEIOw' => 
     array (
       'methods' => 
       array (
@@ -6434,7 +6554,7 @@ app('router')->setCompiledRoutes(
         ),
         'uses' => 'App\\Http\\Controllers\\LemburController@index',
         'controller' => 'App\\Http\\Controllers\\LemburController@index',
-        'as' => 'dash.generated::S03nKkmKTrlF85lq',
+        'as' => 'dash.generated::ZcBwVG8hetfQEIOw',
         'namespace' => 'App\\Http\\Controllers',
         'prefix' => '/dashboard',
         'where' => 
@@ -6641,7 +6761,7 @@ app('router')->setCompiledRoutes(
       'lockSeconds' => NULL,
       'waitSeconds' => NULL,
     ),
-    'dash.generated::YSJVuA4v5cZzSEtE' => 
+    'dash.generated::KZNHNBu2aszNhGoF' => 
     array (
       'methods' => 
       array (
@@ -6659,7 +6779,7 @@ app('router')->setCompiledRoutes(
         ),
         'uses' => 'App\\Http\\Controllers\\KinerjaController@index',
         'controller' => 'App\\Http\\Controllers\\KinerjaController@index',
-        'as' => 'dash.generated::YSJVuA4v5cZzSEtE',
+        'as' => 'dash.generated::KZNHNBu2aszNhGoF',
         'namespace' => 'App\\Http\\Controllers',
         'prefix' => '/dashboard',
         'where' => 
@@ -7280,7 +7400,7 @@ app('router')->setCompiledRoutes(
       'lockSeconds' => NULL,
       'waitSeconds' => NULL,
     ),
-    'dash.generated::UU5esSSQu2wcbSPY' => 
+    'dash.generated::JstdF6KgoIqiPIxx' => 
     array (
       'methods' => 
       array (
@@ -7298,7 +7418,7 @@ app('router')->setCompiledRoutes(
         ),
         'uses' => 'App\\Http\\Controllers\\CutiController@index',
         'controller' => 'App\\Http\\Controllers\\CutiController@index',
-        'as' => 'dash.generated::UU5esSSQu2wcbSPY',
+        'as' => 'dash.generated::JstdF6KgoIqiPIxx',
         'namespace' => 'App\\Http\\Controllers',
         'prefix' => '/dashboard',
         'where' => 
@@ -7356,7 +7476,7 @@ app('router')->setCompiledRoutes(
       'lockSeconds' => NULL,
       'waitSeconds' => NULL,
     ),
-    'dash.generated::dQTKP6PUcVD4s1iV' => 
+    'dash.generated::632CEmEYzIYTtaYS' => 
     array (
       'methods' => 
       array (
@@ -7374,7 +7494,7 @@ app('router')->setCompiledRoutes(
         ),
         'uses' => 'App\\Http\\Controllers\\PotonganController@index',
         'controller' => 'App\\Http\\Controllers\\PotonganController@index',
-        'as' => 'dash.generated::dQTKP6PUcVD4s1iV',
+        'as' => 'dash.generated::632CEmEYzIYTtaYS',
         'namespace' => 'App\\Http\\Controllers',
         'prefix' => '/dashboard',
         'where' => 
@@ -11581,6 +11701,231 @@ app('router')->setCompiledRoutes(
         'uses' => 'App\\Http\\Controllers\\JamPerpekanController@destroy',
         'controller' => 'App\\Http\\Controllers\\JamPerpekanController@destroy',
         'as' => 'dash.jamPerpekan.destroy',
+        'namespace' => 'App\\Http\\Controllers',
+        'prefix' => 'dashboard/setting',
+        'where' => 
+        array (
+        ),
+      ),
+      'fallback' => false,
+      'defaults' => 
+      array (
+      ),
+      'wheres' => 
+      array (
+      ),
+      'bindingFields' => 
+      array (
+      ),
+      'lockSeconds' => NULL,
+      'waitSeconds' => NULL,
+    ),
+    'dash.jamAjar' => 
+    array (
+      'methods' => 
+      array (
+        0 => 'GET',
+        1 => 'HEAD',
+      ),
+      'uri' => 'dashboard/setting/jam-ajar',
+      'action' => 
+      array (
+        'middleware' => 
+        array (
+          0 => 'web',
+          1 => 'auth',
+          2 => 'role:root|admin|kabid|kanit',
+        ),
+        'uses' => 'App\\Http\\Controllers\\JamAjarController@index',
+        'controller' => 'App\\Http\\Controllers\\JamAjarController@index',
+        'as' => 'dash.jamAjar',
+        'namespace' => 'App\\Http\\Controllers',
+        'prefix' => 'dashboard/setting',
+        'where' => 
+        array (
+        ),
+      ),
+      'fallback' => false,
+      'defaults' => 
+      array (
+      ),
+      'wheres' => 
+      array (
+      ),
+      'bindingFields' => 
+      array (
+      ),
+      'lockSeconds' => NULL,
+      'waitSeconds' => NULL,
+    ),
+    'dash.jamAjar.datatable' => 
+    array (
+      'methods' => 
+      array (
+        0 => 'GET',
+        1 => 'HEAD',
+      ),
+      'uri' => 'dashboard/setting/get-jam-ajar',
+      'action' => 
+      array (
+        'middleware' => 
+        array (
+          0 => 'web',
+          1 => 'auth',
+          2 => 'role:root|admin|kabid|kanit',
+        ),
+        'uses' => 'App\\Http\\Controllers\\JamAjarController@datatable',
+        'controller' => 'App\\Http\\Controllers\\JamAjarController@datatable',
+        'as' => 'dash.jamAjar.datatable',
+        'namespace' => 'App\\Http\\Controllers',
+        'prefix' => 'dashboard/setting',
+        'where' => 
+        array (
+        ),
+      ),
+      'fallback' => false,
+      'defaults' => 
+      array (
+      ),
+      'wheres' => 
+      array (
+      ),
+      'bindingFields' => 
+      array (
+      ),
+      'lockSeconds' => NULL,
+      'waitSeconds' => NULL,
+    ),
+    'dash.jamAjar.store' => 
+    array (
+      'methods' => 
+      array (
+        0 => 'POST',
+      ),
+      'uri' => 'dashboard/setting/jam-ajar',
+      'action' => 
+      array (
+        'middleware' => 
+        array (
+          0 => 'web',
+          1 => 'auth',
+          2 => 'role:root|admin|kabid|kanit',
+        ),
+        'uses' => 'App\\Http\\Controllers\\JamAjarController@store',
+        'controller' => 'App\\Http\\Controllers\\JamAjarController@store',
+        'as' => 'dash.jamAjar.store',
+        'namespace' => 'App\\Http\\Controllers',
+        'prefix' => 'dashboard/setting',
+        'where' => 
+        array (
+        ),
+      ),
+      'fallback' => false,
+      'defaults' => 
+      array (
+      ),
+      'wheres' => 
+      array (
+      ),
+      'bindingFields' => 
+      array (
+      ),
+      'lockSeconds' => NULL,
+      'waitSeconds' => NULL,
+    ),
+    'dash.jamAjar.edit' => 
+    array (
+      'methods' => 
+      array (
+        0 => 'GET',
+        1 => 'HEAD',
+      ),
+      'uri' => 'dashboard/setting/jam-ajar/{jam}/edit',
+      'action' => 
+      array (
+        'middleware' => 
+        array (
+          0 => 'web',
+          1 => 'auth',
+          2 => 'role:root|admin|kabid|kanit',
+        ),
+        'uses' => 'App\\Http\\Controllers\\JamAjarController@edit',
+        'controller' => 'App\\Http\\Controllers\\JamAjarController@edit',
+        'as' => 'dash.jamAjar.edit',
+        'namespace' => 'App\\Http\\Controllers',
+        'prefix' => 'dashboard/setting',
+        'where' => 
+        array (
+        ),
+      ),
+      'fallback' => false,
+      'defaults' => 
+      array (
+      ),
+      'wheres' => 
+      array (
+      ),
+      'bindingFields' => 
+      array (
+      ),
+      'lockSeconds' => NULL,
+      'waitSeconds' => NULL,
+    ),
+    'dash.jamAjar.update' => 
+    array (
+      'methods' => 
+      array (
+        0 => 'PUT',
+      ),
+      'uri' => 'dashboard/setting/jam-ajar/{jam}',
+      'action' => 
+      array (
+        'middleware' => 
+        array (
+          0 => 'web',
+          1 => 'auth',
+          2 => 'role:root|admin|kabid|kanit',
+        ),
+        'uses' => 'App\\Http\\Controllers\\JamPerpekanController@update',
+        'controller' => 'App\\Http\\Controllers\\JamPerpekanController@update',
+        'as' => 'dash.jamAjar.update',
+        'namespace' => 'App\\Http\\Controllers',
+        'prefix' => 'dashboard/setting',
+        'where' => 
+        array (
+        ),
+      ),
+      'fallback' => false,
+      'defaults' => 
+      array (
+      ),
+      'wheres' => 
+      array (
+      ),
+      'bindingFields' => 
+      array (
+      ),
+      'lockSeconds' => NULL,
+      'waitSeconds' => NULL,
+    ),
+    'dash.jamAjar.destroy' => 
+    array (
+      'methods' => 
+      array (
+        0 => 'DELETE',
+      ),
+      'uri' => 'dashboard/setting/jam-ajar/{jam}',
+      'action' => 
+      array (
+        'middleware' => 
+        array (
+          0 => 'web',
+          1 => 'auth',
+          2 => 'role:root|admin|kabid|kanit',
+        ),
+        'uses' => 'App\\Http\\Controllers\\JamAjarController@destroy',
+        'controller' => 'App\\Http\\Controllers\\JamAjarController@destroy',
+        'as' => 'dash.jamAjar.destroy',
         'namespace' => 'App\\Http\\Controllers',
         'prefix' => 'dashboard/setting',
         'where' => 

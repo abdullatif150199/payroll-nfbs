@@ -249,6 +249,14 @@ Route::group(['prefix' => 'dashboard', 'as' => 'dash.', 'middleware' => ['auth']
             Route::put('jam-perpekan/{jam}', 'JamPerpekanController@update')->name('jamPerpekan.update');
             Route::delete('jam-perpekan/{jam}', 'JamPerpekanController@destroy')->name('jamPerpekan.destroy');
 
+            // Jam Ajar
+            Route::get('jam-ajar', 'JamAjarController@index')->name('jamAjar');
+            Route::get('get-jam-ajar', 'JamAjarController@datatable')->name('jamAjar.datatable');
+            Route::post('jam-ajar', 'JamAjarController@store')->name('jamAjar.store');
+            Route::get('jam-ajar/{jam}/edit', 'JamAjarController@edit')->name('jamAjar.edit');
+            Route::put('jam-ajar/{jam}', 'JamPerpekanController@update')->name('jamAjar.update');
+            Route::delete('jam-ajar/{jam}', 'JamAjarController@destroy')->name('jamAjar.destroy');
+
             // Tarif Lembur
             Route::get('tarif-lembur', 'TarifLemburController@index')->name('tariflembur');
             Route::get('get-tarif-lembur', 'TarifLemburController@datatable')->name('tariflembur.datatable');

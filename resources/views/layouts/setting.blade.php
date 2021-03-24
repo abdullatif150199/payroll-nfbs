@@ -168,6 +168,13 @@
                                                 </tr>
                                                 <tr>
                                                     <td width="1"><i
+                                                            class="{{ Route::is('dash.jamAjar') ? 'fa fa-circle' : 'fa fa-circle-o' }} text-primary"></i>
+                                                    </td>
+                                                    <td><a href="{{ route('dash.jamAjar') }}">Jam Ajar</a>
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td width="1"><i
                                                             class="{{ Route::is('dash.tariflembur') ? 'fa fa-circle' : 'fa fa-circle-o' }} text-primary"></i>
                                                     </td>
                                                     <td><a href="{{ route('dash.tariflembur') }}">Tarif Lembur</a>
