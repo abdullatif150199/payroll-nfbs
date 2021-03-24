@@ -49,7 +49,8 @@ class CreateKaryawanTable extends Migration
             $table->enum('tipe_kerja', ['shift', 'non shift'])->default('non shift');
             $table->foreignId('jam_perpekan_id');
             $table->foreign('jam_perpekan_id')->references('id')->on('jam_perpekan')->onDelete('restrict');
-            $table->tinyInteger('jam_ajar')->default(0);
+            $table->foreignId('jam_ajar_id')->nullable();
+            $table->foreign('jam_ajar_id')->references('id')->on('jam_ajar')->onDelete('restrict');
             $table->foreignId('tax_id')->nullable();
             $table->foreign('tax_id')->references('id')->on('taxes')->onDelete('restrict');
             $table->date('contract_expired')->nullable();
