@@ -89,6 +89,7 @@
         $('.modal-title').text('Tambah Jabatan');
         $('#formJabatan').modal('show');
         $('input[name=_method]').val('POST');
+        $('#submit').text('Tambah');
         $('#formJabatan form')[0].reset();
     });
 
