@@ -188,10 +188,10 @@ class Karyawan extends Model
         return $this->jabatan()->sum('load');
     }
 
-    public function getJamAjarAttribute()
-    {
-        return $this->jabatan()->sum('jml_jam_ajar');
-    }
+    // public function getJamAjarAttribute()
+    // {
+    //     return $this->jabatan()->sum('jml_jam_ajar');
+    // }
 
     public function getJamWajibAttribute()
     {

@@ -45,7 +45,6 @@
                     <th>Nama Jabatan</th>
                     <th>Jml Peserta</th>
                     <th>Load</th>
-                    <th>Jam Ajar</th>
                     <th>Tunj Jabatan</th>
                     <th>Opsi</th>
                 </tr>
@@ -75,7 +74,6 @@
             {data: 'nama_jabatan'},
             {data: 'jml_peserta'},
             {data: 'load'},
-            {data: 'jml_jam_ajar'},
             {data: 'tunjangan_jabatan'},
             {data: 'actions', orderable: false, searchable: false}
         ]
@@ -110,7 +108,6 @@
                 $('input[name=nama_jabatan]').val(data.nama_jabatan);
                 $('input[name=tunjangan_jabatan]').val(data.tunjangan_jabatan);
                 $('input[name=load]').val(data.load);
-                $('input[name=jml_jam_ajar]').val(data.jml_jam_ajar);
             }
         });
     }

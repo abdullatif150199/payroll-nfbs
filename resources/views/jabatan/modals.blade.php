@@ -37,14 +37,6 @@
                             </div>
                         </div>
                     </div>
-                    <div class="row">
-                        <div class="col">
-                            <div class="form-group">
-                                <label class="form-label">Jam Ajar <span class="text-danger">*</span></label>
-                                <input type="text" name="jml_jam_ajar" class="form-control" required>
-                            </div>
-                        </div>
-                    </div>
                     <div class="row mt-4">
                         <div class="col">
                             <span class="text-danger">*</span>
