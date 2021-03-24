@@ -254,7 +254,7 @@ Route::group(['prefix' => 'dashboard', 'as' => 'dash.', 'middleware' => ['auth']
             Route::get('get-jam-ajar', 'JamAjarController@datatable')->name('jamAjar.datatable');
             Route::post('jam-ajar', 'JamAjarController@store')->name('jamAjar.store');
             Route::get('jam-ajar/{jam}/edit', 'JamAjarController@edit')->name('jamAjar.edit');
-            Route::put('jam-ajar/{jam}', 'JamPerpekanController@update')->name('jamAjar.update');
+            Route::put('jam-ajar/{jam}', 'JamAjarController@update')->name('jamAjar.update');
             Route::delete('jam-ajar/{jam}', 'JamAjarController@destroy')->name('jamAjar.destroy');
 
             // Tarif Lembur

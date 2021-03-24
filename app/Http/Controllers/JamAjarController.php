@@ -63,7 +63,7 @@ class JamAjarController extends Controller
         $get = JamAjar::with('karyawan')->findOrFail($jam);
 
         if ($get->karyawan->count() > 0) {
-            return back()->withError($get->keterangan . ' tidak bisa dihapus');
+            return back()->withError($get->ket . ' tidak bisa dihapus');
         }
 
         $get->delete();
