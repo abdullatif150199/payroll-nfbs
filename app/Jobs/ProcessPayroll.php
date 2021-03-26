@@ -80,7 +80,7 @@ class ProcessPayroll implements ShouldQueue
         ]);
 
         // update atau create tax history
-        $gaji->taxHistory()->updateOrCreate([
+        $pajak = $gaji->taxHistory()->updateOrCreate([
             'id' => $gaji->taxHistory->id ?? null
         ], [
             'gaji_perbulan' => $gatot,
@@ -102,7 +102,7 @@ class ProcessPayroll implements ShouldQueue
 
         $pot = $gaji->historyPotongan()->createMany($this->karyawan->potongan_array);
         $gaji->update([
-            'gaji_akhir' => $gatot - $pot->sum('jumlah')
+            'gaji_akhir' => $gatot - ($pot->sum('jumlah') + $pajak->pph21_perbulan)
         ]);
     }
 

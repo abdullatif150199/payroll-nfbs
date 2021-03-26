@@ -149,7 +149,7 @@ class GajiController extends Controller
 
             $pot = $new->historyPotongan()->createMany($gaji->karyawan->potongan_array);
             $new->update([
-                'gaji_akhir' => $gatot - ($pot->sum('jumlah') - $pajak->pph21_perbulan)
+                'gaji_akhir' => $gatot - ($pot->sum('jumlah') + $pajak->pph21_perbulan)
             ]);
         }
 
