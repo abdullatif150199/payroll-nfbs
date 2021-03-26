@@ -9,4 +9,9 @@ class JamAjar extends Model
     protected $table = 'jam_ajar';
 
     protected $fillable = ['jml', 'ket'];
+
+    public function karyawan()
+    {
+        return $this->hasMany(Karyawan::class);
+    }
 }

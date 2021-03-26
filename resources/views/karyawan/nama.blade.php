@@ -5,7 +5,7 @@
 <div @if ($data->status != 1) class="mt-1" @endif>
     @if ($data->status == 1)
     <span class="badge badge-primary">Jam wajib ({{ $data->jam_wajib }})</span>
-    <span class="badge badge-primary">Jam ajar ({{ $data->jam_ajar }})</span>
+    <span class="badge badge-primary">Jam ajar ({{ $data->jamAjar->jml }})</span>
     @endif
     <span class="badge badge-primary">Load ({{ $data->load }})</span>
 </div>
