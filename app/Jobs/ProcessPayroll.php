@@ -69,7 +69,7 @@ class ProcessPayroll implements ShouldQueue
             'tunjangan_struktural' => $this->karyawan->tunj_struktural,
             'tunjangan_fungsional' => $this->karyawan->tunj_fungsional,
             'tunjangan_kinerja' => $this->karyawan->tunjKinerja($data, $this->bln),
-            'tunj_pendidikan' => $this->karyawan->tunj_pendidikan_anak,
+            'tunjangan_pendidikan' => $this->karyawan->tunj_pendidikan_anak,
             'tunjangan_istri' => $this->karyawan->tunj_istri,
             'tunjangan_anak' => $this->karyawan->tunj_anak,
             'tunjangan_hari_raya' => $thr,
