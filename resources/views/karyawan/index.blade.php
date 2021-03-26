@@ -241,6 +241,7 @@
                 $('#rekening_atas_nama').val(data.rekening_atas_nama);
                 $('#status_kerja').val(data.status_kerja_id);
                 $('#kelompok_kerja').val(data.kelompok_kerja_id);
+                $('#jam_ajar').val(data.jam_ajar_id);
                 $('#jam_perpekan').val(data.jam_perpekan_id);
                 $('#status').val(data.status);
                 $('#tax_id').val(data.tax_id);

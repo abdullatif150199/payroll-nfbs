@@ -305,7 +305,7 @@
                     </div>
 
                     <div class="row bg-blue-lightest">
-                        <div class="col-md-3">
+                        <div class="col-md-2">
                             <div class="form-group">
                                 <label class="form-label">Status Kerja</label>
                                 <select name="status_kerja" id="status_kerja" class="form-control custom-select"
@@ -317,7 +317,7 @@
                                 </select>
                             </div>
                         </div>
-                        <div class="col-md-3">
+                        <div class="col-md-2">
                             <div class="form-group">
                                 <label class="form-label">Kelompok Kerja</label>
                                 <select name="kelompok_kerja" id="kelompok_kerja" class="form-control custom-select"
@@ -329,13 +329,24 @@
                                 </select>
                             </div>
                         </div>
-                        <div class="col-md-3">
+                        <div class="col-md-2">
                             <div class="form-group">
                                 <label class="form-label">Status Pegawai</label>
                                 <select name="status" id="status" class="form-control custom-select">
                                     <option value="">Pilih</option>
                                     <option value="1">Guru</option>
                                     <option value="2">Non Guru</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                            <div class="form-group">
+                                <label class="form-label">Jam Ajar</label>
+                                <select name="jam_ajar" id="jam_ajar" class="form-control custom-select" required>
+                                    <option value="">Pilih</option>
+                                    @foreach ($jam_ajar as $jam)
+                                        <option value="{{ $jam->id }}">{{ $jam->jml . ' (' . $jam->ket .')' }}</option>
+                                    @endforeach
                                 </select>
                             </div>
                         </div>

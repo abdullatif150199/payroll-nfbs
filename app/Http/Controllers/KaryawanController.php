@@ -10,6 +10,7 @@ use App\Jobs\AddTarifLembur;
 use App\Models\Karyawan;
 use App\Models\StatusKerja;
 use App\Models\KelompokKerja;
+use App\Models\JamAjar;
 use App\Models\JamPerpekan;
 use App\Models\Golongan;
 use App\Models\Jabatan;
@@ -30,6 +31,7 @@ class KaryawanController extends Controller
         $unit = Unit::select('id', 'nama_unit')->get();
         $status_kerja = StatusKerja::select('id', 'nama_status_kerja')->get();
         $kelompok_kerja = KelompokKerja::select('id', 'grade')->get();
+        $jam_ajar = JamAjar::select('id', 'jml', 'ket')->get();
         $jam_perpekan = JamPerpekan::select('id', 'jml_jam', 'keterangan')->get();
         $taxes = Tax::pluck('kode', 'id');
 
@@ -41,6 +43,7 @@ class KaryawanController extends Controller
             'unit' => $unit,
             'status_kerja' => $status_kerja,
             'kelompok_kerja' => $kelompok_kerja,
+            'jam_ajar' => $jam_ajar,
             'jam_perpekan' => $jam_perpekan,
             'taxes' => $taxes
         ]);
@@ -155,6 +158,7 @@ class KaryawanController extends Controller
             'golongan_id' => $request->golongan,
             'status_kerja_id' => $request->status_kerja,
             'kelompok_kerja_id' => $request->kelompok_kerja,
+            'jam_ajar_id' => $request->jam_ajar,
             'jam_perpekan_id' => $request->jam_perpekan,
             'tanggal_lahir' => $request->birth['year'].'-'.$request->birth['month'].'-'.$request->birth['day'],
             'tanggal_masuk' => $request->tanggal_masuk['year'].'-'.$request->tanggal_masuk['month'].'-'.$request->tanggal_masuk['day'],
@@ -207,6 +211,7 @@ class KaryawanController extends Controller
             'jabatan',
             'kelompokKerja',
             'statuskerja',
+            'jamAjar',
             'jamPerpekan'
         ])->find($id);
 
@@ -222,6 +227,7 @@ class KaryawanController extends Controller
             'golongan_id' => $request->golongan,
             'status_kerja_id' => $request->status_kerja,
             'kelompok_kerja_id' => $request->kelompok_kerja,
+            'jam_ajar_id' => $request->jam_ajar,
             'jam_perpekan_id' => $request->jam_perpekan,
             'tanggal_lahir' => $request->birth['year'].'-'.$request->birth['month'].'-'.$request->birth['day'],
             'tanggal_masuk' => $request->tanggal_masuk['year'].'-'.$request->tanggal_masuk['month'].'-'.$request->tanggal_masuk['day'],

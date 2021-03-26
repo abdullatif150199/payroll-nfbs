@@ -102,15 +102,15 @@
                                 </tr>
                                 <tr>
                                     <td>Pendidikan</td>
-                                    <td>{{ $data->nama_pendidikan .' ('. $data->tahun_lulus .')' }}</td>
+                                    <td>{{ $data->nama_pendidikan .' (Lulus th. '. $data->tahun_lulus .')' }}</td>
                                 </tr>
                                 <tr>
                                     <td>Jurusan</td>
                                     <td>{{ $data->pendidikan_terakhir .' - '. $data->jurusan }}</td>
                                 </tr>
                                 <tr>
-                                    <td>No. HP</td>
-                                    <td>{{ $data->tanggal_masuk }}</td>
+                                    <td>Tgl Masuk Kerja</td>
+                                    <td>{{ date('d M Y', strtotime($data->tanggal_masuk)) }}</td>
                                 </tr>
                                 @if ($data->status === '3')
                                 <tr>
