@@ -117,7 +117,7 @@ class GajiController extends Controller
                 'tunjangan_struktural' => $gaji->karyawan->tunj_struktural,
                 'tunjangan_fungsional' => $gaji->karyawan->tunj_fungsional,
                 'tunjangan_kinerja' => $gaji->karyawan->tunjKinerja($data, $bln),
-                'tunj_pendidikan' => $gaji->karyawan->tunj_pendidikan_anak,
+                'tunjangan_pendidikan' => $gaji->karyawan->tunj_pendidikan_anak,
                 'tunjangan_istri' => $gaji->karyawan->tunj_istri,
                 'tunjangan_anak' => $gaji->karyawan->tunj_anak,
                 'tunjangan_hari_raya' => $thr,
