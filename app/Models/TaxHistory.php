@@ -21,6 +21,6 @@ class TaxHistory extends Model
 
     public function gaji()
     {
-        return $this->belongsTo(Gaji::class);
+        return $this->belongsTo(Gaji::class)->withDefault();
     }
 }
