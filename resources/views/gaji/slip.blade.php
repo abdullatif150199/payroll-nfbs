@@ -564,7 +564,7 @@
                                                                                                     </td>
                                                                                                     <td width="50%"
                                                                                                         style="font-weight:bold;text-align:right;padding:5px 15px">
-                                                                                                        Rp {{ $data->taxHistory->pph21_perbulan }}
+                                                                                                        Rp {{ number_format($data->taxHistory->pph21_perbulan) }}
                                                                                                     </td>
                                                                                                 </tr>
                                                                                                 @foreach ($potongan as $item)
@@ -597,7 +597,7 @@
                                                                                                         <div
                                                                                                             style="font-weight:bold;color:#fa591d">
                                                                                                             Rp
-                                                                                                            {{ number_format($potongan->sum('jumlah')) }}
+                                                                                                            {{ number_format($data->sum_potongan) }}
                                                                                                         </div>
                                                                                                     </td>
                                                                                                 </tr>
