@@ -169,20 +169,7 @@ class GajiController extends Controller
 
     public function slip($id)
     {
-        $data = Gaji::with('karyawan')->findOrFail($id);
-        $data->pendapatan = array_sum([
-            $data->gaji_pokok,
-            $data->tunjangan_jabatan,
-            $data->tunjangan_struktural,
-            $data->tunjangan_fungsional,
-            $data->tunjangan_kinerja,
-            $data->tunjangan_pendidikan_anak,
-            $data->tunjangan_istri,
-            $data->tunjangan_anak,
-            $data->lembur,
-            $data->insentif
-        ]);
-
+        $data = Gaji::with(['karyawan', 'taxHistory'])->findOrFail($id);
         $potongan = $data->historyPotongan()->get();
 
         return view('gaji.slip', [

@@ -52,7 +52,7 @@ class Gaji extends Model
 
     public function getSumPotonganAttribute()
     {
-        return $this->historyPotongan()->sum('jumlah');
+        return $this->historyPotongan()->sum('jumlah') + $this->taxHistory->pph21_perbulan;
     }
 
     public function historyKinerja()

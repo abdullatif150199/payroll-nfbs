@@ -522,7 +522,7 @@
                                                                                                         <div
                                                                                                             style="font-weight:bold;color:#fa591d">
                                                                                                             Rp
-                                                                                                            {{ number_format($data->pendapatan) }}
+                                                                                                            {{ number_format($data->gaji_total) }}
                                                                                                         </div>
                                                                                                     </td>
                                                                                                 </tr>
@@ -556,8 +556,18 @@
                                                                                             width="100%"
                                                                                             style="border-collapse:collapse">
                                                                                             <tbody>
-                                                                                                @foreach ($potongan as
-                                                                                                $item)
+                                                                                                <tr
+                                                                                                    style="border-bottom:1px solid #e4eaf3">
+                                                                                                    <td width="50%"
+                                                                                                        style="color:rgba(49,53,59,0.68);padding:5px 15px">
+                                                                                                        PPH 21
+                                                                                                    </td>
+                                                                                                    <td width="50%"
+                                                                                                        style="font-weight:bold;text-align:right;padding:5px 15px">
+                                                                                                        Rp {{ $data->taxHistory->pph21_perbulan }}
+                                                                                                    </td>
+                                                                                                </tr>
+                                                                                                @foreach ($potongan as $item)
                                                                                                 <tr
                                                                                                     style="border-bottom:1px solid #e4eaf3">
                                                                                                     <td width="50%"
@@ -622,7 +632,7 @@
                                                                                                                         <div
                                                                                                                             style="font-weight:bold;color:#fa591d">
                                                                                                                             Rp
-                                                                                                                            {{ number_format($data->gaji_total) }}
+                                                                                                                            {{ number_format($data->gaji_akhir) }}
                                                                                                                         </div>
                                                                                                                     </td>
                                                                                                                 </tr>
