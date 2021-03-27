@@ -41,7 +41,7 @@ class Gaji extends Model
 
     public function taxHistory()
     {
-        return $this->hasOne(TaxHistory::class);
+        return $this->hasOne(TaxHistory::class)->withDefault();
     }
 
     public function deleteHistoryPotongan()
