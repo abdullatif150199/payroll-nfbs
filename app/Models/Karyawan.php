@@ -111,7 +111,7 @@ class Karyawan extends Model
 
     public function jamAjar()
     {
-        return $this->belongsTo(JamAjar::class);
+        return $this->belongsTo(JamAjar::class)->withDefault();
     }
 
     public function jamPerpekan()
