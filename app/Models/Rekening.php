@@ -17,4 +17,9 @@ class Rekening extends Model
     {
         return $this->hasMany(HistoryPotongan::class);
     }
+
+    public function gaji()
+    {
+        return $this->hasMany(Gaji::class);
+    }
 }

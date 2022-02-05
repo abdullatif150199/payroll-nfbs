@@ -24,8 +24,8 @@ class TransferSheetExport implements FromView, WithTitle, WithColumnFormatting
             Gaji::whereHas('karyawan', function ($q) {
                 $q->where('pembayaran', 'transfer');
             })
-            ->where('bulan', $this->bln)
-            ->cursor()
+                ->where('bulan', $this->bln)
+                ->cursor()
         );
 
         $collections = [];
@@ -38,7 +38,7 @@ class TransferSheetExport implements FromView, WithTitle, WithColumnFormatting
                 'no_rekening' => $val->karyawan->no_rekening,
                 'nama_lengkap' => $val->karyawan->nama_lengkap,
                 'bank' => $val->karyawan->nama_bank,
-                'jumlah' => $val->gaji_total
+                'jumlah' => $val->gaji_akhir
             ];
 
             $no++;

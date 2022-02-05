@@ -89,12 +89,12 @@
             type: 'GET',
             dataType: 'JSON',
             success: function (data) {
-                $('.modal-title').text('Edit Jadwal');
+                $('#formJadwal .modal-title').text('Edit Jadwal');
                 $('#formJadwal').modal('show');
-                $('input[name=id]').val(data.id);
-                $('select[name=day_name]').val(data.day_name);
-                $('input[name=start_time_at]').val(data.start_time_at);
-                $('input[name=end_time_at]').val(data.end_time_at);
+                $('#formJadwal input[name=id]').val(data.id);
+                $('#formJadwal select[name=day_name]').val(data.day_name);
+                $('#formJadwal input[name=start_time_at]').val(data.start_time_at);
+                $('#formJadwal input[name=end_time_at]').val(data.end_time_at);
             }
         });
     }

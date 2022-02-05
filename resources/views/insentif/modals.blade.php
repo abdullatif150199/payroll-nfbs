@@ -25,7 +25,21 @@
                         <div class="col">
                             <div class="form-group">
                                 <label class="form-label">Jenis Insentif</label>
-                                <input type="text" name="jenis_insentif" class="form-control" required>
+                                <select name="jenis_insentif" class="form-control" required>
+                                    <option value="">Pilih</option>
+                                    <option value="Inval">Inval</option>
+                                    <option value="Kegiatan">Kegiatan</option>
+                                    <option value="SMP">SMP</option>
+                                    <option value="SMA">SMA</option>
+                                    <option value="BINSAN">BINSAN</option>
+                                    <option value="SEKUM">SEKUM</option>
+                                    <option value="Bimbel">Bimbel</option>
+                                    <option value="LRC-Bahasa">LRC-Bahasa</option>
+                                    <option value="Pendidikan">Pendidikan</option>
+                                    <option value="HRD-Humas">HRD-Humas</option>
+                                    <option value="Pelayanan Umum">Pelayanan Umum</option>
+                                    <option value="Rumah Tangga">Rumah Tangga</option>
+                                </select>
                             </div>
                         </div>
                     </div>
@@ -108,7 +122,7 @@
                 <div class="modal-footer">
 
                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
-                    <button type="submit" class="btn btn-danger">Ya</button>
+                    <button type="submit" class="btn btn-danger">Hapus</button>
 
                 </div>
             </form>

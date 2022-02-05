@@ -49,7 +49,8 @@
                                 <label class="form-label">Tanggal</label>
                                 <select name="day" class="form-control" required>
                                     <option value=""></option>
-                                    @for ($i=1; $i <= 31; $i++) <option value="{{$i}}">{{$i}}</option>
+                                    @for ($i=1; $i <= 31; $i++) <option value="{{ sprintf('%02d', $i) }}">{{
+                                        sprintf('%02d', $i) }}</option>
                                         @endfor
                                 </select>
                             </div>

@@ -40,6 +40,18 @@
                     <div class="row">
                         <div class="col">
                             <div class="form-group">
+                                <label class="form-label">Menampung</label>
+                                <select name="type" class="form-control" readonly>
+                                    <option value="potongan">Potongan</option>
+                                    <option value="transfer">Gaji Transfer</option>
+                                    <option value="cash">Gaji Cash</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col">
+                            <div class="form-group">
                                 <label class="form-label">Keterangan</label>
                                 <textarea name="keterangan" class="form-control" required></textarea>
                             </div>

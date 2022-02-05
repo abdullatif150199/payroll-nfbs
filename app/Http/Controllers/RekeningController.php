@@ -16,13 +16,16 @@ class RekeningController extends Controller
 
     public function datatable()
     {
-        $data = Rekening::all();
+        $data = Rekening::get();
 
         return Datatables::of($data)
             ->addColumn('actions', function ($data) {
                 return view('rekening.actions', ['data' => $data]);
             })
-            ->rawColumns(['actions'])
+            ->editColumn('rekening', function ($data) {
+                return view('rekening.rekening', ['data' => $data]);
+            })
+            ->rawColumns(['actions', 'rekening'])
             ->make(true);
     }
 
@@ -32,6 +35,7 @@ class RekeningController extends Controller
             'no_rekening' => 'required|min:5|max:20',
             'atas_nama' => 'required|min:3',
             'bank' => 'required',
+            'type' => 'required',
             'keterangan' => 'required'
         ]);
 
@@ -39,6 +43,7 @@ class RekeningController extends Controller
             'no_rekening' => $request->no_rekening,
             'atas_nama' => $request->atas_nama,
             'bank' => $request->bank,
+            'type' => $request->type,
             'keterangan' => $request->keterangan,
         ];
 
@@ -62,6 +67,7 @@ class RekeningController extends Controller
             'no_rekening' => 'required|min:5|max:20',
             'atas_nama' => 'required|min:3',
             'bank' => 'required',
+            'type' => 'required',
             'keterangan' => 'required'
         ]);
 
@@ -69,6 +75,7 @@ class RekeningController extends Controller
         $update->no_rekening = $request->no_rekening;
         $update->atas_nama = $request->atas_nama;
         $update->bank = $request->bank;
+        $update->type = $request->type;
         $update->keterangan = $request->keterangan;
         $update->update();
 

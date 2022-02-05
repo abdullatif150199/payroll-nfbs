@@ -451,7 +451,7 @@
             type: "GET",
             dataType: "JSON",
             success: function(data) {
-                $('.modal-body').html('Yakin ingin menghapus potongan <strong>' + data.nama_potongan + '</strong> dari <strong>' + name + '</strong>');
+                $('#modalDelete .modal-body').html('Yakin ingin menghapus potongan <strong>' + data.nama_potongan + '</strong> dari <strong>' + name + '</strong>');
                 $('#modalDelete form').attr('action', url_delete);
                 $('#modalDelete').modal('show');
             },

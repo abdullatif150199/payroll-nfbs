@@ -56,8 +56,8 @@
                     <div class="row">
                         <div class="col">
                             <div class="form-group">
-                                <label class="form-label">Jml yang telah terpotong</label>
-                                <input type="number" name="qty" class="form-control" min="0">
+                                <label class="form-label">Sudah Terpotong Berapa Kali</label>
+                                <input type="number" name="qty" class="form-control" min="0" max="999" value="0">
                             </div>
                         </div>
                     </div>
@@ -127,8 +127,8 @@
                                                         data-toggle="tooltip" title="edit">
                                                         <i class="fe fe-edit"></i>
                                                     </a>
-                                                    <a class="icon"
-                                                        onclick="hapusPotongan({{ $pot->id .",'". $pot->nama_potongan ."'" }})"
+                                                    <a class="icon" onclick="hapusPotongan({{ $pot->id ." ,'".
+                                                        $pot->nama_potongan ."'" }})"
                                                         data-toggle="tooltip" title="hapus">
                                                         <i class="fe fe-trash"></i>
                                                     </a>

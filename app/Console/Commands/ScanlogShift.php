@@ -42,7 +42,7 @@ class ScanlogShift extends Command
     {
         $finger = new EasyLink;
         $devices = Device::where('tipe', '1')->get();
-        $ioMode = ['1' => 'shift 1 masuk', '2' => 'shift 2 pulang', '3' => 'shift 2 masuk', '4' => 'shift 2 pulang'];
+        $ioMode = ['1' => 'shift 1 masuk', '2' => 'shift 1 pulang', '3' => 'shift 2 masuk', '4' => 'shift 2 pulang'];
 
         foreach ($devices as $device) {
             $serial = $device->serial_number;

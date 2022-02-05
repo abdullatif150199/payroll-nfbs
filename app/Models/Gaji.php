@@ -9,6 +9,7 @@ class Gaji extends Model
     protected $table = 'gaji';
 
     protected $fillable = [
+        'rekening_id',
         'bulan',
         'gaji_pokok',
         'tunjangan_jabatan',

@@ -35,30 +35,30 @@ class KinerjaController extends Controller
             $data = Karyawan::with(['gajiOne' => function ($q) use ($bulan) {
                 $q->bulan($bulan);
             }])
-            ->when($request->bidang, function ($q) use ($request) {
-                $q->whereHas('bidang', function ($query) use ($request) {
-                    $query->where('id', $request->bidang);
-                });
-            })
-            ->latest();
+                ->when($request->bidang, function ($q) use ($request) {
+                    $q->whereHas('bidang', function ($query) use ($request) {
+                        $query->where('id', $request->bidang);
+                    });
+                })
+                ->latest();
         } else {
             $data = Karyawan::whereHas('bidang', function (Builder $query) use ($user) {
                 $query->whereIn('nama_bidang', $user->karyawan->bidang->pluck('nama_bidang'));
             })
-            ->orWhereHas('unit', function (Builder $query) use ($user) {
-                $query->whereIn('nama_unit', $user->karyawan->unit->pluck('nama_unit'));
-            })
-            ->with(['gajiOne' => function ($q) use ($bulan) {
-                $q->bulan($bulan);
-            }])
-            ->latest();
+                ->orWhereHas('unit', function (Builder $query) use ($user) {
+                    $query->whereIn('nama_unit', $user->karyawan->unit->pluck('nama_unit'));
+                })
+                ->with(['gajiOne' => function ($q) use ($bulan) {
+                    $q->bulan($bulan);
+                }])
+                ->latest();
         }
 
         $nilai_kinerja = NilaiKinerja::all();
 
         return Datatables::of($data)
             ->editColumn('no_induk', function ($data) {
-                return '<span class="text-muted">'. $data->no_induk .'</span>';
+                return '<span class="text-muted">' . $data->no_induk . '</span>';
             })
             ->editColumn('nama_lengkap', function ($data) {
                 return view('kinerja.name', ['data' => $data]);
@@ -70,7 +70,7 @@ class KinerjaController extends Controller
                 if ($data->gajiOne && $data->gajiOne->historyKinerja()->exists()) {
                     $val = $data->gajiOne->nilaiKinerja($nilai_kinerja);
                     $res = $data->gajiOne->resultKinerja($nilai_kinerja);
-                    return $val .' | '. number_format($res);
+                    return '<b class="font-weight-bold text-primary">' . $val . ' | ' . number_format($res) . '</b>';
                 }
             })
             ->rawColumns(['no_induk', 'nama_lengkap', 'jenis_kinerja', 'nilai_kinerja'])
@@ -126,7 +126,7 @@ class KinerjaController extends Controller
 
     public function persentaseKehadiran($data, $range)
     {
-        $jam_perhari = round($data->jamperpekan->jml_jam/$data->jamperpekan->jml_hari, 2);
+        $jam_perhari = round($data->jamperpekan->jml_jam / $data->jamperpekan->jml_hari, 2);
         $jam_hadir = total_sum_time($data->kehadiran, $data->tipe_kerja, 'val');
         $jam_wajib = ($range * $jam_perhari) * 3600;
 
@@ -134,7 +134,7 @@ class KinerjaController extends Controller
             return 0;
         }
 
-        $persen = ($jam_hadir/$jam_wajib) * 100;
+        $persen = ($jam_hadir / $jam_wajib) * 100;
 
         if ($persen > 100) {
             return 100;

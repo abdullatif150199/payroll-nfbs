@@ -61,8 +61,8 @@
                             </td>
                             <td>Kelompok Kerja: <span class="tag tag-gray-dark">{{ $data->kelompokkerja->grade }}</span>
                             </td>
-                            <td>Status Kerja: <span
-                                    class="tag tag-gray-dark">{{ $data->statuskerja->nama_status_kerja }}</span></td>
+                            <td>Status Kerja: <span class="tag tag-gray-dark">{{ $data->statuskerja->nama_status_kerja
+                                    }}</span></td>
                         </tr>
                     </table>
                 </li>
@@ -81,7 +81,8 @@
                                 <tr>
                                     <td>Tanggal Lahir</td>
                                     <td>
-                                        {{ $data->tempat_lahir . ', ' . date('d M Y', strtotime($data->tanggal_lahir)) }}
+                                        {{ $data->tempat_lahir . ', ' . date('d M Y', strtotime($data->tanggal_lahir))
+                                        }}
                                     </td>
                                 </tr>
                                 <tr>
@@ -285,7 +286,7 @@
                                 <tr>
                                     <th>Nama Potongan</th>
                                     <th>Jml Potongan</th>
-                                    <th>Telah terpotong</th>
+                                    <th>Terpotong</th>
                                     <th>Expiry Date</th>
                                 </tr>
                             </thead>
@@ -294,7 +295,7 @@
                                 <tr>
                                     <td>{{ $item->nama_potongan }}</td>
                                     <td>{{ $item->jumlah_potongan }}</td>
-                                    <td id="qty{{ $item->id }}">{{ $item->pivot->qty }} kali</td>
+                                    <td id="qty{{ $item->id }}">{{ $item->pivot->qty }}</td>
                                     <th>
                                         <span id="ed{{ $item->id }}">
                                             {{ date('M Y', strtotime($item->pivot->end_at)) }}

@@ -9,7 +9,8 @@
             @forelse ($configs as $config)
             <div class="col-md-6">
                 <div class="form-group">
-                    <label class="form-label">{{ $config->key }}</label>
+                    <label class="form-label">{{ ucwords(str_replace('kehadiran', 'Tgl Kehadiran', str_replace('_', ' ',
+                        $config->key))) }}</label>
                     <input type="text" name="value[{{ $config->key }}]" class="form-control"
                         value="{{ $config->value }}">
                 </div>

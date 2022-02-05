@@ -18,13 +18,53 @@ app('router')->setCompiledRoutes(
     0 => false,
     1 => 
     array (
-      '/api/user' => 
+      '/_debugbar/open' => 
       array (
         0 => 
         array (
           0 => 
           array (
-            '_route' => 'generated::eIvP87LHkmmWhVxi',
+            '_route' => 'debugbar.openhandler',
+          ),
+          1 => NULL,
+          2 => 
+          array (
+            'GET' => 0,
+            'HEAD' => 1,
+          ),
+          3 => NULL,
+          4 => false,
+          5 => false,
+          6 => NULL,
+        ),
+      ),
+      '/_debugbar/assets/stylesheets' => 
+      array (
+        0 => 
+        array (
+          0 => 
+          array (
+            '_route' => 'debugbar.assets.css',
+          ),
+          1 => NULL,
+          2 => 
+          array (
+            'GET' => 0,
+            'HEAD' => 1,
+          ),
+          3 => NULL,
+          4 => false,
+          5 => false,
+          6 => NULL,
+        ),
+      ),
+      '/_debugbar/assets/javascript' => 
+      array (
+        0 => 
+        array (
+          0 => 
+          array (
+            '_route' => 'debugbar.assets.js',
           ),
           1 => NULL,
           2 => 
@@ -44,7 +84,7 @@ app('router')->setCompiledRoutes(
         array (
           0 => 
           array (
-            '_route' => 'generated::s4MQO5ND4iTFuRAP',
+            '_route' => 'generated::I3PRiMsecdgVcb6l',
           ),
           1 => NULL,
           2 => 
@@ -140,7 +180,7 @@ app('router')->setCompiledRoutes(
         array (
           0 => 
           array (
-            '_route' => 'generated::7FLzxL9LBVFPfUYY',
+            '_route' => 'generated::4hsBi8aOdnAAOK9j',
           ),
           1 => NULL,
           2 => 
@@ -250,7 +290,7 @@ app('router')->setCompiledRoutes(
         array (
           0 => 
           array (
-            '_route' => 'generated::3J9IXXRAtZ1kzhiR',
+            '_route' => 'generated::vbfYbiA3RR0bRrmQ',
           ),
           1 => NULL,
           2 => 
@@ -559,7 +599,7 @@ app('router')->setCompiledRoutes(
         array (
           0 => 
           array (
-            '_route' => 'dash.generated::zmQZLoqYOUSpmz8f',
+            '_route' => 'dash.generated::1Gpd2SGQQiGWhbAp',
           ),
           1 => NULL,
           2 => 
@@ -637,7 +677,7 @@ app('router')->setCompiledRoutes(
         array (
           0 => 
           array (
-            '_route' => 'dash.generated::raDLCOcqcbTKuhVy',
+            '_route' => 'dash.generated::ST6fQlZu8qNRxTkd',
           ),
           1 => NULL,
           2 => 
@@ -693,7 +733,7 @@ app('router')->setCompiledRoutes(
         array (
           0 => 
           array (
-            '_route' => 'dash.generated::GEslsdgkCr2YxIJb',
+            '_route' => 'dash.generated::PSEEy9hjfEHVDKWC',
           ),
           1 => NULL,
           2 => 
@@ -749,7 +789,7 @@ app('router')->setCompiledRoutes(
         array (
           0 => 
           array (
-            '_route' => 'dash.generated::lFXqztfTQkxsWx3t',
+            '_route' => 'dash.generated::wYLfK7zt709FHrVs',
           ),
           1 => NULL,
           2 => 
@@ -924,7 +964,7 @@ app('router')->setCompiledRoutes(
         array (
           0 => 
           array (
-            '_route' => 'dash.generated::Mz6V4LwSvmokHWGq',
+            '_route' => 'dash.generated::QXt817obI67n4PAr',
           ),
           1 => NULL,
           2 => 
@@ -964,7 +1004,7 @@ app('router')->setCompiledRoutes(
         array (
           0 => 
           array (
-            '_route' => 'dash.generated::aVaH3vzZPBsrYM3Q',
+            '_route' => 'dash.generated::q7hR74dr1lkXLIaB',
           ),
           1 => NULL,
           2 => 
@@ -2196,14 +2236,81 @@ app('router')->setCompiledRoutes(
           6 => NULL,
         ),
       ),
+      '/api/user' => 
+      array (
+        0 => 
+        array (
+          0 => 
+          array (
+            '_route' => 'generated::k6f0KJLiyIW9dc7S',
+          ),
+          1 => NULL,
+          2 => 
+          array (
+            'GET' => 0,
+            'HEAD' => 1,
+          ),
+          3 => NULL,
+          4 => false,
+          5 => false,
+          6 => NULL,
+        ),
+      ),
     ),
     2 => 
     array (
-      0 => '{^(?|/p(?|assword/reset/([^/]++)(*:34)|rofile/(?|([^/]++)/detail(*:66)|g(?|et\\-(?|gaji/([^/]++)(*:97)|lembur/([^/]++)(*:119)|kehadiran/([^/]++)(*:145)|cuti/([^/]++)(*:166))|aji/([^/]++)/(?|detail(*:197)|print(*:210)))|lembur/([^/]++)(?|(*:238))|cuti/([^/]++)(?|/edit(*:268)|(*:276))))|/dashboard/(?|p(?|egawai/([^/]++)(?|(*:323)|/(?|e(?|dit(*:342)|stimasi(*:357))|resign(*:372))|(*:381))|otongan(?|/(?|([^/]++)(?|/(?|edit(*:423)|attach(*:437)|([^/]++)/delete(*:460))|(*:469))|pajak(*:483)|get\\-pajak(*:501))|\\-pegawai/([^/]++)(*:528)))|gaji/([^/]++)/(?|detail(*:561)|print(*:574))|insentif/([^/]++)(?|/edit(*:608)|(*:616))|lembur/([^/]++)(?|/edit(*:648)|(*:656))|k(?|inerja(?|\\-pegawai/([^/]++)(*:696)|/([^/]++)(?|/(?|attach(*:726)|edit(*:738))|(*:747)))|e(?|hadiran/([^/]++)(?|/edit(*:785)|(*:793))|luarga/([^/]++)(?|/edit(*:825)|(*:833))))|setting/(?|u(?|ser/([^/]++)(?|(*:874)|/edit(*:887)|(*:895))|nit/([^/]++)(?|/edit(*:924)|(*:932)))|r(?|ole/([^/]++)(?|(*:961)|/edit(*:974)|(*:982))|ekening/([^/]++)(?|/edit(*:1015)|(*:1024)))|ta(?|x/([^/]++)(?|(*:1053)|/edit(*:1067)|(*:1076))|rif\\-lembur/([^/]++)(?|/edit(*:1114)|(*:1123)))|ja(?|batan/([^/]++)(?|/edit(*:1161)|(*:1170))|m\\-(?|perpekan/([^/]++)(?|/edit(*:1211)|(*:1220))|ajar/([^/]++)(?|/edit(*:1251)|(*:1260))))|golongan/([^/]++)(?|/edit(*:1297)|(*:1306))|kelompok\\-kerja/([^/]++)(?|/edit(*:1348)|(*:1357))|device/([^/]++)(?|/(?|edit(*:1393)|check(*:1407))|(*:1417))|bidang/([^/]++)(?|/edit(*:1450)|(*:1459))|status\\-ke(?|luarga/([^/]++)(?|/edit(*:1505)|(*:1514))|rja/([^/]++)(?|/edit(*:1544)|(*:1553)))|persentase\\-kinerja/([^/]++)(?|/edit(*:1600)|(*:1609))|nilai\\-kinerja/([^/]++)(?|/edit(*:1650)|(*:1659)))))/?$}sDu',
+      0 => '{^(?|/_debugbar/c(?|lockwork/([^/]++)(*:39)|ache/([^/]++)(?:/([^/]++))?(*:73))|/p(?|assword/reset/([^/]++)(*:108)|rofile/(?|([^/]++)/detail(*:141)|g(?|et\\-(?|gaji/([^/]++)(*:173)|lembur/([^/]++)(*:196)|kehadiran/([^/]++)(*:222)|cuti/([^/]++)(*:243))|aji/([^/]++)/(?|detail(*:274)|print(*:287)))|lembur/([^/]++)(?|(*:315))|cuti/([^/]++)(?|/edit(*:345)|(*:353))))|/dashboard/(?|p(?|egawai/([^/]++)(?|(*:400)|/(?|e(?|dit(*:419)|stimasi(*:434))|resign(*:449))|(*:458))|otongan(?|/(?|([^/]++)(?|/(?|edit(*:500)|attach(*:514)|([^/]++)/delete(*:537))|(*:546))|pajak(*:560)|get\\-pajak(*:578))|\\-pegawai/([^/]++)(*:605)))|gaji/([^/]++)/(?|detail(*:638)|print(*:651))|insentif/([^/]++)(?|/edit(*:685)|(*:693))|lembur/([^/]++)(?|/edit(*:725)|(*:733))|k(?|inerja(?|\\-pegawai/([^/]++)(*:773)|/([^/]++)(?|/(?|attach(*:803)|edit(*:815))|(*:824)))|e(?|hadiran/([^/]++)(?|/edit(*:862)|(*:870))|luarga/([^/]++)(?|/edit(*:902)|(*:910))))|setting/(?|u(?|ser/([^/]++)(?|(*:951)|/edit(*:964)|(*:972))|nit/([^/]++)(?|/edit(*:1001)|(*:1010)))|r(?|ole/([^/]++)(?|(*:1040)|/edit(*:1054)|(*:1063))|ekening/([^/]++)(?|/edit(*:1097)|(*:1106)))|ta(?|x/([^/]++)(?|(*:1135)|/edit(*:1149)|(*:1158))|rif\\-lembur/([^/]++)(?|/edit(*:1196)|(*:1205)))|ja(?|batan/([^/]++)(?|/edit(*:1243)|(*:1252))|m\\-(?|perpekan/([^/]++)(?|/edit(*:1293)|(*:1302))|ajar/([^/]++)(?|/edit(*:1333)|(*:1342))))|golongan/([^/]++)(?|/edit(*:1379)|(*:1388))|kelompok\\-kerja/([^/]++)(?|/edit(*:1430)|(*:1439))|device/([^/]++)(?|/(?|edit(*:1475)|check(*:1489))|(*:1499))|bidang/([^/]++)(?|/edit(*:1532)|(*:1541))|status\\-ke(?|luarga/([^/]++)(?|/edit(*:1587)|(*:1596))|rja/([^/]++)(?|/edit(*:1626)|(*:1635)))|persentase\\-kinerja/([^/]++)(?|/edit(*:1682)|(*:1691))|nilai\\-kinerja/([^/]++)(?|/edit(*:1732)|(*:1741)))))/?$}sDu',
     ),
     3 => 
     array (
-      34 => 
+      39 => 
+      array (
+        0 => 
+        array (
+          0 => 
+          array (
+            '_route' => 'debugbar.clockwork',
+          ),
+          1 => 
+          array (
+            0 => 'id',
+          ),
+          2 => 
+          array (
+            'GET' => 0,
+            'HEAD' => 1,
+          ),
+          3 => NULL,
+          4 => false,
+          5 => true,
+          6 => NULL,
+        ),
+      ),
+      73 => 
+      array (
+        0 => 
+        array (
+          0 => 
+          array (
+            '_route' => 'debugbar.cache.delete',
+            'tags' => NULL,
+          ),
+          1 => 
+          array (
+            0 => 'key',
+            1 => 'tags',
+          ),
+          2 => 
+          array (
+            'DELETE' => 0,
+          ),
+          3 => NULL,
+          4 => false,
+          5 => true,
+          6 => NULL,
+        ),
+      ),
+      108 => 
       array (
         0 => 
         array (
@@ -2226,7 +2333,7 @@ app('router')->setCompiledRoutes(
           6 => NULL,
         ),
       ),
-      66 => 
+      141 => 
       array (
         0 => 
         array (
@@ -2254,7 +2361,7 @@ app('router')->setCompiledRoutes(
           6 => NULL,
         ),
       ),
-      97 => 
+      173 => 
       array (
         0 => 
         array (
@@ -2277,7 +2384,7 @@ app('router')->setCompiledRoutes(
           6 => NULL,
         ),
       ),
-      119 => 
+      196 => 
       array (
         0 => 
         array (
@@ -2300,7 +2407,7 @@ app('router')->setCompiledRoutes(
           6 => NULL,
         ),
       ),
-      145 => 
+      222 => 
       array (
         0 => 
         array (
@@ -2323,7 +2430,7 @@ app('router')->setCompiledRoutes(
           6 => NULL,
         ),
       ),
-      166 => 
+      243 => 
       array (
         0 => 
         array (
@@ -2346,7 +2453,7 @@ app('router')->setCompiledRoutes(
           6 => NULL,
         ),
       ),
-      197 => 
+      274 => 
       array (
         0 => 
         array (
@@ -2369,7 +2476,7 @@ app('router')->setCompiledRoutes(
           6 => NULL,
         ),
       ),
-      210 => 
+      287 => 
       array (
         0 => 
         array (
@@ -2392,7 +2499,7 @@ app('router')->setCompiledRoutes(
           6 => NULL,
         ),
       ),
-      238 => 
+      315 => 
       array (
         0 => 
         array (
@@ -2453,7 +2560,7 @@ app('router')->setCompiledRoutes(
           6 => NULL,
         ),
       ),
-      268 => 
+      345 => 
       array (
         0 => 
         array (
@@ -2476,7 +2583,7 @@ app('router')->setCompiledRoutes(
           6 => NULL,
         ),
       ),
-      276 => 
+      353 => 
       array (
         0 => 
         array (
@@ -2498,7 +2605,7 @@ app('router')->setCompiledRoutes(
           6 => NULL,
         ),
       ),
-      323 => 
+      400 => 
       array (
         0 => 
         array (
@@ -2521,7 +2628,7 @@ app('router')->setCompiledRoutes(
           6 => NULL,
         ),
       ),
-      342 => 
+      419 => 
       array (
         0 => 
         array (
@@ -2544,7 +2651,7 @@ app('router')->setCompiledRoutes(
           6 => NULL,
         ),
       ),
-      357 => 
+      434 => 
       array (
         0 => 
         array (
@@ -2566,7 +2673,7 @@ app('router')->setCompiledRoutes(
           6 => NULL,
         ),
       ),
-      372 => 
+      449 => 
       array (
         0 => 
         array (
@@ -2588,7 +2695,7 @@ app('router')->setCompiledRoutes(
           6 => NULL,
         ),
       ),
-      381 => 
+      458 => 
       array (
         0 => 
         array (
@@ -2610,7 +2717,7 @@ app('router')->setCompiledRoutes(
           6 => NULL,
         ),
       ),
-      423 => 
+      500 => 
       array (
         0 => 
         array (
@@ -2633,7 +2740,7 @@ app('router')->setCompiledRoutes(
           6 => NULL,
         ),
       ),
-      437 => 
+      514 => 
       array (
         0 => 
         array (
@@ -2655,7 +2762,7 @@ app('router')->setCompiledRoutes(
           6 => NULL,
         ),
       ),
-      460 => 
+      537 => 
       array (
         0 => 
         array (
@@ -2678,7 +2785,7 @@ app('router')->setCompiledRoutes(
           6 => NULL,
         ),
       ),
-      469 => 
+      546 => 
       array (
         0 => 
         array (
@@ -2719,7 +2826,7 @@ app('router')->setCompiledRoutes(
           6 => NULL,
         ),
       ),
-      483 => 
+      560 => 
       array (
         0 => 
         array (
@@ -2741,7 +2848,7 @@ app('router')->setCompiledRoutes(
           6 => NULL,
         ),
       ),
-      501 => 
+      578 => 
       array (
         0 => 
         array (
@@ -2763,7 +2870,7 @@ app('router')->setCompiledRoutes(
           6 => NULL,
         ),
       ),
-      528 => 
+      605 => 
       array (
         0 => 
         array (
@@ -2786,7 +2893,7 @@ app('router')->setCompiledRoutes(
           6 => NULL,
         ),
       ),
-      561 => 
+      638 => 
       array (
         0 => 
         array (
@@ -2809,7 +2916,7 @@ app('router')->setCompiledRoutes(
           6 => NULL,
         ),
       ),
-      574 => 
+      651 => 
       array (
         0 => 
         array (
@@ -2832,7 +2939,7 @@ app('router')->setCompiledRoutes(
           6 => NULL,
         ),
       ),
-      608 => 
+      685 => 
       array (
         0 => 
         array (
@@ -2855,7 +2962,7 @@ app('router')->setCompiledRoutes(
           6 => NULL,
         ),
       ),
-      616 => 
+      693 => 
       array (
         0 => 
         array (
@@ -2896,7 +3003,7 @@ app('router')->setCompiledRoutes(
           6 => NULL,
         ),
       ),
-      648 => 
+      725 => 
       array (
         0 => 
         array (
@@ -2919,7 +3026,7 @@ app('router')->setCompiledRoutes(
           6 => NULL,
         ),
       ),
-      656 => 
+      733 => 
       array (
         0 => 
         array (
@@ -2960,7 +3067,7 @@ app('router')->setCompiledRoutes(
           6 => NULL,
         ),
       ),
-      696 => 
+      773 => 
       array (
         0 => 
         array (
@@ -2983,7 +3090,7 @@ app('router')->setCompiledRoutes(
           6 => NULL,
         ),
       ),
-      726 => 
+      803 => 
       array (
         0 => 
         array (
@@ -3005,7 +3112,7 @@ app('router')->setCompiledRoutes(
           6 => NULL,
         ),
       ),
-      738 => 
+      815 => 
       array (
         0 => 
         array (
@@ -3028,7 +3135,7 @@ app('router')->setCompiledRoutes(
           6 => NULL,
         ),
       ),
-      747 => 
+      824 => 
       array (
         0 => 
         array (
@@ -3069,7 +3176,7 @@ app('router')->setCompiledRoutes(
           6 => NULL,
         ),
       ),
-      785 => 
+      862 => 
       array (
         0 => 
         array (
@@ -3092,7 +3199,7 @@ app('router')->setCompiledRoutes(
           6 => NULL,
         ),
       ),
-      793 => 
+      870 => 
       array (
         0 => 
         array (
@@ -3133,7 +3240,7 @@ app('router')->setCompiledRoutes(
           6 => NULL,
         ),
       ),
-      825 => 
+      902 => 
       array (
         0 => 
         array (
@@ -3156,7 +3263,7 @@ app('router')->setCompiledRoutes(
           6 => NULL,
         ),
       ),
-      833 => 
+      910 => 
       array (
         0 => 
         array (
@@ -3197,7 +3304,7 @@ app('router')->setCompiledRoutes(
           6 => NULL,
         ),
       ),
-      874 => 
+      951 => 
       array (
         0 => 
         array (
@@ -3220,7 +3327,7 @@ app('router')->setCompiledRoutes(
           6 => NULL,
         ),
       ),
-      887 => 
+      964 => 
       array (
         0 => 
         array (
@@ -3243,7 +3350,7 @@ app('router')->setCompiledRoutes(
           6 => NULL,
         ),
       ),
-      895 => 
+      972 => 
       array (
         0 => 
         array (
@@ -3285,7 +3392,7 @@ app('router')->setCompiledRoutes(
           6 => NULL,
         ),
       ),
-      924 => 
+      1001 => 
       array (
         0 => 
         array (
@@ -3308,7 +3415,7 @@ app('router')->setCompiledRoutes(
           6 => NULL,
         ),
       ),
-      932 => 
+      1010 => 
       array (
         0 => 
         array (
@@ -3349,7 +3456,7 @@ app('router')->setCompiledRoutes(
           6 => NULL,
         ),
       ),
-      961 => 
+      1040 => 
       array (
         0 => 
         array (
@@ -3372,7 +3479,7 @@ app('router')->setCompiledRoutes(
           6 => NULL,
         ),
       ),
-      974 => 
+      1054 => 
       array (
         0 => 
         array (
@@ -3395,7 +3502,7 @@ app('router')->setCompiledRoutes(
           6 => NULL,
         ),
       ),
-      982 => 
+      1063 => 
       array (
         0 => 
         array (
@@ -3437,7 +3544,7 @@ app('router')->setCompiledRoutes(
           6 => NULL,
         ),
       ),
-      1015 => 
+      1097 => 
       array (
         0 => 
         array (
@@ -3460,7 +3567,7 @@ app('router')->setCompiledRoutes(
           6 => NULL,
         ),
       ),
-      1024 => 
+      1106 => 
       array (
         0 => 
         array (
@@ -3501,7 +3608,7 @@ app('router')->setCompiledRoutes(
           6 => NULL,
         ),
       ),
-      1053 => 
+      1135 => 
       array (
         0 => 
         array (
@@ -3524,7 +3631,7 @@ app('router')->setCompiledRoutes(
           6 => NULL,
         ),
       ),
-      1067 => 
+      1149 => 
       array (
         0 => 
         array (
@@ -3547,7 +3654,7 @@ app('router')->setCompiledRoutes(
           6 => NULL,
         ),
       ),
-      1076 => 
+      1158 => 
       array (
         0 => 
         array (
@@ -3589,7 +3696,7 @@ app('router')->setCompiledRoutes(
           6 => NULL,
         ),
       ),
-      1114 => 
+      1196 => 
       array (
         0 => 
         array (
@@ -3612,7 +3719,7 @@ app('router')->setCompiledRoutes(
           6 => NULL,
         ),
       ),
-      1123 => 
+      1205 => 
       array (
         0 => 
         array (
@@ -3653,7 +3760,7 @@ app('router')->setCompiledRoutes(
           6 => NULL,
         ),
       ),
-      1161 => 
+      1243 => 
       array (
         0 => 
         array (
@@ -3676,7 +3783,7 @@ app('router')->setCompiledRoutes(
           6 => NULL,
         ),
       ),
-      1170 => 
+      1252 => 
       array (
         0 => 
         array (
@@ -3717,7 +3824,7 @@ app('router')->setCompiledRoutes(
           6 => NULL,
         ),
       ),
-      1211 => 
+      1293 => 
       array (
         0 => 
         array (
@@ -3740,7 +3847,7 @@ app('router')->setCompiledRoutes(
           6 => NULL,
         ),
       ),
-      1220 => 
+      1302 => 
       array (
         0 => 
         array (
@@ -3781,7 +3888,7 @@ app('router')->setCompiledRoutes(
           6 => NULL,
         ),
       ),
-      1251 => 
+      1333 => 
       array (
         0 => 
         array (
@@ -3804,7 +3911,7 @@ app('router')->setCompiledRoutes(
           6 => NULL,
         ),
       ),
-      1260 => 
+      1342 => 
       array (
         0 => 
         array (
@@ -3845,7 +3952,7 @@ app('router')->setCompiledRoutes(
           6 => NULL,
         ),
       ),
-      1297 => 
+      1379 => 
       array (
         0 => 
         array (
@@ -3868,7 +3975,7 @@ app('router')->setCompiledRoutes(
           6 => NULL,
         ),
       ),
-      1306 => 
+      1388 => 
       array (
         0 => 
         array (
@@ -3909,7 +4016,7 @@ app('router')->setCompiledRoutes(
           6 => NULL,
         ),
       ),
-      1348 => 
+      1430 => 
       array (
         0 => 
         array (
@@ -3932,7 +4039,7 @@ app('router')->setCompiledRoutes(
           6 => NULL,
         ),
       ),
-      1357 => 
+      1439 => 
       array (
         0 => 
         array (
@@ -3954,7 +4061,7 @@ app('router')->setCompiledRoutes(
           6 => NULL,
         ),
       ),
-      1393 => 
+      1475 => 
       array (
         0 => 
         array (
@@ -3977,7 +4084,7 @@ app('router')->setCompiledRoutes(
           6 => NULL,
         ),
       ),
-      1407 => 
+      1489 => 
       array (
         0 => 
         array (
@@ -3999,7 +4106,7 @@ app('router')->setCompiledRoutes(
           6 => NULL,
         ),
       ),
-      1417 => 
+      1499 => 
       array (
         0 => 
         array (
@@ -4040,7 +4147,7 @@ app('router')->setCompiledRoutes(
           6 => NULL,
         ),
       ),
-      1450 => 
+      1532 => 
       array (
         0 => 
         array (
@@ -4063,7 +4170,7 @@ app('router')->setCompiledRoutes(
           6 => NULL,
         ),
       ),
-      1459 => 
+      1541 => 
       array (
         0 => 
         array (
@@ -4104,7 +4211,7 @@ app('router')->setCompiledRoutes(
           6 => NULL,
         ),
       ),
-      1505 => 
+      1587 => 
       array (
         0 => 
         array (
@@ -4127,7 +4234,7 @@ app('router')->setCompiledRoutes(
           6 => NULL,
         ),
       ),
-      1514 => 
+      1596 => 
       array (
         0 => 
         array (
@@ -4168,7 +4275,7 @@ app('router')->setCompiledRoutes(
           6 => NULL,
         ),
       ),
-      1544 => 
+      1626 => 
       array (
         0 => 
         array (
@@ -4191,7 +4298,7 @@ app('router')->setCompiledRoutes(
           6 => NULL,
         ),
       ),
-      1553 => 
+      1635 => 
       array (
         0 => 
         array (
@@ -4232,7 +4339,7 @@ app('router')->setCompiledRoutes(
           6 => NULL,
         ),
       ),
-      1600 => 
+      1682 => 
       array (
         0 => 
         array (
@@ -4255,7 +4362,7 @@ app('router')->setCompiledRoutes(
           6 => NULL,
         ),
       ),
-      1609 => 
+      1691 => 
       array (
         0 => 
         array (
@@ -4296,7 +4403,7 @@ app('router')->setCompiledRoutes(
           6 => NULL,
         ),
       ),
-      1650 => 
+      1732 => 
       array (
         0 => 
         array (
@@ -4319,7 +4426,7 @@ app('router')->setCompiledRoutes(
           6 => NULL,
         ),
       ),
-      1659 => 
+      1741 => 
       array (
         0 => 
         array (
@@ -4375,29 +4482,29 @@ app('router')->setCompiledRoutes(
   ),
   'attributes' => 
   array (
-    'generated::eIvP87LHkmmWhVxi' => 
+    'debugbar.openhandler' => 
     array (
       'methods' => 
       array (
         0 => 'GET',
         1 => 'HEAD',
       ),
-      'uri' => 'api/user',
+      'uri' => '_debugbar/open',
       'action' => 
       array (
+        'domain' => NULL,
         'middleware' => 
         array (
-          0 => 'api',
-          1 => 'auth:api',
+          0 => 'Barryvdh\\Debugbar\\Middleware\\DebugbarEnabled',
         ),
-        'uses' => 'App\\Http\\Controllers\\UserController@show',
-        'controller' => 'App\\Http\\Controllers\\UserController@show',
-        'namespace' => 'App\\Http\\Controllers',
-        'prefix' => 'api',
+        'uses' => 'Barryvdh\\Debugbar\\Controllers\\OpenHandlerController@handle',
+        'as' => 'debugbar.openhandler',
+        'controller' => 'Barryvdh\\Debugbar\\Controllers\\OpenHandlerController@handle',
+        'namespace' => 'Barryvdh\\Debugbar\\Controllers',
+        'prefix' => '_debugbar',
         'where' => 
         array (
         ),
-        'as' => 'generated::eIvP87LHkmmWhVxi',
       ),
       'fallback' => false,
       'defaults' => 
@@ -4411,8 +4518,160 @@ app('router')->setCompiledRoutes(
       ),
       'lockSeconds' => NULL,
       'waitSeconds' => NULL,
+      'withTrashed' => false,
     ),
-    'generated::s4MQO5ND4iTFuRAP' => 
+    'debugbar.clockwork' => 
+    array (
+      'methods' => 
+      array (
+        0 => 'GET',
+        1 => 'HEAD',
+      ),
+      'uri' => '_debugbar/clockwork/{id}',
+      'action' => 
+      array (
+        'domain' => NULL,
+        'middleware' => 
+        array (
+          0 => 'Barryvdh\\Debugbar\\Middleware\\DebugbarEnabled',
+        ),
+        'uses' => 'Barryvdh\\Debugbar\\Controllers\\OpenHandlerController@clockwork',
+        'as' => 'debugbar.clockwork',
+        'controller' => 'Barryvdh\\Debugbar\\Controllers\\OpenHandlerController@clockwork',
+        'namespace' => 'Barryvdh\\Debugbar\\Controllers',
+        'prefix' => '_debugbar',
+        'where' => 
+        array (
+        ),
+      ),
+      'fallback' => false,
+      'defaults' => 
+      array (
+      ),
+      'wheres' => 
+      array (
+      ),
+      'bindingFields' => 
+      array (
+      ),
+      'lockSeconds' => NULL,
+      'waitSeconds' => NULL,
+      'withTrashed' => false,
+    ),
+    'debugbar.assets.css' => 
+    array (
+      'methods' => 
+      array (
+        0 => 'GET',
+        1 => 'HEAD',
+      ),
+      'uri' => '_debugbar/assets/stylesheets',
+      'action' => 
+      array (
+        'domain' => NULL,
+        'middleware' => 
+        array (
+          0 => 'Barryvdh\\Debugbar\\Middleware\\DebugbarEnabled',
+        ),
+        'uses' => 'Barryvdh\\Debugbar\\Controllers\\AssetController@css',
+        'as' => 'debugbar.assets.css',
+        'controller' => 'Barryvdh\\Debugbar\\Controllers\\AssetController@css',
+        'namespace' => 'Barryvdh\\Debugbar\\Controllers',
+        'prefix' => '_debugbar',
+        'where' => 
+        array (
+        ),
+      ),
+      'fallback' => false,
+      'defaults' => 
+      array (
+      ),
+      'wheres' => 
+      array (
+      ),
+      'bindingFields' => 
+      array (
+      ),
+      'lockSeconds' => NULL,
+      'waitSeconds' => NULL,
+      'withTrashed' => false,
+    ),
+    'debugbar.assets.js' => 
+    array (
+      'methods' => 
+      array (
+        0 => 'GET',
+        1 => 'HEAD',
+      ),
+      'uri' => '_debugbar/assets/javascript',
+      'action' => 
+      array (
+        'domain' => NULL,
+        'middleware' => 
+        array (
+          0 => 'Barryvdh\\Debugbar\\Middleware\\DebugbarEnabled',
+        ),
+        'uses' => 'Barryvdh\\Debugbar\\Controllers\\AssetController@js',
+        'as' => 'debugbar.assets.js',
+        'controller' => 'Barryvdh\\Debugbar\\Controllers\\AssetController@js',
+        'namespace' => 'Barryvdh\\Debugbar\\Controllers',
+        'prefix' => '_debugbar',
+        'where' => 
+        array (
+        ),
+      ),
+      'fallback' => false,
+      'defaults' => 
+      array (
+      ),
+      'wheres' => 
+      array (
+      ),
+      'bindingFields' => 
+      array (
+      ),
+      'lockSeconds' => NULL,
+      'waitSeconds' => NULL,
+      'withTrashed' => false,
+    ),
+    'debugbar.cache.delete' => 
+    array (
+      'methods' => 
+      array (
+        0 => 'DELETE',
+      ),
+      'uri' => '_debugbar/cache/{key}/{tags?}',
+      'action' => 
+      array (
+        'domain' => NULL,
+        'middleware' => 
+        array (
+          0 => 'Barryvdh\\Debugbar\\Middleware\\DebugbarEnabled',
+        ),
+        'uses' => 'Barryvdh\\Debugbar\\Controllers\\CacheController@delete',
+        'as' => 'debugbar.cache.delete',
+        'controller' => 'Barryvdh\\Debugbar\\Controllers\\CacheController@delete',
+        'namespace' => 'Barryvdh\\Debugbar\\Controllers',
+        'prefix' => '_debugbar',
+        'where' => 
+        array (
+        ),
+      ),
+      'fallback' => false,
+      'defaults' => 
+      array (
+      ),
+      'wheres' => 
+      array (
+      ),
+      'bindingFields' => 
+      array (
+      ),
+      'lockSeconds' => NULL,
+      'waitSeconds' => NULL,
+      'withTrashed' => false,
+    ),
+    'generated::I3PRiMsecdgVcb6l' => 
     array (
       'methods' => 
       array (
@@ -4429,11 +4688,11 @@ app('router')->setCompiledRoutes(
         'uses' => 'App\\Http\\Controllers\\HomeController@toLogin',
         'controller' => 'App\\Http\\Controllers\\HomeController@toLogin',
         'namespace' => 'App\\Http\\Controllers',
-        'prefix' => NULL,
+        'prefix' => '',
         'where' => 
         array (
         ),
-        'as' => 'generated::s4MQO5ND4iTFuRAP',
+        'as' => 'generated::I3PRiMsecdgVcb6l',
       ),
       'fallback' => false,
       'defaults' => 
@@ -4447,6 +4706,7 @@ app('router')->setCompiledRoutes(
       ),
       'lockSeconds' => NULL,
       'waitSeconds' => NULL,
+      'withTrashed' => false,
     ),
     'home' => 
     array (
@@ -4465,7 +4725,7 @@ app('router')->setCompiledRoutes(
         'uses' => 'App\\Http\\Controllers\\HomeController@index',
         'controller' => 'App\\Http\\Controllers\\HomeController@index',
         'namespace' => 'App\\Http\\Controllers',
-        'prefix' => NULL,
+        'prefix' => '',
         'where' => 
         array (
         ),
@@ -4483,6 +4743,7 @@ app('router')->setCompiledRoutes(
       ),
       'lockSeconds' => NULL,
       'waitSeconds' => NULL,
+      'withTrashed' => false,
     ),
     'mark-as-read' => 
     array (
@@ -4500,7 +4761,7 @@ app('router')->setCompiledRoutes(
         'uses' => 'App\\Http\\Controllers\\HomeController@markAsRead',
         'controller' => 'App\\Http\\Controllers\\HomeController@markAsRead',
         'namespace' => 'App\\Http\\Controllers',
-        'prefix' => NULL,
+        'prefix' => '',
         'where' => 
         array (
         ),
@@ -4518,6 +4779,7 @@ app('router')->setCompiledRoutes(
       ),
       'lockSeconds' => NULL,
       'waitSeconds' => NULL,
+      'withTrashed' => false,
     ),
     'coming-soon' => 
     array (
@@ -4536,7 +4798,7 @@ app('router')->setCompiledRoutes(
         'uses' => 'App\\Http\\Controllers\\HomeController@coming',
         'controller' => 'App\\Http\\Controllers\\HomeController@coming',
         'namespace' => 'App\\Http\\Controllers',
-        'prefix' => NULL,
+        'prefix' => '',
         'where' => 
         array (
         ),
@@ -4554,6 +4816,7 @@ app('router')->setCompiledRoutes(
       ),
       'lockSeconds' => NULL,
       'waitSeconds' => NULL,
+      'withTrashed' => false,
     ),
     'login' => 
     array (
@@ -4572,7 +4835,7 @@ app('router')->setCompiledRoutes(
         'uses' => 'App\\Http\\Controllers\\Auth\\LoginController@showLoginForm',
         'controller' => 'App\\Http\\Controllers\\Auth\\LoginController@showLoginForm',
         'namespace' => 'App\\Http\\Controllers',
-        'prefix' => NULL,
+        'prefix' => '',
         'where' => 
         array (
         ),
@@ -4590,8 +4853,9 @@ app('router')->setCompiledRoutes(
       ),
       'lockSeconds' => NULL,
       'waitSeconds' => NULL,
+      'withTrashed' => false,
     ),
-    'generated::7FLzxL9LBVFPfUYY' => 
+    'generated::4hsBi8aOdnAAOK9j' => 
     array (
       'methods' => 
       array (
@@ -4607,11 +4871,11 @@ app('router')->setCompiledRoutes(
         'uses' => 'App\\Http\\Controllers\\Auth\\LoginController@login',
         'controller' => 'App\\Http\\Controllers\\Auth\\LoginController@login',
         'namespace' => 'App\\Http\\Controllers',
-        'prefix' => NULL,
+        'prefix' => '',
         'where' => 
         array (
         ),
-        'as' => 'generated::7FLzxL9LBVFPfUYY',
+        'as' => 'generated::4hsBi8aOdnAAOK9j',
       ),
       'fallback' => false,
       'defaults' => 
@@ -4625,6 +4889,7 @@ app('router')->setCompiledRoutes(
       ),
       'lockSeconds' => NULL,
       'waitSeconds' => NULL,
+      'withTrashed' => false,
     ),
     'logout' => 
     array (
@@ -4642,7 +4907,7 @@ app('router')->setCompiledRoutes(
         'uses' => 'App\\Http\\Controllers\\Auth\\LoginController@logout',
         'controller' => 'App\\Http\\Controllers\\Auth\\LoginController@logout',
         'namespace' => 'App\\Http\\Controllers',
-        'prefix' => NULL,
+        'prefix' => '',
         'where' => 
         array (
         ),
@@ -4660,6 +4925,7 @@ app('router')->setCompiledRoutes(
       ),
       'lockSeconds' => NULL,
       'waitSeconds' => NULL,
+      'withTrashed' => false,
     ),
     'password.request' => 
     array (
@@ -4678,7 +4944,7 @@ app('router')->setCompiledRoutes(
         'uses' => 'App\\Http\\Controllers\\Auth\\ForgotPasswordController@showLinkRequestForm',
         'controller' => 'App\\Http\\Controllers\\Auth\\ForgotPasswordController@showLinkRequestForm',
         'namespace' => 'App\\Http\\Controllers',
-        'prefix' => NULL,
+        'prefix' => '',
         'where' => 
         array (
         ),
@@ -4696,6 +4962,7 @@ app('router')->setCompiledRoutes(
       ),
       'lockSeconds' => NULL,
       'waitSeconds' => NULL,
+      'withTrashed' => false,
     ),
     'password.email' => 
     array (
@@ -4713,7 +4980,7 @@ app('router')->setCompiledRoutes(
         'uses' => 'App\\Http\\Controllers\\Auth\\ForgotPasswordController@sendResetLinkEmail',
         'controller' => 'App\\Http\\Controllers\\Auth\\ForgotPasswordController@sendResetLinkEmail',
         'namespace' => 'App\\Http\\Controllers',
-        'prefix' => NULL,
+        'prefix' => '',
         'where' => 
         array (
         ),
@@ -4731,6 +4998,7 @@ app('router')->setCompiledRoutes(
       ),
       'lockSeconds' => NULL,
       'waitSeconds' => NULL,
+      'withTrashed' => false,
     ),
     'password.reset' => 
     array (
@@ -4749,7 +5017,7 @@ app('router')->setCompiledRoutes(
         'uses' => 'App\\Http\\Controllers\\Auth\\ResetPasswordController@showResetForm',
         'controller' => 'App\\Http\\Controllers\\Auth\\ResetPasswordController@showResetForm',
         'namespace' => 'App\\Http\\Controllers',
-        'prefix' => NULL,
+        'prefix' => '',
         'where' => 
         array (
         ),
@@ -4767,6 +5035,7 @@ app('router')->setCompiledRoutes(
       ),
       'lockSeconds' => NULL,
       'waitSeconds' => NULL,
+      'withTrashed' => false,
     ),
     'password.update' => 
     array (
@@ -4784,7 +5053,7 @@ app('router')->setCompiledRoutes(
         'uses' => 'App\\Http\\Controllers\\Auth\\ResetPasswordController@reset',
         'controller' => 'App\\Http\\Controllers\\Auth\\ResetPasswordController@reset',
         'namespace' => 'App\\Http\\Controllers',
-        'prefix' => NULL,
+        'prefix' => '',
         'where' => 
         array (
         ),
@@ -4802,6 +5071,7 @@ app('router')->setCompiledRoutes(
       ),
       'lockSeconds' => NULL,
       'waitSeconds' => NULL,
+      'withTrashed' => false,
     ),
     'password.confirm' => 
     array (
@@ -4820,7 +5090,7 @@ app('router')->setCompiledRoutes(
         'uses' => 'App\\Http\\Controllers\\Auth\\ConfirmPasswordController@showConfirmForm',
         'controller' => 'App\\Http\\Controllers\\Auth\\ConfirmPasswordController@showConfirmForm',
         'namespace' => 'App\\Http\\Controllers',
-        'prefix' => NULL,
+        'prefix' => '',
         'where' => 
         array (
         ),
@@ -4838,8 +5108,9 @@ app('router')->setCompiledRoutes(
       ),
       'lockSeconds' => NULL,
       'waitSeconds' => NULL,
+      'withTrashed' => false,
     ),
-    'generated::3J9IXXRAtZ1kzhiR' => 
+    'generated::vbfYbiA3RR0bRrmQ' => 
     array (
       'methods' => 
       array (
@@ -4855,11 +5126,11 @@ app('router')->setCompiledRoutes(
         'uses' => 'App\\Http\\Controllers\\Auth\\ConfirmPasswordController@confirm',
         'controller' => 'App\\Http\\Controllers\\Auth\\ConfirmPasswordController@confirm',
         'namespace' => 'App\\Http\\Controllers',
-        'prefix' => NULL,
+        'prefix' => '',
         'where' => 
         array (
         ),
-        'as' => 'generated::3J9IXXRAtZ1kzhiR',
+        'as' => 'generated::vbfYbiA3RR0bRrmQ',
       ),
       'fallback' => false,
       'defaults' => 
@@ -4873,6 +5144,7 @@ app('router')->setCompiledRoutes(
       ),
       'lockSeconds' => NULL,
       'waitSeconds' => NULL,
+      'withTrashed' => false,
     ),
     'profile.' => 
     array (
@@ -4911,6 +5183,7 @@ app('router')->setCompiledRoutes(
       ),
       'lockSeconds' => NULL,
       'waitSeconds' => NULL,
+      'withTrashed' => false,
     ),
     'profile.detail' => 
     array (
@@ -4954,6 +5227,7 @@ app('router')->setCompiledRoutes(
       ),
       'lockSeconds' => NULL,
       'waitSeconds' => NULL,
+      'withTrashed' => false,
     ),
     'profile.gaji.index' => 
     array (
@@ -4992,6 +5266,7 @@ app('router')->setCompiledRoutes(
       ),
       'lockSeconds' => NULL,
       'waitSeconds' => NULL,
+      'withTrashed' => false,
     ),
     'profile.gaji.datatable' => 
     array (
@@ -5030,6 +5305,7 @@ app('router')->setCompiledRoutes(
       ),
       'lockSeconds' => NULL,
       'waitSeconds' => NULL,
+      'withTrashed' => false,
     ),
     'profile.gaji.detail' => 
     array (
@@ -5068,6 +5344,7 @@ app('router')->setCompiledRoutes(
       ),
       'lockSeconds' => NULL,
       'waitSeconds' => NULL,
+      'withTrashed' => false,
     ),
     'profile.gaji.slip' => 
     array (
@@ -5106,6 +5383,7 @@ app('router')->setCompiledRoutes(
       ),
       'lockSeconds' => NULL,
       'waitSeconds' => NULL,
+      'withTrashed' => false,
     ),
     'profile.lembur.index' => 
     array (
@@ -5144,6 +5422,7 @@ app('router')->setCompiledRoutes(
       ),
       'lockSeconds' => NULL,
       'waitSeconds' => NULL,
+      'withTrashed' => false,
     ),
     'profile.lembur.store' => 
     array (
@@ -5181,6 +5460,7 @@ app('router')->setCompiledRoutes(
       ),
       'lockSeconds' => NULL,
       'waitSeconds' => NULL,
+      'withTrashed' => false,
     ),
     'profile.lembur.edit' => 
     array (
@@ -5219,6 +5499,7 @@ app('router')->setCompiledRoutes(
       ),
       'lockSeconds' => NULL,
       'waitSeconds' => NULL,
+      'withTrashed' => false,
     ),
     'profile.lembur.update' => 
     array (
@@ -5256,6 +5537,7 @@ app('router')->setCompiledRoutes(
       ),
       'lockSeconds' => NULL,
       'waitSeconds' => NULL,
+      'withTrashed' => false,
     ),
     'profile.lembur.destroy' => 
     array (
@@ -5293,6 +5575,7 @@ app('router')->setCompiledRoutes(
       ),
       'lockSeconds' => NULL,
       'waitSeconds' => NULL,
+      'withTrashed' => false,
     ),
     'profile.lembur.datatable' => 
     array (
@@ -5331,6 +5614,7 @@ app('router')->setCompiledRoutes(
       ),
       'lockSeconds' => NULL,
       'waitSeconds' => NULL,
+      'withTrashed' => false,
     ),
     'profile.kehadiran.index' => 
     array (
@@ -5369,6 +5653,7 @@ app('router')->setCompiledRoutes(
       ),
       'lockSeconds' => NULL,
       'waitSeconds' => NULL,
+      'withTrashed' => false,
     ),
     'profile.kehadiran.datatable' => 
     array (
@@ -5407,6 +5692,7 @@ app('router')->setCompiledRoutes(
       ),
       'lockSeconds' => NULL,
       'waitSeconds' => NULL,
+      'withTrashed' => false,
     ),
     'profile.cuti.index' => 
     array (
@@ -5445,6 +5731,7 @@ app('router')->setCompiledRoutes(
       ),
       'lockSeconds' => NULL,
       'waitSeconds' => NULL,
+      'withTrashed' => false,
     ),
     'profile.cuti.create' => 
     array (
@@ -5483,6 +5770,7 @@ app('router')->setCompiledRoutes(
       ),
       'lockSeconds' => NULL,
       'waitSeconds' => NULL,
+      'withTrashed' => false,
     ),
     'profile.cuti.store' => 
     array (
@@ -5520,6 +5808,7 @@ app('router')->setCompiledRoutes(
       ),
       'lockSeconds' => NULL,
       'waitSeconds' => NULL,
+      'withTrashed' => false,
     ),
     'profile.cuti.edit' => 
     array (
@@ -5558,6 +5847,7 @@ app('router')->setCompiledRoutes(
       ),
       'lockSeconds' => NULL,
       'waitSeconds' => NULL,
+      'withTrashed' => false,
     ),
     'profile.cuti.update' => 
     array (
@@ -5595,6 +5885,7 @@ app('router')->setCompiledRoutes(
       ),
       'lockSeconds' => NULL,
       'waitSeconds' => NULL,
+      'withTrashed' => false,
     ),
     'profile.cuti.datatable' => 
     array (
@@ -5633,6 +5924,7 @@ app('router')->setCompiledRoutes(
       ),
       'lockSeconds' => NULL,
       'waitSeconds' => NULL,
+      'withTrashed' => false,
     ),
     'profile.komplain.index' => 
     array (
@@ -5671,6 +5963,7 @@ app('router')->setCompiledRoutes(
       ),
       'lockSeconds' => NULL,
       'waitSeconds' => NULL,
+      'withTrashed' => false,
     ),
     'dash.home' => 
     array (
@@ -5709,6 +6002,7 @@ app('router')->setCompiledRoutes(
       ),
       'lockSeconds' => NULL,
       'waitSeconds' => NULL,
+      'withTrashed' => false,
     ),
     'dash.' => 
     array (
@@ -5747,6 +6041,7 @@ app('router')->setCompiledRoutes(
       ),
       'lockSeconds' => NULL,
       'waitSeconds' => NULL,
+      'withTrashed' => false,
     ),
     'dash.karyawan.datatable' => 
     array (
@@ -5785,6 +6080,7 @@ app('router')->setCompiledRoutes(
       ),
       'lockSeconds' => NULL,
       'waitSeconds' => NULL,
+      'withTrashed' => false,
     ),
     'dash.karyawan.store' => 
     array (
@@ -5822,6 +6118,7 @@ app('router')->setCompiledRoutes(
       ),
       'lockSeconds' => NULL,
       'waitSeconds' => NULL,
+      'withTrashed' => false,
     ),
     'dash.karyawan.name' => 
     array (
@@ -5860,6 +6157,7 @@ app('router')->setCompiledRoutes(
       ),
       'lockSeconds' => NULL,
       'waitSeconds' => NULL,
+      'withTrashed' => false,
     ),
     'dash.karyawan.sms' => 
     array (
@@ -5897,6 +6195,7 @@ app('router')->setCompiledRoutes(
       ),
       'lockSeconds' => NULL,
       'waitSeconds' => NULL,
+      'withTrashed' => false,
     ),
     'dash.karyawan.show' => 
     array (
@@ -5935,6 +6234,7 @@ app('router')->setCompiledRoutes(
       ),
       'lockSeconds' => NULL,
       'waitSeconds' => NULL,
+      'withTrashed' => false,
     ),
     'dash.karyawan.edit' => 
     array (
@@ -5973,6 +6273,7 @@ app('router')->setCompiledRoutes(
       ),
       'lockSeconds' => NULL,
       'waitSeconds' => NULL,
+      'withTrashed' => false,
     ),
     'dash.karyawan.update' => 
     array (
@@ -6010,6 +6311,7 @@ app('router')->setCompiledRoutes(
       ),
       'lockSeconds' => NULL,
       'waitSeconds' => NULL,
+      'withTrashed' => false,
     ),
     'dash.karyawan.resign' => 
     array (
@@ -6047,6 +6349,7 @@ app('router')->setCompiledRoutes(
       ),
       'lockSeconds' => NULL,
       'waitSeconds' => NULL,
+      'withTrashed' => false,
     ),
     'dash.karyawan.estimasi' => 
     array (
@@ -6084,8 +6387,9 @@ app('router')->setCompiledRoutes(
       ),
       'lockSeconds' => NULL,
       'waitSeconds' => NULL,
+      'withTrashed' => false,
     ),
-    'dash.generated::zmQZLoqYOUSpmz8f' => 
+    'dash.generated::1Gpd2SGQQiGWhbAp' => 
     array (
       'methods' => 
       array (
@@ -6103,7 +6407,7 @@ app('router')->setCompiledRoutes(
         ),
         'uses' => 'App\\Http\\Controllers\\GajiController@index',
         'controller' => 'App\\Http\\Controllers\\GajiController@index',
-        'as' => 'dash.generated::zmQZLoqYOUSpmz8f',
+        'as' => 'dash.generated::1Gpd2SGQQiGWhbAp',
         'namespace' => 'App\\Http\\Controllers',
         'prefix' => '/dashboard',
         'where' => 
@@ -6122,6 +6426,7 @@ app('router')->setCompiledRoutes(
       ),
       'lockSeconds' => NULL,
       'waitSeconds' => NULL,
+      'withTrashed' => false,
     ),
     'dash.gaji.datatable' => 
     array (
@@ -6160,6 +6465,7 @@ app('router')->setCompiledRoutes(
       ),
       'lockSeconds' => NULL,
       'waitSeconds' => NULL,
+      'withTrashed' => false,
     ),
     'dash.gaji.prosesUlang' => 
     array (
@@ -6197,6 +6503,7 @@ app('router')->setCompiledRoutes(
       ),
       'lockSeconds' => NULL,
       'waitSeconds' => NULL,
+      'withTrashed' => false,
     ),
     'dash.gaji.unduh' => 
     array (
@@ -6234,6 +6541,7 @@ app('router')->setCompiledRoutes(
       ),
       'lockSeconds' => NULL,
       'waitSeconds' => NULL,
+      'withTrashed' => false,
     ),
     'dash.gaji.detail' => 
     array (
@@ -6272,6 +6580,7 @@ app('router')->setCompiledRoutes(
       ),
       'lockSeconds' => NULL,
       'waitSeconds' => NULL,
+      'withTrashed' => false,
     ),
     'dash.gaji.slip' => 
     array (
@@ -6310,8 +6619,9 @@ app('router')->setCompiledRoutes(
       ),
       'lockSeconds' => NULL,
       'waitSeconds' => NULL,
+      'withTrashed' => false,
     ),
-    'dash.generated::raDLCOcqcbTKuhVy' => 
+    'dash.generated::ST6fQlZu8qNRxTkd' => 
     array (
       'methods' => 
       array (
@@ -6329,7 +6639,7 @@ app('router')->setCompiledRoutes(
         ),
         'uses' => 'App\\Http\\Controllers\\InsentifController@index',
         'controller' => 'App\\Http\\Controllers\\InsentifController@index',
-        'as' => 'dash.generated::raDLCOcqcbTKuhVy',
+        'as' => 'dash.generated::ST6fQlZu8qNRxTkd',
         'namespace' => 'App\\Http\\Controllers',
         'prefix' => '/dashboard',
         'where' => 
@@ -6348,6 +6658,7 @@ app('router')->setCompiledRoutes(
       ),
       'lockSeconds' => NULL,
       'waitSeconds' => NULL,
+      'withTrashed' => false,
     ),
     'dash.insentif.datatable' => 
     array (
@@ -6386,6 +6697,7 @@ app('router')->setCompiledRoutes(
       ),
       'lockSeconds' => NULL,
       'waitSeconds' => NULL,
+      'withTrashed' => false,
     ),
     'dash.insentif.store' => 
     array (
@@ -6423,6 +6735,7 @@ app('router')->setCompiledRoutes(
       ),
       'lockSeconds' => NULL,
       'waitSeconds' => NULL,
+      'withTrashed' => false,
     ),
     'dash.insentif.edit' => 
     array (
@@ -6461,6 +6774,7 @@ app('router')->setCompiledRoutes(
       ),
       'lockSeconds' => NULL,
       'waitSeconds' => NULL,
+      'withTrashed' => false,
     ),
     'dash.insentif.update' => 
     array (
@@ -6498,6 +6812,7 @@ app('router')->setCompiledRoutes(
       ),
       'lockSeconds' => NULL,
       'waitSeconds' => NULL,
+      'withTrashed' => false,
     ),
     'dash.insentif.destroy' => 
     array (
@@ -6535,8 +6850,9 @@ app('router')->setCompiledRoutes(
       ),
       'lockSeconds' => NULL,
       'waitSeconds' => NULL,
+      'withTrashed' => false,
     ),
-    'dash.generated::GEslsdgkCr2YxIJb' => 
+    'dash.generated::PSEEy9hjfEHVDKWC' => 
     array (
       'methods' => 
       array (
@@ -6554,7 +6870,7 @@ app('router')->setCompiledRoutes(
         ),
         'uses' => 'App\\Http\\Controllers\\LemburController@index',
         'controller' => 'App\\Http\\Controllers\\LemburController@index',
-        'as' => 'dash.generated::GEslsdgkCr2YxIJb',
+        'as' => 'dash.generated::PSEEy9hjfEHVDKWC',
         'namespace' => 'App\\Http\\Controllers',
         'prefix' => '/dashboard',
         'where' => 
@@ -6573,6 +6889,7 @@ app('router')->setCompiledRoutes(
       ),
       'lockSeconds' => NULL,
       'waitSeconds' => NULL,
+      'withTrashed' => false,
     ),
     'dash.lembur.datatable' => 
     array (
@@ -6611,6 +6928,7 @@ app('router')->setCompiledRoutes(
       ),
       'lockSeconds' => NULL,
       'waitSeconds' => NULL,
+      'withTrashed' => false,
     ),
     'dash.lembur.store' => 
     array (
@@ -6648,6 +6966,7 @@ app('router')->setCompiledRoutes(
       ),
       'lockSeconds' => NULL,
       'waitSeconds' => NULL,
+      'withTrashed' => false,
     ),
     'dash.lembur.edit' => 
     array (
@@ -6686,6 +7005,7 @@ app('router')->setCompiledRoutes(
       ),
       'lockSeconds' => NULL,
       'waitSeconds' => NULL,
+      'withTrashed' => false,
     ),
     'dash.lembur.update' => 
     array (
@@ -6723,6 +7043,7 @@ app('router')->setCompiledRoutes(
       ),
       'lockSeconds' => NULL,
       'waitSeconds' => NULL,
+      'withTrashed' => false,
     ),
     'dash.lembur.destroy' => 
     array (
@@ -6760,8 +7081,9 @@ app('router')->setCompiledRoutes(
       ),
       'lockSeconds' => NULL,
       'waitSeconds' => NULL,
+      'withTrashed' => false,
     ),
-    'dash.generated::lFXqztfTQkxsWx3t' => 
+    'dash.generated::wYLfK7zt709FHrVs' => 
     array (
       'methods' => 
       array (
@@ -6779,7 +7101,7 @@ app('router')->setCompiledRoutes(
         ),
         'uses' => 'App\\Http\\Controllers\\KinerjaController@index',
         'controller' => 'App\\Http\\Controllers\\KinerjaController@index',
-        'as' => 'dash.generated::lFXqztfTQkxsWx3t',
+        'as' => 'dash.generated::wYLfK7zt709FHrVs',
         'namespace' => 'App\\Http\\Controllers',
         'prefix' => '/dashboard',
         'where' => 
@@ -6798,6 +7120,7 @@ app('router')->setCompiledRoutes(
       ),
       'lockSeconds' => NULL,
       'waitSeconds' => NULL,
+      'withTrashed' => false,
     ),
     'dash.kinerja.datatable' => 
     array (
@@ -6836,6 +7159,7 @@ app('router')->setCompiledRoutes(
       ),
       'lockSeconds' => NULL,
       'waitSeconds' => NULL,
+      'withTrashed' => false,
     ),
     'dash.kinerja.store' => 
     array (
@@ -6873,6 +7197,7 @@ app('router')->setCompiledRoutes(
       ),
       'lockSeconds' => NULL,
       'waitSeconds' => NULL,
+      'withTrashed' => false,
     ),
     'dash.kinerja.show' => 
     array (
@@ -6911,6 +7236,7 @@ app('router')->setCompiledRoutes(
       ),
       'lockSeconds' => NULL,
       'waitSeconds' => NULL,
+      'withTrashed' => false,
     ),
     'dash.kinerja.attach' => 
     array (
@@ -6948,6 +7274,7 @@ app('router')->setCompiledRoutes(
       ),
       'lockSeconds' => NULL,
       'waitSeconds' => NULL,
+      'withTrashed' => false,
     ),
     'dash.kinerja.edit' => 
     array (
@@ -6986,6 +7313,7 @@ app('router')->setCompiledRoutes(
       ),
       'lockSeconds' => NULL,
       'waitSeconds' => NULL,
+      'withTrashed' => false,
     ),
     'dash.kinerja.update' => 
     array (
@@ -7023,6 +7351,7 @@ app('router')->setCompiledRoutes(
       ),
       'lockSeconds' => NULL,
       'waitSeconds' => NULL,
+      'withTrashed' => false,
     ),
     'dash.kinerja.destroy' => 
     array (
@@ -7060,6 +7389,7 @@ app('router')->setCompiledRoutes(
       ),
       'lockSeconds' => NULL,
       'waitSeconds' => NULL,
+      'withTrashed' => false,
     ),
     'dash.kehadiran' => 
     array (
@@ -7098,6 +7428,7 @@ app('router')->setCompiledRoutes(
       ),
       'lockSeconds' => NULL,
       'waitSeconds' => NULL,
+      'withTrashed' => false,
     ),
     'dash.kehadiran.datatable' => 
     array (
@@ -7136,6 +7467,7 @@ app('router')->setCompiledRoutes(
       ),
       'lockSeconds' => NULL,
       'waitSeconds' => NULL,
+      'withTrashed' => false,
     ),
     'dash.kehadiran.pilihan' => 
     array (
@@ -7174,6 +7506,7 @@ app('router')->setCompiledRoutes(
       ),
       'lockSeconds' => NULL,
       'waitSeconds' => NULL,
+      'withTrashed' => false,
     ),
     'dash.kehadiran.apel' => 
     array (
@@ -7212,6 +7545,7 @@ app('router')->setCompiledRoutes(
       ),
       'lockSeconds' => NULL,
       'waitSeconds' => NULL,
+      'withTrashed' => false,
     ),
     'dash.kehadiran.jadwal' => 
     array (
@@ -7250,6 +7584,7 @@ app('router')->setCompiledRoutes(
       ),
       'lockSeconds' => NULL,
       'waitSeconds' => NULL,
+      'withTrashed' => false,
     ),
     'dash.kehadiran.store' => 
     array (
@@ -7287,6 +7622,7 @@ app('router')->setCompiledRoutes(
       ),
       'lockSeconds' => NULL,
       'waitSeconds' => NULL,
+      'withTrashed' => false,
     ),
     'dash.kehadiran.edit' => 
     array (
@@ -7325,6 +7661,7 @@ app('router')->setCompiledRoutes(
       ),
       'lockSeconds' => NULL,
       'waitSeconds' => NULL,
+      'withTrashed' => false,
     ),
     'dash.kehadiran.update' => 
     array (
@@ -7362,6 +7699,7 @@ app('router')->setCompiledRoutes(
       ),
       'lockSeconds' => NULL,
       'waitSeconds' => NULL,
+      'withTrashed' => false,
     ),
     'dash.kehadiran.destroy' => 
     array (
@@ -7399,8 +7737,9 @@ app('router')->setCompiledRoutes(
       ),
       'lockSeconds' => NULL,
       'waitSeconds' => NULL,
+      'withTrashed' => false,
     ),
-    'dash.generated::Mz6V4LwSvmokHWGq' => 
+    'dash.generated::QXt817obI67n4PAr' => 
     array (
       'methods' => 
       array (
@@ -7418,7 +7757,7 @@ app('router')->setCompiledRoutes(
         ),
         'uses' => 'App\\Http\\Controllers\\CutiController@index',
         'controller' => 'App\\Http\\Controllers\\CutiController@index',
-        'as' => 'dash.generated::Mz6V4LwSvmokHWGq',
+        'as' => 'dash.generated::QXt817obI67n4PAr',
         'namespace' => 'App\\Http\\Controllers',
         'prefix' => '/dashboard',
         'where' => 
@@ -7437,6 +7776,7 @@ app('router')->setCompiledRoutes(
       ),
       'lockSeconds' => NULL,
       'waitSeconds' => NULL,
+      'withTrashed' => false,
     ),
     'dash.cuti.datatable' => 
     array (
@@ -7475,8 +7815,9 @@ app('router')->setCompiledRoutes(
       ),
       'lockSeconds' => NULL,
       'waitSeconds' => NULL,
+      'withTrashed' => false,
     ),
-    'dash.generated::aVaH3vzZPBsrYM3Q' => 
+    'dash.generated::q7hR74dr1lkXLIaB' => 
     array (
       'methods' => 
       array (
@@ -7494,7 +7835,7 @@ app('router')->setCompiledRoutes(
         ),
         'uses' => 'App\\Http\\Controllers\\PotonganController@index',
         'controller' => 'App\\Http\\Controllers\\PotonganController@index',
-        'as' => 'dash.generated::aVaH3vzZPBsrYM3Q',
+        'as' => 'dash.generated::q7hR74dr1lkXLIaB',
         'namespace' => 'App\\Http\\Controllers',
         'prefix' => '/dashboard',
         'where' => 
@@ -7513,6 +7854,7 @@ app('router')->setCompiledRoutes(
       ),
       'lockSeconds' => NULL,
       'waitSeconds' => NULL,
+      'withTrashed' => false,
     ),
     'dash.potongan.datatable' => 
     array (
@@ -7551,6 +7893,7 @@ app('router')->setCompiledRoutes(
       ),
       'lockSeconds' => NULL,
       'waitSeconds' => NULL,
+      'withTrashed' => false,
     ),
     'dash.potongan.store' => 
     array (
@@ -7588,6 +7931,7 @@ app('router')->setCompiledRoutes(
       ),
       'lockSeconds' => NULL,
       'waitSeconds' => NULL,
+      'withTrashed' => false,
     ),
     'dash.potongan.name' => 
     array (
@@ -7626,6 +7970,7 @@ app('router')->setCompiledRoutes(
       ),
       'lockSeconds' => NULL,
       'waitSeconds' => NULL,
+      'withTrashed' => false,
     ),
     'dash.potongan.edit' => 
     array (
@@ -7664,6 +8009,7 @@ app('router')->setCompiledRoutes(
       ),
       'lockSeconds' => NULL,
       'waitSeconds' => NULL,
+      'withTrashed' => false,
     ),
     'dash.potongan.attach' => 
     array (
@@ -7701,6 +8047,7 @@ app('router')->setCompiledRoutes(
       ),
       'lockSeconds' => NULL,
       'waitSeconds' => NULL,
+      'withTrashed' => false,
     ),
     'dash.potongan.show' => 
     array (
@@ -7739,6 +8086,7 @@ app('router')->setCompiledRoutes(
       ),
       'lockSeconds' => NULL,
       'waitSeconds' => NULL,
+      'withTrashed' => false,
     ),
     'dash.potongan.updatePivote' => 
     array (
@@ -7776,6 +8124,7 @@ app('router')->setCompiledRoutes(
       ),
       'lockSeconds' => NULL,
       'waitSeconds' => NULL,
+      'withTrashed' => false,
     ),
     'dash.potongan.update' => 
     array (
@@ -7813,6 +8162,7 @@ app('router')->setCompiledRoutes(
       ),
       'lockSeconds' => NULL,
       'waitSeconds' => NULL,
+      'withTrashed' => false,
     ),
     'dash.potongan.destroy' => 
     array (
@@ -7850,6 +8200,7 @@ app('router')->setCompiledRoutes(
       ),
       'lockSeconds' => NULL,
       'waitSeconds' => NULL,
+      'withTrashed' => false,
     ),
     'dash.potongan.detach' => 
     array (
@@ -7887,6 +8238,7 @@ app('router')->setCompiledRoutes(
       ),
       'lockSeconds' => NULL,
       'waitSeconds' => NULL,
+      'withTrashed' => false,
     ),
     'dash.pajak' => 
     array (
@@ -7925,6 +8277,7 @@ app('router')->setCompiledRoutes(
       ),
       'lockSeconds' => NULL,
       'waitSeconds' => NULL,
+      'withTrashed' => false,
     ),
     'dash.pajak.datatable' => 
     array (
@@ -7963,6 +8316,7 @@ app('router')->setCompiledRoutes(
       ),
       'lockSeconds' => NULL,
       'waitSeconds' => NULL,
+      'withTrashed' => false,
     ),
     'dash.keluarga.store' => 
     array (
@@ -8000,6 +8354,7 @@ app('router')->setCompiledRoutes(
       ),
       'lockSeconds' => NULL,
       'waitSeconds' => NULL,
+      'withTrashed' => false,
     ),
     'dash.keluarga.edit' => 
     array (
@@ -8038,6 +8393,7 @@ app('router')->setCompiledRoutes(
       ),
       'lockSeconds' => NULL,
       'waitSeconds' => NULL,
+      'withTrashed' => false,
     ),
     'dash.keluarga.update' => 
     array (
@@ -8075,6 +8431,7 @@ app('router')->setCompiledRoutes(
       ),
       'lockSeconds' => NULL,
       'waitSeconds' => NULL,
+      'withTrashed' => false,
     ),
     'dash.keluarga.destroy' => 
     array (
@@ -8112,6 +8469,7 @@ app('router')->setCompiledRoutes(
       ),
       'lockSeconds' => NULL,
       'waitSeconds' => NULL,
+      'withTrashed' => false,
     ),
     'dash.setting' => 
     array (
@@ -8150,6 +8508,7 @@ app('router')->setCompiledRoutes(
       ),
       'lockSeconds' => NULL,
       'waitSeconds' => NULL,
+      'withTrashed' => false,
     ),
     'dash.setting.update' => 
     array (
@@ -8187,6 +8546,7 @@ app('router')->setCompiledRoutes(
       ),
       'lockSeconds' => NULL,
       'waitSeconds' => NULL,
+      'withTrashed' => false,
     ),
     'dash.user.index' => 
     array (
@@ -8225,6 +8585,7 @@ app('router')->setCompiledRoutes(
       ),
       'lockSeconds' => NULL,
       'waitSeconds' => NULL,
+      'withTrashed' => false,
     ),
     'dash.user.create' => 
     array (
@@ -8263,6 +8624,7 @@ app('router')->setCompiledRoutes(
       ),
       'lockSeconds' => NULL,
       'waitSeconds' => NULL,
+      'withTrashed' => false,
     ),
     'dash.user.store' => 
     array (
@@ -8300,6 +8662,7 @@ app('router')->setCompiledRoutes(
       ),
       'lockSeconds' => NULL,
       'waitSeconds' => NULL,
+      'withTrashed' => false,
     ),
     'dash.user.show' => 
     array (
@@ -8338,6 +8701,7 @@ app('router')->setCompiledRoutes(
       ),
       'lockSeconds' => NULL,
       'waitSeconds' => NULL,
+      'withTrashed' => false,
     ),
     'dash.user.edit' => 
     array (
@@ -8376,6 +8740,7 @@ app('router')->setCompiledRoutes(
       ),
       'lockSeconds' => NULL,
       'waitSeconds' => NULL,
+      'withTrashed' => false,
     ),
     'dash.user.update' => 
     array (
@@ -8414,6 +8779,7 @@ app('router')->setCompiledRoutes(
       ),
       'lockSeconds' => NULL,
       'waitSeconds' => NULL,
+      'withTrashed' => false,
     ),
     'dash.user.destroy' => 
     array (
@@ -8451,6 +8817,7 @@ app('router')->setCompiledRoutes(
       ),
       'lockSeconds' => NULL,
       'waitSeconds' => NULL,
+      'withTrashed' => false,
     ),
     'dash.role.index' => 
     array (
@@ -8489,6 +8856,7 @@ app('router')->setCompiledRoutes(
       ),
       'lockSeconds' => NULL,
       'waitSeconds' => NULL,
+      'withTrashed' => false,
     ),
     'dash.role.create' => 
     array (
@@ -8527,6 +8895,7 @@ app('router')->setCompiledRoutes(
       ),
       'lockSeconds' => NULL,
       'waitSeconds' => NULL,
+      'withTrashed' => false,
     ),
     'dash.role.store' => 
     array (
@@ -8564,6 +8933,7 @@ app('router')->setCompiledRoutes(
       ),
       'lockSeconds' => NULL,
       'waitSeconds' => NULL,
+      'withTrashed' => false,
     ),
     'dash.role.show' => 
     array (
@@ -8602,6 +8972,7 @@ app('router')->setCompiledRoutes(
       ),
       'lockSeconds' => NULL,
       'waitSeconds' => NULL,
+      'withTrashed' => false,
     ),
     'dash.role.edit' => 
     array (
@@ -8640,6 +9011,7 @@ app('router')->setCompiledRoutes(
       ),
       'lockSeconds' => NULL,
       'waitSeconds' => NULL,
+      'withTrashed' => false,
     ),
     'dash.role.update' => 
     array (
@@ -8678,6 +9050,7 @@ app('router')->setCompiledRoutes(
       ),
       'lockSeconds' => NULL,
       'waitSeconds' => NULL,
+      'withTrashed' => false,
     ),
     'dash.role.destroy' => 
     array (
@@ -8715,6 +9088,7 @@ app('router')->setCompiledRoutes(
       ),
       'lockSeconds' => NULL,
       'waitSeconds' => NULL,
+      'withTrashed' => false,
     ),
     'dash.tax.index' => 
     array (
@@ -8753,6 +9127,7 @@ app('router')->setCompiledRoutes(
       ),
       'lockSeconds' => NULL,
       'waitSeconds' => NULL,
+      'withTrashed' => false,
     ),
     'dash.tax.create' => 
     array (
@@ -8791,6 +9166,7 @@ app('router')->setCompiledRoutes(
       ),
       'lockSeconds' => NULL,
       'waitSeconds' => NULL,
+      'withTrashed' => false,
     ),
     'dash.tax.store' => 
     array (
@@ -8828,6 +9204,7 @@ app('router')->setCompiledRoutes(
       ),
       'lockSeconds' => NULL,
       'waitSeconds' => NULL,
+      'withTrashed' => false,
     ),
     'dash.tax.show' => 
     array (
@@ -8866,6 +9243,7 @@ app('router')->setCompiledRoutes(
       ),
       'lockSeconds' => NULL,
       'waitSeconds' => NULL,
+      'withTrashed' => false,
     ),
     'dash.tax.edit' => 
     array (
@@ -8904,6 +9282,7 @@ app('router')->setCompiledRoutes(
       ),
       'lockSeconds' => NULL,
       'waitSeconds' => NULL,
+      'withTrashed' => false,
     ),
     'dash.tax.update' => 
     array (
@@ -8942,6 +9321,7 @@ app('router')->setCompiledRoutes(
       ),
       'lockSeconds' => NULL,
       'waitSeconds' => NULL,
+      'withTrashed' => false,
     ),
     'dash.tax.destroy' => 
     array (
@@ -8979,6 +9359,7 @@ app('router')->setCompiledRoutes(
       ),
       'lockSeconds' => NULL,
       'waitSeconds' => NULL,
+      'withTrashed' => false,
     ),
     'dash.user.datatable' => 
     array (
@@ -9017,6 +9398,7 @@ app('router')->setCompiledRoutes(
       ),
       'lockSeconds' => NULL,
       'waitSeconds' => NULL,
+      'withTrashed' => false,
     ),
     'dash.role.datatable' => 
     array (
@@ -9055,6 +9437,7 @@ app('router')->setCompiledRoutes(
       ),
       'lockSeconds' => NULL,
       'waitSeconds' => NULL,
+      'withTrashed' => false,
     ),
     'dash.tax.datatable' => 
     array (
@@ -9093,6 +9476,7 @@ app('router')->setCompiledRoutes(
       ),
       'lockSeconds' => NULL,
       'waitSeconds' => NULL,
+      'withTrashed' => false,
     ),
     'dash.jabatan' => 
     array (
@@ -9131,6 +9515,7 @@ app('router')->setCompiledRoutes(
       ),
       'lockSeconds' => NULL,
       'waitSeconds' => NULL,
+      'withTrashed' => false,
     ),
     'dash.jabatan.datatable' => 
     array (
@@ -9169,6 +9554,7 @@ app('router')->setCompiledRoutes(
       ),
       'lockSeconds' => NULL,
       'waitSeconds' => NULL,
+      'withTrashed' => false,
     ),
     'dash.jabatan.store' => 
     array (
@@ -9206,6 +9592,7 @@ app('router')->setCompiledRoutes(
       ),
       'lockSeconds' => NULL,
       'waitSeconds' => NULL,
+      'withTrashed' => false,
     ),
     'dash.jabatan.edit' => 
     array (
@@ -9244,6 +9631,7 @@ app('router')->setCompiledRoutes(
       ),
       'lockSeconds' => NULL,
       'waitSeconds' => NULL,
+      'withTrashed' => false,
     ),
     'dash.jabatan.update' => 
     array (
@@ -9281,6 +9669,7 @@ app('router')->setCompiledRoutes(
       ),
       'lockSeconds' => NULL,
       'waitSeconds' => NULL,
+      'withTrashed' => false,
     ),
     'dash.jabatan.destroy' => 
     array (
@@ -9318,6 +9707,7 @@ app('router')->setCompiledRoutes(
       ),
       'lockSeconds' => NULL,
       'waitSeconds' => NULL,
+      'withTrashed' => false,
     ),
     'dash.golongan' => 
     array (
@@ -9356,6 +9746,7 @@ app('router')->setCompiledRoutes(
       ),
       'lockSeconds' => NULL,
       'waitSeconds' => NULL,
+      'withTrashed' => false,
     ),
     'dash.golongan.datatable' => 
     array (
@@ -9394,6 +9785,7 @@ app('router')->setCompiledRoutes(
       ),
       'lockSeconds' => NULL,
       'waitSeconds' => NULL,
+      'withTrashed' => false,
     ),
     'dash.golongan.store' => 
     array (
@@ -9431,6 +9823,7 @@ app('router')->setCompiledRoutes(
       ),
       'lockSeconds' => NULL,
       'waitSeconds' => NULL,
+      'withTrashed' => false,
     ),
     'dash.golongan.edit' => 
     array (
@@ -9469,6 +9862,7 @@ app('router')->setCompiledRoutes(
       ),
       'lockSeconds' => NULL,
       'waitSeconds' => NULL,
+      'withTrashed' => false,
     ),
     'dash.golongan.update' => 
     array (
@@ -9506,6 +9900,7 @@ app('router')->setCompiledRoutes(
       ),
       'lockSeconds' => NULL,
       'waitSeconds' => NULL,
+      'withTrashed' => false,
     ),
     'dash.golongan.destroy' => 
     array (
@@ -9543,6 +9938,7 @@ app('router')->setCompiledRoutes(
       ),
       'lockSeconds' => NULL,
       'waitSeconds' => NULL,
+      'withTrashed' => false,
     ),
     'dash.kelompokKerja' => 
     array (
@@ -9581,6 +9977,7 @@ app('router')->setCompiledRoutes(
       ),
       'lockSeconds' => NULL,
       'waitSeconds' => NULL,
+      'withTrashed' => false,
     ),
     'dash.kelompokKerja.datatable' => 
     array (
@@ -9619,6 +10016,7 @@ app('router')->setCompiledRoutes(
       ),
       'lockSeconds' => NULL,
       'waitSeconds' => NULL,
+      'withTrashed' => false,
     ),
     'dash.kelompokKerja.store' => 
     array (
@@ -9656,6 +10054,7 @@ app('router')->setCompiledRoutes(
       ),
       'lockSeconds' => NULL,
       'waitSeconds' => NULL,
+      'withTrashed' => false,
     ),
     'dash.kelompokKerja.edit' => 
     array (
@@ -9694,6 +10093,7 @@ app('router')->setCompiledRoutes(
       ),
       'lockSeconds' => NULL,
       'waitSeconds' => NULL,
+      'withTrashed' => false,
     ),
     'dash.kelompokKerja.update' => 
     array (
@@ -9731,6 +10131,7 @@ app('router')->setCompiledRoutes(
       ),
       'lockSeconds' => NULL,
       'waitSeconds' => NULL,
+      'withTrashed' => false,
     ),
     'dash.device' => 
     array (
@@ -9769,6 +10170,7 @@ app('router')->setCompiledRoutes(
       ),
       'lockSeconds' => NULL,
       'waitSeconds' => NULL,
+      'withTrashed' => false,
     ),
     'dash.device.datatable' => 
     array (
@@ -9807,6 +10209,7 @@ app('router')->setCompiledRoutes(
       ),
       'lockSeconds' => NULL,
       'waitSeconds' => NULL,
+      'withTrashed' => false,
     ),
     'dash.device.store' => 
     array (
@@ -9844,6 +10247,7 @@ app('router')->setCompiledRoutes(
       ),
       'lockSeconds' => NULL,
       'waitSeconds' => NULL,
+      'withTrashed' => false,
     ),
     'dash.device.edit' => 
     array (
@@ -9882,6 +10286,7 @@ app('router')->setCompiledRoutes(
       ),
       'lockSeconds' => NULL,
       'waitSeconds' => NULL,
+      'withTrashed' => false,
     ),
     'dash.device.update' => 
     array (
@@ -9919,6 +10324,7 @@ app('router')->setCompiledRoutes(
       ),
       'lockSeconds' => NULL,
       'waitSeconds' => NULL,
+      'withTrashed' => false,
     ),
     'dash.device.destroy' => 
     array (
@@ -9956,6 +10362,7 @@ app('router')->setCompiledRoutes(
       ),
       'lockSeconds' => NULL,
       'waitSeconds' => NULL,
+      'withTrashed' => false,
     ),
     'dash.device.check' => 
     array (
@@ -9993,6 +10400,7 @@ app('router')->setCompiledRoutes(
       ),
       'lockSeconds' => NULL,
       'waitSeconds' => NULL,
+      'withTrashed' => false,
     ),
     'dash.fingerprint.index' => 
     array (
@@ -10031,6 +10439,7 @@ app('router')->setCompiledRoutes(
       ),
       'lockSeconds' => NULL,
       'waitSeconds' => NULL,
+      'withTrashed' => false,
     ),
     'dash.fingerprint.datatable' => 
     array (
@@ -10069,6 +10478,7 @@ app('router')->setCompiledRoutes(
       ),
       'lockSeconds' => NULL,
       'waitSeconds' => NULL,
+      'withTrashed' => false,
     ),
     'dash.bulkImport' => 
     array (
@@ -10107,6 +10517,7 @@ app('router')->setCompiledRoutes(
       ),
       'lockSeconds' => NULL,
       'waitSeconds' => NULL,
+      'withTrashed' => false,
     ),
     'dash.bulkImport.store' => 
     array (
@@ -10144,6 +10555,7 @@ app('router')->setCompiledRoutes(
       ),
       'lockSeconds' => NULL,
       'waitSeconds' => NULL,
+      'withTrashed' => false,
     ),
     'dash.bidang' => 
     array (
@@ -10182,6 +10594,7 @@ app('router')->setCompiledRoutes(
       ),
       'lockSeconds' => NULL,
       'waitSeconds' => NULL,
+      'withTrashed' => false,
     ),
     'dash.bidang.datatable' => 
     array (
@@ -10220,6 +10633,7 @@ app('router')->setCompiledRoutes(
       ),
       'lockSeconds' => NULL,
       'waitSeconds' => NULL,
+      'withTrashed' => false,
     ),
     'dash.bidang.store' => 
     array (
@@ -10257,6 +10671,7 @@ app('router')->setCompiledRoutes(
       ),
       'lockSeconds' => NULL,
       'waitSeconds' => NULL,
+      'withTrashed' => false,
     ),
     'dash.bidang.edit' => 
     array (
@@ -10295,6 +10710,7 @@ app('router')->setCompiledRoutes(
       ),
       'lockSeconds' => NULL,
       'waitSeconds' => NULL,
+      'withTrashed' => false,
     ),
     'dash.bidang.update' => 
     array (
@@ -10332,6 +10748,7 @@ app('router')->setCompiledRoutes(
       ),
       'lockSeconds' => NULL,
       'waitSeconds' => NULL,
+      'withTrashed' => false,
     ),
     'dash.bidang.destroy' => 
     array (
@@ -10369,6 +10786,7 @@ app('router')->setCompiledRoutes(
       ),
       'lockSeconds' => NULL,
       'waitSeconds' => NULL,
+      'withTrashed' => false,
     ),
     'dash.unit' => 
     array (
@@ -10407,6 +10825,7 @@ app('router')->setCompiledRoutes(
       ),
       'lockSeconds' => NULL,
       'waitSeconds' => NULL,
+      'withTrashed' => false,
     ),
     'dash.unit.datatable' => 
     array (
@@ -10445,6 +10864,7 @@ app('router')->setCompiledRoutes(
       ),
       'lockSeconds' => NULL,
       'waitSeconds' => NULL,
+      'withTrashed' => false,
     ),
     'dash.unit.store' => 
     array (
@@ -10482,6 +10902,7 @@ app('router')->setCompiledRoutes(
       ),
       'lockSeconds' => NULL,
       'waitSeconds' => NULL,
+      'withTrashed' => false,
     ),
     'dash.unit.edit' => 
     array (
@@ -10520,6 +10941,7 @@ app('router')->setCompiledRoutes(
       ),
       'lockSeconds' => NULL,
       'waitSeconds' => NULL,
+      'withTrashed' => false,
     ),
     'dash.unit.update' => 
     array (
@@ -10557,6 +10979,7 @@ app('router')->setCompiledRoutes(
       ),
       'lockSeconds' => NULL,
       'waitSeconds' => NULL,
+      'withTrashed' => false,
     ),
     'dash.unit.destroy' => 
     array (
@@ -10594,6 +11017,7 @@ app('router')->setCompiledRoutes(
       ),
       'lockSeconds' => NULL,
       'waitSeconds' => NULL,
+      'withTrashed' => false,
     ),
     'dash.statusKeluarga' => 
     array (
@@ -10632,6 +11056,7 @@ app('router')->setCompiledRoutes(
       ),
       'lockSeconds' => NULL,
       'waitSeconds' => NULL,
+      'withTrashed' => false,
     ),
     'dash.statusKeluarga.datatable' => 
     array (
@@ -10670,6 +11095,7 @@ app('router')->setCompiledRoutes(
       ),
       'lockSeconds' => NULL,
       'waitSeconds' => NULL,
+      'withTrashed' => false,
     ),
     'dash.statusKeluarga.store' => 
     array (
@@ -10707,6 +11133,7 @@ app('router')->setCompiledRoutes(
       ),
       'lockSeconds' => NULL,
       'waitSeconds' => NULL,
+      'withTrashed' => false,
     ),
     'dash.statusKeluarga.edit' => 
     array (
@@ -10745,6 +11172,7 @@ app('router')->setCompiledRoutes(
       ),
       'lockSeconds' => NULL,
       'waitSeconds' => NULL,
+      'withTrashed' => false,
     ),
     'dash.statusKeluarga.update' => 
     array (
@@ -10782,6 +11210,7 @@ app('router')->setCompiledRoutes(
       ),
       'lockSeconds' => NULL,
       'waitSeconds' => NULL,
+      'withTrashed' => false,
     ),
     'dash.statusKeluarga.destroy' => 
     array (
@@ -10819,6 +11248,7 @@ app('router')->setCompiledRoutes(
       ),
       'lockSeconds' => NULL,
       'waitSeconds' => NULL,
+      'withTrashed' => false,
     ),
     'dash.statusKerja' => 
     array (
@@ -10857,6 +11287,7 @@ app('router')->setCompiledRoutes(
       ),
       'lockSeconds' => NULL,
       'waitSeconds' => NULL,
+      'withTrashed' => false,
     ),
     'dash.statusKerja.datatable' => 
     array (
@@ -10895,6 +11326,7 @@ app('router')->setCompiledRoutes(
       ),
       'lockSeconds' => NULL,
       'waitSeconds' => NULL,
+      'withTrashed' => false,
     ),
     'dash.statusKerja.store' => 
     array (
@@ -10932,6 +11364,7 @@ app('router')->setCompiledRoutes(
       ),
       'lockSeconds' => NULL,
       'waitSeconds' => NULL,
+      'withTrashed' => false,
     ),
     'dash.statusKerja.edit' => 
     array (
@@ -10970,6 +11403,7 @@ app('router')->setCompiledRoutes(
       ),
       'lockSeconds' => NULL,
       'waitSeconds' => NULL,
+      'withTrashed' => false,
     ),
     'dash.statusKerja.update' => 
     array (
@@ -11007,6 +11441,7 @@ app('router')->setCompiledRoutes(
       ),
       'lockSeconds' => NULL,
       'waitSeconds' => NULL,
+      'withTrashed' => false,
     ),
     'dash.statusKerja.destroy' => 
     array (
@@ -11044,6 +11479,7 @@ app('router')->setCompiledRoutes(
       ),
       'lockSeconds' => NULL,
       'waitSeconds' => NULL,
+      'withTrashed' => false,
     ),
     'dash.persentaseKinerja' => 
     array (
@@ -11082,6 +11518,7 @@ app('router')->setCompiledRoutes(
       ),
       'lockSeconds' => NULL,
       'waitSeconds' => NULL,
+      'withTrashed' => false,
     ),
     'dash.persentaseKinerja.datatable' => 
     array (
@@ -11120,6 +11557,7 @@ app('router')->setCompiledRoutes(
       ),
       'lockSeconds' => NULL,
       'waitSeconds' => NULL,
+      'withTrashed' => false,
     ),
     'dash.persentaseKinerja.store' => 
     array (
@@ -11157,6 +11595,7 @@ app('router')->setCompiledRoutes(
       ),
       'lockSeconds' => NULL,
       'waitSeconds' => NULL,
+      'withTrashed' => false,
     ),
     'dash.persentaseKinerja.edit' => 
     array (
@@ -11195,6 +11634,7 @@ app('router')->setCompiledRoutes(
       ),
       'lockSeconds' => NULL,
       'waitSeconds' => NULL,
+      'withTrashed' => false,
     ),
     'dash.persentaseKinerja.update' => 
     array (
@@ -11232,6 +11672,7 @@ app('router')->setCompiledRoutes(
       ),
       'lockSeconds' => NULL,
       'waitSeconds' => NULL,
+      'withTrashed' => false,
     ),
     'dash.persentaseKinerja.destroy' => 
     array (
@@ -11269,6 +11710,7 @@ app('router')->setCompiledRoutes(
       ),
       'lockSeconds' => NULL,
       'waitSeconds' => NULL,
+      'withTrashed' => false,
     ),
     'dash.nilaiKinerja' => 
     array (
@@ -11307,6 +11749,7 @@ app('router')->setCompiledRoutes(
       ),
       'lockSeconds' => NULL,
       'waitSeconds' => NULL,
+      'withTrashed' => false,
     ),
     'dash.nilaiKinerja.datatable' => 
     array (
@@ -11345,6 +11788,7 @@ app('router')->setCompiledRoutes(
       ),
       'lockSeconds' => NULL,
       'waitSeconds' => NULL,
+      'withTrashed' => false,
     ),
     'dash.nilaiKinerja.store' => 
     array (
@@ -11382,6 +11826,7 @@ app('router')->setCompiledRoutes(
       ),
       'lockSeconds' => NULL,
       'waitSeconds' => NULL,
+      'withTrashed' => false,
     ),
     'dash.nilaiKinerja.edit' => 
     array (
@@ -11420,6 +11865,7 @@ app('router')->setCompiledRoutes(
       ),
       'lockSeconds' => NULL,
       'waitSeconds' => NULL,
+      'withTrashed' => false,
     ),
     'dash.nilaiKinerja.update' => 
     array (
@@ -11457,6 +11903,7 @@ app('router')->setCompiledRoutes(
       ),
       'lockSeconds' => NULL,
       'waitSeconds' => NULL,
+      'withTrashed' => false,
     ),
     'dash.nilaiKinerja.destroy' => 
     array (
@@ -11494,6 +11941,7 @@ app('router')->setCompiledRoutes(
       ),
       'lockSeconds' => NULL,
       'waitSeconds' => NULL,
+      'withTrashed' => false,
     ),
     'dash.jamPerpekan' => 
     array (
@@ -11532,6 +11980,7 @@ app('router')->setCompiledRoutes(
       ),
       'lockSeconds' => NULL,
       'waitSeconds' => NULL,
+      'withTrashed' => false,
     ),
     'dash.jamPerpekan.datatable' => 
     array (
@@ -11570,6 +12019,7 @@ app('router')->setCompiledRoutes(
       ),
       'lockSeconds' => NULL,
       'waitSeconds' => NULL,
+      'withTrashed' => false,
     ),
     'dash.jamPerpekan.store' => 
     array (
@@ -11607,6 +12057,7 @@ app('router')->setCompiledRoutes(
       ),
       'lockSeconds' => NULL,
       'waitSeconds' => NULL,
+      'withTrashed' => false,
     ),
     'dash.jamPerpekan.edit' => 
     array (
@@ -11645,6 +12096,7 @@ app('router')->setCompiledRoutes(
       ),
       'lockSeconds' => NULL,
       'waitSeconds' => NULL,
+      'withTrashed' => false,
     ),
     'dash.jamPerpekan.update' => 
     array (
@@ -11682,6 +12134,7 @@ app('router')->setCompiledRoutes(
       ),
       'lockSeconds' => NULL,
       'waitSeconds' => NULL,
+      'withTrashed' => false,
     ),
     'dash.jamPerpekan.destroy' => 
     array (
@@ -11719,6 +12172,7 @@ app('router')->setCompiledRoutes(
       ),
       'lockSeconds' => NULL,
       'waitSeconds' => NULL,
+      'withTrashed' => false,
     ),
     'dash.jamAjar' => 
     array (
@@ -11757,6 +12211,7 @@ app('router')->setCompiledRoutes(
       ),
       'lockSeconds' => NULL,
       'waitSeconds' => NULL,
+      'withTrashed' => false,
     ),
     'dash.jamAjar.datatable' => 
     array (
@@ -11795,6 +12250,7 @@ app('router')->setCompiledRoutes(
       ),
       'lockSeconds' => NULL,
       'waitSeconds' => NULL,
+      'withTrashed' => false,
     ),
     'dash.jamAjar.store' => 
     array (
@@ -11832,6 +12288,7 @@ app('router')->setCompiledRoutes(
       ),
       'lockSeconds' => NULL,
       'waitSeconds' => NULL,
+      'withTrashed' => false,
     ),
     'dash.jamAjar.edit' => 
     array (
@@ -11870,6 +12327,7 @@ app('router')->setCompiledRoutes(
       ),
       'lockSeconds' => NULL,
       'waitSeconds' => NULL,
+      'withTrashed' => false,
     ),
     'dash.jamAjar.update' => 
     array (
@@ -11907,6 +12365,7 @@ app('router')->setCompiledRoutes(
       ),
       'lockSeconds' => NULL,
       'waitSeconds' => NULL,
+      'withTrashed' => false,
     ),
     'dash.jamAjar.destroy' => 
     array (
@@ -11944,6 +12403,7 @@ app('router')->setCompiledRoutes(
       ),
       'lockSeconds' => NULL,
       'waitSeconds' => NULL,
+      'withTrashed' => false,
     ),
     'dash.tariflembur' => 
     array (
@@ -11982,6 +12442,7 @@ app('router')->setCompiledRoutes(
       ),
       'lockSeconds' => NULL,
       'waitSeconds' => NULL,
+      'withTrashed' => false,
     ),
     'dash.tariflembur.datatable' => 
     array (
@@ -12020,6 +12481,7 @@ app('router')->setCompiledRoutes(
       ),
       'lockSeconds' => NULL,
       'waitSeconds' => NULL,
+      'withTrashed' => false,
     ),
     'dash.tariflembur.store' => 
     array (
@@ -12057,6 +12519,7 @@ app('router')->setCompiledRoutes(
       ),
       'lockSeconds' => NULL,
       'waitSeconds' => NULL,
+      'withTrashed' => false,
     ),
     'dash.tariflembur.edit' => 
     array (
@@ -12095,6 +12558,7 @@ app('router')->setCompiledRoutes(
       ),
       'lockSeconds' => NULL,
       'waitSeconds' => NULL,
+      'withTrashed' => false,
     ),
     'dash.tariflembur.update' => 
     array (
@@ -12132,6 +12596,7 @@ app('router')->setCompiledRoutes(
       ),
       'lockSeconds' => NULL,
       'waitSeconds' => NULL,
+      'withTrashed' => false,
     ),
     'dash.tariflembur.destroy' => 
     array (
@@ -12169,6 +12634,7 @@ app('router')->setCompiledRoutes(
       ),
       'lockSeconds' => NULL,
       'waitSeconds' => NULL,
+      'withTrashed' => false,
     ),
     'dash.rekening' => 
     array (
@@ -12207,6 +12673,7 @@ app('router')->setCompiledRoutes(
       ),
       'lockSeconds' => NULL,
       'waitSeconds' => NULL,
+      'withTrashed' => false,
     ),
     'dash.rekening.datatable' => 
     array (
@@ -12245,6 +12712,7 @@ app('router')->setCompiledRoutes(
       ),
       'lockSeconds' => NULL,
       'waitSeconds' => NULL,
+      'withTrashed' => false,
     ),
     'dash.rekening.store' => 
     array (
@@ -12282,6 +12750,7 @@ app('router')->setCompiledRoutes(
       ),
       'lockSeconds' => NULL,
       'waitSeconds' => NULL,
+      'withTrashed' => false,
     ),
     'dash.rekening.edit' => 
     array (
@@ -12320,6 +12789,7 @@ app('router')->setCompiledRoutes(
       ),
       'lockSeconds' => NULL,
       'waitSeconds' => NULL,
+      'withTrashed' => false,
     ),
     'dash.rekening.update' => 
     array (
@@ -12357,6 +12827,7 @@ app('router')->setCompiledRoutes(
       ),
       'lockSeconds' => NULL,
       'waitSeconds' => NULL,
+      'withTrashed' => false,
     ),
     'dash.rekening.destroy' => 
     array (
@@ -12394,6 +12865,45 @@ app('router')->setCompiledRoutes(
       ),
       'lockSeconds' => NULL,
       'waitSeconds' => NULL,
+      'withTrashed' => false,
+    ),
+    'generated::k6f0KJLiyIW9dc7S' => 
+    array (
+      'methods' => 
+      array (
+        0 => 'GET',
+        1 => 'HEAD',
+      ),
+      'uri' => 'api/user',
+      'action' => 
+      array (
+        'middleware' => 
+        array (
+          0 => 'api',
+          1 => 'auth:api',
+        ),
+        'uses' => 'App\\Http\\Controllers\\UserController@show',
+        'controller' => 'App\\Http\\Controllers\\UserController@show',
+        'namespace' => 'App\\Http\\Controllers',
+        'prefix' => 'api',
+        'where' => 
+        array (
+        ),
+        'as' => 'generated::k6f0KJLiyIW9dc7S',
+      ),
+      'fallback' => false,
+      'defaults' => 
+      array (
+      ),
+      'wheres' => 
+      array (
+      ),
+      'bindingFields' => 
+      array (
+      ),
+      'lockSeconds' => NULL,
+      'waitSeconds' => NULL,
+      'withTrashed' => false,
     ),
   ),
 )

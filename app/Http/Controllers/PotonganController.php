@@ -13,8 +13,8 @@ class PotonganController extends Controller
     public function index()
     {
         $title = 'Potongan';
-        $potongan = Potongan::all();
-        $rekening = Rekening::all();
+        $potongan = Potongan::get();
+        $rekening = Rekening::get();
 
         return view('potongan.index', [
             'title' => $title,
@@ -26,7 +26,7 @@ class PotonganController extends Controller
     public function name(Request $request)
     {
         $data = Potongan::select('id', 'nama_potongan')
-             ->where('nama_potongan', 'LIKE', '%'.$request->q.'%')->get();
+            ->where('nama_potongan', 'LIKE', '%' . $request->q . '%')->get();
 
         return response()->json($data);
     }
@@ -70,7 +70,7 @@ class PotonganController extends Controller
                 'rekening_id' => 'required'
             ]);
 
-            $jumlah_potongan = substr($request->jumlah_persentase/100, 0, 4) . '*' . $request->jenis_persentase;
+            $jumlah_potongan = substr($request->jumlah_persentase / 100, 0, 4) . '*' . $request->jenis_persentase;
         }
 
         $data = [
@@ -115,7 +115,7 @@ class PotonganController extends Controller
                 'rekening_id' => 'required'
             ]);
 
-            $jumlah_potongan = substr($request->jumlah_persentase/100, 0, 4) . '*' . $request->jenis_persentase;
+            $jumlah_potongan = substr($request->jumlah_persentase / 100, 0, 4) . '*' . $request->jenis_persentase;
         }
 
         $pot = Potongan::findOrFail($id);
@@ -131,7 +131,7 @@ class PotonganController extends Controller
     public function attach(Request $request, $id)
     {
         $karyawan = Karyawan::with('potongan')->findOrFail($id);
-        $date = $request->end_at['year'].'-'.$request->end_at['month'].'-28';
+        $date = $request->end_at['year'] . '-' . $request->end_at['month'] . '-28';
         $karyawan->potongan()->sync([$request->potongan_id => ['end_at' => $date, 'qty' => $request->qty]], false);
 
         return redirect()->back()->withSuccess("Potongan berhasil di tambahkan ke {$karyawan->nama_lengkap}.");
@@ -153,7 +153,7 @@ class PotonganController extends Controller
     public function updatePivot(Request $request)
     {
         $potongan = Potongan::with('karyawan')->findOrFail($request->potongan_id);
-        $date = $request->end_at['year'].'-'.$request->end_at['month'].'-28';
+        $date = $request->end_at['year'] . '-' . $request->end_at['month'] . '-28';
         $potongan->karyawan()->sync([$request->karyawan_id => ['end_at' => $date, 'qty' => $request->qty]], false);
         $potongan->qty = $request->qty;
         $potongan->end_at = $date;

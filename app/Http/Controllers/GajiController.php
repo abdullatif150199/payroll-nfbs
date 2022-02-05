@@ -3,11 +3,11 @@
 namespace App\Http\Controllers;
 
 use App\Models\Gaji;
-use App\Models\Karyawan;
 use App\Models\NilaiKinerja;
 use Illuminate\Http\Request;
 use Yajra\Datatables\Datatables;
 use App\Exports\GajiExport;
+use App\Models\Bidang;
 use Maatwebsite\Excel\Facades\Excel;
 
 class GajiController extends Controller
@@ -15,21 +15,28 @@ class GajiController extends Controller
     public function index()
     {
         $title = 'Daftar Gaji';
-        return view('gaji.index', ['title' => $title]);
+        $bidang = Bidang::select('id', 'nama_bidang')->get();
+        return view('gaji.index', [
+            'title' => $title,
+            'bidang' => $bidang
+        ]);
     }
 
     public function datatable(Request $request)
     {
-        if (!$request->month) {
-            $month = date('Y-m');
-            $data = Gaji::with('karyawan')->where('bulan', $month)->get();
-        } else {
-            $data = Gaji::with('karyawan')->where('bulan', $request->month)->get();
-        }
+        $month = $request->month ?? date('Y-m');
+
+        $data = Gaji::whereHas('karyawan', function ($query) use ($request) {
+            $query->when($request->bidang, function ($q) use ($request) {
+                $q->whereHas('bidang', function ($query) use ($request) {
+                    $query->where('id', $request->bidang);
+                });
+            });
+        })->where('bulan', $month)->get();
 
         return Datatables::of($data)
             ->editColumn('no_induk', function ($data) {
-                return '<span class="text-muted">'. $data->karyawan->no_induk .'</span>';
+                return '<span class="text-muted">' . $data->karyawan->no_induk . '</span>';
             })
             ->editColumn('nama_lengkap', function ($data) {
                 return $data->karyawan->nama_lengkap;
@@ -80,7 +87,7 @@ class GajiController extends Controller
     // Calculate Gaji
     public function prosesUlang(Request $request)
     {
-        $bln = $request->tahun .'-'. $request->bulan;
+        $bln = $request->tahun . '-' . $request->bulan;
         $data = NilaiKinerja::all();
 
         foreach (Gaji::with('karyawan')->where('bulan', $bln)->cursor() as $gaji) {
@@ -112,6 +119,7 @@ class GajiController extends Controller
             $new = $gaji->karyawan->gaji()->updateOrCreate([
                 'bulan' => $bln,
             ], [
+                'rekening_id' => $gaji->karyawan->pembayaran == 'cash' ? config('var.rekening_cash_id') : config('var.rekening_transfer_id'),
                 'gaji_pokok' => $gaji->karyawan->gaji_pokok,
                 'tunjangan_jabatan' => $gaji->karyawan->tunj_jabatan,
                 'tunjangan_struktural' => $gaji->karyawan->tunj_struktural,
@@ -161,7 +169,7 @@ class GajiController extends Controller
 
     public function unduh(Request $request)
     {
-        $bln = $request->tahun .'-'. $request->bulan;
+        $bln = $request->tahun . '-' . $request->bulan;
         $export = new GajiExport($bln);
 
         return Excel::download($export, 'report.xlsx');

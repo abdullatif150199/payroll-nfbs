@@ -36,31 +36,43 @@
                 <h3 class="card-title">
                     <form class="form-inline" action="{{ route('dash.gaji.datatable') }}" method="post">
                         <label for="month" class="mr-sm-3">Bulan </label>
-                        <div class="row gutters-xs">
+                        <div class="row gutters-xs mr-2">
                             <div class="col">
                                 <select name="month" class="form-control"
                                     onchange="$('#daftarGaji').DataTable().draw()">
                                     <option value="">Bulan</option>
-                                    <option {{ date('m') == '01' ? 'selected' : ''}} value="01">Januari</option>
-                                    <option {{ date('m') == '02' ? 'selected' : ''}} value="02">Februari</option>
-                                    <option {{ date('m') == '03' ? 'selected' : ''}} value="03">Maret</option>
-                                    <option {{ date('m') == '04' ? 'selected' : ''}} value="04">April</option>
-                                    <option {{ date('m') == '05' ? 'selected' : ''}} value="05">Mei</option>
-                                    <option {{ date('m') == '06' ? 'selected' : ''}} value="06">Juni</option>
-                                    <option {{ date('m') == '07' ? 'selected' : ''}} value="07">Juli</option>
-                                    <option {{ date('m') == '08' ? 'selected' : ''}} value="08">Augustus</option>
-                                    <option {{ date('m') == '09' ? 'selected' : ''}} value="09">September</option>
-                                    <option {{ date('m') == '10' ? 'selected' : ''}} value="10">Oktober</option>
-                                    <option {{ date('m') == '11' ? 'selected' : ''}} value="11">November</option>
-                                    <option {{ date('m') == '12' ? 'selected' : ''}} value="12">Desember</option>
+                                    <option {{ date('m')=='01' ? 'selected' : '' }} value="01">Januari</option>
+                                    <option {{ date('m')=='02' ? 'selected' : '' }} value="02">Februari</option>
+                                    <option {{ date('m')=='03' ? 'selected' : '' }} value="03">Maret</option>
+                                    <option {{ date('m')=='04' ? 'selected' : '' }} value="04">April</option>
+                                    <option {{ date('m')=='05' ? 'selected' : '' }} value="05">Mei</option>
+                                    <option {{ date('m')=='06' ? 'selected' : '' }} value="06">Juni</option>
+                                    <option {{ date('m')=='07' ? 'selected' : '' }} value="07">Juli</option>
+                                    <option {{ date('m')=='08' ? 'selected' : '' }} value="08">Augustus</option>
+                                    <option {{ date('m')=='09' ? 'selected' : '' }} value="09">September</option>
+                                    <option {{ date('m')=='10' ? 'selected' : '' }} value="10">Oktober</option>
+                                    <option {{ date('m')=='11' ? 'selected' : '' }} value="11">November</option>
+                                    <option {{ date('m')=='12' ? 'selected' : '' }} value="12">Desember</option>
                                 </select>
                             </div>
                             <div class="col">
                                 <select name="year" class="form-control" onchange="$('#daftarGaji').DataTable().draw()">
                                     <option value="">Tahun</option>
-                                    @for ($i=2018; $i <= date('Y'); $i++) <option {{ date('Y') == $i ? 'selected' : ''}}
+                                    @for ($i=2018; $i <= date('Y'); $i++) <option {{ date('Y')==$i ? 'selected' : '' }}
                                         value="{{$i}}">{{$i}}</option>
                                         @endfor
+                                </select>
+                            </div>
+                        </div>
+                        <label for="status_kerja" class="mr-sm-3">Bidang </label>
+                        <div class="row gutters-xs">
+                            <div class="col">
+                                <select name="bidang" class="form-control"
+                                    onchange="$('#daftarGaji').DataTable().draw()">
+                                    <option value="">Semua bidang</option>
+                                    @foreach ($bidang as $bid)
+                                    <option value="{{ $bid->id }}">{{ $bid->nama_bidang }}</option>
+                                    @endforeach
                                 </select>
                             </div>
                         </div>
@@ -116,6 +128,7 @@
             url: '{{ route('dash.gaji.datatable') }}',
             data: function (d) {
                 d.month = $('select[name=year]').val() + '-' + $('select[name=month]').val();
+                d.bidang = $('select[name=bidang]').val();
             }
         },
         columns: [
@@ -135,11 +148,6 @@
     //     e.preventDefault();
     // });
 
-    const formatter = new Intl.NumberFormat('en-US', {
-          style: 'currency',
-          currency: 'IDR'
-    });
-
 
     function detailGaji(id) {
         var url = '{{ route("dash.gaji.detail", ":id") }}';
@@ -151,20 +159,21 @@
             dataType: "JSON",
             success: function(data) {
                 $('.modal-title').text('Detail Gaji ' + data.karyawan.nama_lengkap);
-                $('#gaji_pokok').text(formatter.format(data.gaji_pokok));
-                $('#tunjangan_jabatan').text(formatter.format(data.tunjangan_jabatan));
-                $('#tunjangan_fungsional').text(formatter.format(data.tunjangan_fungsional));
-                $('#tunjangan_struktural').text(formatter.format(data.tunjangan_struktural));
-                $('#tunjangan_kinerja').text(formatter.format(data.tunjangan_kinerja));
-                $('#tunjangan_pendidikan').text(formatter.format(data.tunjangan_pendidikan));
-                $('#tunjangan_istri').text(formatter.format(data.tunjangan_istri));
-                $('#tunjangan_anak').text(formatter.format(data.tunjangan_anak));
-                $('#tunjangan_hari_raya').text(formatter.format(data.tunjangan_hari_raya));
-                $('#lembur').text(formatter.format(data.lembur));
-                $('#lain_lain').text(formatter.format(data.lain_lain));
-                $('#insentif').text(formatter.format(data.insentif));
-                $('#potongan').text(formatter.format(data.sum_potongan));
-                $('#gaji_total').text(formatter.format(data.gaji_total));
+                $('#gaji_pokok').text(convertToRupiah(data.gaji_pokok));
+                $('#tunjangan_jabatan').text(convertToRupiah(data.tunjangan_jabatan));
+                $('#tunjangan_fungsional').text(convertToRupiah(data.tunjangan_fungsional));
+                $('#tunjangan_struktural').text(convertToRupiah(data.tunjangan_struktural));
+                $('#tunjangan_kinerja').text(convertToRupiah(data.tunjangan_kinerja));
+                $('#tunjangan_pendidikan').text(convertToRupiah(data.tunjangan_pendidikan));
+                $('#tunjangan_istri').text(convertToRupiah(data.tunjangan_istri));
+                $('#tunjangan_anak').text(convertToRupiah(data.tunjangan_anak));
+                $('#tunjangan_hari_raya').text(convertToRupiah(data.tunjangan_hari_raya));
+                $('#lembur').text(convertToRupiah(data.lembur));
+                $('#lain_lain').text(convertToRupiah(data.lain_lain));
+                $('#insentif').text(convertToRupiah(data.insentif));
+                $('#potongan').text(convertToRupiah(data.sum_potongan));
+                $('#gaji_total').text(convertToRupiah(data.gaji_total));
+                $('#gaji_akhir').text(convertToRupiah(data.gaji_akhir));
                 $('#detail-gaji').modal('show');
                 $('#loader' + id).hide();
             },

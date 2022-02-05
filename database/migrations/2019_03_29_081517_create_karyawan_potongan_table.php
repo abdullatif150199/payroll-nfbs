@@ -20,6 +20,7 @@ class CreateKaryawanPotonganTable extends Migration
             $table->foreign('potongan_id')->references('id')->on('potongan')->onDelete('cascade');
             $table->date('end_at')->nullable();
             $table->string('keterangan')->nullable();
+            $table->tinyInteger('qty')->nullable();
         });
     }
 

@@ -1,5 +1,8 @@
 <?php
 
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Route;
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -53,7 +56,7 @@ Route::group(['prefix' => 'dashboard', 'as' => 'dash.', 'middleware' => ['auth']
     Route::group(['middleware' => ['role:root|admin|kabid|kanit']], function () {
         Route::get('/', 'HomeController@index')->name('home');
 
-        // Karyawan
+        // Pegawai
         Route::get('pegawai', 'KaryawanController@index');
         Route::get('get-pegawai', 'KaryawanController@datatable')->name('karyawan.datatable');
         Route::post('pegawai', 'KaryawanController@store')->name('karyawan.store');

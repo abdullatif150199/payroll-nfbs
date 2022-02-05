@@ -1,4 +1,6 @@
-<div>{{ $data->nama_lengkap }}</div>
+<div class="mb-2">
+    <strong>{{ $data->nama_lengkap }}</strong>
+</div>
 <div class="small text-muted">
     <span class="tag">
         Punya Jenis kinerja:
@@ -11,10 +13,10 @@
     <?php $lists = [] ?>
 
     @foreach ($data->persentasekinerja as $item)
-    <?php $lists[] = "<span class=\"text-primary\">". $item->title ."</span>" ?>
+    <?php $lists[] = '<span class="text-primary">'. $item->title .'</span>' ?>
     @endforeach
 
-    {!! implode(' | ', $lists) !!}
+    {!! implode(', ', $lists) !!}
 
     @else
     <span>Tidak ada kinerja</span>

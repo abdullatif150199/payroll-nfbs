@@ -87,7 +87,7 @@
                                                     <td width="1"><i
                                                             class="{{ Route::is('dash.setting') ? 'fa fa-circle' : 'fa fa-circle-o' }} text-primary"></i>
                                                     </td>
-                                                    <td><a href="{{ route('dash.setting') }}">General</a></td>
+                                                    <td><a href="{{ route('dash.setting') }}">Umum</a></td>
                                                 </tr>
                                                 <tr>
                                                     <td width="1"><i

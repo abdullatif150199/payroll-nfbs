@@ -1,13 +1,17 @@
 <?php
 
+use Illuminate\Support\Facades\Cache;
+use Illuminate\Support\Facades\Request;
+use Illuminate\Support\Facades\Route;
+
 function count_time($end, $start)
 {
     $end = empty($end) ? date('H:i:s') : $end;
     $start = empty($start) ? date('H:i:s') : $start;
     $diff = (strtotime($end) - strtotime($start));
-    $total = $diff/60;
-    $jam = floor($total/60);
-    $menit = $total%60;
+    $total = $diff / 60;
+    $jam = floor($total / 60);
+    $menit = $total % 60;
     if ($jam < 0) {
         $jam = 00;
         $menit = 00;
@@ -15,7 +19,7 @@ function count_time($end, $start)
     return sprintf("%02d jam %02d menit", $jam, $menit);
 }
 
-function sum_time($masuk, $istirahat, $kembali, $pulang, $res=null)
+function sum_time($masuk, $istirahat, $kembali, $pulang, $res = null)
 {
     if (!empty($masuk) && !empty($istirahat) && !empty($kembali) && !empty($pulang)) {
         $diff1 = (strtotime($istirahat) - strtotime($masuk));
@@ -26,9 +30,9 @@ function sum_time($masuk, $istirahat, $kembali, $pulang, $res=null)
         if ($res === 'val') {
             return $diff;
         } else {
-            $total = $diff/60;
-            $jam = floor($total/60);
-            $menit = $total%60;
+            $total = $diff / 60;
+            $jam = floor($total / 60);
+            $menit = $total % 60;
             if ($jam < 0) {
                 $jam = 00;
                 $menit = 00;
@@ -39,7 +43,7 @@ function sum_time($masuk, $istirahat, $kembali, $pulang, $res=null)
     }
 }
 
-function sum_time_shift($masuk, $pulang, $res=null)
+function sum_time_shift($masuk, $pulang, $res = null)
 {
     if (!empty($masuk) && !empty($pulang)) {
         $diff = (strtotime($pulang) - strtotime($masuk));
@@ -47,9 +51,9 @@ function sum_time_shift($masuk, $pulang, $res=null)
         if ($res === 'val') {
             return $diff;
         } else {
-            $total = $diff/60;
-            $jam = floor($total/60);
-            $menit = $total%60;
+            $total = $diff / 60;
+            $jam = floor($total / 60);
+            $menit = $total % 60;
             if ($jam < 0) {
                 $jam = 00;
                 $menit = 00;
@@ -60,7 +64,7 @@ function sum_time_shift($masuk, $pulang, $res=null)
     }
 }
 
-function total_sum_time($data, $tipe_kerja, $res=null)
+function total_sum_time($data, $tipe_kerja, $res = null)
 {
     $diff = 0;
     if ($tipe_kerja === 'shift') {
@@ -76,9 +80,9 @@ function total_sum_time($data, $tipe_kerja, $res=null)
     if ($res === 'val') {
         return $diff;
     } else {
-        $total = $diff/60;
-        $jam = floor($total/60);
-        $menit = $total%60;
+        $total = $diff / 60;
+        $jam = floor($total / 60);
+        $menit = $total % 60;
         if ($jam < 0) {
             $jam = 00;
             $menit = 00;
@@ -141,7 +145,7 @@ function sumType($sum, $type)
         return number_format($sum);
     } else {
         $ex = explode('*&', $sum);
-        return $ex[0]*100 . '% ' . $ex[1];
+        return $ex[0] * 100 . '% ' . $ex[1];
     }
 }
 
@@ -243,7 +247,7 @@ function setting($key)
     static $setting;
 
     if (is_null($setting)) {
-        $setting = Cache::remember('setting', 24*60, function () {
+        $setting = Cache::remember('setting', 24 * 60, function () {
             return array_pluck(App\Models\Setting::all()->toArray(), 'value', 'key');
         });
     }

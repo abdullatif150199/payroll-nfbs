@@ -24,8 +24,8 @@ class CashSheetExport implements FromView, WithTitle, WithColumnFormatting
             Gaji::whereHas('karyawan', function ($q) {
                 $q->where('pembayaran', 'cash');
             })
-            ->where('bulan', $this->bln)
-            ->cursor()
+                ->where('bulan', $this->bln)
+                ->cursor()
         );
 
         $collections = [];
@@ -36,7 +36,7 @@ class CashSheetExport implements FromView, WithTitle, WithColumnFormatting
                 'no' => $no,
                 'nip' => $val->karyawan->no_induk,
                 'nama_lengkap' => $val->karyawan->nama_lengkap,
-                'jumlah' => $val->gaji_total
+                'jumlah' => $val->gaji_akhir
             ];
 
             $no++;

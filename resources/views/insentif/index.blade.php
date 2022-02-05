@@ -200,25 +200,25 @@
                                 <select name="month" class="form-control"
                                     onchange="$('#daftarInsentif').DataTable().draw()">
                                     <option value="">Bulan</option>
-                                    <option {{ date('m') == '01' ? 'selected' : ''}} value="01">Januari</option>
-                                    <option {{ date('m') == '02' ? 'selected' : ''}} value="02">Februari</option>
-                                    <option {{ date('m') == '03' ? 'selected' : ''}} value="03">Maret</option>
-                                    <option {{ date('m') == '04' ? 'selected' : ''}} value="04">April</option>
-                                    <option {{ date('m') == '05' ? 'selected' : ''}} value="05">Mei</option>
-                                    <option {{ date('m') == '06' ? 'selected' : ''}} value="06">Juni</option>
-                                    <option {{ date('m') == '07' ? 'selected' : ''}} value="07">Juli</option>
-                                    <option {{ date('m') == '08' ? 'selected' : ''}} value="08">Augustus</option>
-                                    <option {{ date('m') == '09' ? 'selected' : ''}} value="09">September</option>
-                                    <option {{ date('m') == '10' ? 'selected' : ''}} value="10">Oktober</option>
-                                    <option {{ date('m') == '11' ? 'selected' : ''}} value="11">November</option>
-                                    <option {{ date('m') == '12' ? 'selected' : ''}} value="12">Desember</option>
+                                    <option {{ date('m')=='01' ? 'selected' : '' }} value="01">Januari</option>
+                                    <option {{ date('m')=='02' ? 'selected' : '' }} value="02">Februari</option>
+                                    <option {{ date('m')=='03' ? 'selected' : '' }} value="03">Maret</option>
+                                    <option {{ date('m')=='04' ? 'selected' : '' }} value="04">April</option>
+                                    <option {{ date('m')=='05' ? 'selected' : '' }} value="05">Mei</option>
+                                    <option {{ date('m')=='06' ? 'selected' : '' }} value="06">Juni</option>
+                                    <option {{ date('m')=='07' ? 'selected' : '' }} value="07">Juli</option>
+                                    <option {{ date('m')=='08' ? 'selected' : '' }} value="08">Augustus</option>
+                                    <option {{ date('m')=='09' ? 'selected' : '' }} value="09">September</option>
+                                    <option {{ date('m')=='10' ? 'selected' : '' }} value="10">Oktober</option>
+                                    <option {{ date('m')=='11' ? 'selected' : '' }} value="11">November</option>
+                                    <option {{ date('m')=='12' ? 'selected' : '' }} value="12">Desember</option>
                                 </select>
                             </div>
                             <div class="col">
                                 <select name="year" class="form-control"
                                     onchange="$('#daftarInsentif').DataTable().draw()">
                                     <option value="">Tahun</option>
-                                    @for ($i=2018; $i <= date('Y'); $i++) <option {{ date('Y') == $i ? 'selected' : ''}}
+                                    @for ($i=2018; $i <= date('Y'); $i++) <option {{ date('Y')==$i ? 'selected' : '' }}
                                         value="{{$i}}">{{$i}}</option>
                                         @endfor
                                 </select>
@@ -349,7 +349,7 @@
                 $('select[name=month]').val(arr[1]);
                 $('select[name=year]').val(arr[0]);
                 $('input[name=id]').val(data.id);
-                $('input[name=jenis_insentif]').val(data.jenis_insentif);
+                $('select[name=jenis_insentif]').val(data.jenis_insentif);
                 $('input[name=jumlah]').val(data.jumlah);
                 $('input[name=keterangan]').val(data.keterangan);
             }
@@ -385,6 +385,7 @@
     function hapusInsentif(id) {
         var url = '{{ route('dash.insentif.destroy', ':id') }}';
         url = url.replace(':id', id);
+        $('#hapusInsentif .modal-title').text('Hapus Insentif');
         $('#hapusInsentif .modal-body').text('Yakin ingin menghapus?');
         $('#hapusInsentif form').attr('action', url);
         $('#hapusInsentif').modal('show');

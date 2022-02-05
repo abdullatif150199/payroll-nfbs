@@ -23,17 +23,22 @@ class BankSheetExport implements FromView, WithTitle, WithColumnFormatting
     public function view(): View
     {
         $month = $this->bln;
-        $all_gaji_total = Gaji::where('bulan', $this->bln)->sum('gaji_total');
-        $potongan_by_month = HistoryPotongan::whereHas('gaji', function ($q) use ($month) {
+        $gajiByMonth = Gaji::has('karyawan')->where('bulan', $this->bln)->cursor();
+        $potonganByMonth = HistoryPotongan::whereHas('gaji', function ($q) use ($month) {
             $q->where('bulan', $month);
         })->cursor();
 
-        $sum = $potongan_by_month->groupBy('rekening_id')->map(function ($row) {
+        $sumGaji = $gajiByMonth->groupBy('rekening_id')->map(function ($row) {
+            return $row->sum('gaji_akhir');
+        })->toArray();
+
+        $sumPotongan = $potonganByMonth->groupBy('rekening_id')->map(function ($row) {
             return $row->sum('jumlah');
         })->toArray();
 
-        $rekenings = Rekening::all();
+        $sum = $sumGaji + $sumPotongan;
 
+        $rekenings = Rekening::get();
         $collections = [];
         $no = 1;
 
@@ -44,7 +49,7 @@ class BankSheetExport implements FromView, WithTitle, WithColumnFormatting
                 'no_rekening' => $rek->no_rekening,
                 'atas_nama' => $rek->atas_nama,
                 'keterangan' => $rek->keterangan,
-                'jumlah' => $sum[$rek->id]
+                'jumlah' => isset($sum[$rek->id]) ? $sum[$rek->id] : 0
             ];
 
             $no++;

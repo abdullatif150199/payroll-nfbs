@@ -43,8 +43,8 @@
             <thead>
                 <tr>
                     <th>Nama Bank</th>
-                    <th>No. Rekening</th>
-                    <th>Atas Nama</th>
+                    <th>Rekening</th>
+                    <th>Menampung</th>
                     <th>Keterangan</th>
                     <th>Opsi</th>
                 </tr>
@@ -73,8 +73,8 @@
             ajax: '{{ route('dash.rekening.datatable') }}',
             columns: [
                 {data: 'bank'},
-                {data: 'no_rekening'},
-                {data: 'atas_nama'},
+                {data: 'rekening'},
+                {data: 'type'},
                 {data: 'keterangan'},
                 {data: 'actions', orderable: false, searchable: false}
             ]
@@ -109,6 +109,7 @@
                     $('input[name=bank]').val(data.bank);
                     $('input[name=no_rekening]').val(data.no_rekening);
                     $('input[name=atas_nama]').val(data.atas_nama);
+                    $('select[name=type]').val(data.type);
                     $('textarea[name=keterangan]').val(data.keterangan);
                 }
             });

@@ -5,7 +5,7 @@
 
             <!-- Modal Header -->
             <div class="modal-header">
-                <h4 class="modal-title">Gaji Untuk Bulan:</h4>
+                <h4 class="modal-title">Unduh Gaji Bulan:</h4>
                 <button type="button" class="close" data-dismiss="modal"></button>
             </div>
 
@@ -38,7 +38,7 @@
                                 <label class="form-label">Tahun</label>
                                 <select name="tahun" class="form-control" required>
                                     <option value="">Pilih Tahun</option>
-                                    @for ($i=2018; $i <= date('Y'); $i++) <option {{ date('Y') == $i ? 'selected' : ''}}
+                                    @for ($i=2018; $i <= date('Y'); $i++) <option {{ date('Y')==$i ? 'selected' : '' }}
                                         value="{{$i}}">{{$i}}</option>
                                         @endfor
                                 </select>
@@ -47,10 +47,8 @@
                     </div>
                 </div>
                 <div class="modal-footer">
-
-                    <button type="submit" class="btn btn-primary">Yakin</button>
                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-
+                    <button type="submit" class="btn btn-primary">Unduh</button>
                 </div>
             </form>
 
@@ -65,7 +63,7 @@
 
             <!-- Modal Header -->
             <div class="modal-header">
-                <h4 class="modal-title">Gaji Untuk Bulan:</h4>
+                <h4 class="modal-title">Proses Ulang Gaji Bulan:</h4>
                 <button type="button" class="close" data-dismiss="modal"></button>
             </div>
 
@@ -98,7 +96,7 @@
                                 <label class="form-label">Tahun</label>
                                 <select name="tahun" class="form-control" required>
                                     <option value="">Pilih Tahun</option>
-                                    @for ($i=2018; $i <= date('Y'); $i++) <option {{ date('Y') == $i ? 'selected' : ''}}
+                                    @for ($i=2018; $i <= date('Y'); $i++) <option {{ date('Y')==$i ? 'selected' : '' }}
                                         value="{{$i}}">{{$i}}</option>
                                         @endfor
                                 </select>
@@ -107,10 +105,8 @@
                     </div>
                 </div>
                 <div class="modal-footer">
-
-                    <button type="submit" class="btn btn-primary">Yakin</button>
                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-
+                    <button type="submit" class="btn btn-primary">Yakin</button>
                 </div>
             </form>
 
@@ -221,7 +217,15 @@
                                     <strong id="lain_lain"></strong>
                                 </td>
                             </tr>
-                            <tr>
+                            <tr class="font-weight-bold">
+                                <td>
+                                    Gaji Total
+                                </td>
+                                <td class="text-right">
+                                    <strong id="gaji_total"></strong>
+                                </td>
+                            </tr>
+                            <tr class="font-weight-bold">
                                 <td>
                                     Potongan
                                 </td>
@@ -229,12 +233,12 @@
                                     <strong id="potongan"></strong>
                                 </td>
                             </tr>
-                            <tr class="bg-info text-white">
+                            <tr class="alert alert-primary font-weight-bold">
                                 <td>
                                     GAJI AKHIR
                                 </td>
                                 <td class="text-right">
-                                    <strong id="gaji_total"></strong>
+                                    <strong id="gaji_akhir" class="font-weight-bold"></strong>
                                 </td>
                             </tr>
                         </tbody>
