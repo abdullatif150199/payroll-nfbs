@@ -191,35 +191,19 @@
         <div class="card">
             <div class="card-header">
                 <h3 class="card-title">
-                    <form class="form-inline mb-0" action="{{ route('dash.karyawan.datatable') }}" method="post">
-                        <label for="status_kerja" class="mr-sm-3">Bidang </label>
-                        <div class="row gutters-xs">
-                            <div class="col">
-                                <select name="bidang" class="form-control"
-                                    onchange="$('#potonganTable').DataTable().draw()">
-                                    <option value="">Semua bidang</option>
-                                    @foreach (App\Models\Bidang::get() as $bid)
-                                    <option value="{{ $bid->id }}">{{ $bid->nama_bidang }}</option>
-                                    @endforeach
-                                </select>
-                            </div>
-                        </div>
-                    </form>
+                    Tabel Daftar Potongan
                 </h3>
                 <div class="card-options">
-                    <a href="{{ route('dash.pajak') }}" class="btn btn-primary mr-2"><i class="fe fe-pie-chart"></i>
-                        Pajak</a>
-                    <a href="{{ route('dash.potongan.list') }}" class="btn btn-primary"><i class="fe fe-list"></i>
-                        Daftar Potongan</a>
+                    <a onclick="newPotongan()" class="btn btn-primary"><i class="fe fe-plus"></i> Tambah</a>
                 </div>
             </div>
             <div class="table-responsive">
-                <table class="table card-table table-vcenter text-nowra" id="potonganTable">
+                <table class="table card-table table-vcenter text-nowra" id="tableDaftarPotongan">
                     <thead>
                         <tr>
-                            <th>No. Induk</th>
-                            <th>Nama Lengkap</th>
-                            <th>Jenis Potongan</th>
+                            <th>Nama Potongan</th>
+                            <th>Jumlah Potongan</th>
+                            <th>Rekening Penampung</th>
                             <th></th>
                         </tr>
                     </thead>
@@ -229,7 +213,7 @@
     </div>
 </div>
 
-@include('potongan.modals')
+@include('potongan._modals')
 
 @endsection
 
@@ -237,27 +221,16 @@
 <script src="{{ asset('js/select2.min.js') }}"></script>
 <script>
     $(document).ready(function() {
-        $('#potonganTable').DataTable({
+        $('#tableDaftarPotongan').DataTable({
             serverSide: true,
             processing: true,
             select: true,
-            ajax: {
-                url: '{{ route('dash.potongan.datatable') }}',
-                data: function (d) {
-                    d.bidang = $('select[name=bidang]').val();
-                }
-            },
+            ajax: '{{ route('dash.potongan.daftarPotongan') }}',
             columns: [
-                {data: 'no_induk'},
-                {data: 'nama_lengkap'},
-                {data: 'jenis_potongan', orderable: false, searchable: false},
+                {data: 'nama_potongan'},
+                {data: 'jumlah_potongan'},
+                {data: 'rekening', orderable: false, searchable: false},
                 {data: 'actions', orderable: false, searchable: false}
-            ],
-            columnDefs: [
-                {
-                    'targets': 3,
-                    'className': 'text-right'
-                }
             ]
         });
 
@@ -266,13 +239,6 @@
         $('.selectize-select').selectize({
             maxItems: 10
         });
-    });
-
-    $(function() {
-        if (sessionStorage.reloadAfterPageLoad == 1) {
-            $('#daftarPotongan').modal('show');
-            sessionStorage.reloadAfterPageLoad = '';
-        }
     });
 
     function selectName(att) {
@@ -300,38 +266,131 @@
         })
     }
 
-    function tambahPotongan(id_karyawan, nama_karyawan) {
-        var url = '{{ route('dash.potongan.attach', ':id') }}';
-        url = url.replace(':id', id_karyawan);
-        $('#tambahPotongan form')[0].reset();
-        $('.modal-title').text('Tambah Potongan ' + nama_karyawan);
-        $('#tambahPotongan form').attr('action', url);
+    function newPotongan() {
+        $('#daftarPotongan').modal('hide');
+        $('.modal-title').text('Tambah Potongan Baru');
+        $('#formPotongan').modal('show');
         $('input[name=_method]').val('POST');
-        $('#tambahPotongan').modal('show');
-        selectName('.cari');
+        $('#formPotongan form')[0].reset();
+        $('#type').change(function () {
+            var val = $(this).val();
+            if (val === 'percent') {
+                $('#percent').show();
+                $('#decimal').hide();
+            } else {
+                $('#percent').hide();
+                $('#decimal').show();
+            }
+        });
     }
 
-    function deleteModal(potongan_id, name, karyawan_id) {
-        var url = '{{ route('dash.potongan.edit', ':potongan_id') }}';
-        url = url.replace(':potongan_id', potongan_id);
-        var url_delete = '{{ route('dash.potongan.detach', ['potongan_id' => ':potongan_id', 'karyawan_id' => ':karyawan_id']) }}';
-        url_delete = url_delete.replace(':potongan_id', potongan_id);
-        url_delete = url_delete.replace(':karyawan_id', karyawan_id);
-        $('.modal-title').text('Warning!');
+    function editPotongan(id) {
+        var url = '{{ route('dash.potongan.edit', ':id') }}';
+        url = url.replace(':id', id);
+        $('input[name=_method]').val('PUT');
+        $('#formPotongan form')[0].reset();
         $.ajax({
             url: url,
             type: "GET",
             dataType: "JSON",
             success: function(data) {
-                $('#modalDelete .modal-body').html('Yakin ingin menghapus potongan <strong>' + data.nama_potongan + '</strong> dari <strong>' + name + '</strong>');
-                $('#modalDelete form').attr('action', url_delete);
-                $('#modalDelete').modal('show');
+                $('.modal-title').text('Edit Potongan');
+                $('#formPotongan').modal('show');
+                $('input[name=id]').val(data.id);
+                $('input[name=nama_potongan]').val(data.nama_potongan);
+                $('select[name=type]').val(data.type);
+                $('select[name=rekening_id]').val(data.rekening_id);
+                // $('select[name=type] option[value='+ data.type +']').attr('selected', true);
+                var val = data.type;
+                if (val === 'percent') {
+                    $('#decimal').hide();
+                    $('#percent').show();
+                    var str = data.jumlah_potongan;
+                    var ex = str.split('*');
+                    // console.log(ex[0]);
+                    $('input[name=jumlah_persentase]').val(ex[0] * 100);
+                    $('select[name=jenis_persentase]').val(ex[1]);
+                    $('#type').change(function () {
+                        val = $(this).val();
+                        if (val === 'decimal') {
+                            $('#percent').hide();
+                            $('#decimal').show();
+                        }else {
+                            $('#percent').show();
+                            $('#decimal').hide();
+                        }
+                    });
+                } else {
+                    $('#percent').hide();
+                    $('#decimal').show();
+                    if (data.type !== 'percent') {
+                        $('input[name=jumlah_potongan]').val(data.jumlah_potongan);
+                    }
+                    $('#type').change(function () {
+                        val = $(this).val();
+                        if (val === 'percent') {
+                            $('#percent').show();
+                            $('#decimal').hide();
+                        }else {
+                            $('#percent').hide();
+                            $('#decimal').show();
+                        }
+                    });
+                }
             },
             error: function() {
                 alert('Data tidak ditemukan');
             }
         });
+    }
 
+    $('#formPotongan form').submit(function(e) {
+        e.preventDefault();
+        var id = $('input[name=id]').val();
+        var save_method = $('input[name=_method]').val();
+
+        if (save_method == 'POST') {
+            url = '{{ route('dash.potongan.store') }}';
+        } else {
+            url_raw = '{{ route('dash.potongan.update', ':id') }}';
+            url = url_raw.replace(':id', id);
+            // console.log(id);
+        }
+
+        $.ajax({
+            url : url,
+            type: 'POST',
+            data: $('#formPotongan form').serialize(),
+            success: function(data) {
+                $('#formPotongan').modal('hide');
+                location.reload(); // refresh page
+            },
+            error: function() {
+                alert('Gagal menyimpan data');
+            }
+        });
+    });
+
+    function hapusPotongan(id, name) {
+        var url = '{{ route('dash.potongan.destroy', ':id') }}';
+        url = url.replace(':id', id);
+        $('.modal-title').text('Hapus Potongan ' + name);
+        $('input[name=_method]').val('DELETE');
+        $('#hapusPotongan').modal('show');
+        $('#hapusPotongan form').submit(function(e) {
+            e.preventDefault();
+
+            $.ajax({
+                url: url,
+                type: 'POST',
+                data: $('#hapusPotongan form').serialize(),
+                success: function(data) {
+                    $('#hapusPotongan').modal('hide');
+                    location.reload(); // refresh page
+                }
+            });
+
+        })
     }
 </script>
 @endpush

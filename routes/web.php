@@ -132,6 +132,8 @@ Route::group(['prefix' => 'dashboard', 'as' => 'dash.', 'middleware' => ['auth']
         Route::prefix('potongan')->group(function () {
             Route::get('pajak', 'PajakController@index')->name('pajak');
             Route::get('get-pajak', 'PajakController@datatable')->name('pajak.datatable');
+            Route::get('daftar-potongan', 'PotonganController@list')->name('potongan.list');
+            Route::get('get-daftar-potongan', 'PotonganController@daftarPotongan')->name('potongan.daftarPotongan');
         });
 
         // keluarga

@@ -8,7 +8,7 @@ use App\Models\TaxHistory;
 
 class PajakController extends Controller
 {
-    public function index(Request $request)
+    public function index()
     {
         $title = 'Potongan Pajak';
 
@@ -21,7 +21,7 @@ class PajakController extends Controller
     {
         if (!$request->bulan) {
             $bulan = date('Y-m');
-            $data = TaxHistory::whereHas('gaji', function ($query) use ($request) {
+            $data = TaxHistory::whereHas('gaji', function ($query) use ($bulan) {
                 $query->where('bulan', $bulan);
             })->get();
         } else {

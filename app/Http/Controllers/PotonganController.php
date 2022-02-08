@@ -14,11 +14,20 @@ class PotonganController extends Controller
     {
         $title = 'Potongan';
         $potongan = Potongan::get();
-        $rekening = Rekening::get();
 
         return view('potongan.index', [
             'title' => $title,
-            'potongan' => $potongan,
+            'potongan' => $potongan
+        ]);
+    }
+
+    public function list()
+    {
+        $title = 'Daftar Potongan';
+        $rekening = Rekening::get();
+
+        return view('potongan._index', [
+            'title' => $title,
             'rekening' => $rekening
         ]);
     }
@@ -49,6 +58,24 @@ class PotonganController extends Controller
                 return view('potongan.types', ['data' => $data]);
             })
             ->rawColumns(['actions', 'jenis_potongan'])
+            ->make('true');
+    }
+
+    public function daftarPotongan()
+    {
+        $data = Potongan::with('rekening')->latest();
+
+        return Datatables::of($data)
+            ->addColumn('actions', function ($data) {
+                return view('potongan._actions', ['data' => $data]);
+            })
+            ->editColumn('jumlah_potongan', function ($data) {
+                return view('potongan._jumlah', ['data' => $data]);
+            })
+            ->editColumn('rekening', function ($data) {
+                return view('potongan._rekening', ['rekening' => $data->rekening]);
+            })
+            ->rawColumns(['actions', 'jumlah_potongan', 'rekening'])
             ->make('true');
     }
 
