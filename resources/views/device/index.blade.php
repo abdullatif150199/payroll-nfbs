@@ -44,7 +44,7 @@
             <thead>
                 <tr>
                     <th>IP Server</th>
-                    <th>Port Server</th>
+                    <th>Port</th>
                     <th>Serial Number</th>
                     <th>Keterangan</th>
                     <th>Opsi</th>

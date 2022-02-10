@@ -21,6 +21,7 @@ use Maatwebsite\Excel\Concerns\SkipsFailures;
 use Maatwebsite\Excel\Concerns\WithBatchInserts;
 use Maatwebsite\Excel\Concerns\WithChunkReading;
 use Illuminate\Support\Facades\Cache;
+use Illuminate\Support\Facades\DB;
 
 class BulkImport implements
     ToModel,
@@ -34,50 +35,52 @@ class BulkImport implements
     use Importable, SkipsErrors, SkipsFailures;
 
     /**
-    * @param Collection $collection
-    */
+     * @param Collection $collection
+     */
     public function model(array $row)
     {
-        $user = User::create([
-            'username' => $row['no_induk'],
-            'name' => $row['nama_lengkap'],
-            'email' => $row['email'] ?? null,
-            'password' => bcrypt(date('dmY', strtotime($row['tanggal_lahir'])))
-        ]);
+        DB::transaction(function () use ($row) {
+            $user = User::create([
+                'username' => $row['no_induk'],
+                'name' => $row['nama_lengkap'],
+                'email' => $row['email'] ?? null,
+                'password' => bcrypt(date('dmY', strtotime($row['tanggal_lahir'])))
+            ]);
 
-        $user->assignRole('user');
+            $user->assignRole('user');
 
-        $karyawan = $user->karyawan()->create([
-            'golongan_id' => Cache::get('golongan')[strtoupper($row['golongan'])],
-            'status_kerja_id' => Cache::get('status_kerja')[$row['status_kerja']],
-            'kelompok_kerja_id' => Cache::get('kelompok_kerja')[strtoupper($row['kelompok_kerja'])],
-            'no_induk' => $row['no_induk'],
-            'nik' => $row['nik'],
-            'nama_lengkap' => $row['nama_lengkap'],
-            'tempat_lahir' => $row['tempat_lahir'],
-            'tanggal_lahir' => $this->dateToSql($row['tanggal_lahir']),
-            'jenis_kelamin' => strtoupper($row['jenis_kelamin']),
-            'status_pernikahan' => strtoupper($row['status_pernikahan']),
-            'alamat' => $row['alamat'] ?? null,
-            'no_hp' => $row['no_hp'],
-            'nama_pendidikan' => $row['nama_pendidikan'],
-            'pendidikan_terakhir' => strtoupper($row['pendidikan_terakhir']),
-            'jurusan' => $row['jurusan'],
-            'tahun_lulus' => $row['tahun_lulus'],
-            'tanggal_masuk' => $this->dateToSql($row['tanggal_masuk']),
-            'nama_bank' => $row['nama_bank'],
-            'no_rekening' => $row['no_rekening'],
-            'rekening_atas_nama' => $row['rekening_atas_nama'],
-            'status' => Cache::get('status')[strtolower($row['status'])],
-            'tipe_kerja' => strtolower($row['tipe_kerja']),
-            'jam_perpekan_id' => Cache::get('jam_perpekan')[$row['jam_perpekan']],
-            'contract_expired' => $this->dateToSql($row['contract_expired']),
-            'pembayaran' => $row['pembayaran']
-        ]);
+            $karyawan = $user->karyawan()->create([
+                'golongan_id' => Cache::get('golongan')[strtoupper($row['golongan'])],
+                'status_kerja_id' => Cache::get('status_kerja')[$row['status_kerja']],
+                'kelompok_kerja_id' => Cache::get('kelompok_kerja')[strtoupper($row['kelompok_kerja'])],
+                'no_induk' => $row['no_induk'],
+                'nik' => $row['nik'],
+                'nama_lengkap' => $row['nama_lengkap'],
+                'tempat_lahir' => $row['tempat_lahir'],
+                'tanggal_lahir' => $this->dateToSql($row['tanggal_lahir']),
+                'jenis_kelamin' => strtoupper($row['jenis_kelamin']),
+                'status_pernikahan' => strtoupper($row['status_pernikahan']),
+                'alamat' => $row['alamat'] ?? null,
+                'no_hp' => $row['no_hp'],
+                'nama_pendidikan' => $row['nama_pendidikan'],
+                'pendidikan_terakhir' => strtoupper($row['pendidikan_terakhir']),
+                'jurusan' => $row['jurusan'],
+                'tahun_lulus' => $row['tahun_lulus'],
+                'tanggal_masuk' => $this->dateToSql($row['tanggal_masuk']),
+                'nama_bank' => $row['nama_bank'],
+                'no_rekening' => $row['no_rekening'],
+                'rekening_atas_nama' => $row['rekening_atas_nama'],
+                'status' => Cache::get('status')[strtolower($row['status'])],
+                'tipe_kerja' => strtolower($row['tipe_kerja']),
+                'jam_perpekan_id' => Cache::get('jam_perpekan')[$row['jam_perpekan']],
+                'contract_expired' => $this->dateToSql($row['contract_expired']),
+                'pembayaran' => $row['pembayaran']
+            ]);
 
-        BulkImportJobs::dispatch($row['jabatan'], $karyawan);
+            BulkImportJobs::dispatch($row['jabatan'], $karyawan);
 
-        return $user;
+            return $user;
+        });
     }
 
     public function rules(): array
@@ -105,11 +108,11 @@ class BulkImport implements
             return ['guru' => 1, 'non guru' => 2];
         });
 
-        $jenis_kelamin = ['L','P'];
+        $jenis_kelamin = ['L', 'P'];
         $status_pernikahan = ['M', 'B', 'D', 'J'];
-        $pendidikan_terakhir = ['TS','SD','SMP','SMA','D3','S1','S2','S3'];
-        $tipe_kerja = ['shift','non shift'];
-        $pembayaran = ['cash','transfer'];
+        $pendidikan_terakhir = ['TS', 'SD', 'SMP', 'SMA', 'D3', 'S1', 'S2', 'S3'];
+        $tipe_kerja = ['shift', 'non shift'];
+        $pembayaran = ['cash', 'transfer'];
 
         return [
             'nama_lengkap' => ['string', 'required'],

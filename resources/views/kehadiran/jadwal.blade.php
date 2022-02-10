@@ -36,9 +36,9 @@
             <div class="card-header">
                 Apel hari apa aja?
                 <div class="card-options">
-                    <a class="btn btn-primary" href="#formJadwal" data-toggle="modal">
+                    <button class="btn btn-primary" id="newJadwal">
                         <i class="fe fe-plus"></i> Tambah
-                    </a>
+                    </button>
                 </div>
             </div>
             <div class="table-responsive">
@@ -76,6 +76,11 @@
             {data: 'end_time_at'},
             {data: 'actions', orderable:false, searchable:false}
         ]
+    });
+
+    $('#newJadwal').click(function () {
+        $('#formJadwal form')[0].reset();
+        $('#formJadwal').modal('show');
     });
 
     function editJadwal(id) {

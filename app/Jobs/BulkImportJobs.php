@@ -14,6 +14,7 @@ class BulkImportJobs implements ShouldQueue
 {
     use Dispatchable, InteractsWithQueue, Queueable, SerializesModels;
 
+    public $afterCommit = true;
     protected $karyawan;
     protected $data;
 

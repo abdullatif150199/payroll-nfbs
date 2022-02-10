@@ -164,7 +164,6 @@
 
     $('#newKaryawan').click(function () {
         $('.modal-title').text('Tambah Pegawai');
-        $('#formKaryawan').modal('show');
         $('input[name=_method]').val('POST');
         $('#formKaryawan form')[0].reset();
         $('#formKaryawan').modal('show');
