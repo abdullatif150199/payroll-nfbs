@@ -57,9 +57,11 @@ class ScanlogNonShift extends Command
             if ($scanlogs->Result) {
                 foreach ($scanlogs->Data as $scan) {
                     $karyawan = Karyawan::where('no_induk', $scan->PIN)->first();
+                    dd($karyawan);
 
                     // Masuk
                     if ($scan->IOMode === 1) {
+                        // Apel
                         if ($device->tipe == '3') {
                             if (in_array(date('l'), $apelDays)) {
                                 $karyawan->attendanceApel()->updateOrCreate([
