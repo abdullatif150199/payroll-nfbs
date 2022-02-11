@@ -56,56 +56,56 @@ class ScanlogNonShift extends Command
             // kalo True
             if ($scanlogs->Result) {
                 foreach ($scanlogs->Data as $scan) {
-                    dd($scan->PIN);
                     $karyawan = Karyawan::where('no_induk', $scan->PIN)->first();
-                    dd($karyawan);
 
-                    // Masuk
-                    if ($scan->IOMode === 1) {
-                        // Apel
-                        if ($device->tipe == '3') {
-                            if (in_array(date('l'), $apelDays)) {
-                                $karyawan->attendanceApel()->updateOrCreate([
-                                    'tanggal' => date('Y-m-d', strtotime($scan->ScanDate))
-                                ], [
-                                    'hari' => date('l'),
-                                    'masuk' => date('H:i:s', strtotime($scan->ScanDate))
-                                ]);
+                    if ($karyawan) {
+                        // Masuk
+                        if ($scan->IOMode === 1) {
+                            // Apel
+                            if ($device->tipe == '3') {
+                                if (in_array(date('l'), $apelDays)) {
+                                    $karyawan->attendanceApel()->updateOrCreate([
+                                        'tanggal' => date('Y-m-d', strtotime($scan->ScanDate))
+                                    ], [
+                                        'hari' => date('l'),
+                                        'masuk' => date('H:i:s', strtotime($scan->ScanDate))
+                                    ]);
+                                }
                             }
+
+                            $karyawan->kehadiran()->firstOrCreate([
+                                'tanggal' => date('Y-m-d', strtotime($scan->ScanDate))
+                            ], [
+                                'jam_masuk' => date('H:i:s', strtotime($scan->ScanDate))
+                            ]);
                         }
 
-                        $karyawan->kehadiran()->firstOrCreate([
-                            'tanggal' => date('Y-m-d', strtotime($scan->ScanDate))
-                        ], [
-                            'jam_masuk' => date('H:i:s', strtotime($scan->ScanDate))
-                        ]);
-                    }
+                        // Istirahat
+                        if ($scan->IOMode === 2) {
+                            $karyawan->kehadiran()->updateOrCreate([
+                                'tanggal' => date('Y-m-d', strtotime($scan->ScanDate))
+                            ], [
+                                'jam_istirahat' => date('H:i:s', strtotime($scan->ScanDate))
+                            ]);
+                        }
 
-                    // Istirahat
-                    if ($scan->IOMode === 2) {
-                        $karyawan->kehadiran()->updateOrCreate([
-                            'tanggal' => date('Y-m-d', strtotime($scan->ScanDate))
-                        ], [
-                            'jam_istirahat' => date('H:i:s', strtotime($scan->ScanDate))
-                        ]);
-                    }
+                        // Kembali
+                        if ($scan->IOMode === 3) {
+                            $karyawan->kehadiran()->updateOrCreate([
+                                'tanggal' => date('Y-m-d', strtotime($scan->ScanDate))
+                            ], [
+                                'jam_kembali' => date('H:i:s', strtotime($scan->ScanDate))
+                            ]);
+                        }
 
-                    // Kembali
-                    if ($scan->IOMode === 3) {
-                        $karyawan->kehadiran()->updateOrCreate([
-                            'tanggal' => date('Y-m-d', strtotime($scan->ScanDate))
-                        ], [
-                            'jam_kembali' => date('H:i:s', strtotime($scan->ScanDate))
-                        ]);
-                    }
-
-                    // Pulang
-                    if ($scan->IOMode === 4) {
-                        $karyawan->kehadiran()->updateOrCreate([
-                            'tanggal' => date('Y-m-d', strtotime($scan->ScanDate))
-                        ], [
-                            'jam_pulang' => date('H:i:s', strtotime($scan->ScanDate))
-                        ]);
+                        // Pulang
+                        if ($scan->IOMode === 4) {
+                            $karyawan->kehadiran()->updateOrCreate([
+                                'tanggal' => date('Y-m-d', strtotime($scan->ScanDate))
+                            ], [
+                                'jam_pulang' => date('H:i:s', strtotime($scan->ScanDate))
+                            ]);
+                        }
                     }
                 }
             }
