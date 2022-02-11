@@ -31,7 +31,7 @@ class GajiController extends Controller
                 $q->whereHas('bidang', function ($query) use ($request) {
                     $query->where('id', $request->bidang);
                 });
-            });
+            })->where('status', '<>', '3');
         })->where('bulan', $month)->get();
 
         return Datatables::of($data)

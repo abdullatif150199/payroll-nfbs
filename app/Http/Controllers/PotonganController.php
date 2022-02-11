@@ -48,7 +48,7 @@ class PotonganController extends Controller
                     $q->where('id', $request->bidang);
                 });
             })
-            ->get();
+            ->where('status', '<>', '3')->get();
 
         return Datatables::of($data)
             ->addColumn('actions', function ($data) {

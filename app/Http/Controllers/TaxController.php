@@ -26,10 +26,10 @@ class TaxController extends Controller
                 return number_format($data->ptkp_perbulan);
             })
             ->editColumn('persentase_pph21', function ($data) {
-                return $data->persentase_pph21 * 100 .'%';
+                return $data->persentase_pph21 * 100 . '%';
             })
             ->editColumn('persentase_biaya_jabatan', function ($data) {
-                return $data->persentase_biaya_jabatan * 100 .'%';
+                return $data->persentase_biaya_jabatan * 100 . '%';
             })
             ->addColumn('actions', function ($data) {
                 return view('tax.actions', ['data' => $data]);

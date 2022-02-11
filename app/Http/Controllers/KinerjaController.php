@@ -40,7 +40,7 @@ class KinerjaController extends Controller
                         $query->where('id', $request->bidang);
                     });
                 })
-                ->latest();
+                ->where('status', '<>', '3')->latest();
         } else {
             $data = Karyawan::whereHas('bidang', function (Builder $query) use ($user) {
                 $query->whereIn('nama_bidang', $user->karyawan->bidang->pluck('nama_bidang'));
@@ -51,7 +51,7 @@ class KinerjaController extends Controller
                 ->with(['gajiOne' => function ($q) use ($bulan) {
                     $q->bulan($bulan);
                 }])
-                ->latest();
+                ->where('status', '<>', '3')->latest();
         }
 
         $nilai_kinerja = NilaiKinerja::all();

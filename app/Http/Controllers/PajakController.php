@@ -22,11 +22,15 @@ class PajakController extends Controller
         if (!$request->bulan) {
             $bulan = date('Y-m');
             $data = TaxHistory::whereHas('gaji', function ($query) use ($bulan) {
-                $query->where('bulan', $bulan);
+                $query->whereHas('karyawan', function ($query) {
+                    $query->where('status', '<>', '3');
+                })->where('bulan', $bulan);
             })->get();
         } else {
             $data = TaxHistory::whereHas('gaji', function ($query) use ($request) {
-                $query->where('bulan', $request->bulan);
+                $query->whereHas('karyawan', function ($query) {
+                    $query->where('status', '<>', '3');
+                })->where('bulan', $request->bulan);
             })->get();
         }
 
