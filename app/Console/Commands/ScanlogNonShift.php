@@ -56,6 +56,7 @@ class ScanlogNonShift extends Command
             // kalo True
             if ($scanlogs->Result) {
                 foreach ($scanlogs->Data as $scan) {
+                    dd($scan->PIN);
                     $karyawan = Karyawan::where('no_induk', $scan->PIN)->first();
                     dd($karyawan);
 
