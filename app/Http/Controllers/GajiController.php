@@ -172,7 +172,7 @@ class GajiController extends Controller
         $bln = $request->tahun . '-' . $request->bulan;
         $export = new GajiExport($bln);
 
-        return Excel::download($export, 'report.xlsx');
+        return Excel::download($export, 'gaji_' . $bln . '.xlsx');
     }
 
     public function slip($id)

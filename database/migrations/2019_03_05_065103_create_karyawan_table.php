@@ -53,6 +53,7 @@ class CreateKaryawanTable extends Migration
             $table->foreign('jam_ajar_id')->references('id')->on('jam_ajar')->onDelete('cascade');
             $table->foreignId('tax_id')->nullable();
             $table->foreign('tax_id')->references('id')->on('taxes')->onDelete('cascade');
+            $table->string('no_npwp', 25)->nullable();
             $table->date('contract_expired')->nullable();
             $table->enum('pembayaran', ['cash', 'transfer'])->nullable();
             $table->timestamps();

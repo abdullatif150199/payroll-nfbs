@@ -130,10 +130,15 @@ Route::group(['prefix' => 'dashboard', 'as' => 'dash.', 'middleware' => ['auth']
         Route::delete('potongan/{id}', 'PotonganController@destroy')->name('potongan.destroy');
         Route::delete('potongan/{potongan_id}/{karyawan_id}/delete', 'PotonganController@detach')->name('potongan.detach');
         Route::prefix('potongan')->group(function () {
+            // pajak
             Route::get('pajak', 'PajakController@index')->name('pajak');
             Route::get('get-pajak', 'PajakController@datatable')->name('pajak.datatable');
             Route::get('daftar-potongan', 'PotonganController@list')->name('potongan.list');
             Route::get('get-daftar-potongan', 'PotonganController@daftarPotongan')->name('potongan.daftarPotongan');
+            Route::post('unduh', 'PajakController@unduh')->name('pajak.unduh');
+            // Riwayat potongan
+            Route::get('riwayat', 'RiwayatPotonganController@index')->name('riwayatpotongan');
+            Route::get('get-riwayat', 'RiwayatPotonganController@datatable')->name('riwayatpotongan.datatable');
         });
 
         // keluarga
@@ -189,10 +194,10 @@ Route::group(['prefix' => 'dashboard', 'as' => 'dash.', 'middleware' => ['auth']
             Route::put('device/{id}', 'DeviceController@update')->name('device.update');
             Route::delete('device/{id}', 'DeviceController@destroy')->name('device.destroy');
             Route::post('device/{id}/check', 'DeviceController@check')->name('device.check');
-
             // Data Fingerprint
-            Route::get('fingerprint', 'FingerprintController@index')->name('fingerprint.index');
-            Route::get('get-fingerprint', 'FingerprintController@datatable')->name('fingerprint.datatable');
+            Route::get('device/fingerprint', 'FingerprintController@index')->name('fingerprint.index');
+            Route::get('device/get-fingerprint', 'FingerprintController@datatable')->name('fingerprint.datatable');
+            Route::get('device/fingerprint/upload', 'FingerprintController@upload')->name('fingerprint.upload');
 
             // Bulk Upload
             Route::get('bulk-import', 'BulkImportController@index')->name('bulkImport');

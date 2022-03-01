@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Setting;
+use Illuminate\Support\Facades\Cache;
 
 class SettingController extends Controller
 {
@@ -22,6 +23,10 @@ class SettingController extends Controller
                 'value' => $val
             ]);
         }
+
+        Cache::remember('setting', 720 * 60, function () {
+            return array_pluck(Setting::all()->toArray(), 'value', 'key');
+        });
 
         return redirect()->back()->withSuccess('Konfigurasi berhasil diupdate');
     }

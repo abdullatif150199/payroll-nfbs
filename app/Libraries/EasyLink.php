@@ -4,9 +4,18 @@ namespace App\Libraries;
 
 class EasyLink
 {
-    /** =================================================================================
+    public $ip;
+    public $port;
+
+    public function __construct()
+    {
+        $this->ip = setting('fingerprint_server_ip');
+        $this->port = setting('fingerprint_server_port');
+    }
+
+    /**
      * untuk melakukan koneksi yang menghubungkan antara software dengan mesin fingerspot
-     * ================================================================================ */
+     */
     private function webservice($port, $url, $parameter)
     {
         $curl = curl_init();
@@ -40,38 +49,53 @@ class EasyLink
         return $response;
     }
 
-    public function info($serial, $port, $ip)
+    public function info($serial)
     {
-        $url = $ip . '/dev/info';
+        $url = $this->ip . '/dev/info';
         $parameter = 'sn=' . $serial;
-        $data = $this->webservice($port, $url, $parameter);
+        $data = $this->webservice($this->port, $url, $parameter);
 
         return json_decode($data);
     }
 
-    public function allScan($serial, $port, $ip, $limit=100)
+    public function allScan($serial, $limit = 100)
     {
-        $url = $ip . '/scanlog/all/paging';
+        $url = $this->ip . '/scanlog/all/paging';
         $parameter = 'sn=' . $serial . "&limit=" . $limit;
-        $data = $this->webservice($port, $url, $parameter);
+        $data = $this->webservice($this->port, $url, $parameter);
 
         return json_decode($data);
     }
 
-    public function newScan($serial, $port, $ip)
+    public function newScan($serial)
     {
-        $url = $ip . '/scanlog/new';
+        $url = $this->ip . '/scanlog/new';
         $parameter = 'sn=' . $serial;
-        $data = $this->webservice($port, $url, $parameter);
+        $data = $this->webservice($this->port, $url, $parameter);
 
         return json_decode($data);
     }
 
-    public function delScan($serial, $port, $ip)
+    public function delScan($serial)
     {
-        $url = $ip . '/scanlog/del';
+        $url = $this->ip . '/scanlog/del';
         $parameter = 'sn=' . $serial;
-        $data = $this->webservice($port, $url, $parameter);
+        $data = $this->webservice($this->port, $url, $parameter);
+
+        return json_decode($data);
+    }
+
+    public function upload($arr)
+    {
+        $url = $this->ip . '/user/set';
+        $parameter = 'sn=' . $arr['serial']
+            . "&pin=" . $arr['pin']
+            . "&nama=" . $arr['nama']
+            . "&pwd=" . $arr['pwd']
+            . "&rfid=" . $arr['rfid']
+            . "&priv=" . $arr['priv']
+            . "&tmp=" . $arr['tmp'];
+        $data = $this->webservice($this->port, $url, $parameter);
 
         return json_decode($data);
     }

@@ -19,6 +19,12 @@ class DeviceController extends Controller
         $data = Device::all();
 
         return Datatables::of($data)
+            ->editColumn('server_ip', function ($data) {
+                return setting('fingerprint_server_ip');
+            })
+            ->editColumn('server_port', function ($data) {
+                return setting('fingerprint_server_port');
+            })
             ->editColumn('keterangan', function ($data) {
                 return view('device.tipe', ['data' => $data]);
             })
@@ -32,15 +38,11 @@ class DeviceController extends Controller
     public function store(Request $request)
     {
         $this->validate($request, [
-            'server_ip' => 'required',
-            'server_port' => 'required',
             'serial_number' => 'required',
             'tipe' => 'required'
         ]);
 
         $data = [
-            'server_ip' => $request->server_ip,
-            'server_port' => $request->server_port,
             'serial_number' => $request->serial_number,
             'tipe' => $request->tipe
         ];
@@ -59,15 +61,11 @@ class DeviceController extends Controller
     public function update(Request $request, $id)
     {
         $this->validate($request, [
-            'server_ip' => 'required',
-            'server_port' => 'required',
             'serial_number' => 'required',
             'tipe' => 'required'
         ]);
 
         $update = Device::find($id);
-        $update->server_ip = $request->server_ip;
-        $update->server_port = $request->server_port;
         $update->serial_number = $request->serial_number;
         $update->tipe = $request->tipe;
         $update->update();
@@ -86,13 +84,8 @@ class DeviceController extends Controller
     {
         try {
             $get = Device::findOrFail($id);
-
             $finger = new EasyLink;
-            $serial = $get->serial_number;
-            $port = $get->server_port;
-            $ip = $get->server_ip;
-
-            $scanlogs = $finger->info($serial, $port, $ip);
+            $scanlogs = $finger->info($get->serial_number);
 
             if ($scanlogs->Result === false) {
                 return back()->withError('Device fingerprint tidak terhubung');

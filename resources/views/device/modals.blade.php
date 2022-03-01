@@ -17,7 +17,8 @@
                         <div class="col">
                             <div class="form-group">
                                 <label class="form-label">IP Server</label>
-                                <input type="text" name="server_ip" class="form-control" required>
+                                <input type="text" class="form-control" value="{{ setting('fingerprint_server_ip') }}"
+                                    disabled>
                             </div>
                         </div>
                     </div>
@@ -25,7 +26,8 @@
                         <div class="col">
                             <div class="form-group">
                                 <label class="form-label">Port Server</label>
-                                <input type="text" name="server_port" class="form-control">
+                                <input type="text" class="form-control" value="{{ setting('fingerprint_server_port') }}"
+                                    disabled>
                             </div>
                         </div>
                     </div>

@@ -241,17 +241,21 @@ class BulkImport implements
         return 100;
     }
 
-    public function transformDate($value, $format = 'Y-m-d')
+    public function transformDate($value, $format = 'd/m/Y')
     {
         try {
             return \Carbon\Carbon::instance(\PhpOffice\PhpSpreadsheet\Shared\Date::excelToDateTimeObject($value));
         } catch (\ErrorException $e) {
-            return \Carbon\Carbon::createFromFormat($format, $value) ?? false;
+            try {
+                return \Carbon\Carbon::createFromFormat($format, $value);
+            } catch (\Throwable $th) {
+                return false;
+            }
         }
     }
 
     public function dateToSql($value, $format = 'Y-m-d')
     {
-        return date($format, strtotime($this->transformDate($value)));
+        return $this->transformDate($value)->format($format);
     }
 }

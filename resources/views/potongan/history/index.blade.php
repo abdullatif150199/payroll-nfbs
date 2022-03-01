@@ -34,12 +34,12 @@
         <div class="card">
             <div class="card-header">
                 <h3 class="card-title">
-                    <form class="form-inline" action="{{ route('dash.pajak.datatable') }}" method="post">
+                    <form class="form-inline" action="{{ route('dash.riwayatpotongan.datatable') }}" method="post">
                         <label for="month" class="mr-sm-3">Bulan </label>
                         <div class="row gutters-xs">
                             <div class="col">
                                 <select name="month" class="form-control"
-                                    onchange="$('#daftarPajak').DataTable().draw()">
+                                    onchange="$('#riwayatPotongan').DataTable().draw()">
                                     <option value="">Bulan</option>
                                     <option {{ date('m')=='01' ? 'selected' : '' }} value="01">Januari</option>
                                     <option {{ date('m')=='02' ? 'selected' : '' }} value="02">Februari</option>
@@ -57,7 +57,7 @@
                             </div>
                             <div class="col">
                                 <select name="year" class="form-control"
-                                    onchange="$('#daftarPajak').DataTable().draw()">
+                                    onchange="$('#riwayatPotongan').DataTable().draw()">
                                     <option value="">Tahun</option>
                                     @for ($i=2018; $i <= date('Y'); $i++) <option {{ date('Y')==$i ? 'selected' : '' }}
                                         value="{{$i}}">
@@ -68,27 +68,15 @@
                         </div>
                     </form>
                 </h3>
-                <div class="card-options">
-                    <a href="#unduhPajak" data-toggle="modal" class="btn btn-primary">
-                        <i class="fe fe-download"></i> Unduh
-                    </a>
-                </div>
             </div>
             <div class="table-responsive">
-                <table class="table card-table table-vcenter text-nowra" id="daftarPajak">
+                <table class="table card-table table-vcenter text-nowra" id="riwayatPotongan">
                     <thead>
                         <tr>
+                            <th>No Induk</th>
                             <th>Nama Lengkap</th>
-                            <th>Gaji</th>
-                            <th>Gaji Pertahun</th>
-                            <th>THR</th>
-                            <th>Penghasilan Bruto</th>
-                            <th>Biaya Jabatan</th>
-                            <th>Penghasilan Neto</th>
-                            <th>PTKP Setahun</th>
-                            <th>PKP Setahun</th>
-                            <th>PPH 21</th>
-                            <th>PPH 21 Sebulan</th>
+                            <th>Potongan</th>
+                            {{-- <th>Opsi</th> --}}
                         </tr>
                     </thead>
                 </table>
@@ -99,8 +87,6 @@
 
 @endsection
 
-@include('potongan.tax.modals')
-
 @push('scripts')
 <script>
     $.ajaxSetup({
@@ -109,28 +95,21 @@
         }
     });
 
-    $('#daftarPajak').DataTable({
+    $('#riwayatPotongan').DataTable({
         serverSide: true,
         processing: true,
         select: true,
         ajax: {
-            url: '{{ route('dash.pajak.datatable') }}',
+            url: '{{ route('dash.riwayatpotongan.datatable') }}',
                 data: function (d) {
-                d.bulan = $('select[name=year]').val() + '-' + $('select[name=month]').val();
+                d.month = $('select[name=year]').val() + '-' + $('select[name=month]').val();
             }
         },
         columns: [
+            {data: 'no_induk'},
             {data: 'nama_lengkap'},
-            {data: 'gaji_perbulan'},
-            {data: 'gaji_pertahun'},
-            {data: 'thr'},
-            {data: 'penghasilan_bruto'},
-            {data: 'biaya_jabatan'},
-            {data: 'penghasilan_neto'},
-            {data: 'ptkp_pertahun'},
-            {data: 'pkp_pertahun'},
-            {data: 'pph21_pertahun'},
-            {data: 'pph21_perbulan'}
+            {data: 'potongan'},
+            // {data: 'actions'}
         ]
     });
 </script>

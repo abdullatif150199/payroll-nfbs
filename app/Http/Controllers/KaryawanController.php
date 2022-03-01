@@ -55,10 +55,10 @@ class KaryawanController extends Controller
 
         if ($user->hasRole(['admin', 'root'])) {
             $data = Karyawan::with('persentasekinerja', 'unit')->select('id', 'nama_lengkap', 'no_induk')
-                ->where('nama_lengkap', 'LIKE', '%'.$request->q.'%')->get();
+                ->where('nama_lengkap', 'LIKE', '%' . $request->q . '%')->get();
         } else {
             $data = Karyawan::with('persentasekinerja', 'unit')->select('id', 'nama_lengkap', 'no_induk')
-                ->where('nama_lengkap', 'LIKE', '%'.$request->q.'%')
+                ->where('nama_lengkap', 'LIKE', '%' . $request->q . '%')
                 ->whereHas('bidang', function (Builder $query) use ($user) {
                     $query->whereIn('nama_bidang', $user->karyawan->bidang->pluck('nama_bidang'));
                 })->get();
@@ -109,13 +109,13 @@ class KaryawanController extends Controller
                 return view('karyawan.nama', ['data' => $data]);
             })
             ->editColumn('no_induk', function ($data) {
-                return '<span class="text-muted">'. $data->no_induk .'</span>';
+                return '<span class="text-muted">' . $data->no_induk . '</span>';
             })
             ->editColumn('jabatan', function ($data) {
                 return view('karyawan.jabatan', ['jabatan' => $data->jabatan]);
             })
             ->editColumn('golongan', function ($data) {
-                return $data->golongan->kode_golongan .'/'. $data->kelompokKerja->grade;
+                return $data->golongan->kode_golongan . '/' . $data->kelompokKerja->grade;
             })
             ->editColumn('unit', function ($data) {
                 return view('karyawan.unit', ['unit' => $data->unit]);
@@ -131,7 +131,7 @@ class KaryawanController extends Controller
     {
         // dapatkan no_induk
         $kel = KelompokKerja::findOrFail($request->kelompok_kerja);
-        $setting = Setting::where('key', 'no_urut_induk_terbaru')->first();
+        $setting = Setting::where('key', '')->first();
         $first = $kel->no_kode;
         $second = $request->tanggal_masuk['year'] - config('var.tahun_berdiri');
         $third = $setting->value;
@@ -160,9 +160,9 @@ class KaryawanController extends Controller
             'kelompok_kerja_id' => $request->kelompok_kerja,
             'jam_ajar_id' => $request->jam_ajar,
             'jam_perpekan_id' => $request->jam_perpekan,
-            'tanggal_lahir' => $request->birth['year'].'-'.$request->birth['month'].'-'.$request->birth['day'],
-            'tanggal_masuk' => $request->tanggal_masuk['year'].'-'.$request->tanggal_masuk['month'].'-'.$request->tanggal_masuk['day'],
-            'contract_expired' => $request->akhir_kontrak['year'].'-'.$request->akhir_kontrak['month'].'-'.$request->akhir_kontrak['day'],
+            'tanggal_lahir' => $request->birth['year'] . '-' . $request->birth['month'] . '-' . $request->birth['day'],
+            'tanggal_masuk' => $request->tanggal_masuk['year'] . '-' . $request->tanggal_masuk['month'] . '-' . $request->tanggal_masuk['day'],
+            'contract_expired' => $request->akhir_kontrak['year'] . '-' . $request->akhir_kontrak['month'] . '-' . $request->akhir_kontrak['day'],
             'no_hp' => str_replace(' ', '', $request->no_hp)
         ]);
 
@@ -229,10 +229,10 @@ class KaryawanController extends Controller
             'kelompok_kerja_id' => $request->kelompok_kerja,
             'jam_ajar_id' => $request->jam_ajar,
             'jam_perpekan_id' => $request->jam_perpekan,
-            'tanggal_lahir' => $request->birth['year'].'-'.$request->birth['month'].'-'.$request->birth['day'],
-            'tanggal_masuk' => $request->tanggal_masuk['year'].'-'.$request->tanggal_masuk['month'].'-'.$request->tanggal_masuk['day'],
-            'tanggal_keluar' => $request->tanggal_keluar['year'].'-'.$request->tanggal_keluar['month'].'-'.$request->tanggal_keluar['day'],
-            'contract_expired' => $request->akhir_kontrak['year'].'-'.$request->akhir_kontrak['month'].'-'.$request->akhir_kontrak['day'],
+            'tanggal_lahir' => $request->birth['year'] . '-' . $request->birth['month'] . '-' . $request->birth['day'],
+            'tanggal_masuk' => $request->tanggal_masuk['year'] . '-' . $request->tanggal_masuk['month'] . '-' . $request->tanggal_masuk['day'],
+            'tanggal_keluar' => $request->tanggal_keluar['year'] . '-' . $request->tanggal_keluar['month'] . '-' . $request->tanggal_keluar['day'],
+            'contract_expired' => $request->akhir_kontrak['year'] . '-' . $request->akhir_kontrak['month'] . '-' . $request->akhir_kontrak['day'],
             'no_hp' => str_replace(' ', '', $request->no_hp)
         ]);
 

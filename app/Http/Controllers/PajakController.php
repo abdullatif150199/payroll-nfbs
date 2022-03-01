@@ -2,9 +2,11 @@
 
 namespace App\Http\Controllers;
 
+use App\Exports\PajakExport;
 use Illuminate\Http\Request;
 use Yajra\Datatables\Datatables;
 use App\Models\TaxHistory;
+use Maatwebsite\Excel\Facades\Excel;
 
 class PajakController extends Controller
 {
@@ -74,5 +76,13 @@ class PajakController extends Controller
                 'pph21_pertahun', 'pph21_perbulan'
             ])
             ->make(true);
+    }
+
+    public function unduh(Request $request)
+    {
+        $bln = $request->tahun . '-' . $request->bulan;
+        $export = new PajakExport($bln);
+
+        return Excel::download($export, 'pajak_' . $bln . '.xlsx');
     }
 }

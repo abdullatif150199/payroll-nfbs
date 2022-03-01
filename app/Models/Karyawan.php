@@ -8,10 +8,12 @@ class Karyawan extends Model
 {
     protected $table = 'karyawan';
 
-    protected $fillable = [
-        'user_id', 'golongan_id', 'status_kerja_id', 'tarif_lembur_id', 'kelompok_kerja_id', 'no_induk', 'nik', 'nama_lengkap', 'jenis_kelamin', 'tempat_lahir', 'tanggal_lahir', 'status_pernikahan', 'alamat', 'no_hp', 'nama_pendidikan', 'pendidikan_terakhir', 'jurusan', 'tahun_lulus',
-        'tanggal_masuk', 'nama_bank', 'no_rekening', 'rekening_atas_nama', 'status', 'tipe_kerja', 'jam_ajar_id', 'jam_perpekan_id', 'contract_expired', 'tax_id'
-    ];
+    // protected $fillable = [
+    //     'user_id', 'golongan_id', 'status_kerja_id', 'tarif_lembur_id', 'kelompok_kerja_id', 'no_induk', 'nik', 'nama_lengkap', 'jenis_kelamin', 'tempat_lahir', 'tanggal_lahir', 'status_pernikahan', 'alamat', 'no_hp', 'nama_pendidikan', 'pendidikan_terakhir', 'jurusan', 'tahun_lulus',
+    //     'tanggal_masuk', 'nama_bank', 'no_rekening', 'rekening_atas_nama', 'status', 'tipe_kerja', 'jam_ajar_id', 'jam_perpekan_id', 'contract_expired', 'tax_id', 'no_npwp'
+    // ];
+
+    protected $guarded = [];
 
     public function jabatan()
     {
@@ -91,7 +93,7 @@ class Karyawan extends Model
 
     public function tax()
     {
-        return $this->belongsTo(Tax::class);
+        return $this->belongsTo(Tax::class)->withDefault();
     }
 
     public function user()
@@ -128,6 +130,11 @@ class Karyawan extends Model
     public function tarifLembur()
     {
         return $this->belongsTo(TarifLembur::class);
+    }
+
+    public function fingerprint()
+    {
+        return $this->hasOne(Fingerprint::class);
     }
 
     // Get gaji Pokok

@@ -13,6 +13,7 @@
                         $config->key))) }}</label>
                     <input type="text" name="value[{{ $config->key }}]" class="form-control"
                         value="{{ $config->value }}">
+                    <small class="text-muted">{{ $config->keterangan }}</small>
                 </div>
             </div>
             @empty

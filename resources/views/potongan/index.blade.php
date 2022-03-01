@@ -207,8 +207,9 @@
                     </form>
                 </h3>
                 <div class="card-options">
-                    <a href="{{ route('dash.pajak') }}" class="btn btn-primary mr-2"><i class="fe fe-pie-chart"></i>
-                        Pajak</a>
+                    <a href="{{ route('dash.riwayatpotongan') }}" class="btn btn-primary mr-2"><i
+                            class="fe fe-pie-chart"></i>
+                        Riwayat Potongan</a>
                     <a href="{{ route('dash.potongan.list') }}" class="btn btn-primary"><i class="fe fe-list"></i>
                         Daftar Potongan</a>
                 </div>
