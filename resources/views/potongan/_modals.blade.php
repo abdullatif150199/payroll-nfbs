@@ -46,7 +46,7 @@
                                 <label class="form-label">Jumlah Potongan</label>
                                 <div class="input-group">
                                     <input type="text" name="jumlah_persentase" class="form-control text-right"
-                                        data-mask="000" data-mask-reverse="true" autocomplete="off">
+                                        data-mask="#0.00" data-mask-reverse="true" autocomplete="off">
                                     <span class="input-group-append">
                                         <span class="input-group-text">%</span>
                                     </span>
@@ -60,6 +60,7 @@
                                         <option value="&GAFUN">GAJI POKOK + TUNJ FUNGSIONAL</option>
                                     </select>
                                 </div>
+                                <small class="text-muted">* Ex: jika 1,5% maka penulisannya 1.50 (2 angka dibelakang titik)</small>
                             </div>
                         </div>
                     </div>

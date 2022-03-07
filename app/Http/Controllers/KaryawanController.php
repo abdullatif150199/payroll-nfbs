@@ -131,7 +131,7 @@ class KaryawanController extends Controller
     {
         // dapatkan no_induk
         $kel = KelompokKerja::findOrFail($request->kelompok_kerja);
-        $setting = Setting::where('key', '')->first();
+        $setting = Setting::where('key', 'no_urut_induk_terbaru')->first();
         $first = $kel->no_kode;
         $second = $request->tanggal_masuk['year'] - config('var.tahun_berdiri');
         $third = $setting->value;

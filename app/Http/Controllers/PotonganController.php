@@ -92,12 +92,12 @@ class PotonganController extends Controller
         } else {
             $this->validate($request, [
                 'nama_potongan' => 'min:2|max:20',
-                'jumlah_persentase' => 'required|max:3',
+                'jumlah_persentase' => 'required|max:5',
                 'jenis_persentase' => 'required',
                 'rekening_id' => 'required'
             ]);
 
-            $jumlah_potongan = substr($request->jumlah_persentase / 100, 0, 4) . '*' . $request->jenis_persentase;
+            $jumlah_potongan = round(($request->jumlah_persentase / 100), 3) . '*' . $request->jenis_persentase;
         }
 
         $data = [
@@ -137,12 +137,12 @@ class PotonganController extends Controller
         } else {
             $this->validate($request, [
                 'nama_potongan' => 'min:2|max:20',
-                'jumlah_persentase' => 'required|max:3',
+                'jumlah_persentase' => 'required|max:5',
                 'jenis_persentase' => 'required',
                 'rekening_id' => 'required'
             ]);
 
-            $jumlah_potongan = substr($request->jumlah_persentase / 100, 0, 4) . '*' . $request->jenis_persentase;
+            $jumlah_potongan = round(($request->jumlah_persentase / 100), 3) . '*' . $request->jenis_persentase;
         }
 
         $pot = Potongan::findOrFail($id);
