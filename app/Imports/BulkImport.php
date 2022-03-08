@@ -160,8 +160,11 @@ class BulkImport implements
                 }
             }],
             'jabatan' => ['required', function ($attribute, $value, $onFailure) use ($jabatan) {
-                if (!isset($jabatan[$value])) {
-                    $onFailure('jabatan tidak sesuai dengan database');
+                $items = explode('/', $value);
+                foreach ($items as $item) {
+                    if (!isset($jabatan[$item])) {
+                        $onFailure('jabatan ' . $item . ' tidak sesuai dengan database');
+                    }
                 }
             }],
             'status_kerja' => ['required', function ($attribute, $value, $onFailure) use ($status_kerja) {
