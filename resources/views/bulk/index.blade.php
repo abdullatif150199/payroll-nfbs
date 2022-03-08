@@ -74,33 +74,37 @@
 
         @if (session()->has('failures'))
         <strong class="card-title text-danger">Mohon perbaiki kesalahan berikut pada file excel anda!</strong>
-        <table class="table card-table table-vcenter text-nowra table-danger">
-            <tr class="bg-danger">
-                <th class="text-white">Baris</th>
-                <th class="text-white">Kolom</th>
-                <th class="text-white">Pesan Error</th>
-                <th class="text-white">Isian</th>
-            </tr>
+        <table id="errorTable" class="table card-table table-vcenter text-nowra table-danger">
+            <thead>
+                <tr class="bg-danger">
+                    <th class="text-white">Baris</th>
+                    <th class="text-white">Kolom</th>
+                    <th class="text-white">Pesan Error</th>
+                    <th class="text-white">Isian</th>
+                </tr>
+            </thead>
 
-            @foreach (session()->get('failures') as $validation)
-            {{-- @php
+            <tbody>
+                @foreach (session()->get('failures') as $validation)
+                {{-- @php
                 dd($validation->values());
-            @endphp --}}
-            <tr>
-                <td>{{ $validation->row() ?? null }}</td>
-                <td>{{ $validation->attribute() ?? null }}</td>
-                <td>
-                    <ul>
-                        @foreach ($validation->errors() as $e)
-                        <li>{{ $e }}</li>
-                        @endforeach
-                    </ul>
-                </td>
-                <td>
-                    {{ $validation->values()[$validation->attribute()] ?? null }}
-                </td>
-            </tr>
-            @endforeach
+                @endphp --}}
+                <tr>
+                    <td>{{ $validation->row() ?? null }}</td>
+                    <td>{{ $validation->attribute() ?? null }}</td>
+                    <td>
+                        <ul>
+                            @foreach ($validation->errors() as $e)
+                            <li>{{ $e }}</li>
+                            @endforeach
+                        </ul>
+                    </td>
+                    <td>
+                        {{ $validation->values()[$validation->attribute()] ?? null }}
+                    </td>
+                </tr>
+                @endforeach
+            </tbody>
         </table>
         @endif
     </div>
@@ -112,12 +116,15 @@
 
 @push('scripts')
 <script>
-    $.ajaxSetup({
-        headers: {
-            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-        }
+    $(document).ready(function() {
+        $.ajaxSetup({
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            }
+        });
+
+        $('#errorTable').DataTable();
     });
 
-    $('#errorTable').DataTable();
 </script>
 @endpush
