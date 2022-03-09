@@ -22,6 +22,8 @@ class SettingController extends Controller
             Setting::where('key', $key)->update([
                 'value' => $val
             ]);
+
+            Cache::forget($key);
         }
 
         Cache::remember('setting', 720 * 60, function () {
