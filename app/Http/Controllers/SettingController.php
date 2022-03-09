@@ -22,10 +22,9 @@ class SettingController extends Controller
             Setting::where('key', $key)->update([
                 'value' => $val
             ]);
-
-            Cache::forget($key);
         }
 
+        Cache::forget('setting');
         Cache::remember('setting', 720 * 60, function () {
             return array_pluck(Setting::all()->toArray(), 'value', 'key');
         });
