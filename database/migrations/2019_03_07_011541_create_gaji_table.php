@@ -33,6 +33,7 @@ class CreateGajiTable extends Migration
             $table->decimal('potongan', 10, 2)->nullable();
             $table->decimal('gaji_total', 10, 2);
             $table->decimal('gaji_akhir', 10, 2);
+            $table->enum('approved', ['N', 'Y'])->nullable();
             $table->timestamps();
         });
     }

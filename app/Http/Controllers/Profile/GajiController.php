@@ -3,7 +3,7 @@
 namespace App\Http\Controllers\Profile;
 
 use Yajra\Datatables\Datatables;
-use Illuminate\Http\Request;
+// use Illuminate\Http\Request;
 use App\Models\Gaji;
 
 class GajiController extends ProfileController
@@ -16,14 +16,15 @@ class GajiController extends ProfileController
     public function datatable($id)
     {
         $data = Gaji::with('karyawan')
-                ->where('karyawan_id', $id)->get();
+            ->where('karyawan_id', $id)
+            ->where('approved', 'Y')->get();
 
         return Datatables::of($data)
             ->editColumn('bulan', function ($data) {
-                return '<span class="text-muted">'. yearMonth($data->bulan, 'H') .'</span>';
+                return '<span class="text-muted">' . yearMonth($data->bulan, 'H') . '</span>';
             })
             ->editColumn('gaji_akhir', function ($data) {
-                return number_format($data->gaji_total);
+                return number_format($data->gaji_akhir);
             })
             ->addColumn('actions', function ($data) {
                 return view('profile.gaji.actions', ['data' => $data]);
