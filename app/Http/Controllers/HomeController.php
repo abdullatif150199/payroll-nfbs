@@ -29,7 +29,7 @@ class HomeController extends Controller
     public function index()
     {
         $title = 'Dashboard';
-        $karyawan = Karyawan::get();
+        $karyawan = Karyawan::where('status', '<>', '3')->get();
         $bidang = Bidang::count();
         $unit = Unit::count();
         $golongan = Golongan::count();
