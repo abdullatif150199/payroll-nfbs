@@ -100,6 +100,14 @@
                         <strong>Rp. {{ number_format($gaji->lain_lain) }}</strong>
                     </td>
                 </tr>
+                <tr class="bg-info text-white">
+                    <td>
+                        GAJI TOTAL
+                    </td>
+                    <td class="text-right">
+                        <strong>Rp. {{ number_format($gaji->gaji_total) }}</strong>
+                    </td>
+                </tr>
                 <tr>
                     <td>
                         Potongan
@@ -113,7 +121,7 @@
                         GAJI AKHIR
                     </td>
                     <td class="text-right">
-                        <strong>Rp. {{ number_format($gaji->gaji_total) }}</strong>
+                        <strong>Rp. {{ number_format($gaji->gaji_akhir) }}</strong>
                     </td>
                 </tr>
             </tbody>
