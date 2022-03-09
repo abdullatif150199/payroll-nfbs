@@ -10,6 +10,7 @@ use Illuminate\Queue\SerializesModels;
 use App\Models\Jabatan;
 use App\Models\Bidang;
 use App\Models\Karyawan;
+use App\Models\Unit;
 
 class BulkImportJobs implements ShouldQueue
 {
@@ -39,8 +40,10 @@ class BulkImportJobs implements ShouldQueue
     {
         $jabatan = Jabatan::pluck('id', 'nama_jabatan')->toArray();
         $bidang = Bidang::pluck('id', 'nama_bidang')->toArray();
-        $this->karyawan->jabatan()->sync($this->ids($this->data, $jabatan));
-        $this->karyawan->bidang()->sync($this->ids($this->data, $bidang));
+        $unit = Unit::pluck('id', 'nama_unit')->toArray();
+        $this->karyawan->jabatan()->sync($this->ids($this->data['jabatan'], $jabatan));
+        $this->karyawan->bidang()->sync($this->ids($this->data['bidang'], $bidang));
+        $this->karyawan->unit()->sync($this->ids($this->data['unit'], $unit));
     }
 
     public function ids($data, $pluck)
@@ -48,9 +51,6 @@ class BulkImportJobs implements ShouldQueue
         $ids = [];
         $exp = explode('/', $data);
         foreach ($exp as $e) {
-            dump($pluck);
-            dump($e);
-            dd($pluck[trim($e)]);
             array_push($ids, $pluck[trim($e)]);
         }
 

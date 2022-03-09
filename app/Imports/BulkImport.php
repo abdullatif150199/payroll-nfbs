@@ -77,7 +77,7 @@ class BulkImport implements
                 'pembayaran' => $row['pembayaran']
             ]);
 
-            BulkImportJobs::dispatch($karyawan, $row['jabatan']);
+            BulkImportJobs::dispatch($karyawan, $row);
 
             return $user;
         });
