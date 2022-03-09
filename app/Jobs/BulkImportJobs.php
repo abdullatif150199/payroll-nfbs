@@ -50,6 +50,7 @@ class BulkImportJobs implements ShouldQueue
         foreach ($exp as $e) {
             dump($pluck);
             dump($exp);
+            die();
             array_push($ids, $pluck[trim($e)]);
         }
 
