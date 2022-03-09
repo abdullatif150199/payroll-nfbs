@@ -32,10 +32,10 @@ class DefineMenus
 
         Menu::make('profile', function ($menu) {
             $menu->add('Beranda', 'profile')->data('icon', 'fe fe-grid');
-            $menu->add('Gaji', 'profile/gaji')->data('icon', 'fe fe-shopping-bag');
-            $menu->add('Lembur', 'profile/lembur')->data('icon', 'fe fe-cloud-snow');
-            $menu->add('Kehadiran', 'profile/kehadiran')->data('icon', 'fe fe-user-check');
-            $menu->add('Cuti', 'profile/cuti')->data('icon', 'fe fe-user-x');
+            $menu->add('Gaji', 'profile/gaji')->data('icon', 'fe fe-bar-chart-2');
+            $menu->add('Lembur', 'profile/lembur')->data('icon', 'fe fe-bar-chart-2');
+            $menu->add('Kehadiran', 'profile/kehadiran')->data('icon', 'fe fe-bar-chart-2');
+            $menu->add('Cuti', 'profile/cuti')->data('icon', 'fe fe-bar-chart-2');
         });
 
         return $next($request);

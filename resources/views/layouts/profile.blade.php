@@ -72,17 +72,15 @@
                     <div class="page-content">
                         <div class="container">
                             <div class="row">
-                                <div class="col-lg-4">
+                                <div class="col-lg-4 d-none d-md-block">
                                     <div class="card card-profile">
-                                        <div class="card-header"
-                                            style="background-image: url(/images/src/eberhard-grossgasteiger-311213-500.jpg);">
+                                        <div class="card-header" style="background-image: url(/images/src/eberhard-grossgasteiger-311213-500.jpg);">
                                         </div>
                                         <div class="card-body text-center">
                                             <img class="card-profile-img" src="/images/src/user.jpg">
                                             <h3 class="mb-0">{{ Auth::user()->name }}</h3>
                                             <p class="text-muted mb-2">NIP. {{ Auth::user()->karyawan->no_induk }}</p>
-                                            <a href="{{ route('profile.detail', Auth::user()->username) }}"
-                                                class="btn btn-outline-primary btn-sm">
+                                            <a href="{{ route('profile.detail', Auth::user()->username) }}" class="btn btn-outline-primary btn-sm">
                                                 <span class="fe fe-edit"></span> Detail
                                             </a>
                                         </div>
