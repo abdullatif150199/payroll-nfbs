@@ -17,7 +17,7 @@ return [
         'post-email' => 'password/email',
         'post-reset' => 'password/reset'
     ],
-    'footer' => 'NFBS Serang © 2019 Theme by codecalm.net',
+    'footer' => 'NFBS Serang © 2020',
     'support' => [
         'search' => true,
         'footer-menu' => false,
