@@ -9,6 +9,7 @@ use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Queue\SerializesModels;
 use App\Models\Jabatan;
 use App\Models\Bidang;
+use App\Models\Karyawan;
 
 class BulkImportJobs implements ShouldQueue
 {
@@ -23,10 +24,10 @@ class BulkImportJobs implements ShouldQueue
      *
      * @return void
      */
-    public function __construct($data, $karyawan)
+    public function __construct(Karyawan $karyawan, $data)
     {
-        $this->data = $data;
         $this->karyawan = $karyawan;
+        $this->data = $data;
     }
 
     /**
@@ -47,6 +48,8 @@ class BulkImportJobs implements ShouldQueue
         $ids = [];
         $exp = explode('/', $data);
         foreach ($exp as $e) {
+            dump($pluck);
+            dump($exp);
             array_push($ids, $pluck[trim($e)]);
         }
 
