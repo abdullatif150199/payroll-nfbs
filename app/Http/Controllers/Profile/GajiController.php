@@ -10,27 +10,11 @@ class GajiController extends ProfileController
 {
     public function index()
     {
-        return view('profile.gaji.index', ['id' => $this->getId()]);
-    }
-
-    public function datatable($id)
-    {
         $data = Gaji::with('karyawan')
-            ->where('karyawan_id', $id)
-            ->where('approved', 'Y')->get();
+            ->where('karyawan_id', $this->getId())
+            ->where('approved', 'Y')->simplePaginate(10);
 
-        return Datatables::of($data)
-            ->editColumn('bulan', function ($data) {
-                return '<span class="text-muted">' . yearMonth($data->bulan, 'H') . '</span>';
-            })
-            ->editColumn('gaji_akhir', function ($data) {
-                return number_format($data->gaji_akhir);
-            })
-            ->addColumn('actions', function ($data) {
-                return view('profile.gaji.actions', ['data' => $data]);
-            })
-            ->rawColumns(['actions', 'bulan', 'gaji_akhir'])
-            ->make(true);
+        return view('profile.gaji.index', ['data' => $data]);
     }
 
     public function detail($id)

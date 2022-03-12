@@ -33,33 +33,32 @@
         <div class="card-header">
             DAFTAR GAJI
         </div>
-        <div class="table-responsive">
-            <table class="table table-responsive-sm table-hover table-outline table-vcenter card-table" id="gajiTable">
-                <thead>
-                    <tr>
-                        <th>Opsi</th>
-                        <th>Bulan</th>
-                        <th>Gaji Akhir</th>
-                    </tr>
-                </thead>
-            </table>
+        <div class="card-body">
+            <ul class="list-group">
+                @foreach ($data as $item)
+                <li class="list-group-item d-flex justify-content-between align-items-center mb-4">
+                    <span class="text-secondary">{{ yearMonth($item->bulan, 'H') }}</span>
+                    <div class="dropdown">
+                        <button type="button" class="btn dropdown-toggle btn-light btn-pill font-weight-bold" data-toggle="dropdown">
+                            Rp {{ number_format($item->gaji_akhir) }}
+                        </button>
+                        <div class="dropdown-menu">
+                            <a href="{{ route('profile.gaji.detail', $item->id) }}" class="dropdown-item"><i class="dropdown-icon fe fe-list"></i>
+                                Detail </a>
+                            <a href="https://wa.me/{{ setting('no_whatsapp_komplain') }}?text=NIP{{$item->karyawan->no_induk . urlencode(" \n")
+                                }}Assalamu'alaikum..." target="_blank" class="dropdown-item"><i class="dropdown-icon fe fe-message-square"></i>
+                                Komplain </a>
+                            <a href="{{ route('profile.gaji.slip', $item->id) }}" target="_blank" class="dropdown-item"><i
+                                    class="dropdown-icon fe fe-file-text"></i> Slip gaji </a>
+                        </div>
+                    </div>
+                </li>
+                @endforeach
+            </ul>
+            <div class="mt-2">
+                {{ $data->links() }}
+            </div>
         </div>
     </div>
 </div>
 @endsection
-
-@push('scripts')
-<script>
-    $('#gajiTable').DataTable({
-        serverSide: true,
-        processing: true,
-        ajax: "{{ route('profile.gaji.datatable', $id) }}",
-        columns: [
-            {data: 'actions', orderable: false, searchable: false},
-            {data: 'bulan'},
-            {data: 'gaji_akhir'}
-        ],
-        order: [[ 1, 'desc' ]]
-    });
-</script>
-@endpush
