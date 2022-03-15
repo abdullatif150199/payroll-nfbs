@@ -37,7 +37,7 @@
             <ul class="list-group">
                 @foreach ($data as $item)
                 <li class="list-group-item d-flex justify-content-between align-items-center mb-4">
-                    <span class="text-secondary">{{ yearMonth($item->bulan, 'H') }}</span>
+                    {{ yearMonth($item->bulan, 'H') }}
                     <div class="dropdown">
                         <button type="button" class="btn dropdown-toggle btn-light btn-pill font-weight-bold" data-toggle="dropdown">
                             Rp {{ number_format($item->gaji_akhir) }}
