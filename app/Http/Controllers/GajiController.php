@@ -16,9 +16,12 @@ class GajiController extends Controller
     {
         $title = 'Daftar Gaji';
         $bidang = Bidang::select('id', 'nama_bidang')->get();
+        $unpproved = Gaji::where('approved', '<>', 'Y')->count();
+
         return view('gaji.index', [
             'title' => $title,
-            'bidang' => $bidang
+            'bidang' => $bidang,
+            'unapproved' => $unpproved
         ]);
     }
 
