@@ -16,14 +16,21 @@ class ProfileController extends Controller
 
     public function index()
     {
-        return view('profile.index');
+        $gajiFirst = Gaji::where('karyawan_id', $this->getId())
+            ->where('approved','Y')->latest()->first();
+
+        return view('profile.index', [
+            'gajiFirst' => $gajiFirst
+        ]);
     }
 
     public function edit($username)
     {
         $user = User::with('karyawan')->whereUsername($username)->first();
 
-        return view('profile.edit', ['user' => $user]);
+        return view('profile.edit', [
+            'user' => $user
+        ]);
     }
 
     /**

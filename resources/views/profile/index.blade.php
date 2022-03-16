@@ -13,8 +13,8 @@
     <div class="row">
         <div class="col">
             <div class="p-2">
-                <div class="text-muted"><small>Gaji Bulan Maret</small></div>
-                <h3 class="font-weight-bold">Rp 5.000.000</h3>
+                <div class="text-muted"><small>Gaji Bulan {{ yearMonth($item->bulan, 'H') }}</small></div>
+                <h3 class="font-weight-bold">Rp {{ $gajiFirst->gaji_akhir }}</h3>
             </div>
         </div>
     </div>
