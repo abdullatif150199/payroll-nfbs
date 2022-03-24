@@ -24,7 +24,7 @@
             <div class="header py-4">
                 <div class="container">
                     <div class="d-flex">
-                        <a class="header-brand" href="{!! url(config('tabler.urls.homepage', '/')) !!}">
+                        <a class="header-brand" href="{!! route('profile.index') !!}">
                             <img src="{!! config('tabler.logo') !!}" class="header-brand-img" alt="Logo">
                         </a>
                         <div class="d-flex order-lg-2 ml-auto">

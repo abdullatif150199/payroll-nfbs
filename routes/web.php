@@ -22,7 +22,7 @@ Route::get('/coming-soon', 'HomeController@coming')->name('coming-soon');
 Auth::routes(['register' => false]);
 
 Route::group(['prefix' => 'profile', 'as' => 'profile.', 'middleware' => ['auth', 'role:root|admin|user']], function () {
-    Route::get('/', 'Profile\ProfileController@index');
+    Route::get('/', 'Profile\ProfileController@index')->name('index');
     Route::any('{username}/detail', 'Profile\ProfileController@edit')->name('detail');
 
     Route::get('gaji', 'Profile\GajiController@index')->name('gaji.index');

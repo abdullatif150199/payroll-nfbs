@@ -5,7 +5,7 @@
         <div class="card-header">
             RINCIAN GAJI
         </div>
-        <table class="table card-table table-striped table-vcenter">
+        <table class="table card-table table-vcenter">
             <thead>
                 <tr class="text-center">
                     <th colspan="2">Bulan {{ yearMonth($gaji->bulan, 'H') }}</th>
@@ -46,10 +46,23 @@
                 </tr>
                 <tr>
                     <td>
-                        Tunjangan Kinerja
+                        <a href="#tunjanganKinerja" data-toggle="collapse">
+                            Tunjangan Kinerja <i class="fe fe-chevron-down"></i>
+                        </a>
                     </td>
                     <td class="text-right">
                         <strong>Rp. {{ number_format($gaji->tunjangan_kinerja) }}</strong>
+                    </td>
+                </tr>
+                <tr id="tunjanganKinerja" class="collapse">
+                    <td colspan="2" class="py-2 px-6">
+                        <div class="text-center mb-2">
+                            <strong class="text-center">Nilai kinerja </strong>
+                            <span class="px-2 py-1 rounded" style="color: rgb(22 163 74); background-color: rgb(187 247 208);">{{ $nilKer }}</span>
+                        </div>
+                        @foreach ($gaji->historyKinerja as $item)
+                            <div>{{ $item->title }}: {{ $item->value }}</div>
+                        @endforeach
                     </td>
                 </tr>
                 <tr>
@@ -78,10 +91,19 @@
                 </tr>
                 <tr>
                     <td>
-                        Insentif
+                        <a href="#insentif" data-toggle="collapse">
+                            Insentif <i class="fe fe-chevron-down"></i>
+                        </a>
                     </td>
                     <td class="text-right">
                         <strong>Rp. {{ number_format($gaji->insentif) }}</strong>
+                    </td>
+                </tr>
+                <tr id="insentif" class="collapse">
+                    <td colspan="2" class="py-2 px-6">
+                        @foreach ($insentif as $item)
+                        <div>{{ $item->keterangan }}: {{ number_format($item->jumlah) }}</div>
+                        @endforeach
                     </td>
                 </tr>
                 <tr>
@@ -110,10 +132,19 @@
                 </tr>
                 <tr>
                     <td>
-                        Potongan
+                        <a href="#potongan" data-toggle="collapse">
+                            Potongan <i class="fe fe-chevron-down"></i>
+                        </a>
                     </td>
                     <td class="text-right">
                         <strong>Rp. {{ number_format($gaji->sum_potongan) }}</strong>
+                    </td>
+                </tr>
+                <tr id="potongan" class="collapse">
+                    <td colspan="2" class="py-2 px-6">
+                        @foreach ($gaji->historyPotongan as $item)
+                        <div>{{ $item->nama }}: {{ number_format($item->jumlah) }}</div>
+                        @endforeach
                     </td>
                 </tr>
                 <tr class="bg-info text-white">

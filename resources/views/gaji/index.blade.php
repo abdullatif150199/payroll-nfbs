@@ -87,7 +87,7 @@
                             Lainnya
                         </button>
                         <div class="dropdown-menu dropdown-menu-right">
-                            <a class="dropdown-item" id="loader-proses-ulang" href="#proses-ulang" data-toggle="modal">Proses ulang gaji</a>
+                            <a class="dropdown-item" id="loader-proses-ulang" href="#proses-ulang" data-toggle="modal">Dapatkan Gaji {{ yearMonth(date('Y-m'), 'H') }}</a>
                             <a class="dropdown-item" href="#proses-ulang" >Approve ({{ $unapproved }})</a>
                         </div>
                     </div>

@@ -54,7 +54,7 @@ class KinerjaController extends Controller
                 ->where('status', '<>', '3')->latest();
         }
 
-        $nilai_kinerja = NilaiKinerja::all();
+        $nilai_kinerja = NilaiKinerja::get();
 
         return Datatables::of($data)
             ->editColumn('no_induk', function ($data) {

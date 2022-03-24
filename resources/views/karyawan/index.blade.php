@@ -159,7 +159,7 @@
     });
 
     $('.selectize-select').selectize({
-        maxItems: 3
+        maxItems: 10
     });
 
     $('#newKaryawan').click(function () {
