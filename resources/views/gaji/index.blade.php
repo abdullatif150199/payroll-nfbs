@@ -79,18 +79,23 @@
                     </form>
                 </h3>
                 <div class="card-options">
-                    <a href="#unduh-gaji" data-toggle="modal" class="btn btn-primary mr-2">
-                        <i class="fe fe-download"></i> Unduh
-                    </a>
+                    @can('unduh daftar gaji')
+                        <a href="#unduh-gaji" data-toggle="modal" class="btn btn-primary mr-2">
+                            <i class="fe fe-download"></i> Unduh
+                        </a>
+                    @endcan
+                    @role('admin')
                     <div class="dropdown">
                         <button type="button" class="btn dropdown-toggle btn-primary" data-toggle="dropdown">
                             Lainnya
                         </button>
                         <div class="dropdown-menu dropdown-menu-right">
-                            <a class="dropdown-item" id="loader-proses-ulang" href="#proses-ulang" data-toggle="modal">Dapatkan Gaji {{ yearMonth(date('Y-m'), 'H') }}</a>
-                            <a class="dropdown-item" href="#proses-ulang" >Approve ({{ $unapproved }})</a>
+                            <a class="dropdown-item" id="loader-proses-ulang" href="#proses-ulang" data-toggle="modal">Dapatkan Gaji {{
+                                yearMonth(date('Y-m'), 'H') }}</a>
+                            <a class="dropdown-item" href="#proses-ulang">Approve ({{ $unapproved }})</a>
                         </div>
                     </div>
+                    @endrole
                 </div>
             </div>
             <div class="table-responsive">

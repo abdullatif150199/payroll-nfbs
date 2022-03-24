@@ -189,9 +189,11 @@
                         <div class="card-category text-muted text-left mb-4">
                             Keluarga
                             <span class="pull-right">
-                                <button id="newKeluarga" class="btn btn-primary" title="Tambah keluarga">
-                                    <i class="fe fe-plus"></i>
-                                </button>
+                                @can('tambah keluarga')
+                                    <button id="newKeluarga" class="btn btn-primary" title="Tambah keluarga">
+                                        <i class="fe fe-plus"></i>
+                                    </button>
+                                @endcan
                             </span>
                         </div>
                         <table class="table card-table table-striped table-vcenter">
@@ -238,13 +240,17 @@
                                         @endif
                                     </td>
                                     <td>
-                                        <a class="icon mr-2" onclick="editKeluarga({{ $item->id }})" title="edit">
-                                            <i class="fe fe-edit"></i>
-                                        </a>
+                                        @can('edit keluarga')
+                                            <a class="icon mr-2" onclick="editKeluarga({{ $item->id }})" title="edit">
+                                                <i class="fe fe-edit"></i>
+                                            </a>
+                                        @endcan
 
-                                        <a class="icon" onclick="hapusKeluarga({{ $item->id }})" title="hapus">
-                                            <i class="fe fe-trash"></i>
-                                        </a>
+                                        @can('hapus keluarga')
+                                            <a class="icon" onclick="hapusKeluarga({{ $item->id }})" title="hapus">
+                                                <i class="fe fe-trash"></i>
+                                            </a>
+                                        @endcan
                                     </td>
                                 </tr>
                                 @endforeach

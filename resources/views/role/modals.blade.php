@@ -26,7 +26,7 @@
                             <div class="form-group">
                                 <label class="form-label">Izin Akses</label>
                                 @foreach ($permissions as $key => $value)
-                                    <div class="form-check-inline">
+                                    <div class="form-check-inline tag mb-2">
                                         <label class="form-check-label">
                                             <input id="permission{{ $key }}" type="checkbox" name="permissions[]" class="form-check-input" value="{{ $key }}">{{ $value }}
                                         </label>

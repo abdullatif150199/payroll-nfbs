@@ -122,7 +122,7 @@ class RoleController extends Controller
 
         return Datatables::of($data)
             ->editColumn('permission', function ($data) {
-                return str_replace(array('[',']','"'), '', $data->permissions()->pluck('name'));
+                return view('role.name', ['permissions' => $data->permissions]);
             })
             ->addColumn('actions', function ($data) {
                 return view('role.actions', ['data' => $data]);
