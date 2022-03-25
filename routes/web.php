@@ -23,6 +23,8 @@ Auth::routes(['register' => false]);
 
 Route::group(['prefix' => 'profile', 'as' => 'profile.', 'middleware' => ['auth', 'role:root|admin|user']], function () {
     Route::get('/', 'Profile\ProfileController@index')->name('index');
+    Route::get('ganti-password', 'Profile\AkunController@password')->name('password');
+    Route::post('ganti-password/reset', 'Profile\AkunController@resetPassword')->name('reset-password');
     Route::any('{username}/detail', 'Profile\ProfileController@edit')->name('detail');
 
     Route::get('gaji', 'Profile\GajiController@index')->name('gaji.index');

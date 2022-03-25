@@ -38,6 +38,9 @@
             <i class="dropdown-icon fe fe-settings"></i> Setting
         </a>
         @endif
+        <a class="dropdown-item" href="{!! route('profile.password') !!}">
+            <i class="dropdown-icon fe fe-lock"></i> Ganti Password
+        </a>
         <a class="dropdown-item" href="{{ route('logout') }}"
             onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
             <i class="dropdown-icon fe fe-log-out"></i> Keluar
