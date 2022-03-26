@@ -17,7 +17,7 @@ class DefineMenus
     public function handle($request, Closure $next)
     {
         Menu::make('primary', function ($menu) {
-            $menu->add('Home', 'dashboard')->data('icon', 'fe fe-grid');
+            $menu->add('Home', 'dashboard')->data('icon', 'fe fe-grid')->active();
             $menu->add('Pegawai', 'dashboard/pegawai')->data('icon', 'fe fe-users');
             $menu->add('Daftar Gaji', 'dashboard/gaji')->data('icon', 'fe fe-shopping-bag');
             $menu->add('Kinerja', 'dashboard/kinerja')->data('icon', 'fe fe-bar-chart-2');

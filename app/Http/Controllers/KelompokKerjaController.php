@@ -16,7 +16,7 @@ class KelompokKerjaController extends Controller
 
     public function datatable()
     {
-        $data = KelompokKerja::all();
+        $data = KelompokKerja::query();
 
         return Datatables::of($data)
             ->editColumn('persen', function($data) {

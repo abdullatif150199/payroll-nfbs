@@ -16,7 +16,7 @@ class JamAjarController extends Controller
 
     public function datatable()
     {
-        $data = JamAjar::all();
+        $data = JamAjar::query();
 
         return Datatables::of($data)
             ->editColumn('jml', function($data) {

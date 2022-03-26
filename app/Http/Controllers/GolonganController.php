@@ -16,7 +16,7 @@ class GolonganController extends Controller
 
     public function datatable()
     {
-        $data = Golongan::all();
+        $data = Golongan::query();
 
         return Datatables::of($data)
             ->editColumn('peserta', function ($data) {

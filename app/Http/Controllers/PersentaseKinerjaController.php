@@ -16,7 +16,7 @@ class PersentaseKinerjaController extends Controller
 
     public function datatable()
     {
-        $data = PersentaseKinerja::all();
+        $data = PersentaseKinerja::query();
 
         return Datatables::of($data)
             ->editColumn('persen', function($data) {

@@ -16,7 +16,7 @@ class JabatanController extends Controller
 
     public function datatable()
     {
-        $data = Jabatan::all();
+        $data = Jabatan::query();
 
         return Datatables::of($data)
             ->editColumn('jml_peserta', function ($data) {

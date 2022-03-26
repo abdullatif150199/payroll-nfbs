@@ -16,7 +16,7 @@ class NilaiKinerjaController extends Controller
 
     public function datatable()
     {
-        $data = NilaiKinerja::all();
+        $data = NilaiKinerja::query();
 
         return Datatables::of($data)
             ->editColumn('min_persen', function($data) {

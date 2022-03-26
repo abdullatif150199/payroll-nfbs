@@ -16,7 +16,7 @@ class JamPerpekanController extends Controller
 
     public function datatable()
     {
-        $data = JamPerpekan::all();
+        $data = JamPerpekan::query();
 
         return Datatables::of($data)
             ->editColumn('jml_jam', function($data) {

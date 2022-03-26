@@ -26,6 +26,7 @@ class KinerjaController extends Controller
     {
         $bulan = $request->bulan;
         $user = auth()->user();
+        $data = Karyawan::query();
 
         if (!$request->bulan) {
             $bulan = date('Y-m');
@@ -33,14 +34,15 @@ class KinerjaController extends Controller
 
         if ($user->hasRole(['admin', 'root'])) {
             $data = Karyawan::with(['gajiOne' => function ($q) use ($bulan) {
-                $q->bulan($bulan);
-            }])
+                    $q->bulan($bulan);
+                }])
                 ->when($request->bidang, function ($q) use ($request) {
                     $q->whereHas('bidang', function ($query) use ($request) {
                         $query->where('id', $request->bidang);
                     });
                 })
-                ->where('status', '<>', '3')->latest();
+                ->where('status', '<>', '3')
+                ->latest();
         } else {
             $data = Karyawan::whereHas('bidang', function (Builder $query) use ($user) {
                 $query->whereIn('nama_bidang', $user->karyawan->bidang->pluck('nama_bidang'));

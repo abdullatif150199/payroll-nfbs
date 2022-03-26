@@ -70,9 +70,10 @@ class KaryawanController extends Controller
     public function datatable(Request $request)
     {
         $user = auth()->user();
+        $data = Karyawan::query();
 
         if ($user->hasRole(['admin', 'root'])) {
-            $data = Karyawan::with(['jabatan', 'golongan', 'statusKerja', 'unit'])
+            $data->with(['jabatan', 'golongan', 'statusKerja', 'unit'])
                 ->when($request->statuskerja, function ($q) use ($request) {
                     $q->where('status_kerja_id', $request->statuskerja);
                 })
@@ -81,9 +82,9 @@ class KaryawanController extends Controller
                         $query->where('id', $request->bidang);
                     });
                 })
-                ->where('status', '<>', 3)->get();
+                ->where('status', '<>', 3);
         } else {
-            $data = Karyawan::with(['jabatan', 'golongan', 'statusKerja', 'unit'])
+            $data->with(['jabatan', 'golongan', 'statusKerja', 'unit'])
                 ->when($request->statuskerja, function ($q) use ($request) {
                     $q->where('status_kerja_id', $request->statuskerja);
                 })
@@ -93,12 +94,12 @@ class KaryawanController extends Controller
                 ->orWhereHas('unit', function (Builder $query) use ($user) {
                     $query->whereIn('nama_unit', $user->karyawan->unit->pluck('nama_unit'));
                 })
-                ->where('status', '<>', 3)->get();
+                ->where('status', '<>', 3);
         }
 
         if ($request->statuskerja == 'berhenti') {
-            $data = Karyawan::with(['jabatan', 'golongan', 'statusKerja', 'unit'])
-                ->where('status', 3)->get();
+            $data->with(['jabatan', 'golongan', 'statusKerja', 'unit'])
+                ->where('status', 3);
         }
 
         return Datatables::of($data)
