@@ -82,28 +82,28 @@
     </div>
 </div>
 
-<div class="modal fade" id="hapusUser">
+<div class="modal fade" id="modalReset">
     <div class="modal-dialog">
         <div class="modal-content">
 
             <!-- Modal Header -->
             <div class="modal-header">
-                <h4 class="modal-title">Hapus User</h4>
+                <h4 class="modal-title">Reset Password</h4>
                 <button type="button" class="close" data-dismiss="modal"></button>
             </div>
 
-            <form method="post">
-                {{ csrf_field() }} {{ method_field('DELETE') }}
-                <div class="modal-body">
+            <div class="modal-body">
+                Yakin ingin mereset password?
+            </div>
 
-                </div>
-                <div class="modal-footer">
+            <div class="modal-footer">
+                <button class="btn btn-secondary" data-dismiss="modal">Batal</button>
+                <form method="post">
+                    {{ csrf_field() }}
 
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
-                    <button type="submit" class="btn btn-danger">Hapus</button>
-
-                </div>
-            </form>
+                    <button type="submit" class="btn btn-primary">Yakin</button>
+                </form>
+            </div>
 
         </div>
     </div>

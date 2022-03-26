@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Yajra\Datatables\Datatables;
 use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Support\Facades\Hash;
 use Spatie\Permission\Models\Role;
 use App\Models\User;
 
@@ -88,5 +89,18 @@ class UserController extends Controller
             'status' => 200,
             'message' => 'User berhasil diupdate'
         ]);
+    }
+
+    public function reset($id)
+    {
+        $password = str_random(6);
+
+        $user = User::findOrFail($id);
+        $user->update([
+            'password'=> Hash::make($password)
+        ]);
+
+        return redirect()->back()
+            ->with("success", "Password {$user->name} telah direset, password: {$password}");
     }
 }

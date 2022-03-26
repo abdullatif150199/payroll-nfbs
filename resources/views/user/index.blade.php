@@ -35,7 +35,6 @@
             Daftar User
         </h3>
         <div class="card-options">
-            {{-- <button type="button" id="newUser" class="btn btn-primary mr-2"><i class="fe fe-plus"></i> Tambah</button> --}}
             <a href="{{ route('dash.role.index') }}" class="btn btn-primary"><i class="fe fe-user-check"></i> Role User</a>
         </div>
     </div>
@@ -144,12 +143,11 @@
         });
     });
 
-    function hapusUser(id) {
-        var url = '{{ route('dash.user.destroy', ':id') }}';
+    function resetPassword(id) {
+        var url = '{{ route('dash.user.reset', ':id') }}';
         url = url.replace(':id', id);
-        $('#hapusUser .modal-body').text('Yakin ingin menghapus?');
-        $('#hapusUser form').attr('action', url);
-        $('#hapusUser').modal('show');
+        $('#modalReset form').attr('action', url);
+        $('#modalReset').modal('show');
     }
 </script>
 @endpush

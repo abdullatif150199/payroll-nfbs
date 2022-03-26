@@ -164,7 +164,8 @@ Route::group(['prefix' => 'dashboard', 'as' => 'dash.', 'middleware' => ['auth']
             Route::get('get-user', 'UserController@datatable')->name('user.datatable');
             Route::get('get-role', 'RoleController@datatable')->name('role.datatable');
             Route::get('get-tax', 'TaxController@datatable')->name('tax.datatable');
-
+            Route::post('user/{id}/reset-password', 'UserController@reset')->name('user.reset');
+            
             // Jabatan
             Route::get('jabatan', 'JabatanController@index')->name('jabatan');
             Route::get('get-jabatan', 'JabatanController@datatable')->name('jabatan.datatable');

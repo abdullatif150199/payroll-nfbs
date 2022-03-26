@@ -29,11 +29,11 @@ class LemburController extends Controller
             ->bulan($bulan)->latest()->get();
 
         return Datatables::of($data)
-            ->editColumn('no_induk', function ($data) {
-                return '<span class="text-muted">'. $data->karyawan->no_induk .'</span>';
+            ->editColumn('tanggal', function ($data) {
+                return '<span class="text-muted">'. yearMonth($data->date) .'</span>';
             })
             ->editColumn('nama_lengkap', function ($data) {
-                return view('lembur.nama', ['data' => $data]);
+                return $data->karyawan->nama_lengkap;
             })
             ->editColumn('total_tarif', function ($data) {
                 return number_format($data->total_tarif);
@@ -47,7 +47,7 @@ class LemburController extends Controller
             ->addColumn('actions', function ($data) {
                 return view('lembur.actions', ['data' => $data]);
             })
-            ->rawColumns(['type', 'status', 'actions', 'no_induk', 'nama_lengkap', 'total_tarif'])
+            ->rawColumns(['type', 'status', 'actions', 'tanggal', 'nama_lengkap', 'total_tarif'])
             ->make(true);
     }
 

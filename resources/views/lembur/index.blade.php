@@ -247,7 +247,7 @@
                 <table class="table card-table table-vcenter text-nowra" id="daftarLembur">
                     <thead>
                         <tr>
-                            <th>No. Induk</th>
+                            <th>Tanggal</th>
                             <th>Nama Lengkap</th>
                             <th>Jml Jam</th>
                             <th>Tarif</th>
@@ -288,7 +288,7 @@
             }
         },
         columns: [
-            {data: 'no_induk'},
+            {data: 'tanggal'},
             {data: 'nama_lengkap'},
             {data: 'jumlah_jam'},
             {data: 'total_tarif'},
