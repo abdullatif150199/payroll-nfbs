@@ -10,6 +10,7 @@ use App\Models\PersentaseKinerja;
 use App\Models\Karyawan;
 use App\Models\HistoryKinerja;
 use App\Models\NilaiKinerja;
+use App\Imports\ImportKinerja;
 
 class KinerjaController extends Controller
 {
@@ -173,5 +174,23 @@ class KinerjaController extends Controller
         $kinerja->delete();
 
         return redirect()->back()->withSuccess(sprintf('Kinerja %s berhasil di hapus.', $kinerja->title));
+    }
+
+    public function import(Request $request)
+    {
+        $request->validate([
+            'file' => 'required'
+        ]);
+
+        $import = new ImportKinerja;
+        $import->import($request->file);
+
+        if ($import->failures()->isNotEmpty()) {
+            return view('kinerja.failures', [ 
+                'failures' => $import->failures()
+            ]);
+        }
+
+        return back()->withSuccess('Data berhasil diimport ke database');
     }
 }

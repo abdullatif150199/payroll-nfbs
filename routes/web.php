@@ -103,6 +103,10 @@ Route::group(['prefix' => 'dashboard', 'as' => 'dash.', 'middleware' => ['auth']
         Route::get('kinerja/{id}/edit', 'KinerjaController@edit')->name('kinerja.edit');
         Route::put('kinerja/{id}', 'KinerjaController@update')->name('kinerja.update');
         Route::delete('kinerja/{id}', 'KinerjaController@destroy')->name('kinerja.destroy');
+        Route::post('kinerja/import', 'KinerjaController@import')->name('kinerja.import');
+        Route::get('kinerja/import', function () {
+            abort(404);
+        });
 
         // Kehadiran
         Route::get('kehadiran', 'KehadiranController@index')->name('kehadiran');

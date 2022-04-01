@@ -239,7 +239,9 @@
                     </form>
                 </h3>
                 <div class="card-options">
-                    <button type="button" id="newKinerja" class="btn btn-primary"><i class="fe fe-plus"></i>
+                    <a href="#importKinerja" data-toggle="modal" class="btn btn-primary"><i class="fe fe-upload"></i>
+                        Import</a>
+                    <button type="button" id="newKinerja" class="btn btn-primary ml-2"><i class="fe fe-plus"></i>
                         Tambah/Replace</button>
                 </div>
             </div>
@@ -352,7 +354,7 @@
 
     $('#newKinerja').click(function () {
         $('#select2').show();
-        $('.modal-title').text('Create Kinerja');
+        $('.modal-title').text('Buat Kinerja');
         $('#formKinerja').modal('show');
         $('input[name=_method]').val('POST');
         $('#formKinerja form')[0].reset();
@@ -469,6 +471,5 @@
         $('#hapusKinerja form').attr('action', url);
         $('#hapusKinerja').modal('show');
     }
-
 </script>
 @endpush
