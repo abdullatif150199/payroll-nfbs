@@ -121,10 +121,10 @@ class KaryawanController extends Controller
             ->editColumn('unit', function ($data) {
                 return view('karyawan.unit', ['unit' => $data->unit]);
             })
-            ->editColumn('status_kerja', function ($data) {
+            ->editColumn('statusKerja', function ($data) {
                 return $data->statusKerja->nama_status_kerja;
             })
-            ->rawColumns(['actions', 'nama_lengkap', 'jabatan', 'golongan', 'no_induk', 'unit', 'status_kerja'])
+            ->rawColumns(['actions', 'nama_lengkap', 'jabatan', 'golongan', 'no_induk', 'unit', 'statusKerja'])
             ->make(true);
     }
 

@@ -150,10 +150,10 @@
             {data: 'no_induk'},
             {data: 'nama_lengkap'},
             {data: 'jenis_kelamin'},
-            {data: 'jabatan'},
-            {data: 'golongan'},
-            {data: 'unit'},
-            {data: 'status_kerja'},
+            {data: 'jabatan', name:'jabatan.nama_jabatan', orderable: false},
+            {data: 'golongan', name:'golongan.kode_golongan', orderable: false},
+            {data: 'unit', name:'unit.nama_unit', orderable: false},
+            {data: 'statusKerja', name:'statusKerja.nama_status_kerja'},
             {data: 'actions', orderable: false, searchable: false}
         ]
     });
