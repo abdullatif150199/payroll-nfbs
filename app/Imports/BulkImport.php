@@ -3,6 +3,7 @@
 namespace App\Imports;
 
 use App\Models\User;
+use App\Models\Karyawan;
 use App\Models\Golongan;
 use App\Models\Bidang;
 use App\Models\Unit;
@@ -120,7 +121,6 @@ class BulkImport implements
 
         return [
             'nama_lengkap' => ['string', 'required'],
-            'no_induk' => ['required', 'digits:6', 'unique:users,username'],
             '*.email' => ['nullable', 'email', 'unique:users,email'],
             'nik' => ['numeric', 'required', 'digits:16'],
             'alamat' => ['string', 'nullable'],
@@ -220,7 +220,12 @@ class BulkImport implements
                 if (!in_array(strtolower($value), $pembayaran)) {
                     $onFailure('pembayaran tidak tersedia (pilihan: transfer/cash)');
                 }
-            }]
+            }],
+            'no_induk' => ['required', 'digits:6', function ($attribute, $value, $onFailure) {
+                if (Karyawan::where('no_induk', $value)->exists()) {
+                    $onFailure("No induk {$value} sudah tersedia atau data sudah ada");
+                }
+            }],
         ];
     }
 
