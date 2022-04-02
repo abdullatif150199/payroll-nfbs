@@ -11,6 +11,8 @@ use App\Models\Karyawan;
 use App\Models\HistoryKinerja;
 use App\Models\NilaiKinerja;
 use App\Imports\ImportKinerja;
+use App\Exports\FormatKinerja;
+use Maatwebsite\Excel\Facades\Excel;
 
 class KinerjaController extends Controller
 {
@@ -181,8 +183,8 @@ class KinerjaController extends Controller
         $request->validate([
             'file' => 'required'
         ]);
-
-        $import = new ImportKinerja;
+        $bln = $request->tahun . '-' . $request->bulan;
+        $import = new ImportKinerja($bln);
         $import->import($request->file);
 
         if ($import->failures()->isNotEmpty()) {
@@ -191,6 +193,13 @@ class KinerjaController extends Controller
             ]);
         }
 
-        return back()->withSuccess('Data berhasil diimport ke database');
+        return redirect()
+            ->back()
+            ->withSuccess('Data berhasil diimport ke database');
+    }
+
+    public function formatExcel()
+    {
+        return Excel::download(new FormatKinerja, 'format_kinerja.xlsx');
     }
 }

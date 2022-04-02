@@ -4,6 +4,7 @@ namespace App\Imports;
 
 use App\Models\Karyawan;
 use App\Models\PersentaseKinerja;
+use App\Models\Unit;
 use App\Jobs\ProcessPayroll;
 use Maatwebsite\Excel\Concerns\ToModel;
 use Maatwebsite\Excel\Concerns\Importable;
@@ -28,15 +29,22 @@ class ImportKinerja implements
 {
     use Importable, SkipsErrors, SkipsFailures;
 
+    protected $bln;
+
+    public function __construct($bln)
+    {
+        $this->bln = $bln;
+    }
+
     /**
      * @param Collection $collection
      */
     public function model(array $row)
     {
-        DB::transaction(function () use ($row) {
-            $bln = $request->year . '-' . $request->month;
+        $bln = $this->bln;
+        DB::transaction(function () use ($row, $bln) {
             $karyawan = Karyawan::with('persentaseKinerja', 'gaji')
-                ->findOrFail($row['no_induk']);
+                ->find($row['no_induk']);
 
             $gaji = $karyawan->gaji()->updateOrCreate([
                 'bulan' => $bln
@@ -58,15 +66,25 @@ class ImportKinerja implements
 
     public function rules(): array
     {
+        $unit = Unit::pluck('id', 'nama_unit')->toArray();
         $rules = [
             'nama_lengkap' => ['string', 'required'],
-            'no_induk' => ['required', 'digits:6', 'unique:users,username']
+            'no_induk' => ['required', function ($attribute, $value, $onFailure) {
+                if (!Karyawan::where('no_induk', $value)->exists()) {
+                    $onFailure("No induk {$value} tidak tersedia");
+                }
+            }],
+            'unit' => ['required', function ($attribute, $value, $onFailure) use ($unit) {
+                if (!isset($unit[$value])) {
+                    $onFailure('Unit tidak sesuai dengan database');
+                }
+            }],
         ];
 
         foreach (PersentaseKinerja::pluck('title') as $item) {
             $rules[$item] = ['numeric', function ($attribute, $value, $onFailure) {
                 if ($value > 100) {
-                    $onFailure('produktifitas tidak boleh lebih dari 100');
+                    $onFailure("{$item} tidak boleh lebih dari 100");
                 }
             }];
         }
@@ -81,6 +99,7 @@ class ImportKinerja implements
             'no_induk.required' => ':attribute tidak boleh kosong',
             'no_induk.digits' => ':attribute harus 6 digit',
             'no_induk.unique' => ':attribute sudah tersedia',
+            'unit.required' => ':attribute tidak boleh kosong',
         ];
     }
 

@@ -5,6 +5,7 @@ namespace App\Imports;
 use App\Models\User;
 use App\Models\Golongan;
 use App\Models\Bidang;
+use App\Models\Unit;
 use App\Models\Jabatan;
 use App\Models\StatusKerja;
 use App\Models\KelompokKerja;
@@ -91,6 +92,9 @@ class BulkImport implements
         $bidang = Cache::remember('bidang', 60, function () {
             return Bidang::pluck('id', 'nama_bidang')->toArray();
         });
+        $unit = Cache::remember('unit', 60, function () {
+            return Unit::pluck('id', 'nama_unit')->toArray();
+        });
         $jabatan = Cache::remember('jabatan', 60, function () {
             return Jabatan::pluck('id', 'nama_jabatan')->toArray();
         });
@@ -157,6 +161,11 @@ class BulkImport implements
             'bidang' => ['required', function ($attribute, $value, $onFailure) use ($bidang) {
                 if (!isset($bidang[$value])) {
                     $onFailure('Bidang tidak sesuai dengan database');
+                }
+            }],
+            'unit' => ['required', function ($attribute, $value, $onFailure) use ($unit) {
+                if (!isset($unit[$value])) {
+                    $onFailure('Unit tidak sesuai dengan database');
                 }
             }],
             'jabatan' => ['required', function ($attribute, $value, $onFailure) use ($jabatan) {

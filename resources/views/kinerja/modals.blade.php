@@ -228,6 +228,7 @@
                     </div>
                 </div>
                 <div class="modal-footer">
+                    <a href="{{ route('dash.kinerja.formatExcel') }}">unduh format kinerja</a>
                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
                     <button id="loaderImportKinerja" type="submit" class="btn btn-primary">Import</button>
                 </div>
