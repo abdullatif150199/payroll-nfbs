@@ -116,7 +116,7 @@ class BulkImport implements
 
         $jenis_kelamin = ['L', 'P'];
         $status_pernikahan = ['M', 'B', 'D', 'J'];
-        $pendidikan_terakhir = ['TS', 'SD', 'SMP', 'SMA', 'D3', 'S1', 'S2', 'S3'];
+        $pendidikan_terakhir = ['TS', 'SD', 'SMP', 'SMA', 'D1', 'D2', 'D3', 'S1', 'S2', 'S3'];
         $tipe_kerja = ['shift', 'non shift'];
         $pembayaran = ['cash', 'transfer'];
 
