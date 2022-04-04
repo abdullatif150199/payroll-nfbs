@@ -11,8 +11,7 @@ use App\Models\StatusKerja;
 use App\Models\KelompokKerja;
 use App\Models\JamPerpekan;
 use App\Jobs\BulkImportJobs;
-use Maatwebsite\Excel\Row;
-use Maatwebsite\Excel\Concerns\OnEachRow;
+use Maatwebsite\Excel\Concerns\ToModel;
 use Maatwebsite\Excel\Concerns\Importable;
 use Maatwebsite\Excel\Concerns\SkipsOnError;
 use Maatwebsite\Excel\Concerns\WithHeadingRow;
@@ -20,18 +19,18 @@ use Maatwebsite\Excel\Concerns\SkipsErrors;
 use Maatwebsite\Excel\Concerns\WithValidation;
 use Maatwebsite\Excel\Concerns\SkipsOnFailure;
 use Maatwebsite\Excel\Concerns\SkipsFailures;
-// use Maatwebsite\Excel\Concerns\WithBatchInserts;
+use Maatwebsite\Excel\Concerns\WithBatchInserts;
 use Maatwebsite\Excel\Concerns\WithChunkReading;
 use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\DB;
 
 class BulkImport implements
-    OnEachRow,
+    ToModel,
     WithHeadingRow,
     SkipsOnError,
     WithValidation,
     SkipsOnFailure,
-    // WithBatchInserts,
+    WithBatchInserts,
     WithChunkReading
 {
     use Importable, SkipsErrors, SkipsFailures;
@@ -56,7 +55,10 @@ class BulkImport implements
         $this->status = ['guru' => 1, 'non guru' => 2];
     }
 
-    public function onRow(Row $row)
+    /**
+     * @param Collection $collection
+     */
+    public function model(array $row)
     {
         DB::transaction(function () use ($row) {
             $user = User::create([
@@ -241,14 +243,14 @@ class BulkImport implements
         ];
     }
 
-    // public function batchSize(): int
-    // {
-    //     return 1000;
-    // }
+    public function batchSize(): int
+    {
+        return 100;
+    }
 
     public function chunkSize(): int
     {
-        return 100;
+        return 50;
     }
 
     public function transformDate($value, $format = 'd/m/Y')
