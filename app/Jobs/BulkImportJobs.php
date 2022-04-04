@@ -38,10 +38,10 @@ class BulkImportJobs implements ShouldQueue
      */
     public function handle()
     {
-        $jabatan = Jabatan::pluck('id', 'nama_jabatan')->toArray();
+        // $jabatan = Jabatan::pluck('id', 'nama_jabatan')->toArray();
         $bidang = Bidang::pluck('id', 'nama_bidang')->toArray();
         $unit = Unit::pluck('id', 'nama_unit')->toArray();
-        $this->karyawan->jabatan()->sync($this->ids($this->data['jabatan'], $jabatan));
+        // $this->karyawan->jabatan()->sync($this->ids($this->data['jabatan'], $jabatan));
         $this->karyawan->bidang()->sync($this->ids($this->data['bidang'], $bidang));
         $this->karyawan->unit()->sync($this->ids($this->data['unit'], $unit));
     }

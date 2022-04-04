@@ -6,6 +6,7 @@ use App\Models\User;
 use App\Models\Golongan;
 use App\Models\Bidang;
 use App\Models\Unit;
+// use App\Models\Jabatan;
 use App\Models\StatusKerja;
 use App\Models\KelompokKerja;
 use App\Models\JamPerpekan;
@@ -94,6 +95,9 @@ class BulkImport implements
         $unit = Cache::remember('unit', 60, function () {
             return Unit::pluck('id', 'nama_unit')->toArray();
         });
+        // $jabatan = Cache::remember('jabatan', 60, function () {
+        //     return Jabatan::pluck('id', 'nama_jabatan')->toArray();
+        // });
         $status_kerja = Cache::remember('status_kerja', 60, function () {
             return StatusKerja::pluck('id', 'nama_status_kerja')->toArray();
         });
@@ -163,6 +167,14 @@ class BulkImport implements
                     $onFailure('Unit tidak sesuai dengan database');
                 }
             }],
+            // 'jabatan' => ['required', function ($attribute, $value, $onFailure) use ($jabatan) {
+            //     $items = explode('/', $value);
+            //     foreach ($items as $item) {
+            //         if (!isset($jabatan[$item])) {
+            //             $onFailure('jabatan ' . $item . ' tidak sesuai dengan database');
+            //         }
+            //     }
+            // }],
             'status_kerja' => ['required', function ($attribute, $value, $onFailure) use ($status_kerja) {
                 if (!isset($status_kerja[$value])) {
                     $onFailure('status_kerja tidak sesuai dengan database');
@@ -233,7 +245,7 @@ class BulkImport implements
 
     public function batchSize(): int
     {
-        return 100;
+        return 500;
     }
 
     public function chunkSize(): int
