@@ -86,27 +86,13 @@ class BulkImport implements
 
     public function rules(): array
     {
-        $golongan = Cache::remember('golongan', 60, function () {
-            return Golongan::pluck('id', 'kode_golongan')->toArray();
-        });
-        $bidang = Cache::remember('bidang', 60, function () {
-            return Bidang::pluck('id', 'nama_bidang')->toArray();
-        });
-        $unit = Cache::remember('unit', 60, function () {
-            return Unit::pluck('id', 'nama_unit')->toArray();
-        });
-        // $jabatan = Cache::remember('jabatan', 60, function () {
-        //     return Jabatan::pluck('id', 'nama_jabatan')->toArray();
-        // });
-        $status_kerja = Cache::remember('status_kerja', 60, function () {
-            return StatusKerja::pluck('id', 'nama_status_kerja')->toArray();
-        });
-        $kelompok_kerja = Cache::remember('kelompok_kerja', 60, function () {
-            return KelompokKerja::pluck('id', 'grade')->toArray();
-        });
-        $jam_perpekan = Cache::remember('jam_perpekan', 60, function () {
-            return JamPerpekan::pluck('id', 'jml_jam')->toArray();
-        });
+        $golongan = Golongan::pluck('id', 'kode_golongan')->toArray();
+        $bidang = Bidang::pluck('id', 'nama_bidang')->toArray();
+        $unit = Unit::pluck('id', 'nama_unit')->toArray();
+        // $jabatan = Jabatan::pluck('id', 'nama_jabatan')->toArray();
+        $status_kerja = StatusKerja::pluck('id', 'nama_status_kerja')->toArray();
+        $kelompok_kerja = KelompokKerja::pluck('id', 'grade')->toArray();
+        $jam_perpekan = JamPerpekan::pluck('id', 'jml_jam')->toArray();
 
         $status = Cache::remember('status', 60, function () {
             return ['guru' => 1, 'non guru' => 2];
