@@ -160,23 +160,21 @@ class BulkImport implements
                 }
             }],
             'bidang' => ['required', function ($attribute, $value, $onFailure) use ($bidang) {
-                if (!isset($bidang[$value])) {
-                    $onFailure('Bidang tidak sesuai dengan database');
+                $items = explode('/', $value);
+                foreach ($items as $item) {
+                    if (!isset($bidang[$item])) {
+                        $onFailure('Bidang ' . $item . ' tidak sesuai dengan database');
+                    }
                 }
             }],
             'unit' => ['required', function ($attribute, $value, $onFailure) use ($unit) {
-                if (!isset($unit[$value])) {
-                    $onFailure('Unit tidak sesuai dengan database');
+                $items = explode('/', $value);
+                foreach ($items as $item) {
+                    if (!isset($unit[$item])) {
+                        $onFailure('Unit ' . $item . ' tidak sesuai dengan database');
+                    }
                 }
             }],
-            // 'jabatan' => ['required', function ($attribute, $value, $onFailure) use ($jabatan) {
-            //     $items = explode('/', $value);
-            //     foreach ($items as $item) {
-            //         if (!isset($jabatan[$item])) {
-            //             $onFailure('jabatan ' . $item . ' tidak sesuai dengan database');
-            //         }
-            //     }
-            // }],
             'status_kerja' => ['required', function ($attribute, $value, $onFailure) use ($status_kerja) {
                 if (!isset($status_kerja[$value])) {
                     $onFailure('status_kerja tidak sesuai dengan database');
