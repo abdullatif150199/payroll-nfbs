@@ -35,6 +35,26 @@ class BulkImport implements
 {
     use Importable, SkipsErrors, SkipsFailures;
 
+    public $golongan;
+    public $bidang;
+    public $unit;
+    public $status_kerja;
+    public $kelompok_kerja;
+    public $jam_perpekan;
+    public $status;
+
+    public function __construct()
+    {
+        $this->golongan = Golongan::pluck('id', 'kode_golongan')->toArray();
+        $this->bidang = Bidang::pluck('id', 'nama_bidang')->toArray();
+        $this->unit = Unit::pluck('id', 'nama_unit')->toArray();
+        // $jabatan = Jabatan::pluck('id', 'nama_jabatan')->toArray();
+        $this->status_kerja = StatusKerja::pluck('id', 'nama_status_kerja')->toArray();
+        $this->kelompok_kerja = KelompokKerja::pluck('id', 'grade')->toArray();
+        $this->jam_perpekan = JamPerpekan::pluck('id', 'jml_jam')->toArray();
+        $this->status = ['guru' => 1, 'non guru' => 2];
+    }
+
     /**
      * @param Collection $collection
      */
@@ -51,9 +71,9 @@ class BulkImport implements
             $user->assignRole('user');
 
             $karyawan = $user->karyawan()->create([
-                'golongan_id' => Cache::get('golongan')[strtoupper($row['golongan'])],
-                'status_kerja_id' => Cache::get('status_kerja')[$row['status_kerja']],
-                'kelompok_kerja_id' => Cache::get('kelompok_kerja')[strtoupper($row['kelompok_kerja'])],
+                'golongan_id' => $this->golongan[strtoupper($row['golongan'])],
+                'status_kerja_id' => $this->status_kerja[$row['status_kerja']],
+                'kelompok_kerja_id' => $this->kelompok_kerja[strtoupper($row['kelompok_kerja'])],
                 'no_induk' => $row['no_induk'],
                 'nik' => $row['nik'],
                 'nama_lengkap' => $row['nama_lengkap'],
@@ -71,9 +91,9 @@ class BulkImport implements
                 'nama_bank' => $row['nama_bank'],
                 'no_rekening' => $row['no_rekening'],
                 'rekening_atas_nama' => $row['rekening_atas_nama'],
-                'status' => Cache::get('status')[strtolower($row['status'])],
+                'status' => $this->status[strtolower($row['status'])],
                 'tipe_kerja' => strtolower($row['tipe_kerja']),
-                'jam_perpekan_id' => Cache::get('jam_perpekan')[$row['jam_perpekan']],
+                'jam_perpekan_id' => $this->jam_perpekan[$row['jam_perpekan']],
                 'contract_expired' => $this->dateToSql($row['contract_expired']),
                 'pembayaran' => $row['pembayaran']
             ]);
@@ -86,17 +106,13 @@ class BulkImport implements
 
     public function rules(): array
     {
-        $golongan = Golongan::pluck('id', 'kode_golongan')->toArray();
-        $bidang = Bidang::pluck('id', 'nama_bidang')->toArray();
-        $unit = Unit::pluck('id', 'nama_unit')->toArray();
-        // $jabatan = Jabatan::pluck('id', 'nama_jabatan')->toArray();
-        $status_kerja = StatusKerja::pluck('id', 'nama_status_kerja')->toArray();
-        $kelompok_kerja = KelompokKerja::pluck('id', 'grade')->toArray();
-        $jam_perpekan = JamPerpekan::pluck('id', 'jml_jam')->toArray();
-
-        $status = Cache::remember('status', 60, function () {
-            return ['guru' => 1, 'non guru' => 2];
-        });
+        $golongan = $this->golongan;
+        $bidang = $this->bidang;
+        $unit = $this->unit;
+        $status_kerja = $this->status_kerja;
+        $kelompok_kerja = $this->kelompok_kerja;
+        $jam_perpekan = $this->jam_perpekan;
+        $status = $this->status;
 
         $jenis_kelamin = ['L', 'P'];
         $status_pernikahan = ['M', 'B', 'D', 'J'];
