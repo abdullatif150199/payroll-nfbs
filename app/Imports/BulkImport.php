@@ -19,7 +19,7 @@ use Maatwebsite\Excel\Concerns\SkipsErrors;
 use Maatwebsite\Excel\Concerns\WithValidation;
 use Maatwebsite\Excel\Concerns\SkipsOnFailure;
 use Maatwebsite\Excel\Concerns\SkipsFailures;
-use Maatwebsite\Excel\Concerns\WithBatchInserts;
+// use Maatwebsite\Excel\Concerns\WithBatchInserts;
 use Maatwebsite\Excel\Concerns\WithChunkReading;
 use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\DB;
@@ -30,7 +30,7 @@ class BulkImport implements
     SkipsOnError,
     WithValidation,
     SkipsOnFailure,
-    WithBatchInserts,
+    // WithBatchInserts,
     WithChunkReading
 {
     use Importable, SkipsErrors, SkipsFailures;
@@ -243,14 +243,14 @@ class BulkImport implements
         ];
     }
 
-    public function batchSize(): int
-    {
-        return 100;
-    }
+    // public function batchSize(): int
+    // {
+    //     return 1000;
+    // }
 
     public function chunkSize(): int
     {
-        return 50;
+        return 100;
     }
 
     public function transformDate($value, $format = 'd/m/Y')
