@@ -6,6 +6,7 @@ use App\Models\User;
 use App\Models\Golongan;
 use App\Models\Bidang;
 use App\Models\Unit;
+// use App\Models\Jabatan;
 use App\Models\StatusKerja;
 use App\Models\KelompokKerja;
 use App\Models\JamPerpekan;
@@ -18,8 +19,8 @@ use Maatwebsite\Excel\Concerns\SkipsErrors;
 use Maatwebsite\Excel\Concerns\WithValidation;
 use Maatwebsite\Excel\Concerns\SkipsOnFailure;
 use Maatwebsite\Excel\Concerns\SkipsFailures;
-// use Maatwebsite\Excel\Concerns\WithBatchInserts;
-// use Maatwebsite\Excel\Concerns\WithChunkReading;
+use Maatwebsite\Excel\Concerns\WithBatchInserts;
+use Maatwebsite\Excel\Concerns\WithChunkReading;
 use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\DB;
 
@@ -28,9 +29,9 @@ class BulkImport implements
     WithHeadingRow,
     SkipsOnError,
     WithValidation,
-    SkipsOnFailure
-    // WithBatchInserts,
-    // WithChunkReading
+    SkipsOnFailure,
+    WithBatchInserts,
+    WithChunkReading
 {
     use Importable, SkipsErrors, SkipsFailures;
 
@@ -47,6 +48,7 @@ class BulkImport implements
         $this->golongan = Golongan::pluck('id', 'kode_golongan')->toArray();
         $this->bidang = Bidang::pluck('id', 'nama_bidang')->toArray();
         $this->unit = Unit::pluck('id', 'nama_unit')->toArray();
+        // $jabatan = Jabatan::pluck('id', 'nama_jabatan')->toArray();
         $this->status_kerja = StatusKerja::pluck('id', 'nama_status_kerja')->toArray();
         $this->kelompok_kerja = KelompokKerja::pluck('id', 'grade')->toArray();
         $this->jam_perpekan = JamPerpekan::pluck('id', 'jml_jam')->toArray();
@@ -241,15 +243,15 @@ class BulkImport implements
         ];
     }
 
-    // public function batchSize(): int
-    // {
-    //     return 500;
-    // }
+    public function batchSize(): int
+    {
+        return 100;
+    }
 
-    // public function chunkSize(): int
-    // {
-    //     return 100;
-    // }
+    public function chunkSize(): int
+    {
+        return 50;
+    }
 
     public function transformDate($value, $format = 'd/m/Y')
     {
