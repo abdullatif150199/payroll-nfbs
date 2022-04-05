@@ -28,10 +28,10 @@ class Kernel extends ConsoleKernel
     {
         $schedule->command('scanlog:nonshift')
                 ->withoutOverlapping()
-                ->everyThirtyMinutes();
+                ->everyFifteenMinutes();
         $schedule->command('scanlog:shift')
                 ->withoutOverlapping()
-                ->everyThirtyMinutes();
+                ->everyFifteenMinutes();
 
         $schedule->command('potongan:expired')
                 ->withoutOverlapping()
