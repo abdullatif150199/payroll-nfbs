@@ -28,7 +28,7 @@ class Kernel extends ConsoleKernel
     {
         $schedule->command('scanlog:nonshift')
                 ->withoutOverlapping()
-                ->everyThirtyMinutes();
+                ->everyMinute();
         $schedule->command('scanlog:shift')
                 ->withoutOverlapping()
                 ->everyThirtyMinutes();
