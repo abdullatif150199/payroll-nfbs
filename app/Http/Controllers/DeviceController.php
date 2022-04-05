@@ -44,7 +44,8 @@ class DeviceController extends Controller
 
         $data = [
             'serial_number' => $request->serial_number,
-            'tipe' => $request->tipe
+            'tipe' => $request->tipe,
+            'keterangan' => $request->keterangan
         ];
 
         $store = Device::create($data);
@@ -68,6 +69,7 @@ class DeviceController extends Controller
         $update = Device::find($id);
         $update->serial_number = $request->serial_number;
         $update->tipe = $request->tipe;
+        $update->keterangan = $request->keterangan;
         $update->update();
 
         return $update;

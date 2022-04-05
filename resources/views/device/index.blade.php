@@ -115,6 +115,7 @@
                 $('input[name=id]').val(data.id);
                 $('input[name=serial_number]').val(data.serial_number);
                 $('select[name=tipe]').val(data.tipe);
+                $('input[name=keterangan]').val(data.keterangan);
             }
         });
     }
