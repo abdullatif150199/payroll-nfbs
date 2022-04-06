@@ -53,8 +53,7 @@ class KehadiranController extends Controller
 
         $data = Kehadiran::with('karyawan')
             ->where('tanggal', $tanggal)
-            ->latest()
-            ->get();
+            ->latest();
 
         return Datatables::of($data)
             ->addColumn('actions', function ($data) {
@@ -163,7 +162,7 @@ class KehadiranController extends Controller
 
             $data = Karyawan::with(['jamperpekan', 'kehadiran' => function ($query) use ($dari, $sampai) {
                 $query->whereBetween('tanggal', [$dari, $sampai]);
-            }])->orderBy('nama_lengkap', 'asc')->get();
+            }])->orderBy('nama_lengkap', 'asc');
         } else {
             $dari = date('Y-m-d', strtotime($request->dari_tanggal));
             $sampai = date('Y-m-d', strtotime($request->sampai_tanggal));
@@ -171,7 +170,7 @@ class KehadiranController extends Controller
 
             $data = Karyawan::with(['jamperpekan', 'kehadiran' => function ($query) use ($dari, $sampai) {
                 $query->whereBetween('tanggal', [$dari, $sampai]);
-            }])->orderBy('nama_lengkap', 'asc')->get();
+            }])->orderBy('nama_lengkap', 'asc');
         }
 
         return Datatables::of($data)

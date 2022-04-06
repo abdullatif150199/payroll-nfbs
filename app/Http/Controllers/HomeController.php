@@ -8,6 +8,7 @@ use App\Models\Bidang;
 use App\Models\Unit;
 use App\Models\Golongan;
 use App\Models\Cuti;
+use App\Models\Gaji;
 
 class HomeController extends Controller
 {
@@ -29,16 +30,20 @@ class HomeController extends Controller
     public function index()
     {
         $title = 'Dashboard';
-        $karyawan = Karyawan::where('status', '<>', '3')->get();
+        $karyawanQuery = Karyawan::query()
+            ->where('status', '<>', '3');
+
+        $karyawan = $karyawanQuery->get();
         $bidang = Bidang::count();
         $unit = Unit::count();
         $golongan = Golongan::count();
-        $kepala_keluarga = Karyawan::where('jenis_kelamin', 'L')
+        $kepala_keluarga = $karyawanQuery->where('jenis_kelamin', 'L')
             ->where('status_pernikahan', 'M')
-            ->where('status', '<>', '3')->count();
+            ->count();
         $now = date('Y-m-d H:i:s');
         $cuti = Cuti::where('end_at', '>', $now)->count();
 
+        $gajiTerisi = Gaji::where('bulan', date('Y-m'))->count();
         $barChart = $karyawan->groupBy('status_kerja_id');
         $pieChart = $karyawan->groupBy('golongan_id');
         $kontrak = $karyawan->where('contract_expired', '>=', now());
@@ -51,6 +56,7 @@ class HomeController extends Controller
             'kepala_keluarga' => $kepala_keluarga,
             'cuti' => $cuti,
             'title' => $title,
+            'gajiTerisi' => $gajiTerisi,
             'barChart' => $barChart,
             'pieChart' => $pieChart,
             'kontrak' => $kontrak

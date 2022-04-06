@@ -62,8 +62,7 @@
                     </div>
                 </form>
                 <div class="card-options">
-                    <a class="btn btn-info" href="{{ route('dash.kehadiran') }}"><i class="fe fe-list"></i> Menuju
-                        Harian</a>
+                    <a class="btn btn-info" href="{{ route('dash.kehadiran') }}"><i class="fe fe-list"></i> Absensi Harian</a>
                 </div>
             </div>
             <div class="table-responsive">

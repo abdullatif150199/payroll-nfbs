@@ -275,8 +275,8 @@
         data: {
             columns: [
                 // each columns data
-                ['data1', 63],
-                ['data2', 37]
+                ['data1', {{ $gajiTerisi }}],
+                ['data2', {{ $karyawan->count() }}]
             ],
             type: 'donut', // default type of chart
             colors: {
