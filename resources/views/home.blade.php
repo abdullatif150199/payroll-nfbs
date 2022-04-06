@@ -86,7 +86,7 @@
             <div class="col-6">
                 <div class="card">
                     <div class="card-header">
-                        <h3 class="card-title">Progres Gaji</h3>
+                        <h3 class="card-title">Progres Gaji {{ bulan(date('m')) }}</h3>
                     </div>
                     <div class="card-body">
                         <div id="chart-donut" style="height: 12rem;">
