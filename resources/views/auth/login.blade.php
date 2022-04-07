@@ -15,8 +15,8 @@
         <div class="form-group">
             <label class="form-label" for="password">
                 Password
-                <a href="{!! url(config('tabler.urls.forgot', 'password/reset')) !!}" class="float-right small">Lupa
-                    password</a>
+                {{-- <a href="{!! url(config('tabler.urls.forgot', 'password/reset')) !!}" class="float-right small">Lupa
+                    password</a> --}}
             </label>
             <input type="password" name="password" class="form-control" placeholder="Password"
                 value="{{ old('password') }}">
