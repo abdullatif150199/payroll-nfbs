@@ -21,7 +21,8 @@ class SettingController extends Controller
         $ruleSetting = Setting::pluck('rule', 'key')->toArray();
         $request->validate($ruleSetting);
 
-        foreach ($request->value as $key => $val) {
+        $data = $request->except('_token', '_method');
+        foreach ($data as $key => $val) {
             Setting::where('key', $key)->update([
                 'value' => $val
             ]);

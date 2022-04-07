@@ -25,8 +25,8 @@
                 <div class="form-group">
                     <label class="form-label">{{ ucwords(str_replace('kehadiran', 'Tgl Kehadiran', str_replace('_', ' ',
                         $config->key))) }}</label>
-                    <input type="text" name="value[{{ $config->key }}]" class="form-control"
-                        value="{{ $config->value }}">
+                    <input type="text" name="{{ $config->key }}" class="form-control"
+                        value="{{ old($config->key, $config->value) }}">
                     <small class="text-muted">{{ $config->keterangan }}</small>
                 </div>
             </div>
