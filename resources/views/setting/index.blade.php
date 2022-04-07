@@ -6,6 +6,20 @@
     <div class="card-body">
         <h3 class="card-title">Konfigurasi Umum</h3>
         <div class="row">
+            <div class="col">
+                @if ($errors->any())
+                    <div class="alert alert-danger">
+                        <p><strong>Opps... Ada beberapa kesalahan</strong></p>
+                        <ul>
+                            @foreach ($errors->all() as $error)
+                            <li>{{ $error }}</li>
+                            @endforeach
+                        </ul>
+                    </div>
+                @endif
+            </div>
+        </div>
+        <div class="row">
             @forelse ($configs as $config)
             <div class="col-md-6">
                 <div class="form-group">

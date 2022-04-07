@@ -17,7 +17,8 @@ class CreateSettingsTable extends Migration
             $table->id();
             $table->string('key');
             $table->text('value')->nullable();
-            $table->text('keterangan')->nullable();
+            $table->string('rule')->nullable(); //validation rule
+            $table->string('keterangan')->nullable();
             $table->timestamps();
         });
     }

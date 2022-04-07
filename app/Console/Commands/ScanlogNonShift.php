@@ -100,10 +100,15 @@ class ScanlogNonShift extends Command
 
                         // Pulang
                         if ($scan->IOMode === 4) {
+                            $scanDate = date('H:i:s', strtotime($scan->ScanDate));
+                            if (strtotime($ScanDate) >= strtotime(setting('jam_pulang_kerja_nonshift'))) {
+                                $scanDate = setting('jam_pulang_kerja_nonshift');
+                            }
+
                             $karyawan->kehadiran()->updateOrCreate([
                                 'tanggal' => date('Y-m-d', strtotime($scan->ScanDate))
                             ], [
-                                'jam_pulang' => date('H:i:s', strtotime($scan->ScanDate))
+                                'jam_pulang' => $ScanDate
                             ]);
                         }
                     }

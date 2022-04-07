@@ -18,6 +18,9 @@ class SettingController extends Controller
 
     public function update(Request $request)
     {
+        $ruleSetting = Setting::pluck('rule', 'key')->toArray();
+        $request->validate($ruleSetting);
+
         foreach ($request->value as $key => $val) {
             Setting::where('key', $key)->update([
                 'value' => $val
