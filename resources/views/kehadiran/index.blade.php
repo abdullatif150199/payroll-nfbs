@@ -120,7 +120,7 @@
             }
         },
         columns: [
-            {data: 'no_induk'},
+            {data: 'no_induk', name:'karyawan.no_induk'},
             {data: 'nama_lengkap'},
             {data: 'jam_masuk'},
             {data: 'jam_istirahat'},

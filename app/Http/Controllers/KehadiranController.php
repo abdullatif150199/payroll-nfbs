@@ -77,7 +77,7 @@ class KehadiranController extends Controller
                 return $result;
             })
             ->editColumn('no_induk', function ($data) {
-                return '<span class="text-muted">'. $data->karyawan->no_induk ?? '' .'</span>';
+                return '<span class="text-muted">'. $data->karyawan->no_induk .'</span>';
             })
             ->editColumn('nama_lengkap', function ($data) {
                 return $data->karyawan->nama_lengkap;
