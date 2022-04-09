@@ -132,8 +132,8 @@
             }
         },
         columns: [
-            {data: 'no_induk'},
-            {data: 'nama_lengkap'},
+            {data: 'no_induk', name:'karyawan.no_induk', orderable: false},
+            {data: 'nama_lengkap', name:'karyawan.nama_lengkap', orderable: false},
             {data: 'masuk'},
             {data: 'hari'},
             {data: 'tanggal'},
