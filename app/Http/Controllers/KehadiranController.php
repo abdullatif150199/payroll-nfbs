@@ -57,10 +57,8 @@ class KehadiranController extends Controller
             $tanggal = $request->tanggal;   
         }
 
-        $data = Kehadiran::whereHas('karyawan', function ($query) use ($bidangID) {
-                $query->whereHas('bidang', function ($q) use ($bidangID) {
-                    $q->where('id', $bidangID);
-                });
+        $data = Kehadiran::whereHas('karyawan.bidang', function ($query) use ($bidangID) {
+                $query->where('id', $bidangID);
             })
             ->where('tanggal', $tanggal)
             ->latest();
