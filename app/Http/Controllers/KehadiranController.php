@@ -95,21 +95,18 @@ class KehadiranController extends Controller
 
     public function store(Request $request)
     {
-        if (empty($request->req)) {
-            # code...
-        } else {
-            if ($request->req == 'store-jadwal') {
-                $request->validate([
-                    'day_name' => 'required',
-                    'start_time_at' => 'required|date_format:H:i',
-                    'end_time_at' => 'required|date_format:H:i'
-                ]);
+        if ($request->req == 'store-jadwal') {
+            $request->validate([
+                'day_name' => 'required',
+                'start_time_at' => 'required|date_format:H:i',
+                'end_time_at' => 'required|date_format:H:i'
+            ]);
 
-                $stored = ApelDay::create($request->all());
-            } else {
-                abort(404);
-            }
+            $stored = ApelDay::create($request->all());
+            return $stored;
         }
+
+        abort(404);
     }
 
     public function edit(Request $request, $id)
