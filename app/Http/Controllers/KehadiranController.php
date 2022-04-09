@@ -232,6 +232,11 @@ class KehadiranController extends Controller
             ->when($request->tanggal, function ($query) use ($request) {
                 $query->where('tanggal', $request->tanggal);
             })
+            ->when($request->bidang, function ($query) use ($request) {
+                $query->whereHas('karyawan.bidang', function ($q) use ($request) {
+                    $q->find($request->bidang);
+                });
+            })
             ->latest()
             ->get();
 
