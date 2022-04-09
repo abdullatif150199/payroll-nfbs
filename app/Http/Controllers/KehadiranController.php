@@ -23,25 +23,25 @@ class KehadiranController extends Controller
             abort(404);
         }
 
-        if ($request->list === 'persentase') {
-            $title = 'Daftar Persentase Kehadiran';
-            $view = 'kehadiran.pilihan';
-        }
+        // if ($request->list === 'persentase') {
+        //     $title = 'Daftar Persentase Kehadiran';
+        //     $view = 'kehadiran.pilihan';
+        // }
 
-        if ($request->list === 'apel') {
-            $title = 'Daftar Kehadiran Apel';
-            $view = 'kehadiran.apel';
-        }
+        // if ($request->list === 'apel') {
+        //     $title = 'Daftar Kehadiran Apel';
+        //     $view = 'kehadiran.apel';
+        // }
 
-        if ($request->list === 'persentase-apel') {
-            $title = 'Daftar Persentase Apel';
-            $view = '';
-        }
+        // if ($request->list === 'persentase-apel') {
+        //     $title = 'Daftar Persentase Apel';
+        //     $view = '';
+        // }
 
-        if ($request->list === 'jadwal-apel') {
-            $title = 'Daftar Jadwal Apel';
-            $view = 'kehadiran.jadwal';
-        }
+        // if ($request->list === 'jadwal-apel') {
+        //     $title = 'Daftar Jadwal Apel';
+        //     $view = 'kehadiran.jadwal';
+        // }
 
         return view($view, [
             'title' => $title,
