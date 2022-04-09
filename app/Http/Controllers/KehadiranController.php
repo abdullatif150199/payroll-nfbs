@@ -52,13 +52,15 @@ class KehadiranController extends Controller
     public function datatable(Request $request)
     {
         $tanggal = date('Y-m-d');
-        $bidangID = $request->bidang;
         if ($request->tanggal) {
             $tanggal = $request->tanggal;   
         }
 
-        $data = Kehadiran::whereHas('karyawan.bidang', function ($query) use ($bidangID) {
-                $query->where('id', $bidangID);
+        $data = Kehadiran::with('karyawan')
+            ->when($request->bidang, function ($query) use ($request) {
+                $query->whereHas('karyawan.bidang', function ($q) use ($request) {
+                    $q->where('id', $request->bidang);
+                });
             })
             ->where('tanggal', $tanggal)
             ->latest();
