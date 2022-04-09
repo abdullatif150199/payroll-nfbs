@@ -51,17 +51,23 @@ class KehadiranController extends Controller
 
     public function datatable(Request $request)
     {
-        $tanggal = $request->tanggal ? $request->tanggal : date('Y-m-d');
-
-        $data = Kehadiran::whereHas('karyawan', function ($query) use ($request) {
-                $query->when($request->bidang, function ($query) use ($request) {
-                    $query->whereHas('bidang', function ($q) use ($request) {
-                        $q->find($request->bidang);
-                    });
-                });
+        $data = Karyawan::whereHas('kehadiran', function ($query) use ($request) {
+                $query->where('tanggal', $request->tanggal ? $request->tanggal : date('Y-m-d'))->latest();
             })
-            ->where('tanggal', $tanggal)
-            ->latest();
+            ->when($request->bidang, function ($query) use ($request) {
+                $query->whereHas('karyawan.bidang', function ($q) use ($request) {
+                    $q->find($request->bidang);
+                });
+            });
+
+        // $data = Kehadiran::with('karyawan')
+        //     ->when($request->bidang, function ($query) use ($request) {
+        //         $query->whereHas('karyawan.bidang', function ($q) use ($request) {
+        //             $q->find($request->bidang);
+        //         });
+        //     })
+        //     ->where('tanggal', $tanggal)
+        //     ->latest();
 
         return Datatables::of($data)
             ->addColumn('actions', function ($data) {
