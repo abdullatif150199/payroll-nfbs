@@ -51,18 +51,15 @@ class KehadiranController extends Controller
 
     public function datatable(Request $request)
     {
-        $tanggal = date('Y-m-d');
-        if ($request->tanggal) {
-            $tanggal = $request->tanggal;   
-        }
-
         $data = Kehadiran::with('karyawan')
             ->when($request->bidang, function ($query) use ($request) {
                 $query->whereHas('karyawan.bidang', function ($q) use ($request) {
                     $q->find($request->bidang);
                 });
             })
-            ->where('tanggal', $tanggal)
+            ->when($request->tanggal, function ($query) use ($request) {
+                $query->where('tanggal', $request->tanggal);
+            })
             ->latest();
 
         return Datatables::of($data)
@@ -227,7 +224,7 @@ class KehadiranController extends Controller
 
     public function apel(Request $request)
     {
-        $tanggal = date('Y-m-d');
+        dd($request->bidang);
         $data = AttendanceApel::with('karyawan')
             ->when($request->tanggal, function ($query) use ($request) {
                 $query->where('tanggal', $request->tanggal);
