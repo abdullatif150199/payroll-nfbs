@@ -132,8 +132,8 @@
             }
         },
         columns: [
-            {data: 'no_induk', name:'karyawan.no_induk', orderable: false},
-            {data: 'nama_lengkap', name:'karyawan.nama_lengkap', orderable: false},
+            {data: 'no_induk'},
+            {data: 'nama_lengkap'},
             {data: 'jam_masuk'},
             {data: 'jam_istirahat'},
             {data: 'jam_kembali'},

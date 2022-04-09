@@ -74,7 +74,7 @@ class KehadiranController extends Controller
                 return view('kehadiran.actions', compact('data'));
             })
             ->editColumn('jumlah_jam', function ($data) {
-                if ($data->karyawan->tipe_kerja !== 'shift') {
+                if ($data->tipe_kerja !== 'shift') {
                     $result = sum_time(
                         $data->jam_masuk,
                         $data->jam_istirahat,
@@ -91,10 +91,10 @@ class KehadiranController extends Controller
                 return $result;
             })
             ->editColumn('no_induk', function ($data) {
-                return '<span class="text-muted">'. $data->karyawan->no_induk .'</span>';
+                return '<span class="text-muted">'. $data->no_induk .'</span>';
             })
             ->editColumn('nama_lengkap', function ($data) {
-                return $data->karyawan->nama_lengkap;
+                return $data->nama_lengkap;
             })
             ->rawColumns(['actions', 'jumlah_jam', 'no_induk', 'nama_lengkap'])
             ->make(true);
