@@ -51,7 +51,7 @@ class KehadiranController extends Controller
 
     public function datatable(Request $request)
     {
-        $tanggal = $request->tanggal ?? date('Y-m-d');
+        $tanggal = $request->tanggal ? $request->tanggal : date('Y-m-d');
 
         $data = Kehadiran::with('karyawan')
             ->when($request->bidang, function ($query) use ($request) {
