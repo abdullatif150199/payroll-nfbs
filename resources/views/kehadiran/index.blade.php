@@ -73,6 +73,17 @@
                             </select>
                         </div>
                     </div>
+                    <label for="bidang" class="mx-sm-3">Bidang </label>
+                    <div class="row gutters-xs">
+                        <div class="col">
+                            <select name="bidang" class="form-control" onchange="$('#kehadiranTable').DataTable().draw()">
+                                <option value="">Semua bidang</option>
+                                @foreach ($bidang as $key => $val)
+                                <option value="{{ $key }}">{{ $val }}</option>
+                                @endforeach
+                            </select>
+                        </div>
+                    </div>
                 </form>
                 <div class="card-options">
                     <a class="btn btn-primary mr-2" href="?list=apel"><i class="fe fe-check-square"></i> Kehadiran
@@ -117,6 +128,7 @@
             url: '{{ route('dash.kehadiran.datatable') }}',
             data: function (d) {
                 d.tanggal = $('select[name=year]').val() + '-' + $('select[name=month]').val() + '-' + $('select[name=day]').val();
+                d.bidang = $('select[name=bidang]').val();
             }
         },
         columns: [

@@ -43,7 +43,7 @@ class ScanlogNonShift extends Command
     {
         $finger = new EasyLink;
         $devices = Device::whereIn('tipe', ['1', '3'])->get();
-        $ioMode = ['1' => 'masuk', '2' => 'istirahat', '3' => 'kembali', '4' => 'pulang'];
+        // $ioMode = ['1' => 'masuk', '2' => 'istirahat', '3' => 'kembali', '4' => 'pulang'];
 
         foreach ($devices as $device) {
             $serial = $device->serial_number;
@@ -63,8 +63,7 @@ class ScanlogNonShift extends Command
                     if ($scan->IOMode === 1) {
                         // Apel
                         if ($device->tipe == '3') {
-                            $apelDay = ApelDay::where('day_name', date('l'))
-                                ->first();
+                            $apelDay = ApelDay::where('day_name', date('l'))->first();
                             if ($apelDay) {
                                 $scanDate = strtotime($scan->ScanDate);
                                 $start = strtotime($apelDay->start_time_at . '- 30 minutes');

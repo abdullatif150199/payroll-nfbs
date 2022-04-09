@@ -8,50 +8,60 @@ use App\Models\Kehadiran;
 use App\Models\Karyawan;
 use App\Models\AttendanceApel;
 use App\Models\ApelDay;
+use App\Models\Bidang;
 
 class KehadiranController extends Controller
 {
     public function index(Request $request)
     {
-        if (!$request->list) {
-            $title = 'Daftar Hadir Harian';
-            return view('kehadiran.index', ['title' => $title]);
-        } else {
-            $list = ['persentase', 'apel', 'persentase-apel', 'jadwal-apel'];
-
-            if (in_array($request->list, $list)) {
-                if ($request->list === 'persentase') {
-                    $title = 'Daftar Persentase Kehadiran';
-                    return view('kehadiran.pilihan', ['title' => $title]);
-                }
-
-                if ($request->list === 'apel') {
-                    $title = 'Daftar Kehadiran Apel';
-                    return view('kehadiran.apel', ['title' => $title]);
-                }
-
-                if ($request->list === 'persentase-apel') {
-                    return '';
-                }
-
-                if ($request->list === 'jadwal-apel') {
-                    $title = 'Daftar Jadwal Apel';
-                    return view('kehadiran.jadwal', ['title' => $title]);
-                }
-            } else {
-                abort(404);
-            }
+        $title = 'Daftar Hadir Harian';
+        $view = 'kehadiran.index';
+        $list = [null, 'persentase', 'apel', 'persentase-apel', 'jadwal-apel'];
+        $bidang = Bidang::pluck('nama_bidang', 'id');
+        
+        if (!in_array($request->list, $list)) {
+            abort(404);
         }
+
+        if ($request->list === 'persentase') {
+            $title = 'Daftar Persentase Kehadiran';
+            $view = 'kehadiran.pilihan';
+        }
+
+        if ($request->list === 'apel') {
+            $title = 'Daftar Kehadiran Apel';
+            $view = 'kehadiran.apel';
+        }
+
+        if ($request->list === 'persentase-apel') {
+            $title = 'Daftar Persentase Apel';
+            $view = '';
+        }
+
+        if ($request->list === 'jadwal-apel') {
+            $title = 'Daftar Jadwal Apel';
+            $view = 'kehadiran.jadwal';
+        }
+
+        return view($view, [
+            'title' => $title,
+            'bidang' => $bidang
+        ]);
     }
 
     public function datatable(Request $request)
     {
         $tanggal = date('Y-m-d');
+        $bidangID = $request->bidang;
         if ($request->tanggal) {
             $tanggal = $request->tanggal;   
         }
 
-        $data = Kehadiran::with('karyawan')
+        $data = Kehadiran::whereHas('karyawan', function ($query) use ($bidangID) {
+                $query->whereHas('bidang', function ($q) use ($bidangID) {
+                    $q->where('id', $bidangID);
+                });
+            })
             ->where('tanggal', $tanggal)
             ->latest();
 
@@ -66,12 +76,12 @@ class KehadiranController extends Controller
                         $data->jam_istirahat,
                         $data->jam_kembali,
                         $data->jam_pulang
-                    ) ?? '<span class="tag tag-rounded tag-red">Undefined</span>';
+                    ) ?? '<span class="tag tag-rounded tag-red">Incomplete</span>';
                 } else {
                     $result = sum_time_shift(
                         $data->jam_masuk,
                         $data->jam_pulang
-                    ) ?? '<span class="tag tag-rounded tag-red">Undefined</span>';
+                    ) ?? '<span class="tag tag-rounded tag-red">Incomplete</span>';
                 }
 
                 return $result;

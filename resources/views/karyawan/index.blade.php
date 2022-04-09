@@ -83,7 +83,7 @@
                                 </select>
                             </div>
                         </div>
-                        <label for="status_kerja" class="mr-sm-3">Bidang </label>
+                        <label for="bidang" class="mr-sm-3">Bidang </label>
                         <div class="row gutters-xs">
                             <div class="col">
                                 <select name="bidang" class="form-control"
