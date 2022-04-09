@@ -51,30 +51,23 @@ class KehadiranController extends Controller
 
     public function datatable(Request $request)
     {
-        $data = Karyawan::whereHas('kehadiran', function ($query) use ($request) {
-                $query->where('tanggal', $request->tanggal ? $request->tanggal : date('Y-m-d'))->latest();
-            })
+        $tanggal = $request->tanggal ? $request->tanggal : date('Y-m-d');
+
+        $data = Kehadiran::with('karyawan')
             ->when($request->bidang, function ($query) use ($request) {
                 $query->whereHas('karyawan.bidang', function ($q) use ($request) {
                     $q->find($request->bidang);
                 });
-            });
-
-        // $data = Kehadiran::with('karyawan')
-        //     ->when($request->bidang, function ($query) use ($request) {
-        //         $query->whereHas('karyawan.bidang', function ($q) use ($request) {
-        //             $q->find($request->bidang);
-        //         });
-        //     })
-        //     ->where('tanggal', $tanggal)
-        //     ->latest();
+            })
+            ->where('tanggal', $tanggal)
+            ->latest();
 
         return Datatables::of($data)
             ->addColumn('actions', function ($data) {
                 return view('kehadiran.actions', compact('data'));
             })
             ->editColumn('jumlah_jam', function ($data) {
-                if ($data->tipe_kerja !== 'shift') {
+                if ($data->karyawan->tipe_kerja !== 'shift') {
                     $result = sum_time(
                         $data->jam_masuk,
                         $data->jam_istirahat,
@@ -91,10 +84,10 @@ class KehadiranController extends Controller
                 return $result;
             })
             ->editColumn('no_induk', function ($data) {
-                return '<span class="text-muted">'. $data->no_induk .'</span>';
+                return '<span class="text-muted">'. $data->karyawan->no_induk .'</span>';
             })
             ->editColumn('nama_lengkap', function ($data) {
-                return $data->nama_lengkap;
+                return $data->karyawan->nama_lengkap;
             })
             ->rawColumns(['actions', 'jumlah_jam', 'no_induk', 'nama_lengkap'])
             ->make(true);
