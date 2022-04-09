@@ -80,7 +80,10 @@
                     <div class="row gutters-xs">
                         <div class="col">
                             <select name="bidang" class="form-control" onchange="$('#apelTable').DataTable().draw()">
-                                <option value="">Nama Bidang</option>
+                                <option value="">Semua Bidang</option>
+                                @foreach ($bidang as $key => $val)
+                                <option value="{{ $key }}">{{ $val }}</option>
+                                @endforeach
                             </select>
                         </div>
                     </div>
@@ -125,6 +128,7 @@
             url: '{{ route('dash.kehadiran.apel') }}',
             data: function (d) {
                 d.tanggal = $('select[name=year]').val() + '-' + $('select[name=month]').val() + '-' + $('select[name=day]').val();
+                d.bidang = $('select[name=bidang]').val();
             }
         },
         columns: [

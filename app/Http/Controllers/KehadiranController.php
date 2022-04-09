@@ -59,7 +59,7 @@ class KehadiranController extends Controller
         $data = Kehadiran::with('karyawan')
             ->when($request->bidang, function ($query) use ($request) {
                 $query->whereHas('karyawan.bidang', function ($q) use ($request) {
-                    $q->where('id', $request->bidang);
+                    $q->find($request->bidang);
                 });
             })
             ->where('tanggal', $tanggal)
@@ -227,12 +227,13 @@ class KehadiranController extends Controller
 
     public function apel(Request $request)
     {
-        if (!$request->tanggal) {
-            $tanggal = date('Y-m-d');
-            $data = AttendanceApel::with('karyawan')->where('tanggal', $tanggal)->orderBy('created_at', 'desc')->get();
-        } else {
-            $data = AttendanceApel::with('karyawan')->where('tanggal', $request->tanggal)->orderBy('created_at', 'desc')->get();
-        }
+        $tanggal = date('Y-m-d');
+        $data = AttendanceApel::with('karyawan')
+            ->when($request->tanggal, function ($query) use ($request) {
+                $query->where('tanggal', $request->tanggal);
+            })
+            ->latest()
+            ->get();
 
         return Datatables::of($data)
             ->addColumn('actions', function ($data) {
