@@ -30,50 +30,43 @@
 @endpush
 @section('content')
 <div class="col-lg-8">
-    <div class="card">
-        <div class="card-header">
-            DAFTAR KEHADIRAN
-            <div class="card-options">
-                <a class="btn btn-info" href="?list=pilihan"><i class="fe fe-list"></i> Persentase Kehadiran</a>
+    @foreach ($data as $item)
+        <div class="card mb-2">
+            <div class="card-body py-3">
+                <h4>{{ yearMonth($item->tanggal) }}</h4>
+            </div>
+            <div class="card-footer py-3">
+                <div class="row">
+                    <div class="col text-center">
+                        <div class="text-muted">Masuk</div>
+                        <strong class="text-dark">
+                            {{ date('H:i', strtotime($item->jam_masuk)) }}
+                        </strong>
+                    </div>
+                    <div class="col text-center">
+                        <div class="text-muted">Istirahat</div>
+                        <strong class="text-dark">
+                            {{ date('H:i', strtotime($item->jam_istirahat)) }}
+                        </strong>
+                    </div>
+                    <div class="col text-center">
+                        <div class="text-muted">Kembali</div>
+                        <strong class="text-dark">
+                            {{ date('H:i', strtotime($item->jam_kembali)) }}
+                        </strong>
+                    </div>
+                    <div class="col text-center">
+                        <div class="text-muted">Pulang</div>
+                        <strong class="text-dark">
+                            {{ date('H:i', strtotime($item->jam_pulang)) }}
+                        </strong>
+                    </div>
+                </div>
             </div>
         </div>
-        <div class="table-responsive">
-            <table class="table table-responsive-sm table-hover table-outline table-vcenter card-table"
-                id="kehadiranTable">
-                <thead>
-                    <tr>
-                        <th class="w-1">Tanggal</th>
-                        <th>Masuk</th>
-                        <th>Istirahat</th>
-                        <th>Kembali</th>
-                        <th>Pulang</th>
-                        <th>Jml Jam</th>
-                    </tr>
-                </thead>
-            </table>
-        </div>
+    @endforeach
+    <div class="mt-3">
+        {{ $data->links() }}
     </div>
 </div>
 @endsection
-
-@push('scripts')
-<script>
-    // $(document).ready(function() {
-    $('#kehadiranTable').DataTable({
-        serverSide: true,
-        processing: true,
-        select: true,
-        ajax: "{{ route('profile.kehadiran.datatable', $id) }}",
-        columns: [
-            {data: 'tanggal'},
-            {data: 'jam_masuk'},
-            {data: 'jam_istirahat'},
-            {data: 'jam_kembali'},
-            {data: 'jam_pulang'},
-            {data: 'jumlah_jam'}
-        ],
-        order: [[ 0, 'desc' ]]
-    });
-// });
-</script>
-@endpush
