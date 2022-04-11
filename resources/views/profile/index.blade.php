@@ -74,7 +74,7 @@
 <div class="col-lg-8">
     <div class="card">
         <div class="card-header">
-            Beranda
+            Informasi
         </div>
         <div class="card-body">
             Informasi untuk pegawai,
