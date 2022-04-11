@@ -13,7 +13,9 @@ class GajiController extends ProfileController
     {
         $data = Gaji::with('karyawan')
             ->where('karyawan_id', $this->getId())
-            ->where('approved', 'Y')->simplePaginate(10);
+            ->where('approved', 'Y')
+            ->latest()
+            ->simplePaginate(10);
 
         return view('profile.gaji.index', ['data' => $data]);
     }
