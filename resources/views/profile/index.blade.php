@@ -33,6 +33,16 @@
                             </svg>
                             <div class="text-secondary">Gaji</div>
                         </a>
+                        <a href="{{ route('profile.kehadiran.index') }}" class="col p-2 text-center item">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-checkbox" width="44" height="44"
+                                viewBox="0 0 24 24" stroke-width="1.5" stroke="#ff2825" fill="none" stroke-linecap="round"
+                                stroke-linejoin="round">
+                                <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+                                <polyline points="9 11 12 14 20 6" />
+                                <path d="M20 12v6a2 2 0 0 1 -2 2h-12a2 2 0 0 1 -2 -2v-12a2 2 0 0 1 2 -2h9" />
+                            </svg>
+                            <div class="text-secondary">Kehadiran</div>
+                        </a>
                         <a href="{{ route('profile.lembur.index') }}" class="col p-2 text-center item">
                             <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-alarm" width="44" height="44"
                                 viewBox="0 0 24 24" stroke-width="1.5" stroke="#6f32be" fill="none" stroke-linecap="round" stroke-linejoin="round">
@@ -43,15 +53,6 @@
                                 <line x1="17" y1="4" x2="19.75" y2="6" />
                             </svg>
                             <div class="text-secondary">Lembur</div>
-                        </a>
-                        <a href="{{ route('profile.kehadiran.index') }}" class="col p-2 text-center item">
-                            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-checkbox" width="44" height="44"
-                                viewBox="0 0 24 24" stroke-width="1.5" stroke="#ff2825" fill="none" stroke-linecap="round" stroke-linejoin="round">
-                                <path stroke="none" d="M0 0h24v24H0z" fill="none" />
-                                <polyline points="9 11 12 14 20 6" />
-                                <path d="M20 12v6a2 2 0 0 1 -2 2h-12a2 2 0 0 1 -2 -2v-12a2 2 0 0 1 2 -2h9" />
-                            </svg>
-                            <div class="text-secondary">Kehadiran</div>
                         </a>
                         <a href="{{ route('profile.cuti.index') }}" class="col p-2 text-center item">
                             <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-user-off" width="44" height="44"
