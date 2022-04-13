@@ -138,7 +138,7 @@
             {data: 'jam_istirahat'},
             {data: 'jam_kembali'},
             {data: 'jam_pulang'},
-            {data: 'jumlah_jam'},
+            {data: 'jumlah_jam', orderable: false, searchable: false},
             {data: 'actions', orderable: false, searchable: false}
         ]
     });

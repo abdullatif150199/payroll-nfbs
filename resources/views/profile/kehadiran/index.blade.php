@@ -31,7 +31,7 @@
 @section('content')
 <div class="col-lg-8">
     @foreach ($data as $item)
-        <div class="card mb-2">
+        <div class="card mb-3">
             <div class="card-body py-3">
                 <h4>{{ yearMonth($item->tanggal) }}</h4>
             </div>
