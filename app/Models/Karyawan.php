@@ -228,6 +228,11 @@ class Karyawan extends Model
         return ($this->gaji_pokok * $this->kelompokKerja->persen);
     }
 
+    public function scopeActive($query)
+    {
+        return $query->where('status', '<>', '3');
+    }
+
     // get Tunj Kinerja
     public function scopeTunjKinerja($query, $data, $bln)
     {

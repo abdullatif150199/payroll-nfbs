@@ -92,9 +92,9 @@
                     <a class="btn btn-primary mr-2" href="{{ route('dash.kehadiran') }}?list=jadwal-apel">
                         <i class="fe fe-calendar"></i> Jadwal Apel
                     </a>
-                    <a class="btn btn-primary" href="{{ route('dash.kehadiran') }}?list=persentase-apel">
+                    {{-- <a class="btn btn-primary" href="{{ route('dash.kehadiran') }}?list=persentase-apel">
                         <i class="fe fe-bar-chart-2"></i> Persentase Apel
-                    </a>
+                    </a> --}}
                 </div>
             </div>
             <div class="table-responsive">

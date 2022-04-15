@@ -30,11 +30,16 @@ class HomeController extends Controller
     public function index()
     {
         $title = 'Dashboard';
-        $karyawanQuery = Karyawan::query()
-            ->where('status', '<>', '3');
+        $karyawanQuery = Karyawan::query()->active();
 
         $karyawan = $karyawanQuery->select(
-            'id', 'status_kerja_id', 'golongan_id', 'contract_expired'
+            'id',
+            'nama_lengkap',
+            'status_kerja_id',
+            'golongan_id',
+            'tanggal_masuk',
+            'contract_expired',
+            'created_at'
             )
             ->get();
         $bidang = Bidang::count();

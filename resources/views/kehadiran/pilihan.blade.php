@@ -108,8 +108,8 @@
         columns: [
             {data: 'no_induk'},
             {data: 'nama_lengkap'},
-            {data: 'jumlah_jam'},
-            {data: 'persentase'}
+            {data: 'jumlah_jam', searchable: false, orderable: false},
+            {data: 'persentase', searchable: false, orderable: false}
         ]
     });
 
