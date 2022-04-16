@@ -94,7 +94,7 @@
             </div>
             <div class="table-responsive">
                 <table class="table table-responsive-sm table-hover table-outline table-vcenter card-table"
-                    id="kehadiranTable">
+                    id="scanlogTable">
                     <thead>
                         <tr>
                             <th>Nama Lengkap</th>
@@ -109,14 +109,13 @@
     </div>
 </div>
 
-@include('kehadiran.modals')
+@include('scanlog.modals')
 
 @endsection
 
 @push('scripts')
 <script>
-    // $(document).ready(function() {
-    var oTable = $('#kehadiranTable').DataTable({
+    var oTable = $('#scanlogTable').DataTable({
         serverSide: true,
         processing: true,
         select: true,
@@ -128,65 +127,12 @@
             }
         },
         columns: [
-            {data: 'no_induk', name:'karyawan.no_induk', orderable: false},
-            {data: 'nama_lengkap', name:'karyawan.nama_lengkap', orderable: false},
-            {data: 'jam_masuk'},
-            {data: 'jam_istirahat'},
-            {data: 'jam_kembali'},
-            {data: 'jam_pulang'},
-            {data: 'jumlah_jam', orderable: false, searchable: false},
+            {data: 'nama_lengkap'},
+            {data: 'scan_at'},
+            {data: 'tempat'},
+            {data: 'description'},
             {data: 'actions', orderable: false, searchable: false}
         ]
     });
-
-    function editKehadiran(id) {
-        var url = '{{ route('dash.kehadiran.edit', ':id') }}';
-        url = url.replace(':id', id);
-        $('input[name=_method]').val('PUT');
-        $('#formKehadiran form')[0].reset();
-        $.ajax({
-            url: url,
-            type: 'GET',
-            dataType: 'JSON',
-            success: function (data) {
-                if (data.tipe == 'shift') {
-                    $('.shift').hide();
-                } else {
-                    $('.shift').show();
-                }
-
-                $('.modal-title').text('Edit Kehadiran');
-                $('#formKehadiran').modal('show');
-                $('input[name=id]').val(data.id);
-                $('input[name=jam_masuk]').val(data.jam_masuk);
-                $('input[name=jam_istirahat]').val(data.jam_istirahat);
-                $('input[name=jam_kembali]').val(data.jam_kembali);
-                $('input[name=jam_pulang]').val(data.jam_pulang);
-            }
-        });
-    }
-
-    $('#formKehadiran form').submit(function(e) {
-        e.preventDefault();
-        var id = $('input[name=id]').val();
-        var save_method = $('input[name=_method]').val();
-
-        url_raw = '{{ route('dash.kehadiran.update', ':id') }}';
-        url = url_raw.replace(':id', id);
-
-        $.ajax({
-            url: url,
-            type: 'POST',
-            data: $('#formKehadiran form').serialize(),
-            success: function (data) {
-                $('#formKehadiran').modal('hide');
-                oTable.ajax.reload();
-            },
-            error: function () {
-                alert('Gagal menambahkan data');
-            }
-        });
-    });
-// });
 </script>
 @endpush
