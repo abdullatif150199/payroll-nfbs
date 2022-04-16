@@ -120,6 +120,11 @@ Route::group(['prefix' => 'dashboard', 'as' => 'dash.', 'middleware' => ['auth']
         Route::put('kehadiran/{id}', 'KehadiranController@update')->name('kehadiran.update');
         Route::delete('kehadiran/{id}', 'KehadiranController@destroy')->name('kehadiran.destroy');
 
+        // scanlog
+        Route::get('scanlog', 'ScanlogController@index')->name('scanlog');
+        Route::get('get-scanlog', 'ScanlogController@datatable')->name('scanlog.datatable');
+        Route::post('scanlog/unduh', 'ScanlogController@unduh')->name('scanlog.unduh');
+
         // Cuti
         Route::get('cuti', 'CutiController@index');
         Route::get('get-cuti', 'CutiController@datatable')->name('cuti.datatable');

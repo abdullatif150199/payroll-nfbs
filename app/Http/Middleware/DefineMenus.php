@@ -28,6 +28,7 @@ class DefineMenus
             $menu->lainnya->add('Kehadiran', 'dashboard/kehadiran');
             $menu->lainnya->add('Cuti', 'dashboard/cuti');
             $menu->lainnya->add('Pajak', 'dashboard/potongan/pajak');
+            $menu->lainnya->add('Scan Log', 'dashboard/scan-log');
         });
 
         Menu::make('profile', function ($menu) {
