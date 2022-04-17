@@ -2,6 +2,7 @@
 
 namespace App\Console\Commands;
 
+use App\Jobs\ScanlogJob;
 use Illuminate\Console\Command;
 use App\Libraries\EasyLink;
 use App\Models\Karyawan;
@@ -59,7 +60,10 @@ class ScanlogNonShift extends Command
                         continue;
                     }
 
-                    // Klo device apel
+                    // Simpan Log
+                    ScanlogJob::dispatch($scan, $karyawan);
+
+                    // device apel
                     if ($device->tipe == '3') {
                         $apelDay = ApelDay::where('day_name', date('l'))->first();
                         if ($apelDay) {

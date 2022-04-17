@@ -2,6 +2,7 @@
 
 namespace App\Jobs;
 
+use App\Models\Device;
 use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldBeUnique;
 use Illuminate\Contracts\Queue\ShouldQueue;
@@ -13,14 +14,18 @@ class ScanlogJob implements ShouldQueue
 {
     use Dispatchable, InteractsWithQueue, Queueable, SerializesModels;
 
+    public $scanlog;
+    public $karyawan;
+
     /**
      * Create a new job instance.
      *
      * @return void
      */
-    public function __construct()
+    public function __construct($scanlog, $karyawan)
     {
-        //
+        $this->scanlog = $scanlog;
+        $this->karyawan = $karyawan;
     }
 
     /**
@@ -30,6 +35,11 @@ class ScanlogJob implements ShouldQueue
      */
     public function handle()
     {
-        //
+        $device = Device::where('serial_number', $this->scanlog->SN)->first();
+        $device->deviceLogs()->create([
+            'nama_lengkap' => $this->karyawan->nama_lengkap,
+            'detail' => json_decode($this->scanlog),
+            'scan_at' => date('Y-m-d H:i:s', strtotime($this->scanlog->ScanDate))
+        ]);
     }
 }
