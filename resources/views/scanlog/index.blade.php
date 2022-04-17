@@ -38,7 +38,7 @@
                     <div class="row gutters-xs">
                         <div class="col">
                             <select name="day" class="form-control custom-select"
-                                onchange="$('#kehadiranTable').DataTable().draw()">
+                                onchange="$('#scanlogTable').DataTable().draw()">
                                 <option value="">Tahun</option>
                                 @for ($i=1; $i <= 31; $i++) <option {{ date('d')==$i ? 'selected' : '' }}
                                     value="{{$i}}">{{$i}}</option>
@@ -47,7 +47,7 @@
                         </div>
                         <div class="col">
                             <select name="month" class="form-control custom-select"
-                                onchange="$('#kehadiranTable').DataTable().draw()">
+                                onchange="$('#scanlogTable').DataTable().draw()">
                                 <option value="">Bulan</option>
                                 <option {{ date('m')=='01' ? 'selected' : '' }} value="01">Januari</option>
                                 <option {{ date('m')=='02' ? 'selected' : '' }} value="02">Februari</option>
@@ -65,7 +65,7 @@
                         </div>
                         <div class="col">
                             <select name="year" class="form-control custom-select"
-                                onchange="$('#kehadiranTable').DataTable().draw()">
+                                onchange="$('#scanlogTable').DataTable().draw()">
                                 <option value="">Tahun</option>
                                 @for ($i=2018; $i <= date('Y'); $i++) <option {{ date('Y')==$i ? 'selected' : '' }}
                                     value="{{$i}}">{{$i}}</option>
@@ -76,7 +76,7 @@
                     <label for="bidang" class="mx-sm-3">Bidang </label>
                     <div class="row gutters-xs">
                         <div class="col">
-                            <select name="bidang" class="form-control" onchange="$('#kehadiranTable').DataTable().draw()">
+                            <select name="bidang" class="form-control" onchange="$('#scanlogTable').DataTable().draw()">
                                 <option value="">Semua bidang</option>
                                 @foreach ($bidang as $key => $val)
                                 <option value="{{ $key }}">{{ $val }}</option>
@@ -86,10 +86,7 @@
                     </div>
                 </form>
                 <div class="card-options">
-                    <a class="btn btn-primary mr-2" href="?list=apel"><i class="fe fe-check-square"></i> Kehadiran
-                        Apel</a>
-                    <a class="btn btn-primary" href="?list=persentase"><i class="fe fe-bar-chart-2"></i> Persentase
-                        Kehadiran</a>
+                    <a class="btn btn-primary mr-2" href="?list=apel"><i class="fe fe-download"></i> Unduh</a>
                 </div>
             </div>
             <div class="table-responsive">
@@ -98,9 +95,9 @@
                     <thead>
                         <tr>
                             <th>Nama Lengkap</th>
+                            <th>Jam Scan</th>
                             <th>Tgl Scan</th>
                             <th>Tempat</th>
-                            <th>Deskripsi</th>
                         </tr>
                     </thead>
                 </table>
@@ -120,7 +117,7 @@
         processing: true,
         select: true,
         ajax: {
-            url: '{{ route('dash.kehadiran.datatable') }}',
+            url: '{{ route('dash.scanlog.datatable') }}',
             data: function (d) {
                 d.tanggal = $('select[name=year]').val() + '-' + $('select[name=month]').val() + '-' + $('select[name=day]').val();
                 d.bidang = $('select[name=bidang]').val();
@@ -128,10 +125,9 @@
         },
         columns: [
             {data: 'nama_lengkap'},
-            {data: 'scan_at'},
-            {data: 'tempat'},
-            {data: 'description'},
-            {data: 'actions', orderable: false, searchable: false}
+            {data: 'jam_scan'},
+            {data: 'tgl_scan'},
+            {data: 'tempat'}
         ]
     });
 </script>
