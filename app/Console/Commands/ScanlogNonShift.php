@@ -59,27 +59,29 @@ class ScanlogNonShift extends Command
                         continue;
                     }
 
-                    // Masuk
-                    if ($scan->IOMode === 1) {
-                        // Apel
-                        if ($device->tipe == '3') {
-                            $apelDay = ApelDay::where('day_name', date('l'))->first();
-                            if ($apelDay) {
-                                $scanDate = strtotime($scan->ScanDate);
-                                $start = strtotime($apelDay->start_time_at . '- 30 minutes');
-                                $end = strtotime($apelDay->end_time_at);
-                                // apakah hadir dijam apel
-                                if ($scanDate >= $start && $scanDate <= $end) {
-                                    $karyawan->attendanceApel()->updateOrCreate([
-                                        'tanggal' => date('Y-m-d', strtotime($scan->ScanDate))
-                                    ], [
-                                        'hari' => date('l'),
-                                        'masuk' => date('H:i:s', strtotime($scan->ScanDate))
-                                    ]);
-                                }
+                    // Klo device apel
+                    if ($device->tipe == '3') {
+                        $apelDay = ApelDay::where('day_name', date('l'))->first();
+                        if ($apelDay) {
+                            $scanDate = strtotime($scan->ScanDate);
+                            $start = strtotime($apelDay->start_time_at . '- 30 minutes');
+                            $end = strtotime($apelDay->end_time_at);
+                            // apakah hadir dijam apel
+                            if ($scanDate >= $start && $scanDate <= $end) {
+                                $karyawan->attendanceApel()->updateOrCreate([
+                                    'tanggal' => date('Y-m-d', strtotime($scan->ScanDate))
+                                ], [
+                                    'hari' => date('l'),
+                                    'masuk' => date('H:i:s', strtotime($scan->ScanDate))
+                                ]);
                             }
                         }
 
+                        continue;
+                    }
+
+                    // Masuk
+                    if ($scan->IOMode === 1) {
                         $karyawan->kehadiran()->firstOrCreate([
                             'tanggal' => date('Y-m-d', strtotime($scan->ScanDate))
                         ], [
@@ -107,15 +109,15 @@ class ScanlogNonShift extends Command
 
                     // Pulang
                     if ($scan->IOMode === 4) {
-                        $scanDate = date('H:i:s', strtotime($scan->ScanDate));
-                        if (strtotime($ScanDate) >= strtotime(setting('jam_pulang_kerja_nonshift'))) {
-                            $scanDate = setting('jam_pulang_kerja_nonshift');
+                        $scanTime = date('H:i:s', strtotime($scan->ScanDate));
+                        if (strtotime($scanTime) >= strtotime(setting('jam_pulang_kerja_nonshift'))) {
+                            $scanTime = setting('jam_pulang_kerja_nonshift');
                         }
 
                         $karyawan->kehadiran()->updateOrCreate([
                             'tanggal' => date('Y-m-d', strtotime($scan->ScanDate))
                         ], [
-                            'jam_pulang' => $ScanDate
+                            'jam_pulang' => $scanTime
                         ]);
                     }
                 }
