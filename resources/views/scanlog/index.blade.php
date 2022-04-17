@@ -2,6 +2,7 @@
 @push('styles')
 <link rel="stylesheet" href="{{ asset('css/dataTables.bootstrap4.min.css') }}">
 <link rel="stylesheet" href="{{ asset('css/select.dataTables.min.css') }}">
+<link rel="stylesheet" href="{{ asset('css/jquery.datetimepicker.css') }}">
 <style>
     .dataTables_length {
         padding-left: 1rem;
@@ -73,12 +74,12 @@
                             </select>
                         </div>
                     </div>
-                    <label for="bidang" class="mx-sm-3">Bidang </label>
+                    <label for="bidang" class="mx-sm-3">Mesin </label>
                     <div class="row gutters-xs">
                         <div class="col">
-                            <select name="bidang" class="form-control" onchange="$('#scanlogTable').DataTable().draw()">
-                                <option value="">Semua bidang</option>
-                                @foreach ($bidang as $key => $val)
+                            <select name="device" class="form-control" onchange="$('#scanlogTable').DataTable().draw()">
+                                <option value="">Semua mesin</option>
+                                @foreach ($devices as $key => $val)
                                 <option value="{{ $key }}">{{ $val }}</option>
                                 @endforeach
                             </select>
@@ -86,7 +87,7 @@
                     </div>
                 </form>
                 <div class="card-options">
-                    <a class="btn btn-primary mr-2" href="?list=apel"><i class="fe fe-download"></i> Unduh</a>
+                    <a class="btn btn-primary mr-2" href="#unduhScanlog" data-toggle="modal"><i class="fe fe-download"></i> Unduh</a>
                 </div>
             </div>
             <div class="table-responsive">
@@ -111,7 +112,12 @@
 @endsection
 
 @push('scripts')
+<script src="{{ asset('js/jquery.datetimepicker.full.min.js') }}"></script>
 <script>
+    $('.datepicker').datetimepicker({
+        timepicker:false,
+        format: 'Y-m-d'
+    });
     var oTable = $('#scanlogTable').DataTable({
         serverSide: true,
         processing: true,
@@ -120,7 +126,7 @@
             url: '{{ route('dash.scanlog.datatable') }}',
             data: function (d) {
                 d.tanggal = $('select[name=year]').val() + '-' + $('select[name=month]').val() + '-' + $('select[name=day]').val();
-                d.bidang = $('select[name=bidang]').val();
+                d.device = $('select[name=device]').val();
             }
         },
         columns: [
