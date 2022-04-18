@@ -131,9 +131,9 @@
         },
         columns: [
             {data: 'nama_lengkap'},
-            {data: 'jam_scan'},
-            {data: 'tgl_scan'},
-            {data: 'tempat'}
+            {data: 'jam_scan', name: 'scan_at'},
+            {data: 'tgl_scan', name: 'scan_at'},
+            {data: 'tempat', name: 'device_id'}
         ]
     });
 </script>
