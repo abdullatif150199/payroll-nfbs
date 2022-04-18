@@ -2,13 +2,12 @@
 
 namespace App\Console\Commands;
 
+use App\Jobs\ScanlogJob;
 use Illuminate\Console\Command;
 use App\Libraries\EasyLink;
-use App\Models\NilaiKinerja;
 use App\Models\Karyawan;
 use App\Models\Device;
-use App\Models\Gaji;
-use App\Models\Jabatan;
+use App\Models\ApelDay;
 
 class TestCommand extends Command
 {
@@ -44,130 +43,88 @@ class TestCommand extends Command
      */
     public function handle()
     {
-        $jab = Jabatan::pluck('id', 'nama_jabatan')->toArray();
-        dd($jab);
-        $data = NilaiKinerja::all();
-        $karyawan = Karyawan::find(1);
-        $gaji = Gaji::with('taxHistory')->find(1);
-        $tax = $karyawan->tax;
-        $thr = 0; //$karyawan->tunj_hari_raya
-
-        $gatot = array_sum([
-            $karyawan->gaji_pokok,
-            $karyawan->tunj_jabatan,
-            $karyawan->tunj_struktural,
-            $karyawan->tunj_fungsional,
-            $karyawan->tunjKinerja($data, $this->bln),
-            $karyawan->tunj_pendidikan_anak,
-            $karyawan->tunj_istri,
-            $karyawan->tunj_anak,
-            $karyawan->lembur()->sumLembur($this->bln),
-            $karyawan->insentif()->bulan($this->bln)->sum('jumlah')
-        ]);
-
-        $gaji_pertahun = $gatot * 12;
-        $penghasilan_bruto = $gaji_pertahun + $thr;
-        $biaya_jabatan = $tax->persentase_biaya_jabatan * $penghasilan_bruto;
-        $penghasilan_neto = $penghasilan_bruto - $biaya_jabatan;
-        $ptkp_pertahun = $tax->ptkp_pertahun;
-        $pkp_pertahun = $penghasilan_neto > $ptkp_pertahun ? $penghasilan_neto - $ptkp_pertahun : 0;
-        $pph21_pertahun = $tax->persentase_pph21 * $pkp_pertahun;
-        $pph21_perbulan = $pph21_pertahun / 12;
-
-        $gaji = $karyawan->gaji()->updateOrCreate([
-            'bulan' => $this->bln,
-        ], [
-            'gaji_pokok' => $karyawan->gaji_pokok,
-            'tunjangan_jabatan' => $karyawan->tunj_jabatan,
-            'tunjangan_struktural' => $karyawan->tunj_struktural,
-            'tunjangan_fungsional' => $karyawan->tunj_fungsional,
-            'tunjangan_kinerja' => $karyawan->tunjKinerja($data, $this->bln),
-            'tunj_pendidikan' => $karyawan->tunj_pendidikan_anak,
-            'tunjangan_istri' => $karyawan->tunj_istri,
-            'tunjangan_anak' => $karyawan->tunj_anak,
-            'tunjangan_hari_raya' => $thr,
-            'lembur' => $karyawan->lembur()->sumLembur($this->bln),
-            // 'lain_lain' => 0,
-            'insentif' => $karyawan->insentif()->bulan($this->bln)->sum('jumlah'),
-            'gaji_total' => $gatot
-        ]);
-
-        // update atau create tax history
-        $gaji->taxHistory()->updateOrCreate([
-            'id' => $gaji->taxHistory->id
-        ], [
-            'gaji_perbulan' => $gatot,
-            'gaji_pertahun' => $gaji_pertahun,
-            'thr' => $thr,
-            'penghasilan_bruto' => $penghasilan_bruto,
-            'biaya_jabatan' => $biaya_jabatan,
-            'penghasilan_neto' => $penghasilan_neto,
-            'ptkp_pertahun' => $ptkp_pertahun,
-            'pkp_pertahun' => $pkp_pertahun,
-            'pph21_pertahun' => $pph21_pertahun,
-            'pph21_perbulan' => $pph21_perbulan
-        ]);
-
-        // hapus semua history potongan sebelum di update
-        if ($gaji->historyPotongan->count() > 0) {
-            $gaji->deleteHistoryPotongan();
-        }
-
-        $pot = $gaji->historyPotongan()->createMany($karyawan->potongan_array);
-        $gaji->update([
-            'gaji_total' => $gatot - $pot->sum('jumlah')
-        ]);
-    }
-
-    public function fingerTest()
-    {
         $finger = new EasyLink;
-        $device = Device::find(1);
+        $devices = Device::whereIn('tipe', ['1', '3'])->get();
+        // $ioMode = ['1' => 'masuk', '2' => 'istirahat', '3' => 'kembali', '4' => 'pulang'];
 
-        $serial = $device->serial_number;
-        $port = $device->server_port;
-        $ip = $device->server_ip;
-        $scanlogs = $finger->newScan($serial, $port, $ip);
+        foreach ($devices as $device) {
+            $serial = $device->serial_number;
+            $scanlogs = $finger->allScan($serial);
 
-        // kalo True
-        if ($scanlogs->Result) {
-            foreach ($scanlogs->Data as $scan) {
-                dd($scan);
-                $karyawan = Karyawan::where('pin', $scan->PIN)->first();
-                $karyawan->kehadiran()->create([
-                        'jam_masuk' => date('H:i:s', strtotime($scan->ScanDate)),
-                        'tanggal' => date('Y-m-d', strtotime($scan->ScanDate))
-                    ]);
+            // kalo True
+            if ($scanlogs->Result) {
+                foreach ($scanlogs->Data as $scan) {
+                    $karyawan = Karyawan::where('no_induk', $scan->PIN)->first();
+                    if (empty($karyawan)) {
+                        continue;
+                    }
+
+                    // Simpan Log
+                    ScanlogJob::dispatch($scan, $karyawan);
+
+                    // device apel
+                    if ($device->tipe == '3') {
+                        $apelDay = ApelDay::where('day_name', date('l'))->first();
+                        if ($apelDay) {
+                            $scanDate = strtotime($scan->ScanDate);
+                            $start = strtotime($apelDay->start_time_at . '- 30 minutes');
+                            $end = strtotime($apelDay->end_time_at);
+                            // apakah hadir dijam apel
+                            if ($scanDate >= $start && $scanDate <= $end) {
+                                $karyawan->attendanceApel()->updateOrCreate([
+                                    'tanggal' => date('Y-m-d', strtotime($scan->ScanDate))
+                                ], [
+                                    'hari' => date('l'),
+                                    'masuk' => date('H:i:s', strtotime($scan->ScanDate))
+                                ]);
+                            }
+                        }
+
+                        continue;
+                    }
+
+                    // Masuk
+                    if ($scan->IOMode === 1) {
+                        $karyawan->kehadiran()->firstOrCreate([
+                            'tanggal' => date('Y-m-d', strtotime($scan->ScanDate))
+                        ], [
+                            'jam_masuk' => date('H:i:s', strtotime($scan->ScanDate))
+                        ]);
+                    }
+
+                    // Istirahat
+                    if ($scan->IOMode === 2) {
+                        $karyawan->kehadiran()->updateOrCreate([
+                            'tanggal' => date('Y-m-d', strtotime($scan->ScanDate))
+                        ], [
+                            'jam_istirahat' => date('H:i:s', strtotime($scan->ScanDate))
+                        ]);
+                    }
+
+                    // Kembali
+                    if ($scan->IOMode === 3) {
+                        $karyawan->kehadiran()->updateOrCreate([
+                            'tanggal' => date('Y-m-d', strtotime($scan->ScanDate))
+                        ], [
+                            'jam_kembali' => date('H:i:s', strtotime($scan->ScanDate))
+                        ]);
+                    }
+
+                    // Pulang
+                    if ($scan->IOMode === 4) {
+                        $scanTime = date('H:i:s', strtotime($scan->ScanDate));
+                        if (strtotime($scanTime) >= strtotime(setting('jam_pulang_kerja_nonshift'))) {
+                            $scanTime = setting('jam_pulang_kerja_nonshift');
+                        }
+
+                        $karyawan->kehadiran()->updateOrCreate([
+                            'tanggal' => date('Y-m-d', strtotime($scan->ScanDate))
+                        ], [
+                            'jam_pulang' => $scanTime
+                        ]);
+                    }
+                }
             }
         }
-
-        return $this->info('finish');
-    }
-
-    public function testGaji()
-    {
-        $data = NilaiKinerja::all();
-        $karyawan = Karyawan::find(1);
-        $gaji = Gaji::find(7);
-
-        $gaji->deleteHistoryPotongan();
-
-        $pot = $gaji->historyPotongan()->createMany($karyawan->potongan_array);
-
-        dd($pot->sum('jumlah'));
-
-        $this->info($karyawan->nama_lengkap);
-        $this->info('gaji_pokok: ' . $karyawan->gaji_pokok);
-        $this->info('tunjangan_jabatan: ' . $karyawan->tunj_jabatan);
-        $this->info('tunjangan_struktural: ' . $karyawan->tunj_struktural);
-        $this->info('tunjangan_fungsional: ' . $karyawan->tunj_fungsional);
-        $this->info('tunjangan_kinerja: ' . $karyawan->tunjKinerja($data, $this->bln));
-        $this->info('tunj_pendidikan: ' . $karyawan->tunj_pendidikan_anak);
-        $this->info('tunjangan_istri: ' . $karyawan->tunj_istri);
-        $this->info('tunjangan_anak: ' . $karyawan->tunj_anak);
-        // 'tunjangan_hari_raya' => $karyawan->tunj_hari_raya,
-        $this->info('lembur: ' . $karyawan->lembur()->sumLembur($this->bln));
-        // 'lain_lain' => 0,
-        $this->info('insentif: ' . $karyawan->insentif()->bulan($this->bln)->sum('jumlah'));
     }
 }

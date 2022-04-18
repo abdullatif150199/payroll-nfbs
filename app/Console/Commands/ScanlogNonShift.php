@@ -48,9 +48,7 @@ class ScanlogNonShift extends Command
 
         foreach ($devices as $device) {
             $serial = $device->serial_number;
-            $port = $device->server_port;
-            $ip = $device->server_ip;
-            $scanlogs = $finger->newScan($serial, $port, $ip);
+            $scanlogs = $finger->newScan($serial);
 
             // kalo True
             if ($scanlogs->Result) {
