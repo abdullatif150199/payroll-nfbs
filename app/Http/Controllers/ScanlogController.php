@@ -30,7 +30,8 @@ class ScanlogController extends Controller
                 $query->where('device_id', $request->device);
             })
             ->where('scan_at', $tanggal)
-            ->latest('scan_at');
+            ->latest('scan_at')
+            ->get();
 
         return Datatables::of($data)
             ->editColumn('jam_scan', function ($data) {
