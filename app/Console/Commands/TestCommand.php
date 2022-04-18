@@ -44,7 +44,7 @@ class TestCommand extends Command
     public function handle()
     {
         $finger = new EasyLink;
-        $devices = Device::whereIn('tipe', ['1', '3'])->get();
+        $devices = Device::where('tipe', '3')->get();
         // $ioMode = ['1' => 'masuk', '2' => 'istirahat', '3' => 'kembali', '4' => 'pulang'];
 
         foreach ($devices as $device) {
