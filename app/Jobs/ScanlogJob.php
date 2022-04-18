@@ -38,7 +38,7 @@ class ScanlogJob implements ShouldQueue
         $device = Device::where('serial_number', $this->scanlog->SN)->first();
         $device->deviceLogs()->create([
             'nama_lengkap' => $this->karyawan->nama_lengkap,
-            'detail' => json_decode($this->scanlog),
+            'detail' => json_encode($this->scanlog),
             'scan_at' => date('Y-m-d H:i:s', strtotime($this->scanlog->ScanDate))
         ]);
     }
