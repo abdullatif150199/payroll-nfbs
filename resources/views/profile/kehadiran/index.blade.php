@@ -37,7 +37,7 @@
             </div>
         </div>
     @endforeach
-    <div class="mt-4 text-center">
+    <div class="my-5 text-center">
         {{ $data->links() }}
     </div>
 </div>
