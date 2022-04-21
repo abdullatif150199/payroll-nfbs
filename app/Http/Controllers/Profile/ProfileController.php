@@ -4,7 +4,6 @@ namespace App\Http\Controllers\Profile;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Http\Request;
 use App\Models\User;
 use App\Models\Gaji;
 
@@ -18,7 +17,7 @@ class ProfileController extends Controller
     public function index()
     {
         $gajiFirst = Gaji::where('karyawan_id', $this->getId())
-            ->where('approved','Y')->latest()->first();
+            ->where('approved', 'Y')->latest()->first();
 
         return view('profile.index', [
             'gajiFirst' => $gajiFirst
