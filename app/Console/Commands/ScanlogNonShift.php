@@ -49,77 +49,87 @@ class ScanlogNonShift extends Command
         foreach ($devices as $device) {
             $serial = $device->serial_number;
             $scanlogs = $finger->newScan($serial);
+            // kalo False
+            if (!$scanlogs->Result) {
+                continue;
+            }
 
-            // kalo True
-            if ($scanlogs->Result) {
-                foreach ($scanlogs->Data as $scan) {
-                    $karyawan = Karyawan::where('no_induk', $scan->PIN)->first();
-                    if (empty($karyawan)) {
-                        continue;
+            foreach ($scanlogs->Data as $scan) {
+                $scanTime = strtotime(date('H:i:s', strtotime($scan->ScanDate)));
+                $karyawan = Karyawan::where('no_induk', $scan->PIN)->first();
+                if (!$karyawan) {
+                    continue;
+                }
+
+                // Simpan Log
+                ScanlogJob::dispatch($scan, $karyawan);
+
+                // Masuk
+                $start = strtotime('04:30:00');
+                $end = strtotime('10:00:00');
+                if ($scanTime >= $start && $scanTime <= $end) {
+                    $karyawan->kehadiran()->firstOrCreate([
+                        'tanggal' => date('Y-m-d', strtotime($scan->ScanDate))
+                    ], [
+                        'jam_masuk' => date('H:i:s', strtotime($scan->ScanDate))
+                    ]);
+                }
+
+                // Istirahat
+                $start = strtotime('10:30:00');
+                $end = strtotime('12:40:00');
+                if ($scanTime >= $start && $scanTime <= $end) {
+                    $karyawan->kehadiran()->updateOrCreate([
+                        'tanggal' => date('Y-m-d', strtotime($scan->ScanDate))
+                    ], [
+                        'jam_istirahat' => date('H:i:s', strtotime($scan->ScanDate))
+                    ]);
+
+                    continue;
+                }
+
+                // Kembali
+                $start = strtotime('12:45:00');
+                $end = strtotime('14:25:00');
+                if ($scanTime >= $start && $scanTime <= $end) {
+                    $karyawan->kehadiran()->updateOrCreate([
+                        'tanggal' => date('Y-m-d', strtotime($scan->ScanDate))
+                    ], [
+                        'jam_kembali' => date('H:i:s', strtotime($scan->ScanDate))
+                    ]);
+
+                    continue;
+                }
+
+                // Pulang
+                $start = strtotime('14:30:00');
+                $end = strtotime('18:00:00');
+                if ($scanTime >= $start && $scanTime <= $end) {
+                    if ($scanTime >= strtotime(setting('jam_pulang_kerja_nonshift'))) {
+                        $scanTime = setting('jam_pulang_kerja_nonshift');
                     }
 
-                    // Simpan Log
-                    ScanlogJob::dispatch($scan, $karyawan);
+                    $karyawan->kehadiran()->updateOrCreate([
+                        'tanggal' => date('Y-m-d', strtotime($scan->ScanDate))
+                    ], [
+                        'jam_pulang' => $scanTime
+                    ]);
 
-                    // device apel
-                    if ($device->tipe == '3') {
-                        $apelDay = ApelDay::where('day_name', date('l'))->first();
-                        if ($apelDay) {
-                            $scanDate = strtotime($scan->ScanDate);
-                            $start = strtotime($apelDay->start_time_at . '- 30 minutes');
-                            $end = strtotime($apelDay->end_time_at);
-                            // apakah hadir dijam apel
-                            if ($scanDate >= $start && $scanDate <= $end) {
-                                $karyawan->attendanceApel()->updateOrCreate([
-                                    'tanggal' => date('Y-m-d', strtotime($scan->ScanDate))
-                                ], [
-                                    'hari' => date('l'),
-                                    'masuk' => date('H:i:s', strtotime($scan->ScanDate))
-                                ]);
-                            }
-                        }
+                    continue;
+                }
 
-                        continue;
-                    }
-
-                    // Masuk
-                    if ($scan->IOMode === 1) {
-                        $karyawan->kehadiran()->firstOrCreate([
+                // device apel
+                $apelDay = ApelDay::where('day_name', date('l'))->first();
+                if ($device->tipe == '3' && $apelDay) {
+                    $start = strtotime($apelDay->start_time_at . '- 30 minutes');
+                    $end = strtotime($apelDay->end_time_at);
+                    // apakah hadir dijam apel
+                    if ($scanTime >= $start && $scanTime <= $end) {
+                        $karyawan->attendanceApel()->updateOrCreate([
                             'tanggal' => date('Y-m-d', strtotime($scan->ScanDate))
                         ], [
-                            'jam_masuk' => date('H:i:s', strtotime($scan->ScanDate))
-                        ]);
-                    }
-
-                    // Istirahat
-                    if ($scan->IOMode === 2) {
-                        $karyawan->kehadiran()->updateOrCreate([
-                            'tanggal' => date('Y-m-d', strtotime($scan->ScanDate))
-                        ], [
-                            'jam_istirahat' => date('H:i:s', strtotime($scan->ScanDate))
-                        ]);
-                    }
-
-                    // Kembali
-                    if ($scan->IOMode === 3) {
-                        $karyawan->kehadiran()->updateOrCreate([
-                            'tanggal' => date('Y-m-d', strtotime($scan->ScanDate))
-                        ], [
-                            'jam_kembali' => date('H:i:s', strtotime($scan->ScanDate))
-                        ]);
-                    }
-
-                    // Pulang
-                    if ($scan->IOMode === 4) {
-                        $scanTime = date('H:i:s', strtotime($scan->ScanDate));
-                        if (strtotime($scanTime) >= strtotime(setting('jam_pulang_kerja_nonshift'))) {
-                            $scanTime = setting('jam_pulang_kerja_nonshift');
-                        }
-
-                        $karyawan->kehadiran()->updateOrCreate([
-                            'tanggal' => date('Y-m-d', strtotime($scan->ScanDate))
-                        ], [
-                            'jam_pulang' => $scanTime
+                            'hari' => date('l'),
+                            'masuk' => date('H:i:s', strtotime($scan->ScanDate))
                         ]);
                     }
                 }
