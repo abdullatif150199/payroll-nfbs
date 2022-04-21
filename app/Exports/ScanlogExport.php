@@ -30,6 +30,7 @@ class ScanlogExport implements FromQuery, WithHeadings, WithMapping
     public function headings(): array
     {
         return [
+            'NIP',
             'Nama',
             'Jam Scan',
             'Tgl Scan',
@@ -40,6 +41,7 @@ class ScanlogExport implements FromQuery, WithHeadings, WithMapping
     public function map($scan): array
     {
         return [
+            json_decode($scan->detail, true)['PIN'],
             $scan->nama_lengkap,
             date('H:i', strtotime($scan->scan_at)),
             date('d-m-Y', strtotime($scan->scan_at)),
