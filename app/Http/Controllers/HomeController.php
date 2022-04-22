@@ -30,29 +30,35 @@ class HomeController extends Controller
     public function index()
     {
         $title = 'Dashboard';
-        $karyawanQuery = Karyawan::query()->active();
-
-        $karyawan = $karyawanQuery->select(
-            'id',
-            'nama_lengkap',
-            'status_kerja_id',
-            'golongan_id',
-            'tanggal_masuk',
-            'contract_expired',
-            'created_at'
+        $karyawan = Karyawan::query()
+            ->active()
+            ->select(
+                'id',
+                'nama_lengkap',
+                'status_kerja_id',
+                'golongan_id',
+                'tanggal_masuk',
+                'contract_expired',
+                'created_at'
             )
             ->get();
+
         $bidang = Bidang::count();
         $unit = Unit::count();
         $golongan = Golongan::count();
-        $kepala_keluarga = $karyawanQuery->where('jenis_kelamin', 'L')
+        $kepala_keluarga = $karyawan
+            ->where('jenis_kelamin', 'L')
             ->where('status_pernikahan', 'M')
             ->count();
-        $cuti = Cuti::where('end_at', '>', now())
+
+        $cuti = Cuti::query()
+            ->where('end_at', '>', now())
             ->count();
 
-        $gajiTerisi = Gaji::where('bulan', date('Y-m'))
+        $gajiTerisi = Gaji::query()
+            ->where('bulan', date('Y-m'))
             ->count();
+
         $barChart = $karyawan->groupBy('status_kerja_id');
         $pieChart = $karyawan->groupBy('golongan_id');
         $kontrak = $karyawan->where('contract_expired', '>=', now());
