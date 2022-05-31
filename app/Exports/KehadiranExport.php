@@ -25,6 +25,8 @@ class KehadiranExport implements FromView
                 $query->whereBetween('tanggal', [$this->from, $this->to]);
             });
 
+            dd($data);
+
         return view('exports.apel', ['data' => $data]);
     }
 }
