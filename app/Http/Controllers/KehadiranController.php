@@ -9,6 +9,8 @@ use App\Models\Karyawan;
 use App\Models\AttendanceApel;
 use App\Models\ApelDay;
 use App\Models\Bidang;
+use Maatwebsite\Excel\Facades\Excel;
+use App\Exports\KehadiranExport;
 
 class KehadiranController extends Controller
 {
@@ -281,5 +283,14 @@ class KehadiranController extends Controller
         }
 
         return true;
+    }
+
+    public function unduh(Request $request)
+    {
+        $from = $request->dari_tanggal;
+        $to = $request->sampai_tanggal;
+        $export = new KehadiranExport($from, $to);
+
+        return Excel::download($export, 'apel_' . date('d-m-Y') . '.xlsx');
     }
 }

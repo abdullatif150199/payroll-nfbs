@@ -92,9 +92,7 @@
                     <a class="btn btn-primary mr-2" href="{{ route('dash.kehadiran') }}?list=jadwal-apel">
                         <i class="fe fe-calendar"></i> Jadwal Apel
                     </a>
-                    {{-- <a class="btn btn-primary" href="{{ route('dash.kehadiran') }}?list=persentase-apel">
-                        <i class="fe fe-bar-chart-2"></i> Persentase Apel
-                    </a> --}}
+                    <a class="btn btn-primary mr-2" href="#unduhScanlog" data-toggle="modal"><i class="fe fe-download"></i> Unduh</a>
                 </div>
             </div>
             <div class="table-responsive">
@@ -115,11 +113,54 @@
         </div>
     </div>
 </div>
+
+<div class="modal fade" id="unduhScanlog">
+    <div class="modal-dialog">
+        <div class="modal-content">
+
+            <!-- Modal Header -->
+            <div class="modal-header">
+                <h4 class="modal-title">Unduh Data Apel</h4>
+                <button type="button" class="close" data-dismiss="modal"></button>
+            </div>
+
+            <form method="post" action="{{ route('dash.kehadiran.unduh') }}">
+                <div class="modal-body">
+                    {{ csrf_field() }} {{ method_field('POST') }}
+                    <div class="row">
+                        <div class="col">
+                            <div class="form-group">
+                                <label class="form-label">Dari</label>
+                                <input type="text" name="dari_tanggal" class="form-control datepicker">
+                            </div>
+                        </div>
+                        <div class="col">
+                            <div class="form-group">
+                                <label class="form-label">Sampai</label>
+                                <input type="text" name="sampai_tanggal" class="form-control datepicker">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    <button type="submit" class="btn btn-primary">Unduh</button>
+                </div>
+            </form>
+
+        </div>
+    </div>
+</div>
 @endsection
 
 @push('scripts')
 <script src="{{ asset('js/jquery.datetimepicker.full.min.js') }}"></script>
 <script>
+    $('.datepicker').datetimepicker({
+        timepicker:false,
+        format: 'Y-m-d'
+    });
+
     var oTable = $('#apelTable').DataTable({
         serverSide: true,
         processing: true,

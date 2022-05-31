@@ -119,6 +119,7 @@ Route::group(['prefix' => 'dashboard', 'as' => 'dash.', 'middleware' => ['auth']
         Route::get('kehadiran/{id}/edit', 'KehadiranController@edit')->name('kehadiran.edit');
         Route::put('kehadiran/{id}', 'KehadiranController@update')->name('kehadiran.update');
         Route::delete('kehadiran/{id}', 'KehadiranController@destroy')->name('kehadiran.destroy');
+        Route::post('kehadiran/unduh', 'KehadiranController@unduh')->name('kehadiran.unduh');
 
         // scanlog
         Route::get('scanlog', 'ScanlogController@index')->name('scanlog');
