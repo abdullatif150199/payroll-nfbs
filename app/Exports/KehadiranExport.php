@@ -49,7 +49,7 @@ class KehadiranExport implements FromQuery, WithHeadings, WithMapping
                 $apel->masuk,
                 $apel->tanggal
             ];
-        });
+        })->toArray();
 
         return array_merge([
             $item->no_induk,
