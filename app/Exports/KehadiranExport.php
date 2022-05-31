@@ -2,7 +2,7 @@
 
 namespace App\Exports;
 
-use App\Models\Karyawan;
+use App\Models\AttendanceApel;
 use Maatwebsite\Excel\Concerns\Exportable;
 use Maatwebsite\Excel\Concerns\FromQuery;
 use Maatwebsite\Excel\Concerns\WithHeadings;
@@ -23,10 +23,9 @@ class KehadiranExport implements FromQuery, WithHeadings, WithMapping
 
     public function query()
     {
-        $data = Karyawan::query()
-            ->whereHas('attendanceApel', function ($query) {
-                $query->whereBetween('tanggal', [$this->from, $this->to]);
-            });
+        $data = AttendanceApel::query()
+            ->with('karyawan')
+            ->whereBetween('tanggal', [$this->from, $this->to]);
     }
 
     public function headings(): array
@@ -43,8 +42,8 @@ class KehadiranExport implements FromQuery, WithHeadings, WithMapping
     public function map($item): array
     {
         return [
-            $item->no_induk,
-            $item->nama_lengkap,
+            $item->attandanceapel->no_induk,
+            $item->attandanceapel->nama_lengkap,
             to_hari($item->hari),
             $item->masuk,
             $item->tanggal
