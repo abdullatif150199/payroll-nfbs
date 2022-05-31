@@ -3,15 +3,11 @@
 namespace App\Exports;
 
 use App\Models\Karyawan;
-use Maatwebsite\Excel\Concerns\Exportable;
-use Maatwebsite\Excel\Concerns\FromQuery;
-use Maatwebsite\Excel\Concerns\WithHeadings;
-use Maatwebsite\Excel\Concerns\WithMapping;
+use Illuminate\Contracts\View\View;
+use Maatwebsite\Excel\Concerns\FromView;
 
-class KehadiranExport implements FromQuery, WithHeadings, WithMapping
+class KehadiranExport implements FromView
 {
-    use Exportable;
-
     protected $from;
     protected $to;
 
@@ -21,39 +17,14 @@ class KehadiranExport implements FromQuery, WithHeadings, WithMapping
         $this->to = $to;
     }
 
-    public function query()
+    public function view(): View
     {
-        return Karyawan::query()
+        $data = Karyawan::query()
             ->select('no_induk', 'nama_lengkap')
             ->whereHas('attendanceApel', function ($query) {
                 $query->whereBetween('tanggal', [$this->from, $this->to]);
             });
-    }
 
-    public function headings(): array
-    {
-        return [
-            'NIP',
-            'Nama',
-            'Hari',
-            'Masuk',
-            'Tanggal'
-        ];
-    }
-
-    public function map($item): array
-    {
-        $apel = $item->attendanceApel->map(function ($apel) {
-            return [
-                $apel->hari,
-                $apel->masuk,
-                $apel->tanggal
-            ];
-        })->toArray();
-
-        return array_merge([
-            $item->no_induk,
-            $item->nama_lengkap
-        ], $apel);
+        return view('exports.apel', ['data' => $data]);
     }
 }
