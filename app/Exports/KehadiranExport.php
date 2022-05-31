@@ -42,8 +42,8 @@ class KehadiranExport implements FromQuery, WithHeadings, WithMapping
     public function map($item): array
     {
         return [
-            $item->attandanceapel->no_induk,
-            $item->attandanceapel->nama_lengkap,
+            $item->attandanceApel->no_induk,
+            $item->attandanceApel->nama_lengkap,
             to_hari($item->hari),
             $item->masuk,
             $item->tanggal
