@@ -23,7 +23,7 @@ class KehadiranExport implements FromQuery, WithHeadings, WithMapping
 
     public function query()
     {
-        $data = AttendanceApel::query()
+        return AttendanceApel::query()
             ->with('karyawan')
             ->whereBetween('tanggal', [$this->from, $this->to]);
     }
