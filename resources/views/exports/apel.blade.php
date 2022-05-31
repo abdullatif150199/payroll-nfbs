@@ -11,11 +11,20 @@
         <tr>
             <td>{{ $item->no_induk }}</td>
             <td>{{ $item->nama_lengkap }}</td>
-            @foreach ($item->attendanceApel as $apel)
-                <td>{{ to_hari($apel->hari) }}</td>
-                <td>{{ $apel->masuk }}</td>
-                <td>{{ $apel->tanggal }}</td>
-            @endforeach
+            <td>
+                <tr>
+                    <td>Hari</td>
+                    <td>Masuk</td>
+                    <td>Tanggal</td>
+                </tr>
+                @foreach ($item->attendanceApel as $apel)
+                <tr>
+                    <td>{{ to_hari($apel->hari) }}</td>
+                    <td>{{ $apel->masuk }}</td>
+                    <td>{{ $apel->tanggal }}</td>
+                </tr>
+                @endforeach
+            </td>
         </tr>
         @endforeach
     </tbody>
