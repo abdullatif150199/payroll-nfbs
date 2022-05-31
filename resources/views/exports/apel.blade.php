@@ -11,9 +11,8 @@
         <tr>
             <td>{{ $item->no_induk }}</td>
             <td>{{ $item->nama_lengkap }}</td>
-            <td>{{ json_encode($item->attendanceApel) }}</td>
             @foreach ($item->attendanceApel as $apel)
-                <td>{{ $apel->hari }}</td>
+                <td>{{ to_hari($apel->hari) }}</td>
                 <td>{{ $apel->masuk }}</td>
                 <td>{{ $apel->tanggal }}</td>
             @endforeach
