@@ -20,7 +20,6 @@ class KehadiranExport implements FromView
     public function view(): View
     {
         $data = Karyawan::query()
-            ->select('no_induk', 'nama_lengkap')
             ->whereHas('attendanceApel', function ($query) {
                 $query->whereBetween('tanggal', [$this->from, $this->to]);
             })
