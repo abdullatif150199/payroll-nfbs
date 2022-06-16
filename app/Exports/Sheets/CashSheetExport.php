@@ -36,7 +36,19 @@ class CashSheetExport implements FromView, WithTitle, WithColumnFormatting
                 'no' => $no,
                 'nip' => $val->karyawan->no_induk,
                 'nama_lengkap' => $val->karyawan->nama_lengkap,
-                'jumlah' => $val->gaji_akhir
+                'jumlah' => $val->gaji_akhir,
+                'gaji_pokok' => $val->gaji_pokok,
+                'tunj_jabatan' => $val->tunjangan_jabatan,
+                'tunj_fungsional' => $val->tunjangan_fungsional,
+                'tunj_struktural' => $val->tunjangan_struktural,
+                'tunj_kinerja' => $val->tunjangan_kinerja,
+                'tunj_pendidikan' => $val->tunjangan_pendidikan,
+                'tunj_istri' => $val->tunjangan_istri,
+                'tunj_anak' => $val->tunjangan_anak,
+                'lembur' => $val->lembur,
+                'insetif' => $val->insentif,
+                'lainnya' => $val->lain_lain,
+                'potongan' => $val->potongan
             ];
 
             $no++;
