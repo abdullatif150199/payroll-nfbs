@@ -14,7 +14,7 @@
         <div class="col">
             <div class="p-2">
                 <div class="text-muted"><small>Gaji Bulan {{ yearMonth(($gajiFirst->bulan ?? date('Y-m')), 'H') }}</small></div>
-                <h3 class="font-weight-bold">Rp {{ number_format(($gajiFirst->gaji_akhir ?? '')) }}</h3>
+                <h3 class="font-weight-bold">Rp {{ number_format(($gajiFirst->gaji_akhir ?? 0)) }}</h3>
             </div>
         </div>
     </div>
