@@ -29,8 +29,7 @@ class BankSheetExport implements FromView, WithTitle, WithColumnFormatting
         })->cursor();
 
         $sumGaji = $gajiByMonth->groupBy('rekening_id')->map(function ($row) {
-            dd($row);
-            return $items;
+            return $row->sum('gaji_akhir');
         });
 
         $sumPotongan = $potonganByMonth->groupBy('rekening_id')->map(function ($row) {
@@ -39,7 +38,7 @@ class BankSheetExport implements FromView, WithTitle, WithColumnFormatting
 
         $sum = $sumGaji + $sumPotongan;
 
-        dd($sum);
+        dd($sumGaji);
 
         $rekenings = Rekening::get();
         $collections = [];
