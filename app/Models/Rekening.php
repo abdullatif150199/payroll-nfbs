@@ -22,4 +22,20 @@ class Rekening extends Model
     {
         return $this->hasMany(Gaji::class);
     }
+
+    public function totalAmount($value)
+    {
+        if ($this->type == 'potongan') {
+            return $this->historyPotongan()
+                ->whereHas('gaji', function ($q) use ($value) {
+                    $q->where('bulan', $value);
+                })
+                ->sum('jumlah');
+        }
+
+        return $this->gaji()
+            ->has('karyawan')
+            ->where('bulan', $value)
+            ->sum('gaji_akhir');
+    }
 }

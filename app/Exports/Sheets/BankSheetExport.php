@@ -22,28 +22,6 @@ class BankSheetExport implements FromView, WithTitle, WithColumnFormatting
 
     public function view(): View
     {
-        $month = $this->bln;
-        $gajiByMonth = Gaji::has('karyawan')->where('bulan', $this->bln)->cursor();
-        $potonganByMonth = HistoryPotongan::whereHas('gaji', function ($q) use ($month) {
-            $q->where('bulan', $month);
-        })->cursor();
-
-        $sumGaji = $gajiByMonth->groupBy('rekening_id')->map(function ($row) {
-            return [
-                $row->rekening_id => $row->sum('gaji_akhir')
-            ];
-        })->toArray();
-
-        $sumPotongan = $potonganByMonth->groupBy('rekening_id')->map(function ($row) {
-            return [
-                $row->rekening_id => $row->sum('jumlah')
-            ];
-        })->toArray();
-
-        $sum = $sumGaji + $sumPotongan;
-
-        dd($sumGaji);
-
         $rekenings = Rekening::get();
         $collections = [];
         $no = 1;
@@ -55,7 +33,7 @@ class BankSheetExport implements FromView, WithTitle, WithColumnFormatting
                 'no_rekening' => $rek->no_rekening,
                 'atas_nama' => $rek->atas_nama,
                 'keterangan' => $rek->keterangan,
-                'jumlah' => isset($sum[$rek->id]) ? $sum[$rek->id] : 0
+                'jumlah' => $rek->totalAmount($this->bln)
             ];
 
             $no++;

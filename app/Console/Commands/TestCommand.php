@@ -1,14 +1,7 @@
 <?php
 
-namespace App\Console\Commands;
-
-use App\Jobs\ScanlogJob;
 use Illuminate\Console\Command;
-use App\Libraries\EasyLink;
-use App\Models\Karyawan;
-use App\Models\Device;
-use App\Models\ApelDay;
-use App\Models\Gaji;
+use App\Models\Rekening;
 
 class TestCommand extends Command
 {
@@ -44,12 +37,7 @@ class TestCommand extends Command
      */
     public function handle()
     {
-        $gajiByMonth = Gaji::has('karyawan')->where('bulan', $this->bln)->cursor();
-        $sumGaji = $gajiByMonth->groupBy('rekening_id');
-        dd($sumGaji->toArray());
-        $sumGaji = $gajiByMonth->groupBy('rekening_id')->map(function ($row) {
-            dd($row);
-            return $items;
-        });
+        $rekening = Rekening::find(1);
+        dd($rekening->total_amount);
     }
 }
