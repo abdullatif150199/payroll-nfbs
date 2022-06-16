@@ -32,13 +32,13 @@ class BankSheetExport implements FromView, WithTitle, WithColumnFormatting
             return [
                 $row->rekening_id => $row->sum('gaji_akhir')
             ];
-        });
+        })->toArray();
 
         $sumPotongan = $potonganByMonth->groupBy('rekening_id')->map(function ($row) {
             return [
                 $row->rekening_id => $row->sum('jumlah')
             ];
-        });
+        })->toArray();
 
         $sum = $sumGaji + $sumPotongan;
 
