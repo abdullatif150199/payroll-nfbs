@@ -103,7 +103,7 @@ class ProcessPayroll implements ShouldQueue
 
         $pot = $gaji->historyPotongan()->createMany($this->karyawan->potongan_array);
         $gaji->update([
-            'potongan' => $pot,
+            'potongan' => $pot->sum('jumlah'),
             'gaji_akhir' => $gatot - ($pot->sum('jumlah') + $pajak->pph21_perbulan)
         ]);
     }
