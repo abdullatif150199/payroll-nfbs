@@ -38,6 +38,8 @@ class BankSheetExport implements FromView, WithTitle, WithColumnFormatting
 
         $sum = $sumGaji + $sumPotongan;
 
+        dd($sum);
+
         $rekenings = Rekening::get();
         $collections = [];
         $no = 1;
