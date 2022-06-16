@@ -46,7 +46,7 @@ class CashSheetExport implements FromView, WithTitle, WithColumnFormatting
                 'tunj_istri' => $val->tunjangan_istri,
                 'tunj_anak' => $val->tunjangan_anak,
                 'lembur' => $val->lembur,
-                'insetif' => $val->insentif,
+                'insentif' => $val->insentif,
                 'lainnya' => $val->lain_lain,
                 'potongan' => $val->potongan
             ];
