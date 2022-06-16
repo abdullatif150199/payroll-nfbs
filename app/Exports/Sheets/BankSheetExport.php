@@ -29,8 +29,9 @@ class BankSheetExport implements FromView, WithTitle, WithColumnFormatting
         })->cursor();
 
         $sumGaji = $gajiByMonth->groupBy('rekening_id')->map(function ($row) {
-            return $row->sum('gaji_akhir');
-        })->toArray();
+            dd($row);
+            return $items;
+        });
 
         $sumPotongan = $potonganByMonth->groupBy('rekening_id')->map(function ($row) {
             return $row->sum('jumlah');
