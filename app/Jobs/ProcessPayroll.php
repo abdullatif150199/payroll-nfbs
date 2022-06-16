@@ -64,6 +64,7 @@ class ProcessPayroll implements ShouldQueue
         $gaji = $this->karyawan->gaji()->updateOrCreate([
             'bulan' => $this->bln,
         ], [
+            'rekening_id' => ($this->karyawan->pembayaran == 'cash' ? config('var.rekening_cash_id') : config('var.rekening_transfer_id')),
             'gaji_pokok' => $this->karyawan->gaji_pokok,
             'tunjangan_jabatan' => $this->karyawan->tunj_jabatan,
             'tunjangan_struktural' => $this->karyawan->tunj_struktural,
