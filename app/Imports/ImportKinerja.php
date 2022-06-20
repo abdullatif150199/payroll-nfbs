@@ -68,7 +68,6 @@ class ImportKinerja implements
 
     public function kinerjaToArray($row, $data)
     {
-        dd($row);
         $toArray = [];
         $bln = $this->bln;
 
@@ -76,8 +75,8 @@ class ImportKinerja implements
             $toArray[] = [
                 'bulan' => $bln,
                 'title' => $item->title,
-                'value' => $row[$item->title],
-                'after_count' => $item->persen * $row[$item->title],
+                'value' => $row[strtolower($item->title)],
+                'after_count' => $item->persen * $row[strtolower($item->title)],
                 'unit' => $row['unit']
             ];
         }
