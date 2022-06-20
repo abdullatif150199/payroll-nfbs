@@ -43,8 +43,10 @@ class ImportKinerja implements
     {
         $bln = $this->bln;
         DB::transaction(function () use ($row, $bln) {
-            $karyawan = Karyawan::with('persentaseKinerja', 'gaji')
-                ->find($row['no_induk']);
+            $noInduk = str_replace('.', '', $row['no_induk']);
+            $karyawan = Karyawan::with(['persentaseKinerja', 'gaji'])
+                ->where('no_induk', $noInduk)
+                ->first();
 
             $gaji = $karyawan->gaji()->updateOrCreate([
                 'bulan' => $bln
@@ -53,15 +55,33 @@ class ImportKinerja implements
             ]);
 
             if ($gaji->historyKinerja->count() > 0) {
-                $gaji->deleteHistoryKinerja($request->unit);
+                $gaji->deleteHistoryKinerja($row['unit']);
             }
 
             $store = $gaji->historyKinerja()
-                ->createMany($this->kinerjaToArray($request, $karyawan));
+                ->createMany($this->kinerjaToArray($row, $karyawan));
             ProcessPayroll::dispatch($karyawan, $bln);
 
             return $store;
         });
+    }
+
+    public function kinerjaToArray($row, $data)
+    {
+        $toArray = [];
+        $bln = $this->bln;
+
+        foreach ($data->persentaseKinerja as $item) {
+            $toArray[] = [
+                'bulan' => $bln,
+                'title' => $item->title,
+                'value' => $row[$item->title],
+                'after_count' => $item->persen * $row[$item->title],
+                'unit' => $row['unit']
+            ];
+        }
+
+        return $toArray;
     }
 
     public function rules(): array
