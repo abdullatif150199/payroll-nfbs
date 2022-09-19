@@ -64,10 +64,10 @@ class ScanlogNonShift extends Command
                 // Simpan Log
                 ScanlogJob::dispatch($scan, $karyawan);
 
-                // Masuk
+                // Masuk -- ini nih
                 $start = strtotime('05:00:00');
-                $end = strtotime('10:28:00');
-                if ($scanTime >= $start && $scanTime <= $end) {
+                $end = strtotime('10:30:00');
+                if ($scanTime >= $start && $scanTime < $end) {
                     $karyawan->kehadiran()->firstOrCreate([
                         'tanggal' => date('Y-m-d', strtotime($scan->ScanDate))
                     ], [
@@ -77,8 +77,8 @@ class ScanlogNonShift extends Command
 
                 // Istirahat
                 $start = strtotime('10:30:00');
-                $end = strtotime('12:30:00');
-                if ($scanTime >= $start && $scanTime <= $end) {
+                $end = strtotime('12:45:00');
+                if ($scanTime >= $start && $scanTime < $end) {
                     $karyawan->kehadiran()->updateOrCreate([
                         'tanggal' => date('Y-m-d', strtotime($scan->ScanDate))
                     ], [
@@ -89,9 +89,9 @@ class ScanlogNonShift extends Command
                 }
 
                 // Kembali
-                $start = strtotime('12:32:00');
+                $start = strtotime('12:45:00');
                 $end = strtotime('14:25:00');
-                if ($scanTime >= $start && $scanTime <= $end) {
+                if ($scanTime >= $start && $scanTime < $end) {
                     $karyawan->kehadiran()->updateOrCreate([
                         'tanggal' => date('Y-m-d', strtotime($scan->ScanDate))
                     ], [
@@ -102,9 +102,9 @@ class ScanlogNonShift extends Command
                 }
 
                 // Pulang
-                $start = strtotime('14:30:00');
+                $start = strtotime('14:25:00');
                 $end = strtotime('18:00:00');
-                if ($scanTime >= $start && $scanTime <= $end) {
+                if ($scanTime >= $start && $scanTime < $end) {
                     if ($scanTime >= strtotime(setting('jam_pulang_kerja_nonshift'))) {
                         $scanTime = setting('jam_pulang_kerja_nonshift');
                     }
