@@ -44,8 +44,7 @@ class ScanlogNonShift extends Command
     {
         $finger = new EasyLink;
         $devices = Device::whereIn('tipe', ['1', '3'])->get();
-        // $ioMode = ['1' => 'masuk', '2' => 'istirahat', '3' => 'kembali', '4' => 'pulang'];
-
+        // $ioMode = ['1' => 'masuk', '2' => 'istirahat', '3' => 'kembali', '4' => 'pulang'];        
         foreach ($devices as $device) {
             $serial = $device->serial_number;
             $scanlogs = $finger->newScan($serial);
@@ -75,6 +74,8 @@ class ScanlogNonShift extends Command
                     ]);
                 }
 
+                /* == ini sudah tidak digunakan ===
+
                 // Istirahat
                 $start = strtotime('10:30:00');
                 $end = strtotime('12:45:00');
@@ -88,9 +89,11 @@ class ScanlogNonShift extends Command
                     continue;
                 }
 
+                == karena kebijakan baru dari hrd == */
+
                 // Kembali
                 $start = strtotime('12:45:00');
-                $end = strtotime('14:25:00');
+                $end = strtotime('14:30:00');
                 if ($scanTime >= $start && $scanTime < $end) {
                     $karyawan->kehadiran()->updateOrCreate([
                         'tanggal' => date('Y-m-d', strtotime($scan->ScanDate))
@@ -102,11 +105,13 @@ class ScanlogNonShift extends Command
                 }
 
                 // Pulang
-                $start = strtotime('14:25:00');
+                $start = strtotime('14:30:00');
                 $end = strtotime('18:00:00');
                 if ($scanTime >= $start && $scanTime < $end) {
                     if ($scanTime >= strtotime(setting('jam_pulang_kerja_nonshift'))) {
                         $scanTime = setting('jam_pulang_kerja_nonshift');
+                    } else {
+                        $scanTime = date('H:i:s', strtotime($scan->ScanDate));
                     }
 
                     $karyawan->kehadiran()->updateOrCreate([
