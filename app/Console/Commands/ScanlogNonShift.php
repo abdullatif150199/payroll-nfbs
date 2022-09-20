@@ -98,7 +98,8 @@ class ScanlogNonShift extends Command
                     $karyawan->kehadiran()->updateOrCreate([
                         'tanggal' => date('Y-m-d', strtotime($scan->ScanDate))
                     ], [
-                        'jam_kembali' => date('H:i:s', strtotime($scan->ScanDate))
+                        'jam_kembali' => date('H:i:s', strtotime($scan->ScanDate)),
+                        'jam_istirahat' => '12:00:00'
                     ]);
 
                     continue;

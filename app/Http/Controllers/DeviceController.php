@@ -85,7 +85,7 @@ class DeviceController extends Controller
     public function check($id)
     {
         try {
-            $get = Device::findOrFail($id);
+            $get = Device::findOrFail($id);            
             $finger = new EasyLink;
             $scanlogs = $finger->info($get->serial_number);
 
