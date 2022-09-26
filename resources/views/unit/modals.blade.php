@@ -16,9 +16,9 @@
                     <div class="row">
                         <div class="col">
                             <div class="form-group">
-                                <label class="form-label">Nama Bidang</label>
+                                <label class="form-label">Nama Departemen</label>
                                 <select name="bidang_id" class="form-control" required>
-                                    <option value="">Pilih Bidang</option>
+                                    <option value="">Pilih Departemen</option>
                                     @foreach (App\Models\Bidang::pluck('nama_bidang', 'id') as $key => $value)
                                         <option value="{{ $key }}">{{ $value }}</option>
                                     @endforeach
@@ -29,7 +29,7 @@
                     <div class="row">
                         <div class="col">
                             <div class="form-group">
-                                <label class="form-label">Nama Unit</label>
+                                <label class="form-label">Nama Bidang</label>
                                 <input type="text" name="nama_unit" class="form-control" required>
                             </div>
                         </div>
@@ -53,7 +53,7 @@
 
             <!-- Modal Header -->
             <div class="modal-header">
-                <h4 class="modal-title">Hapus Unit</h4>
+                <h4 class="modal-title">Hapus Bidang</h4>
                 <button type="button" class="close" data-dismiss="modal"></button>
             </div>
 

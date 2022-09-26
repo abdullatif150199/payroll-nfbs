@@ -280,7 +280,7 @@
                         </div>
                         <div class="col-md-3">
                             <div class="form-group">
-                                <label class="form-label">Bidang</label>
+                                <label class="form-label">Departemen</label>
                                 <select class="form-control custom-select selectize-select" name="bidang[]" id="bidang"
                                     required>
                                     <option value="">Pilih</option>
@@ -292,7 +292,7 @@
                         </div>
                         <div class="col-md-3">
                             <div class="form-group">
-                                <label class="form-label">Unit</label>
+                                <label class="form-label">Bidang</label>
                                 <select class="form-control custom-select selectize-select" name="unit[]" id="unit"
                                     required>
                                     <option value="">Pilih</option>

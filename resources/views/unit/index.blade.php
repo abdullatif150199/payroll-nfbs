@@ -32,7 +32,7 @@
 <div class="card">
     <div class="card-header">
         <h3 class="card-title">
-            Daftar Unit
+            Daftar Bidang
         </h3>
         <div class="card-options">
             <button type="button" id="newUnit" class="btn btn-primary"><i class="fe fe-plus"></i> Tambah</button>
@@ -42,9 +42,9 @@
         <table class="table card-table table-vcenter text-nowra" id="daftarUnit">
             <thead>
                 <tr>
-                    <th>Nama Unit</th>
+                    <th>Nama Bidang</th>
                     <th>Jml Peserta</th>
-                    <th>Bidang</th>
+                    <th>Departemen</th>
                     <th>Opsi</th>
                 </tr>
             </thead>
@@ -83,7 +83,7 @@
         // });
 
         $('#newUnit').click(function () {
-            $('.modal-title').text('Create Unit');
+            $('.modal-title').text('Create Bidang');
             $('#formUnit').modal('show');
             $('input[name=_method]').val('POST');
             $('#formUnit form')[0].reset();
@@ -100,7 +100,7 @@
                 type: 'GET',
                 dataType: 'JSON',
                 success: function (data) {
-                    $('.modal-title').text('Edit Unit');
+                    $('.modal-title').text('Edit Bidang');
                     $('#formUnit').modal('show');
                     $('input[name=id]').val(data.id);
                     $('select[name=bidang_id]').val(data.bidang.id);

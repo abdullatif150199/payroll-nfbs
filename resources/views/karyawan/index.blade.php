@@ -83,12 +83,12 @@
                                 </select>
                             </div>
                         </div>
-                        <label for="bidang" class="mr-sm-3">Bidang </label>
+                        <label for="bidang" class="mr-sm-3">Departemen </label>
                         <div class="row gutters-xs">
                             <div class="col">
                                 <select name="bidang" class="form-control"
                                     onchange="$('#karyawanTable').DataTable().draw()">
-                                    <option value="">Semua bidang</option>
+                                    <option value="">Semua Departemen</option>
                                     @foreach ($bidang as $bid)
                                     <option value="{{ $bid->id }}">{{ $bid->nama_bidang }}</option>
                                     @endforeach

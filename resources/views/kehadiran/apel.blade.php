@@ -76,11 +76,11 @@
                             </select>
                         </div>
                     </div>
-                    <label for="month" class="ml-sm-3 mr-sm-3">Bidang</label>
+                    <label for="month" class="ml-sm-3 mr-sm-3">Departemen</label>
                     <div class="row gutters-xs">
                         <div class="col">
                             <select name="bidang" class="form-control" onchange="$('#apelTable').DataTable().draw()">
-                                <option value="">Semua Bidang</option>
+                                <option value="">Semua Departemen</option>
                                 @foreach ($bidang as $key => $val)
                                 <option value="{{ $key }}">{{ $val }}</option>
                                 @endforeach

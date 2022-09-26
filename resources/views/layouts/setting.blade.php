@@ -111,13 +111,13 @@
                                                     <td width="1"><i
                                                             class="{{ Route::is('dash.bidang') ? 'fa fa-circle' : 'fa fa-circle-o' }} text-primary"></i>
                                                     </td>
-                                                    <td><a href="{{ route('dash.bidang') }}">Bidang</a></td>
+                                                    <td><a href="{{ route('dash.bidang') }}">Departemen</a></td>
                                                 </tr>
                                                 <tr>
                                                     <td width="1"><i
                                                             class="{{ Route::is('dash.unit') ? 'fa fa-circle' : 'fa fa-circle-o' }} text-primary"></i>
                                                     </td>
-                                                    <td><a href="{{ route('dash.unit') }}">Unit</a></td>
+                                                    <td><a href="{{ route('dash.unit') }}">Bidang</a></td>
                                                 </tr>
                                                 <tr>
                                                     <td width="1"><i

@@ -20,6 +20,7 @@ class KehadiranController extends Controller
         $view = 'kehadiran.index';
         $list = [null, 'persentase', 'apel', 'persentase-apel', 'jadwal-apel'];
         $bidang = Bidang::pluck('nama_bidang', 'id');
+        $karyawan = Karyawan::orderBy('nama_lengkap')->pluck('nama_lengkap', 'id');
         
         if (!in_array($request->list, $list)) {
             abort(404);
@@ -47,7 +48,8 @@ class KehadiranController extends Controller
 
         return view($view, [
             'title' => $title,
-            'bidang' => $bidang
+            'bidang' => $bidang,
+            'karyawan' => $karyawan
         ]);
     }
 
@@ -292,5 +294,35 @@ class KehadiranController extends Controller
         $export = new KehadiranExport($from, $to);
 
         return Excel::download($export, 'apel_' . date('d-m-Y') . '.xlsx');
+    }
+
+    // Insert kehadiran pegawai yang dinas seharian
+
+    public function insertview()
+    {
+        $title = 'Tambah Kehadiran';
+        return view('kehadiran.insertview', [
+            'title' => $title
+        ]);
+    }
+
+    public function insert(Request $request){
+        // dd($request);
+        $this->validate($request, [
+            'karyawan_id' => 'required',
+            'tanggal' => 'required',
+        ]);
+
+        $karyawan = Karyawan::where('user_id', $request->karyawan_id)->first();
+
+        if (!$karyawan){
+            return;
+        }
+
+        $result = $karyawan->kehadiran()->firstOrCreate([
+            'tanggal' => $request->tanggal
+        ], ['jam_masuk' => '07:00:00', 'jam_istirahat' => '12:00:00', 'jam_kembali' => '13:15:00', 'jam_pulang' => '15:15:00']);
+
+        return redirect()->route('dash.kehadiran');
     }
 }

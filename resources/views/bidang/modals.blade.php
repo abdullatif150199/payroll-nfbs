@@ -16,7 +16,7 @@
                     <div class="row">
                         <div class="col">
                             <div class="form-group">
-                                <label class="form-label">Nama Bidang</label>
+                                <label class="form-label">Nama Departemen</label>
                                 <input type="text" name="nama_bidang" class="form-control" required>
                             </div>
                         </div>
@@ -40,7 +40,7 @@
 
             <!-- Modal Header -->
             <div class="modal-header">
-                <h4 class="modal-title">Hapus Bidang</h4>
+                <h4 class="modal-title">Hapus Departemen</h4>
                 <button type="button" class="close" data-dismiss="modal"></button>
             </div>
 
