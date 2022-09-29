@@ -313,7 +313,8 @@ class KehadiranController extends Controller
             'tanggal' => 'required',
         ]);
 
-        $karyawan = Karyawan::where('user_id', $request->karyawan_id)->first();
+        // $karyawan = Karyawan::where('id', $request->karyawan_id)->first();
+        $karyawan = Karyawan::find($request->karyawan_id);
 
         if (!$karyawan){
             return;
