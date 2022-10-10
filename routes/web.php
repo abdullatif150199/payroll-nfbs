@@ -123,6 +123,7 @@ Route::group(['prefix' => 'dashboard', 'as' => 'dash.', 'middleware' => ['auth']
 
         Route::get('kehadiran/insertview', 'KehadiranController@insertview')->name('kehadiran.insertview');
         Route::post('kehadiran/insert', 'KehadiranController@insert')->name('kehadiran.insert');
+        Route::post('kehadiran/download-attendance', 'KehadiranController@downloadAttendance')->name('kehadiran.download');
 
         // scanlog
         Route::get('scanlog', 'ScanlogController@index')->name('scanlog');
