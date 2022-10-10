@@ -78,15 +78,16 @@ class KehadiranPegawaiExport implements FromQuery, WithHeadings, WithMapping
             $item->no_induk,
             $item->nama_lengkap,
             total_sum_time($item->kehadiran,$item->tipe_kerja),
-            $this->persentaseKehadiran($item, $this->range)
+            $this->percentage($item, $this->range, $this->from, $this->to)
         ];
     }
 
-    public function persentaseKehadiran($data, $range)
+    // persentasi mode tanpa hari ahad
+    public function percentage($data, $range, $start, $end)
     {
         $jam_perhari = round($data->jamperpekan->jml_jam/$data->jamperpekan->jml_hari, 2);
         $jam_hadir = total_sum_time($data->kehadiran, $data->tipe_kerja, 'val');
-        $jam_wajib = ($range * $jam_perhari) * 3600;
+        $jam_wajib = (($range - how_many_sundays($start, $end))* $jam_perhari) * 3600;
 
         if ($jam_wajib <= 0) {
             return 0;

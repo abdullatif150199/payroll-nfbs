@@ -210,8 +210,9 @@ class KehadiranController extends Controller
             ->editColumn('nama_lengkap', function ($data) {
                 return $data->nama_lengkap;
             })
-            ->editColumn('persentase', function ($data) use ($range) {
-                $persen = $this->persentaseKehadiran($data, $range);
+            ->editColumn('persentase', function ($data) use ($range, $dari, $sampai) {
+                // $persen = $this->persentaseKehadiran($data, $range);
+                $persen = $this->percentage($data, $range, $dari, $sampai);
                 return view('kehadiran.persentase', compact('persen'));
             })
             ->rawColumns(['jumlah_jam', 'no_induk', 'nama_lengkap', 'persentase'])
@@ -223,6 +224,26 @@ class KehadiranController extends Controller
         $jam_perhari = round($data->jamperpekan->jml_jam/$data->jamperpekan->jml_hari, 2);
         $jam_hadir = total_sum_time($data->kehadiran, $data->tipe_kerja, 'val');
         $jam_wajib = ($range * $jam_perhari) * 3600;
+
+        if ($jam_wajib <= 0) {
+            return 0;
+        }
+
+        $persen = ($jam_hadir/$jam_wajib) * 100;
+
+        if ($persen > 100) {
+            return 100;
+        }
+
+        return round($persen, 2);
+    }
+    
+    // persentasi mode tanpa hari ahad
+    public function percentage($data, $range, $start, $end)
+    {
+        $jam_perhari = round($data->jamperpekan->jml_jam/$data->jamperpekan->jml_hari, 2);
+        $jam_hadir = total_sum_time($data->kehadiran, $data->tipe_kerja, 'val');
+        $jam_wajib = (($range - how_many_sundays($start, $end))* $jam_perhari) * 3600;
 
         if ($jam_wajib <= 0) {
             return 0;

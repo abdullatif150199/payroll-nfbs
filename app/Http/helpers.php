@@ -382,3 +382,16 @@ function to_hari($item)
 
     return null;
 }
+
+// How many sundays occurs in a range of dates
+function how_many_sundays($date_start, $date_end)
+{
+    $start = new DateTime($date_start);
+    $end = new DateTime($date_end);
+
+    $days = $start->diff($end, true)->days;
+
+    $sundays = intval($days/7) + ($start->format('N') + $days % 7 >= 7);
+
+    return $sundays;
+}
