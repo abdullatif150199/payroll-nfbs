@@ -3,6 +3,7 @@
 namespace App\Console\Commands;
 
 use Illuminate\Console\Command;
+use Illuminate\Support\Facades\Log;
 
 use App\Jobs\ScanlogJob;
 use App\Libraries\EasyLink;
@@ -44,9 +45,10 @@ class ScanlogRuangServer extends Command
     public function handle()
     {
         $finger = new EasyLink;
-        $scanlogs = $finger->newScan("61627018251695");
+        $scanlogs = $finger->newScan("61627018331452m");
 
         if (!$scanlogs->Result) {
+            Log::critical('putus: ', ['sn'=>'aku']);
             return 0;
         }
         // dd($scanlogs->Data);

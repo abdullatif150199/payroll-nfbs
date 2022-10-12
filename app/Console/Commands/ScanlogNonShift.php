@@ -8,6 +8,7 @@ use App\Libraries\EasyLink;
 use App\Models\Karyawan;
 use App\Models\Device;
 use App\Models\ApelDay;
+use Illuminate\Support\Facades\Log;
 
 class ScanlogNonShift extends Command
 {
@@ -50,6 +51,7 @@ class ScanlogNonShift extends Command
             $scanlogs = $finger->newScan($serial);
             // kalo False
             if (!$scanlogs->Result) {
+                Log::critical("Diskonek", ["sn"=>$serial]);
                 continue;
             }
 
