@@ -16,6 +16,7 @@ class Kernel extends ConsoleKernel
         Commands\ScanlogNonShift::class,
         Commands\ScanlogShift::class,
         Commands\CheckExpiredPotongan::class,
+        Commands\ScanlogKlinik::class,
     ];
 
     /**
@@ -29,9 +30,9 @@ class Kernel extends ConsoleKernel
         $schedule->command('scanlog:nonshift')
                 ->withoutOverlapping()
                 ->everyFifteenMinutes();
-        // $schedule->command('scanlog:shift')
-        //         ->withoutOverlapping()
-        //         ->everyFifteenMinutes();
+        $schedule->command('scanlog:klinik')
+                ->withoutOverlapping()
+                ->everyFifteenMinutes();
 
         $schedule->command('potongan:expired')
                 ->withoutOverlapping()
