@@ -95,7 +95,7 @@ class ScanlogNonShift extends Command
 
                 // Kembali
                 $start = strtotime('12:45:00');
-                $end = strtotime('14:30:00');
+                                $end = strtotime('14:30:00');
                 if ($scanTime >= $start && $scanTime < $end) {
                     $karyawan->kehadiran()->updateOrCreate([
                         'tanggal' => date('Y-m-d', strtotime($scan->ScanDate))

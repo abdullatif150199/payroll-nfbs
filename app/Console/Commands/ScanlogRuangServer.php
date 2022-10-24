@@ -45,7 +45,9 @@ class ScanlogRuangServer extends Command
     public function handle()
     {
         $finger = new EasyLink;
-        $scanlogs = $finger->newScan("61627018331452m");
+        $scanlogs = $finger->newScan("61627018331452");
+
+        dd($scanlogs);
 
         if (!$scanlogs->Result) {
             Log::critical('putus: ', ['sn'=>'aku']);
