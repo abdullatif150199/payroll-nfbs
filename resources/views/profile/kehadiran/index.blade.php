@@ -12,13 +12,13 @@
                         <div class="col text-center">
                             <div class="text-muted">Masuk</div>
                             <strong class="text-dark">
-                                {{ $item->jam_kembali != null ? date('H:i', strtotime($item->jam_masuk)) : '' }}
+                                {{ $item->jam_masuk != null ? date('H:i', strtotime($item->jam_masuk)) : '' }}
                             </strong>
                         </div>
                         <div class="col text-center">
                             <div class="text-muted">Istirahat</div>
                             <strong class="text-dark">
-                                {{ $item->jam_kembali != null ? date('H:i', strtotime($item->jam_istirahat)) : '' }}
+                                {{ $item->jam_istirahat != null ? date('H:i', strtotime($item->jam_istirahat)) : '' }}
                             </strong>
                         </div>
                         <div class="col text-center">
@@ -30,7 +30,7 @@
                         <div class="col text-center">
                             <div class="text-muted">Pulang</div>
                             <strong class="text-dark">
-                                {{ $item->jam_kembali != null ? date('H:i', strtotime($item->jam_pulang)) : '' }}
+                                {{ $item->jam_pulang != null ? date('H:i', strtotime($item->jam_pulang)) : '' }}
                             </strong>
                         </div>
                     </div>
