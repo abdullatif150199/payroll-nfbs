@@ -17,6 +17,7 @@ class Kernel extends ConsoleKernel
         Commands\ScanlogShift::class,
         Commands\CheckExpiredPotongan::class,
         Commands\ScanlogKlinik::class,
+        Commands\ScanlogSatpam::class,
     ];
 
     /**
@@ -28,15 +29,15 @@ class Kernel extends ConsoleKernel
     protected function schedule(Schedule $schedule)
     {
         $schedule->command('scanlog:nonshift')
-                ->withoutOverlapping()
-                ->everyFifteenMinutes();
+            ->withoutOverlapping()
+            ->everyFifteenMinutes();
         $schedule->command('scanlog:klinik')
-                ->withoutOverlapping()
-                ->everyFifteenMinutes();
+            ->withoutOverlapping()
+            ->everyFifteenMinutes();
 
         $schedule->command('potongan:expired')
-                ->withoutOverlapping()
-                ->daily();
+            ->withoutOverlapping()
+            ->daily();
     }
 
     /**
@@ -46,7 +47,7 @@ class Kernel extends ConsoleKernel
      */
     protected function commands()
     {
-        $this->load(__DIR__.'/Commands');
+        $this->load(__DIR__ . '/Commands');
 
         require base_path('routes/console.php');
     }
