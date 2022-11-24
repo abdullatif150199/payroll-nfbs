@@ -66,17 +66,23 @@ class ScanlogNonShift extends Command
                 ScanlogJob::dispatch($scan, $karyawan);
 
                 // Masuk -- ini nih
-                $start = strtotime('05:00:00');
+                $start = strtotime('06:30:00');
                 $end = strtotime('10:30:00');
                 if ($scanTime >= $start && $scanTime < $end) {
                     if ($scan->PIN == "220289") {
                         goto apel;
                     }
 
+                    if ($scanTime <= strtotime('07:00:00')) {
+                        $scanTime = '07:00:00';
+                    } else {
+                        $scanTime = date('H:i:s', strtotime($scan->ScanDate));
+                    }
+
                     $karyawan->kehadiran()->firstOrCreate([
                         'tanggal' => date('Y-m-d', strtotime($scan->ScanDate))
                     ], [
-                        'jam_masuk' => date('H:i:s', strtotime($scan->ScanDate))
+                        'jam_masuk' => $scanTime
                     ]);
                 }
 
@@ -98,14 +104,20 @@ class ScanlogNonShift extends Command
                 == karena kebijakan baru dari hrd == */
 
                 // Kembali
-                $start = strtotime('12:45:00');
+                $start = strtotime('13:00:00');
                 $end = strtotime('14:30:00');
                 if ($scanTime >= $start && $scanTime < $end) {
+
+                    if ($scanTime <= strtotime('13:15:00')) {
+                        $scanTime = '13:15:00';
+                    } else {
+                        $scanTime = date('H:i:s', strtotime($scan->ScanDate));
+                    }
 
                     $karyawan->kehadiran()->updateOrCreate([
                         'tanggal' => date('Y-m-d', strtotime($scan->ScanDate))
                     ], [
-                        'jam_kembali' => date('H:i:s', strtotime($scan->ScanDate)),
+                        'jam_kembali' => $scanTime,
                         'jam_istirahat' => '12:00:00'
                     ]);
 
