@@ -72,11 +72,15 @@ class ScanlogSatpam extends Command
 
             switch (true) {
                 case ($scanTime >= strtotime($shifts['_1_min']) && $scanTime < strtotime($shifts['_1_max'])):
-                    $result = $satpam->kehadiran()->where('tanggal', date('Y-m-d', strtotime($scan->ScanDate)))->first();
+                    $result = $satpam->kehadiran()
+                        ->where('tanggal', date('Y-m-d', strtotime($scan->ScanDate)))
+                        ->first();
 
                     if ($result == null) {
-                        $yesterday = $satpam->kehadiran()->where('tanggal', date('Y-m-d', strtotime($scan->ScanDate . "-1 day")))
-                            ->whereTime('jam_masuk', '>=', $shifts['_3_min'])->first();
+                        $yesterday = $satpam->kehadiran()
+                            ->where('tanggal', date('Y-m-d', strtotime($scan->ScanDate . "-1 day")))
+                            ->whereTime('jam_masuk', '>=', $shifts['_3_min'])
+                            ->first();
 
                         if ($yesterday == null) {
                             $satpam->kehadiran()->firstOrCreate([
@@ -99,7 +103,9 @@ class ScanlogSatpam extends Command
 
                 case ($scanTime >= strtotime($shifts['_2_min']) && $scanTime < strtotime($shifts['_2_max'])):
                     /* -- cek apakah jam kedatangan sudah ada */
-                    $result = $satpam->kehadiran()->where('tanggal', date('Y-m-d', strtotime($scan->ScanDate)))->first();
+                    $result = $satpam->kehadiran()
+                        ->where('tanggal', date('Y-m-d', strtotime($scan->ScanDate)))
+                        ->first();
                     // dd($result);
                     if ($result == null) {
                         $satpam->kehadiran()->firstOrCreate([
@@ -123,7 +129,10 @@ class ScanlogSatpam extends Command
                     break;
 
                 case ($scanTime >= strtotime($shifts['_3_min']) && $scanTime < strtotime($shifts['_3_max'])):
-                    $result = $satpam->kehadiran()->where('tanggal', date('Y-m-d', strtotime($scan->ScanDate)))->first();
+
+                    $result = $satpam->kehadiran()
+                        ->where('tanggal', date('Y-m-d', strtotime($scan->ScanDate)))
+                        ->first();
 
                     if ($result == null) {
                         $satpam->kehadiran()->firstOrCreate([
@@ -133,7 +142,7 @@ class ScanlogSatpam extends Command
                         ]);
                     } else {
 
-                        if (strtotime($result->jam_masuk) < strtotime($shifts['_3_min'])) {
+                        if (strtotime($result->jam_masuk) >= strtotime($shifts['_2_min']) && strtotime($result->jam_masuk) < strtotime($shifts['_3_min'])) {
                             $satpam->kehadiran()->updateOrCreate([
                                 'tanggal' => date('Y-m-d', strtotime($scan->ScanDate))
                             ], [
