@@ -42,9 +42,9 @@ class ScanlogSatpam extends Command
     public function handle()
     {
         $shifts = [
-            '_1_min' => '06:45',
-            '_2_min' => '14:45',
-            '_3_min' => '22:45',
+            '_1_min' => '06:30',
+            '_2_min' => '14:30',
+            '_3_min' => '22:30',
             '_1_max' => '07:30',
             '_2_max' => '15:30',
             '_3_max' => '23:30',
