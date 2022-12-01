@@ -51,7 +51,7 @@ class ScanlogNonShift extends Command
             $scanlogs = $finger->newScan($serial);
             // kalo False
             if (!$scanlogs->Result) {
-                Log::critical("Diskonek", ["sn" => $serial]);
+                // Log::critical("Diskonek", ["sn" => $serial]);
                 continue;
             }
 
