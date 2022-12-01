@@ -37,7 +37,7 @@ class Kernel extends ConsoleKernel
 
         $schedule->command('scanlog:satpam')
             ->withoutOverlapping()
-            ->everyFifteenMinutes();
+            ->everyTwoHours();
 
         $schedule->command('potongan:expired')
             ->withoutOverlapping()
