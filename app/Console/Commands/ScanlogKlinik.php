@@ -24,7 +24,7 @@ class ScanlogKlinik extends Command
      */
     protected $description = 'Scanlog schedule for fingerprint klinik';
 
-    protected $list = array('222351','109148','220289','210121','201009','207056','205039
+    protected $list = array('222351', '109148', '220289', '210121', '201009', '207056', '205039
     ');
 
     /**
@@ -45,10 +45,10 @@ class ScanlogKlinik extends Command
     public function handle()
     {
         $finger = new EasyLink;
-        $devices = Device::where('tipe', '2')->get();
+        $devices = Device::where('tipe', '2')
+            ->where('keterangan', 'klinik')->get();
 
-        foreach ($devices as $device)
-        {
+        foreach ($devices as $device) {
             $serial = $device->serial_number;
             $scanlogs = $finger->newScan($serial);
 
@@ -56,13 +56,11 @@ class ScanlogKlinik extends Command
                 continue;
             }
 
-            foreach ($scanlogs->Data as $scan)
-            {
+            foreach ($scanlogs->Data as $scan) {
                 $scanTime = strtotime(date('H:i:s', strtotime($scan->ScanDate)));
                 $karyawan = Karyawan::where('no_induk', $scan->PIN)->first();
 
-                if (!$karyawan)
-                {
+                if (!$karyawan) {
                     continue;
                 }
 
@@ -79,12 +77,10 @@ class ScanlogKlinik extends Command
                 }
 
                 if ($scanTime >= strtotime('12:00:00') && $scanTime < strtotime('17:30:00')) {
-                    if (in_array($scan->PIN, $this->list))
-                    {
+                    if (in_array($scan->PIN, $this->list)) {
                         $result = $karyawan->kehadiran()->where('tanggal', date('Y-m-d', strtotime($scan->ScanDate)))->first();
                         // dd($result, $scan->ScanDate);
-                        if ($result == null || $result->jam_kembali == null)
-                        {
+                        if ($result == null || $result->jam_kembali == null) {
                             $karyawan->kehadiran()->updateOrCreate([
                                 'tanggal' => date('Y-m-d', strtotime($scan->ScanDate))
                             ], [
@@ -101,7 +97,6 @@ class ScanlogKlinik extends Command
                         ]);
 
                         continue;
-
                     } else {
                         if ($scanTime >= strtotime('12:45:00') && $scanTime < strtotime('14:30:00')) {
                             $karyawan->kehadiran()->updateOrCreate([

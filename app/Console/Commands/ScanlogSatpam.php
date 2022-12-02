@@ -56,7 +56,7 @@ class ScanlogSatpam extends Command
             ->where('keterangan', 'POS SATPAM A')->first();
 
         $serial = $device->serial_number;
-        $scanlogs = $finger->newScan("61627018330776");
+        $scanlogs = $finger->newScan($serial);
 
         if ($scanlogs == null || !$scanlogs->Result) return;
 
