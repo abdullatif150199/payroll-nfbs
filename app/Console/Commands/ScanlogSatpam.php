@@ -90,12 +90,14 @@ class ScanlogSatpam extends Command
                                 'tanggal' => date('Y-m-d', strtotime($scan->ScanDate))
                             ], [
                                 'jam_masuk' => date('H:i:s', strtotime($scan->ScanDate)),
+                                'tipe' => 'shift',
                             ]);
                         } else {
                             $satpam->kehadiran()->updateOrCreate([
                                 'tanggal' => date('Y-m-d', strtotime($scan->ScanDate . "-1 day"))
                             ], [
                                 'jam_pulang' => date('H:i:s', strtotime($scan->ScanDate)),
+                                'tipe' => 'shift',
                             ]);
                         }
                     } else {
@@ -115,6 +117,7 @@ class ScanlogSatpam extends Command
                             'tanggal' => date('Y-m-d', strtotime($scan->ScanDate))
                         ], [
                             'jam_masuk' => date('H:i:s', strtotime($scan->ScanDate)),
+                            'tipe' => 'shift',
                         ]);
                     } else {
 
@@ -123,6 +126,7 @@ class ScanlogSatpam extends Command
                                 'tanggal' => date('Y-m-d', strtotime($scan->ScanDate))
                             ], [
                                 'jam_pulang' => date('H:i:s', strtotime($scan->ScanDate)),
+                                'tipe' => 'shift',
                             ]);
                         } else {
                             echo "lebih kecil dari batas minimal shift";
@@ -142,6 +146,7 @@ class ScanlogSatpam extends Command
                             'tanggal' => date('Y-m-d', strtotime($scan->ScanDate))
                         ], [
                             'jam_masuk' => date('H:i:s', strtotime($scan->ScanDate)),
+                            'tipe' => 'shift',
                         ]);
                     } else {
 
@@ -150,6 +155,7 @@ class ScanlogSatpam extends Command
                                 'tanggal' => date('Y-m-d', strtotime($scan->ScanDate))
                             ], [
                                 'jam_pulang' => date('H:i:s', strtotime($scan->ScanDate)),
+                                'tipe' => 'shift',
                             ]);
                         } else {
                             echo "lebih kecil dari batas minimal shift";

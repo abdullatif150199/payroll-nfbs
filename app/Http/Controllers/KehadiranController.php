@@ -26,7 +26,7 @@ class KehadiranController extends Controller
         $bidang = Bidang::pluck('nama_bidang', 'id');
         $unit = Unit::pluck('nama_unit', 'id');
         $karyawan = Karyawan::orderBy('nama_lengkap')->pluck('nama_lengkap', 'id');
-        
+
         if (!in_array($request->list, $list)) {
             abort(404);
         }
@@ -63,14 +63,25 @@ class KehadiranController extends Controller
     {
         $tanggal = $request->tanggal ? $request->tanggal : date('Y-m-d');
 
-        $data = Kehadiran::with('karyawan')
-            ->when($request->bidang, function ($query) use ($request) {
-                $query->whereHas('karyawan.bidang', function ($q) use ($request) {
-                    $q->where('id', $request->bidang);
-                });
-            })
-            ->where('tanggal', $tanggal)
-            ->latest();
+        if ($request->unit && $request->unit != '') {
+            $data = Kehadiran::with('karyawan')
+                ->when($request->unit, function ($query) use ($request) {
+                    $query->whereHas('karyawan.unit', function ($q) use ($request) {
+                        $q->where('id', $request->unit);
+                    });
+                })
+                ->where('tanggal', $tanggal)
+                ->latest();
+        } else {
+            $data = Kehadiran::with('karyawan')
+                ->when($request->bidang, function ($query) use ($request) {
+                    $query->whereHas('karyawan.bidang', function ($q) use ($request) {
+                        $q->where('id', $request->bidang);
+                    });
+                })
+                ->where('tanggal', $tanggal)
+                ->latest();
+        }
 
         return Datatables::of($data)
             ->addColumn('actions', function ($data) {
@@ -94,7 +105,7 @@ class KehadiranController extends Controller
                 return $result;
             })
             ->editColumn('no_induk', function ($data) {
-                return '<span class="text-muted">'. $data->karyawan->no_induk .'</span>';
+                return '<span class="text-muted">' . $data->karyawan->no_induk . '</span>';
             })
             ->editColumn('nama_lengkap', function ($data) {
                 return $data->karyawan->nama_lengkap;
@@ -172,7 +183,7 @@ class KehadiranController extends Controller
         if (!$request->dari_tanggal) {
             $dari = date('Y-m-d', strtotime('-1 weeks'));
             $sampai = date('Y-m-d');
-            $range = ((strtotime($sampai) - strtotime($dari))/3600/24) + 1;
+            $range = ((strtotime($sampai) - strtotime($dari)) / 3600 / 24) + 1;
 
             $data = Karyawan::with(['jamperpekan', 'kehadiran' => function ($query) use ($dari, $sampai) {
                 $query->whereBetween('tanggal', [$dari, $sampai]);
@@ -180,11 +191,11 @@ class KehadiranController extends Controller
                 $query->whereHas('bidang', function ($q) use ($request) {
                     $q->where('id', $request->bidang);
                 });
-            })   ->orderBy('nama_lengkap', 'asc');
+            })->orderBy('nama_lengkap', 'asc');
         } else {
             $dari = date('Y-m-d', strtotime($request->dari_tanggal));
             $sampai = date('Y-m-d', strtotime($request->sampai_tanggal));
-            $range = ((strtotime($sampai) - strtotime($dari))/3600/24) + 1;
+            $range = ((strtotime($sampai) - strtotime($dari)) / 3600 / 24) + 1;
 
             $data = Karyawan::with(['jamperpekan', 'kehadiran' => function ($query) use ($dari, $sampai) {
                 $query->whereBetween('tanggal', [$dari, $sampai]);
@@ -192,7 +203,7 @@ class KehadiranController extends Controller
                 $query->whereHas('bidang', function ($q) use ($request) {
                     $q->where('id', $request->bidang);
                 });
-            })   ->orderBy('nama_lengkap', 'asc');
+            })->orderBy('nama_lengkap', 'asc');
         }
 
         return Datatables::of($data)
@@ -205,7 +216,7 @@ class KehadiranController extends Controller
                 return $result;
             })
             ->editColumn('no_induk', function ($data) {
-                return '<span class="text-muted">'. $data->no_induk .'</span>';
+                return '<span class="text-muted">' . $data->no_induk . '</span>';
             })
             ->editColumn('nama_lengkap', function ($data) {
                 return $data->nama_lengkap;
@@ -221,7 +232,7 @@ class KehadiranController extends Controller
 
     public function persentaseKehadiran($data, $range)
     {
-        $jam_perhari = round($data->jamperpekan->jml_jam/$data->jamperpekan->jml_hari, 2);
+        $jam_perhari = round($data->jamperpekan->jml_jam / $data->jamperpekan->jml_hari, 2);
         $jam_hadir = total_sum_time($data->kehadiran, $data->tipe_kerja, 'val');
         $jam_wajib = ($range * $jam_perhari) * 3600;
 
@@ -229,7 +240,7 @@ class KehadiranController extends Controller
             return 0;
         }
 
-        $persen = ($jam_hadir/$jam_wajib) * 100;
+        $persen = ($jam_hadir / $jam_wajib) * 100;
 
         if ($persen > 100) {
             return 100;
@@ -237,19 +248,19 @@ class KehadiranController extends Controller
 
         return round($persen, 2);
     }
-    
+
     // persentasi mode tanpa hari ahad
     public function percentage($data, $range, $start, $end)
     {
-        $jam_perhari = round($data->jamperpekan->jml_jam/$data->jamperpekan->jml_hari, 2);
+        $jam_perhari = round($data->jamperpekan->jml_jam / $data->jamperpekan->jml_hari, 2);
         $jam_hadir = total_sum_time($data->kehadiran, $data->tipe_kerja, 'val');
-        $jam_wajib = (($range - how_many_sundays($start, $end))* $jam_perhari) * 3600;
+        $jam_wajib = (($range - how_many_sundays($start, $end)) * $jam_perhari) * 3600;
 
         if ($jam_wajib <= 0) {
             return 0;
         }
 
-        $persen = ($jam_hadir/$jam_wajib) * 100;
+        $persen = ($jam_hadir / $jam_wajib) * 100;
 
         if ($persen > 100) {
             return 100;
@@ -276,7 +287,7 @@ class KehadiranController extends Controller
                 return '';
             })
             ->editColumn('no_induk', function ($data) {
-                return '<span class="text-muted">'. $data->karyawan->no_induk .'</span>';
+                return '<span class="text-muted">' . $data->karyawan->no_induk . '</span>';
             })
             ->editColumn('nama_lengkap', function ($data) {
                 return $data->karyawan->nama_lengkap;
@@ -333,16 +344,15 @@ class KehadiranController extends Controller
 
     // Download Rekap Kehadiran Pegawai - Semua atau Unit
     public function downloadAttendance(Request $request)
-    {                
+    {
         if (!$request->date_start && !$request->date_end) {
             $request->date_start = Carbon::now()->subDays(30)->format('Y-m-d');
             $request->date_end = Carbon::now()->format('Y-m-d');
-        }     
-        
+        }
+
         $export = new KehadiranPegawaiExport($request->date_start, $request->date_end, $request->bidang, $request->unit);
 
-        return Excel::download($export, 'kehadiran_' . date('d-m-Y') .'dari '.$request->date_start.' sampai '.$request->date_end.'.xlsx');
-
+        return Excel::download($export, 'kehadiran_' . date('d-m-Y') . 'dari ' . $request->date_start . ' sampai ' . $request->date_end . '.xlsx');
     }
 
     // Insert kehadiran pegawai yang dinas seharian
@@ -355,7 +365,8 @@ class KehadiranController extends Controller
         ]);
     }
 
-    public function insert(Request $request){
+    public function insert(Request $request)
+    {
         // dd($request);
         $this->validate($request, [
             'karyawan_id' => 'required',
@@ -365,7 +376,7 @@ class KehadiranController extends Controller
         // $karyawan = Karyawan::where('id', $request->karyawan_id)->first();
         $karyawan = Karyawan::find($request->karyawan_id);
 
-        if (!$karyawan){
+        if (!$karyawan) {
             return;
         }
 

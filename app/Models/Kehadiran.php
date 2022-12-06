@@ -8,7 +8,7 @@ class Kehadiran extends Model
 {
     protected $table = 'kehadiran';
 
-    protected $fillable = ['jam_masuk', 'jam_istirahat', 'jam_kembali', 'jam_pulang', 'tanggal'];
+    protected $fillable = ['jam_masuk', 'jam_istirahat', 'jam_kembali', 'jam_pulang', 'tanggal', 'tipe'];
 
     public function karyawan()
     {

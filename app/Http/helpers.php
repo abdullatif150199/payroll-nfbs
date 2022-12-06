@@ -46,6 +46,10 @@ function sum_time($masuk, $istirahat, $kembali, $pulang, $res = null)
 function sum_time_shift($masuk, $pulang, $res = null)
 {
     if (!empty($masuk) && !empty($pulang)) {
+        if (strtotime($pulang) < strtotime($masuk)) {
+            $pulang = date('Y-m-d', strtotime('tomorrow')) . " " . $pulang;
+        }
+
         $diff = (strtotime($pulang) - strtotime($masuk));
 
         if ($res === 'val') {
@@ -241,7 +245,8 @@ function yearMonth($value, $hidden = null)
     return $result;
 }
 
-function bulan($bln) {
+function bulan($bln)
+{
     switch ($bln) {
         case '01':
             $bln = 'Januari';
@@ -391,7 +396,7 @@ function how_many_sundays($date_start, $date_end)
 
     $days = $start->diff($end, true)->days;
 
-    $sundays = intval($days/7) + ($start->format('N') + $days % 7 >= 7);
+    $sundays = intval($days / 7) + ($start->format('N') + $days % 7 >= 7);
 
     return $sundays;
 }
