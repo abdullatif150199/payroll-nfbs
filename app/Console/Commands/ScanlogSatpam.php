@@ -51,6 +51,15 @@ class ScanlogSatpam extends Command
             '_3_max' => '23:30',
         ];
 
+        $jam = [
+            'masuk_min' => strtotime('05:00:00'),
+            'masuk_max' => strtotime('10:30:00'),
+            'kembali_min' => strtotime('12:45:00'),
+            'kembali_max' => strtotime('14:30:00'),
+            'pulang_min' => strtotime('14:30:00'),
+            'pulang_max' => strtotime('18:00:00'),
+        ];
+
         $finger = new EasyLink;
         $device = Device::where('tipe', '2')
             ->where('keterangan', 'POS SATPAM A')->first();
@@ -62,6 +71,60 @@ class ScanlogSatpam extends Command
 
         foreach ($scanlogs->Data as $scan) {
             $scanTime = strtotime(date('H:i:s', strtotime($scan->ScanDate)));
+
+            /* -- start khusus pegawai non-shift misal pak Iip -- */
+            if ($scan->PIN == "302015") {
+                $karyawan = Karyawan::where('no_induk', $scan->PIN)->first();
+
+                if (!$karyawan) continue;
+
+                // Simpan Log
+                ScanlogJob::dispatch($scan, $karyawan);
+
+                // Masuk -- ini nih
+                if ($scanTime >= $jam['masuk_min'] && $scanTime < $jam['masuk_max']) {
+
+                    $karyawan->kehadiran()->firstOrCreate([
+                        'tanggal' => date('Y-m-d', strtotime($scan->ScanDate))
+                    ], [
+                        'jam_masuk' => date('H:i:s', strtotime($scan->ScanDate))
+                    ]);
+
+                    continue;
+                }
+
+                if ($scanTime >= $jam['kembali_min'] && $scanTime < $jam['kembali_max']) {
+
+                    $karyawan->kehadiran()->updateOrCreate([
+                        'tanggal' => date('Y-m-d', strtotime($scan->ScanDate))
+                    ], [
+                        'jam_kembali' => date('H:i:s', strtotime($scan->ScanDate)),
+                        'jam_istirahat' => '12:00:00'
+                    ]);
+
+                    continue;
+                }
+
+                // Pulang
+                if ($scanTime >= $jam['pulang_min'] && $scanTime < $jam['pulang_max']) {
+                    if ($scanTime >= strtotime(setting('jam_pulang_kerja_nonshift'))) {
+                        $scanTime = setting('jam_pulang_kerja_nonshift');
+                    } else {
+                        $scanTime = date('H:i:s', strtotime($scan->ScanDate));
+                    }
+
+                    $karyawan->kehadiran()->updateOrCreate([
+                        'tanggal' => date('Y-m-d', strtotime($scan->ScanDate))
+                    ], [
+                        'jam_pulang' => $scanTime
+                    ]);
+
+                    continue;
+                }
+            }
+
+            /* -- end khusus pegawai non-shift misal pak Iip -- */
+
 
             /* -- start get karyawan id dengan tipe_kerja shift -- */
             $satpam = Karyawan::where('tipe_kerja', 'shift')
