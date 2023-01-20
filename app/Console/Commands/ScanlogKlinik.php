@@ -25,7 +25,7 @@ class ScanlogKlinik extends Command
     protected $description = 'Scanlog schedule for fingerprint klinik';
 
     protected $list = array('222351', '109148', '220289', '210121', '201009', '207056', '205039
-    ');
+    ', '124277');
 
     /**
      * Create a new command instance.
