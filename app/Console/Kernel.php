@@ -43,6 +43,10 @@ class Kernel extends ConsoleKernel
             ->withoutOverlapping()
             ->everyTwoHours();
 
+        $schedule->command('cek:jam')
+            ->withoutOverlapping()
+            ->dailyAt('06:00');
+
         $schedule->command('potongan:expired')
             ->withoutOverlapping()
             ->daily();

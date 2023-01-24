@@ -7,7 +7,6 @@ use App\Libraries\EasyLink;
 use App\Models\Device;
 use App\Models\Karyawan;
 use Illuminate\Console\Command;
-use Illuminate\Support\Facades\Log;
 
 class ScanlogDapur extends Command
 {
@@ -138,8 +137,6 @@ class ScanlogDapur extends Command
 
                 if (!$dapur) continue;
                 ScanlogJob::dispatch($scan, $dapur);
-
-                Log::critical("Data Dapur", ["nama" => $dapur->nama_lengkap, "waktu" => date('H:i:s', strtotime($scan->ScanDate))]);
 
                 switch (true) {
                     case ($scanTime >= strtotime($shifts['_1_min']) && $scanTime < strtotime($shifts['_1_max'])):

@@ -7,7 +7,6 @@ use App\Libraries\EasyLink;
 use App\Models\Device;
 use App\Models\Karyawan;
 use Illuminate\Console\Command;
-use Illuminate\Support\Facades\Log;
 
 class ScanlogSatpam extends Command
 {
@@ -134,8 +133,6 @@ class ScanlogSatpam extends Command
             if (!$satpam) continue;
             ScanlogJob::dispatch($scan, $satpam);
 
-            Log::critical("Data Satpam", ["nama" => $satpam->nama_lengkap, "waktu" => date('H:i:s', strtotime($scan->ScanDate))]);
-
             switch (true) {
                 case ($scanTime >= strtotime($shifts['_1_min']) && $scanTime < strtotime($shifts['_1_max'])):
                     $result = $satpam->kehadiran()
@@ -228,7 +225,5 @@ class ScanlogSatpam extends Command
                     break;
             }
         }
-
-        // return 0;
     }
 }
