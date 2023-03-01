@@ -32,7 +32,8 @@ class LoginController extends Controller
      * @var string
      */
     // protected $redirectTo = '/dashboard';
-    public function redirectTo(){
+    public function redirectTo()
+    {
 
         // User Auth
         $role = Auth::user();
@@ -43,7 +44,6 @@ class LoginController extends Controller
         } else {
             return '/dashboard';
         }
-
     }
 
     /**

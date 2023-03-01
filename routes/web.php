@@ -52,6 +52,13 @@ Route::group(['prefix' => 'profile', 'as' => 'profile.', 'middleware' => ['auth'
 
     // Messages
     Route::get('komplain', 'Profile\KomplainController@index')->name('komplain.index');
+
+    // profile mutabaah atau rekapan ibadah
+    Route::get('mutabaah', 'Profile\MutabaahController@index')->name('mutabaah.index');
+    Route::get('mutabaah/create', 'Profile\MutabaahController@create')->name('mutabaah.create');
+    Route::post('mutabaah/store', 'Profile\MutabaahController@store')->name('mutabaah.store');
+    Route::get('mutabaah/{id}/edit', 'Profile\MutabaahController@edit')->name('mutabaah.edit');
+    Route::put('mutabaah/{id}', 'Profile\MutabaahController@update')->name('mutabaah.update');
 });
 
 Route::group(['prefix' => 'dashboard', 'as' => 'dash.', 'middleware' => ['auth']], function () {
@@ -125,6 +132,11 @@ Route::group(['prefix' => 'dashboard', 'as' => 'dash.', 'middleware' => ['auth']
         Route::post('kehadiran/insert', 'KehadiranController@insert')->name('kehadiran.insert');
         Route::post('kehadiran/download-attendance', 'KehadiranController@downloadAttendance')->name('kehadiran.download');
 
+        // mutabaah
+        Route::get('mutabaah', 'MutabaahController@index')->name('mutabaah');
+        Route::get('get-mutabaah', 'MutabaahController@datatable')->name('mutabaah.datatable');
+        Route::post('mutabaah/unduh', 'MutabaahController@unduh')->name('mutabaah.unduh');
+
         // scanlog
         Route::get('scanlog', 'ScanlogController@index')->name('scanlog');
         Route::get('get-scanlog', 'ScanlogController@datatable')->name('scanlog.datatable');
@@ -180,7 +192,7 @@ Route::group(['prefix' => 'dashboard', 'as' => 'dash.', 'middleware' => ['auth']
             Route::get('get-role', 'RoleController@datatable')->name('role.datatable');
             Route::get('get-tax', 'TaxController@datatable')->name('tax.datatable');
             Route::post('user/{id}/reset-password', 'UserController@reset')->name('user.reset');
-            
+
             // Jabatan
             Route::get('jabatan', 'JabatanController@index')->name('jabatan');
             Route::get('get-jabatan', 'JabatanController@datatable')->name('jabatan.datatable');

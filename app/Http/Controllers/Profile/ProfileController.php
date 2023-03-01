@@ -16,12 +16,13 @@ class ProfileController extends Controller
 
     public function index()
     {
-        $gajiFirst = Gaji::where('karyawan_id', $this->getId())
-            ->where('approved', 'Y')->latest()->first();
+        // $gajiFirst = Gaji::where('karyawan_id', $this->getId())
+        //     ->where('approved', 'Y')->latest()->first();
 
-        return view('profile.index', [
-            'gajiFirst' => $gajiFirst
-        ]);
+        // return view('profile.index', [
+        //     'gajiFirst' => $gajiFirst
+        // ]);
+        return redirect()->route('profile.mutabaah.index');
     }
 
     public function edit($username)

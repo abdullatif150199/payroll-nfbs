@@ -17,11 +17,11 @@ class CreateMutabaahsTable extends Migration
             $table->id();
             $table->foreignId('karyawan_id');
             $table->foreign('karyawan_id')->references('id')->on('karyawan')->onDelete('cascade');
-            $table->enum('shubuh', ['y', 'n'])->nullable();
-            $table->enum('dhuha', ['y', 'n', 'h'])->nullable();
-            $table->enum('tilawah_quran', ['y', 'n', 'h'])->nullable();
-            $table->enum('qiyamul_lail', ['y', 'n', 'h'])->nullable();
-            $table->enum('dhuha', ['y', 'n'])->nullable();
+            $table->enum('shubuh', ['ya', 'tidak'])->nullable();
+            $table->enum('dhuha', ['ya', 'tidak', 'haid'])->nullable();
+            $table->enum('tilawah_quran', ['ya', 'tidak', 'haid'])->nullable();
+            $table->enum('qiyamul_lail', ['ya', 'tidak', 'haid'])->nullable();
+            $table->date('tanggal');
             $table->timestamps();
         });
     }

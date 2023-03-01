@@ -26,6 +26,7 @@ class DefineMenus
             $menu->add('Potongan', 'dashboard/potongan')->data('icon', 'fe fe-scissors');
             $menu->add('Lainnya', 'dashboard')->data('icon', 'fe fe-layers');
             $menu->lainnya->add('Kehadiran', 'dashboard/kehadiran');
+            $menu->lainnya->add('Mutabaah', 'dashboard/mutabaah');
             $menu->lainnya->add('Cuti', 'dashboard/cuti');
             $menu->lainnya->add('Pajak', 'dashboard/potongan/pajak');
             $menu->lainnya->add('Scan Log', 'dashboard/scanlog');

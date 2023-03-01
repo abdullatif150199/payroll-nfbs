@@ -400,3 +400,9 @@ function how_many_sundays($date_start, $date_end)
 
     return $sundays;
 }
+
+function getDay($date)
+{
+    $datetime = DateTime::createFromFormat('Y-m-d', $date);
+    return $datetime->format('l');
+}
