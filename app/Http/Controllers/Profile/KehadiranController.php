@@ -10,7 +10,7 @@ class KehadiranController extends ProfileController
     {
         $data = Kehadiran::with('karyawan')
             ->where('karyawan_id', $this->getId())
-            ->latest()
+            ->latest('tanggal')
             ->simplePaginate(10);
 
         return view('profile.kehadiran.index', [
