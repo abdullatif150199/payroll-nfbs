@@ -75,6 +75,6 @@ class MutabaahController extends Controller
 
         $export = new MutabaahPegawaiExport($from, $to, $request->bidang, $request->unit);
 
-        return Excel::download($export, 'mutabaah_' . date('d-m-Y') . 'dari ' . $request->date_start . ' sampai ' . $request->date_end . '.xlsx');
+        return Excel::download($export, 'mutabaah_' . date('d-m-Y') . '_dari_' . $request->date_start . '_sampai_' . $request->date_end . '_.xlsx');
     }
 }

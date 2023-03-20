@@ -5,10 +5,13 @@ namespace App\Exports;
 use App\Models\Karyawan;
 use Maatwebsite\Excel\Concerns\Exportable;
 use Maatwebsite\Excel\Concerns\FromQuery;
+use Maatwebsite\Excel\Concerns\WithCustomStartCell;
+use Maatwebsite\Excel\Concerns\WithEvents;
 use Maatwebsite\Excel\Concerns\WithHeadings;
 use Maatwebsite\Excel\Concerns\WithMapping;
+use Maatwebsite\Excel\Events\AfterSheet;
 
-class MutabaahPegawaiExport implements FromQuery, WithHeadings, WithMapping
+class MutabaahPegawaiExport implements FromQuery, WithHeadings, WithMapping, WithCustomStartCell, WithEvents
 {
     use Exportable;
 
@@ -54,10 +57,99 @@ class MutabaahPegawaiExport implements FromQuery, WithHeadings, WithMapping
         }
 
         return Karyawan::query()
-            ->withCount(['mutabaah' => function ($q) {
-                $q->whereBetween('tanggal', [$this->from, $this->to]);
-            }])
+            ->withCount([
+                'mutabaah' => function ($q) {
+                    $q->whereBetween('tanggal', [$this->from, $this->to]);
+                },
+                'mutabaah as ya_shubuh' => function ($q) {
+                    $q->where('shubuh', 'ya');
+                },
+                'mutabaah as tidak_shubuh' => function ($q) {
+                    $q->where('shubuh', 'tidak');
+                },
+                'mutabaah as ya_dhuha' => function ($q) {
+                    $q->where('dhuha', 'ya');
+                },
+                'mutabaah as haid_dhuha' => function ($q) {
+                    $q->where('dhuha', 'haid');
+                },
+                'mutabaah as tidak_dhuha' => function ($q) {
+                    $q->where('dhuha', 'tidak');
+                },
+                'mutabaah as ya_tilawah' => function ($q) {
+                    $q->where('tilawah_quran', 'ya');
+                },
+                'mutabaah as haid_tilawah' => function ($q) {
+                    $q->where('tilawah_quran', 'haid');
+                },
+                'mutabaah as tidak_tilawah' => function ($q) {
+                    $q->where('tilawah_quran', 'tidak');
+                },
+                'mutabaah as ya_qiyamul_lail' => function ($q) {
+                    $q->where('qiyamul_lail', 'ya');
+                },
+                'mutabaah as haid_qiyamul_lail' => function ($q) {
+                    $q->where('qiyamul_lail', 'haid');
+                },
+                'mutabaah as tidak_qiyamul_lail' => function ($q) {
+                    $q->where('qiyamul_lail', 'tidak');
+                },
+            ])
             ->orderBy('nama_lengkap', 'asc');
+    }
+
+    public function startCell(): string
+    {
+        return 'A2';
+    }
+
+    public function registerEvents(): array
+    {
+
+        return [
+            AfterSheet::class => function (AfterSheet $event) {
+                /** @var Sheet $sheet */
+                $sheet = $event->sheet;
+
+                $sheet->mergeCells('A1:A2');
+                $sheet->setCellValue('A1', "NIP");
+
+                $sheet->mergeCells('B1:B2');
+                $sheet->setCellValue('B1', "Nama");
+
+                $sheet->mergeCells('C1:C2');
+                $sheet->setCellValue('C1', "Mengisi Mutabaah");
+
+                $sheet->mergeCells('D1:D2');
+                $sheet->setCellValue('D1', "Persentase Mengisi Mutabaah");
+
+                $sheet->mergeCells('E1:F1');
+                $sheet->setCellValue('E1', "Jamaah Shubuh");
+
+                $sheet->mergeCells('G1:I1');
+                $sheet->setCellValue('G1', "Dhuha");
+
+                $sheet->mergeCells('J1:L1');
+                $sheet->setCellValue('J1', "Tilawah");
+
+                $sheet->mergeCells('M1:O1');
+                $sheet->setCellValue('M1', "Qiyamul Lail");
+
+                $styleArray = [
+                    'alignment' => [
+                        'horizontal' => \PhpOffice\PhpSpreadsheet\Style\Alignment::HORIZONTAL_CENTER,
+                    ],
+                    'borders' => [
+                        'allBorders' => [
+                            'borderStyle' => \PhpOffice\PhpSpreadsheet\Style\Border::BORDER_THIN,
+                        ],
+                    ],
+                ];
+
+                $cellRange = 'A1:O260'; // All headers
+                $event->sheet->getDelegate()->getStyle($cellRange)->applyFromArray($styleArray);
+            },
+        ];
     }
 
     public function headings(): array
@@ -65,8 +157,19 @@ class MutabaahPegawaiExport implements FromQuery, WithHeadings, WithMapping
         return [
             'NIP',
             'Nama',
-            'Jumlah Hari',
-            'Persentase',
+            'Jml Isi Mutabaah',
+            'Persentase Isi Mutabaah',
+            'ya',
+            'tidak',
+            'ya',
+            'haid',
+            'tidak',
+            'ya',
+            'haid',
+            'tidak',
+            'ya',
+            'haid',
+            'tidak',
         ];
     }
 
@@ -76,7 +179,18 @@ class MutabaahPegawaiExport implements FromQuery, WithHeadings, WithMapping
             $item->no_induk,
             $item->nama_lengkap,
             $item->mutabaah_count,
-            $this->percentage($item->mutabaah_count, $this->range, $this->from, $this->to)
+            $this->percentage($item->mutabaah_count, $this->range, $this->from, $this->to),
+            $this->percentage($item->ya_shubuh, $this->range, $this->from, $this->to),
+            $this->percentage($item->tidak_shubuh, $this->range, $this->from, $this->to),
+            $this->percentage($item->ya_dhuha, $this->range, $this->from, $this->to),
+            $this->percentage($item->haid_dhuha, $this->range, $this->from, $this->to),
+            $this->percentage($item->tidak_dhuha, $this->range, $this->from, $this->to),
+            $this->percentage($item->ya_tilawah, $this->range, $this->from, $this->to),
+            $this->percentage($item->haid_tilawah, $this->range, $this->from, $this->to),
+            $this->percentage($item->tidak_tilawah, $this->range, $this->from, $this->to),
+            $this->percentage($item->ya_qiyamul_lail, $this->range, $this->from, $this->to),
+            $this->percentage($item->haid_qiyamul_lail, $this->range, $this->from, $this->to),
+            $this->percentage($item->tidak_qiyamul_lail, $this->range, $this->from, $this->to),
         ];
     }
 
@@ -89,20 +203,5 @@ class MutabaahPegawaiExport implements FromQuery, WithHeadings, WithMapping
 
         $persen = ($data / $jml_hari) * 100;
         return round($persen, 2);
-        // $jam_perhari = round($data->jamperpekan->jml_jam / $data->jamperpekan->jml_hari, 2);
-        // $jam_hadir = total_sum_time($data->kehadiran, $data->tipe_kerja, 'val');
-        // $jam_wajib = (($range - how_many_sundays($start, $end)) * $jam_perhari) * 3600;
-
-        // if ($jam_wajib <= 0) {
-        //     return 0;
-        // }
-
-        // $persen = ($jam_hadir / $jam_wajib) * 100;
-
-        // if ($persen > 100) {
-        //     return 100;
-        // }
-
-        // return round($persen, 2);
     }
 }
