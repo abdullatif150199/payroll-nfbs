@@ -52,10 +52,10 @@ class MutabaahController extends ProfileController
         if (date('l', $dateTime) == "Sunday") return redirect()->route('profile.mutabaah.index')
             ->with('error', 'Hari Ahad tidak perlu isi.');
 
-        if (date('l') == "Sunday") {
-            if ($dateTime < strtotime('now')) return redirect()->route('profile.mutabaah.index')
-                ->with('error', 'Pengisian tanggal ini sudah lewat.');
-        }
+        // if (date('l') == "Sunday") {
+        //     if ($dateTime < strtotime('now')) return redirect()->route('profile.mutabaah.index')
+        //         ->with('error', 'Pengisian tanggal ini sudah lewat.');
+        // }
 
         Mutabaah::create($request->all());
 

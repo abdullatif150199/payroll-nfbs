@@ -14,4 +14,23 @@ class Kehadiran extends Model
     {
         return $this->belongsTo(Karyawan::class);
     }
+
+    public function scopeFilterByUnitOrBidang($query, $request)
+    {
+        $tanggal = $request->tanggal ? $request->tanggal : date('Y-m-d');
+
+        $query->with('karyawan')
+            ->when($request->bidang, function ($query) use ($request) {
+                $query->whereHas('karyawan.bidang', function ($q) use ($request) {
+                    $q->where('id', $request->bidang);
+                });
+            })
+            ->when($request->unit, function ($query) use ($request) {
+                $query->whereHas('karyawan.unit', function ($q) use ($request) {
+                    $q->where('id', $request->unit);
+                });
+            })
+            ->where('tanggal', $tanggal)
+            ->latest();
+    }
 }
