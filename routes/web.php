@@ -59,10 +59,14 @@ Route::group(['prefix' => 'profile', 'as' => 'profile.', 'middleware' => ['auth'
     Route::post('mutabaah/store', 'Profile\MutabaahController@store')->name('mutabaah.store');
     Route::get('mutabaah/{id}/edit', 'Profile\MutabaahController@edit')->name('mutabaah.edit');
     Route::put('mutabaah/{id}', 'Profile\MutabaahController@update')->name('mutabaah.update');
+
+    // profile/hapalan
+    Route::get('hafalan', 'Profile\HafalanController@index')->name('hafalan.index');
 });
 
 Route::group(['prefix' => 'dashboard', 'as' => 'dash.', 'middleware' => ['auth']], function () {
     Route::group(['middleware' => ['role:root|admin|kabid|kanit']], function () {
+
         Route::get('/', 'HomeController@index')->name('home');
 
         // Pegawai
@@ -313,5 +317,10 @@ Route::group(['prefix' => 'dashboard', 'as' => 'dash.', 'middleware' => ['auth']
             Route::put('rekening/{id}', 'RekeningController@update')->name('rekening.update');
             Route::delete('rekening/{id}', 'RekeningController@destroy')->name('rekening.destroy');
         });
+
+
+        // Hapalan
+        Route::get('hafalan', 'HafalanController@index')->name('hafalan');
+    
     });
 });

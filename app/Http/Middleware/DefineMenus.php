@@ -21,6 +21,7 @@ class DefineMenus
             $menu->add('Pegawai', 'dashboard/pegawai')->data('icon', 'fe fe-users');
             $menu->add('Kehadiran', 'dashboard/kehadiran')->data('icon', 'fe fe-users');
             $menu->add('Mutabaah', 'dashboard/mutabaah')->data('icon', 'fe fe-users');
+            $menu->add('Hafalan', 'dashboard/hafalan')->data('icon', 'fe fe-book');
             // $menu->add('Daftar Gaji', 'dashboard/gaji')->data('icon', 'fe fe-shopping-bag');
             // $menu->add('Kinerja', 'dashboard/kinerja')->data('icon', 'fe fe-bar-chart-2');
             // $menu->add('Insentif', 'dashboard/insentif')->data('icon', 'fe fe-cloud-drizzle');
@@ -41,6 +42,7 @@ class DefineMenus
             // $menu->add('Lembur', 'profile/lembur')->data('icon', 'fe fe-bar-chart-2');
             $menu->add('Kehadiran', 'profile/kehadiran')->data('icon', 'fe fe-bar-chart-2');
             // $menu->add('Cuti', 'profile/cuti')->data('icon', 'fe fe-bar-chart-2');
+            $menu->add('Hafalan', 'profile/hafalan')->data('icon', 'fe fe-book');
         });
 
         return $next($request);
