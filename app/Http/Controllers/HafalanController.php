@@ -66,7 +66,9 @@ class HafalanController extends Controller
                 return $data->karyawan->nama_lengkap;
             })
             ->editColumn('action', function ($data) { 
-                return '<a href="Edit">Edit</>';
+                return '
+                <a href="Edit" class="bg-success text-white p-1 mr-2">Hapalan</> 
+                <a href="Edit" class="bg-primary text-white p-1">Edit</>';
             })
           
             ->rawColumns(['no_induk', 'nama_lengkap', 'action']) 
