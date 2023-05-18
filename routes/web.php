@@ -319,7 +319,7 @@ Route::group(['prefix' => 'dashboard', 'as' => 'dash.', 'middleware' => ['auth']
         });
 
 
-        // Hapalan
+        // Hafalan
         Route::get('hafalan', 'HafalanController@index')->name('hafalan');
     
     });

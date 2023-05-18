@@ -14,7 +14,6 @@
                 <form action="{{ route('profile.mutabaah.update', $data->id) }}" method="POST">
                     @method('PUT')
                     @include('profile.mutabaah.form')
-
                     <button type="submit" class="btn btn-primary">Submit</button>
                 </form>
             </div>
