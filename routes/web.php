@@ -141,6 +141,10 @@ Route::group(['prefix' => 'dashboard', 'as' => 'dash.', 'middleware' => ['auth']
         Route::get('get-mutabaah', 'MutabaahController@datatable')->name('mutabaah.datatable');
         Route::post('mutabaah/unduh', 'MutabaahController@unduh')->name('mutabaah.unduh');
 
+        // Hafalan
+        Route::get('hafalan', 'HafalanController@index')->name('hafalan');
+        Route::get('get-hafalan', 'HafalanController@datatable')->name('hafalan.datatable');
+
         // scanlog
         Route::get('scanlog', 'ScanlogController@index')->name('scanlog');
         Route::get('get-scanlog', 'ScanlogController@datatable')->name('scanlog.datatable');
@@ -319,8 +323,9 @@ Route::group(['prefix' => 'dashboard', 'as' => 'dash.', 'middleware' => ['auth']
         });
 
 
-        // Hafalan
-        Route::get('hafalan', 'HafalanController@index')->name('hafalan');
+     
+        
+
     
     });
 });

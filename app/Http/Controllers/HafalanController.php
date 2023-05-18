@@ -62,13 +62,15 @@ class HafalanController extends Controller
                 return '<span class="text-muted">' . $data->karyawan->no_induk . '</span>';
             })
             ->editColumn('nama_lengkap', function ($data) {
+                
                 return $data->karyawan->nama_lengkap;
             })
-            ->editColumn('action', function ($data) {
-                return '<a href="' . route('hafalan.edit', $data->id) . '">Edit</a>';
+            ->editColumn('action', function ($data) { 
+                return '<a href="Edit">Edit</>';
             })
+          
             ->rawColumns(['no_induk', 'nama_lengkap', 'action']) 
-            ->make(true);
+            ->make(true);       
     }
 
     // Download Rekap Mutabaah Pegawai - Semua atau Unit

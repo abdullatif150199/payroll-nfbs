@@ -272,7 +272,7 @@
                 </div>
                 <div class="table-responsive">
                     <table class="table table-responsive-sm table-hover table-outline table-vcenter card-table"
-                        id="mutabaahTable">
+                        id="hafalanTable">
                         <thead>
                             <tr>
                                 <th class="w-1">No. Induk</th>
@@ -362,12 +362,12 @@
             format: 'Y-m-d'
         });
         // $(document).ready(function() {
-        var oTable = $('#mutabaahTable').DataTable({
+        var oTable = $('#hafalanTable').DataTable({
             serverSide: true,
             processing: true,
             select: true,
             ajax: {
-                url: '{{ route('dash.mutabaah.datatable') }}',
+                url: '{{ route('dash.hafalan.datatable') }}',
                 data: function(d) {
                     d.tanggal = $('select[name=year]').val() + '-' + $('select[name=month]').val() + '-' + $(
                         'select[name=day]').val();

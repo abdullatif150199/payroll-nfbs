@@ -63,7 +63,7 @@ class MutabaahController extends Controller
             ->editColumn('nama_lengkap', function ($data) {
                 return $data->karyawan->nama_lengkap;
             })
-            ->rawColumns(['no_induk', 'nama_lengkap']) 
+            ->rawColumns(['no_induk', 'nama_lengkap'])
             ->make(true);
     }
 
