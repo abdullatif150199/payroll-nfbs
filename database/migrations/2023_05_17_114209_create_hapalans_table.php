@@ -15,7 +15,8 @@ class CreateHapalansTable extends Migration
     {
         Schema::create('hapalans', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('user_id');
+            $table->foreignId('karyawan_id');
+            $table->string('tanggal')->nullable();
             $table->string('nama')->nullable();
             $table->string('juz')->nullable();
             $table->string('halaman')->nullable();

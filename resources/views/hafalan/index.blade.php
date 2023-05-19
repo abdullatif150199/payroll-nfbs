@@ -387,13 +387,13 @@
                     orderable: false
                 },
                 {
-                    data: 'shubuh'
+                    data: 'juz'
                 },
                 {
-                    data: 'dhuha'
+                    data: 'halaman'
                 },
                 {
-                    data: 'tilawah_quran'
+                    data: 'surat'
                 },
                 { data: 'action', name: 'action', orderable: false, searchable: false },
 

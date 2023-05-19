@@ -76,6 +76,11 @@ class Karyawan extends Model
         return $this->hasMany(Mutabaah::class);
     }
 
+    public function hapalan()
+    {
+        return $this->hasMany(Hapalan::class);
+    }
+
     public function attendanceApel()
     {
         return $this->hasMany(AttendanceApel::class);

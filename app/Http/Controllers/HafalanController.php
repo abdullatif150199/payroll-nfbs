@@ -5,7 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 
 use App\Models\Karyawan;
-use App\Models\Mutabaah;
+use App\Models\Hapalan;
 use App\Models\Bidang;
 use App\Models\Unit;
 
@@ -29,7 +29,7 @@ class HafalanController extends Controller
             'title' => $title,
             'bidang' => $bidang,
             'unit' => $unit,
-            'karyawan' => $karyawan
+            'karyawan' => $karyawan   
         ]);
     }
 
@@ -38,7 +38,7 @@ class HafalanController extends Controller
         $tanggal = $request->tanggal ? $request->tanggal : date('Y-m-d');
 
         if ($request->unit && $request->unit != '') {
-            $data = Mutabaah::with('karyawan')
+            $data = Hapalan::with('karyawan')
                 ->when($request->unit, function ($query) use ($request) {
                     $query->whereHas('karyawan.unit', function ($q) use ($request) {
                         $q->where('id', $request->unit);
@@ -47,7 +47,7 @@ class HafalanController extends Controller
                 ->where('tanggal', $tanggal)
                 ->latest();
         } else {
-            $data = Mutabaah::with('karyawan')
+            $data = Hapalan::with('karyawan')
                 ->when($request->bidang, function ($query) use ($request) {
                     $query->whereHas('karyawan.bidang', function ($q) use ($request) {
                         $q->where('id', $request->bidang);
@@ -65,6 +65,10 @@ class HafalanController extends Controller
                 
                 return $data->karyawan->nama_lengkap;
             })
+            // ->editColumn('juz', function ($data) {
+                
+            //     return $data->juz;
+            // })
             ->editColumn('action', function ($data) { 
                 return '
                 <a href="Edit" class="bg-success text-white p-1 mr-2">Hapalan</> 
