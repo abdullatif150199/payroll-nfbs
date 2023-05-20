@@ -19,7 +19,8 @@ class CreateHapalansTable extends Migration
             $table->string('tanggal')->nullable();
             $table->string('nama')->nullable();
             $table->string('juz')->nullable();
-            $table->string('halaman')->nullable();
+            $table->string('dari_halaman')->nullable();
+            $table->string('sampai_halaman')->nullable();
             $table->string('surat')->nullable();
             $table->timestamps();
 

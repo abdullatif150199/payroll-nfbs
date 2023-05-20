@@ -143,6 +143,7 @@ Route::group(['prefix' => 'dashboard', 'as' => 'dash.', 'middleware' => ['auth']
 
         // Hafalan
         Route::get('hafalan', 'HafalanController@index')->name('hafalan');
+        Route::get('hafalan/{karyawan:id}', 'HafalanController@show')->name('hafalan.show');
         Route::get('get-hafalan', 'HafalanController@datatable')->name('hafalan.datatable');
 
         // scanlog

@@ -192,12 +192,12 @@
         <div class="col-12">
             <div class="card">
                 <div class="card-header">
-                    <form class="form-inline" action="{{ route('dash.mutabaah.datatable') }}" method="post">
+                    <form class="form-inline" action="{{ route('dash.hafalan.datatable') }}" method="post">
                         <label for="month" class="mr-sm-3">Tanggal</label>
                         <div class="row gutters-xs">
                             <div class="col">
                                 <select name="day" class="form-control custom-select"
-                                    onchange="$('#mutabaahTable').DataTable().draw()">
+                                    onchange="$('#hafalanTable').DataTable().draw()">
                                     <option value="">Tahun</option>
                                     @for ($i = 1; $i <= 31; $i++)
                                         <option {{ date('d') == $i ? 'selected' : '' }} value="{{ $i }}">
@@ -207,7 +207,7 @@
                             </div>
                             <div class="col">
                                 <select name="month" class="form-control custom-select"
-                                    onchange="$('#mutabaahTable').DataTable().draw()">
+                                    onchange="$('#hafalanTable').DataTable().draw()">
                                     <option value="">Bulan</option>
                                     <option {{ date('m') == '01' ? 'selected' : '' }} value="01">Januari</option>
                                     <option {{ date('m') == '02' ? 'selected' : '' }} value="02">Februari</option>
@@ -225,7 +225,7 @@
                             </div>
                             <div class="col">
                                 <select name="year" class="form-control custom-select"
-                                    onchange="$('#mutabaahTable').DataTable().draw()">
+                                    onchange="$('#hafalanTable').DataTable().draw()">
                                     <option value="">Tahun</option>
                                     @for ($i = 2018; $i <= date('Y'); $i++)
                                         <option {{ date('Y') == $i ? 'selected' : '' }} value="{{ $i }}">
@@ -238,7 +238,7 @@
                         <div class="row gutters-xs">
                             <div class="col">
                                 <select name="bidang" class="form-control"
-                                    onchange="$('#mutabaahTable').DataTable().draw()">
+                                    onchange="$('#hafalanTable').DataTable().draw()">
                                     <option value="">Semua Departemen</option>
                                     @foreach ($bidang as $key => $val)
                                         <option value="{{ $key }}">{{ substr($val, 0, 8) }}</option>
@@ -250,7 +250,7 @@
                         <div class="row gutters-xs">
                             <div class="col">
                                 <select name="unit" class="form-control"
-                                    onchange="$('#mutabaahTable').DataTable().draw()">
+                                    onchange="$('#hafalanTable').DataTable().draw()">
                                     <option value="">Semua Bidang</option>
                                     @foreach ($unit as $key => $val)
                                         <option value="{{ $key }}">{{ $val }}</option>
@@ -278,7 +278,8 @@
                                 <th class="w-1">No. Induk</th>
                                 <th>Nama Lengkap</th>
                                 <th>JUZ</th>
-                                <th>HALAMAN</th>
+                                <th class="w-1">DARI HALAMAN</th>
+                                <th class="w-1">SAMPAI HALAMAN</th>
                                 <th>SURAH</th>
                                 <th>ACTION</th>
                             </tr>
@@ -390,7 +391,10 @@
                     data: 'juz'
                 },
                 {
-                    data: 'halaman'
+                    data: 'dari_halaman'
+                },
+                {
+                    data: 'sampai_halaman'
                 },
                 {
                     data: 'surat'

@@ -16,6 +16,7 @@
     <link href="{{ asset('css/dashboard.css') }}" rel="stylesheet" />
     <link href="{{ asset('css/chart.css') }}" rel="stylesheet" />
     <link href="{{ asset('css/toastr.min.css') }}" rel="stylesheet" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.3/font/bootstrap-icons.css">
     @stack('styles')
 </head>
 

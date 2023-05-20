@@ -65,14 +65,9 @@ class HafalanController extends Controller
                 
                 return $data->karyawan->nama_lengkap;
             })
-            // ->editColumn('juz', function ($data) {
-                
-            //     return $data->juz;
-            // })
             ->editColumn('action', function ($data) { 
-                return '
-                <a href="Edit" class="bg-success text-white p-1 mr-2">Hapalan</> 
-                <a href="Edit" class="bg-primary text-white p-1">Edit</>';
+                return '<a href="hafalan/' . $data->karyawan->id . '" class="bg-primary text-white p-1 mr-2">Hafalan</a>';
+                // <a href="Edit" class="bg-primary text-white p-1">Edit</>
             })
           
             ->rawColumns(['no_induk', 'nama_lengkap', 'action']) 
@@ -88,5 +83,13 @@ class HafalanController extends Controller
         $export = new MutabaahPegawaiExport($from, $to, $request->bidang, $request->unit);
 
         return Excel::download($export, 'mutabaah_' . date('d-m-Y') . '_dari_' . $request->date_start . '_sampai_' . $request->date_end . '_.xlsx');
+    }
+
+    public function show (Karyawan $karyawan) 
+    {
+        return view('hafalan.show', [
+            'karyawan' => $karyawan,
+            'hafalans' => $karyawan->hapalan    
+        ]);
     }
 }
