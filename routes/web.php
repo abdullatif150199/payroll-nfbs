@@ -144,6 +144,14 @@ Route::group(['prefix' => 'dashboard', 'as' => 'dash.', 'middleware' => ['auth']
         // Hafalan
         Route::get('hafalan', 'HafalanController@index')->name('hafalan');
         Route::get('hafalan/{karyawan:id}', 'HafalanController@show')->name('hafalan.show');
+        Route::get('hafalanCreate/{karyawan:id}', 'HafalanController@create')->name('hafalan.create');
+        Route::post('hafalan', 'HafalanController@store')->name('hafalan.store');
+        Route::get('hafalan/{hapalan:id}/edit', 'HafalanController@edit')->name('hafalan.edit');
+        Route::post('hafalan/{hapalan:id}', 'HafalanController@update')->name('hafalan.update');
+        Route::post('hafalan/{hapalan:id}', 'HafalanController@update')->name('hafalan.update');
+        Route::delete('hafalan/{hapalan:id}', 'HafalanController@destroy')->name('hafalan.destroy');
+
+
         Route::get('get-hafalan', 'HafalanController@datatable')->name('hafalan.datatable');
 
         // scanlog

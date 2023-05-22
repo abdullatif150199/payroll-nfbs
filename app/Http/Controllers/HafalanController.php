@@ -33,6 +33,76 @@ class HafalanController extends Controller
         ]);
     }
 
+    public function show (Karyawan $karyawan) 
+    {
+        $title = 'Detail Hafalan ';
+        return view('hafalan.show', [
+            'title' => $title.$karyawan->nama_lengkap,
+            'karyawan' => $karyawan,
+            'hafalans' => $karyawan->hapalan()->latest('tanggal')->simplePaginate(10)  
+        ]);
+    }
+
+    public function create(Karyawan $karyawan)
+    {
+        $title = 'Tambah Hafalan ';
+        return view('hafalan.create', [
+            'title' => $title.$karyawan->nama_lengkap,
+            'id' => $karyawan->id,
+        ]);
+    }
+
+    public function store(Request $request)
+    {
+        $validatedData = $request -> validate([
+            'tanggal' => 'required|max:22',
+            'juz' => 'required|max:22',
+            'dari_halaman' => 'required|max:22',
+            'sampai_halaman' => 'required|max:22',
+            'surat' => 'required',
+        ]);
+
+        $validatedData['karyawan_id'] = $request->id;
+
+        Hapalan::create($validatedData);
+
+        return redirect('/dashboard/hafalan/'.$request->id)->with('success', 'Hafalan Berhasil Ditambahkan!');
+
+    }
+
+
+    public function edit (Hapalan $hapalan)
+    {
+        $title = 'Edit Hafalan ';
+        return view('hafalan.edit', [
+            'hapalan' => $hapalan,
+            'title' => $title.$hapalan->karyawan->nama_lengkap
+        ]);
+    }
+
+    public function update (Request $request, Hapalan $hapalan) 
+    {
+        $rules =[
+            'tanggal' => 'required|max:22',
+            'juz' => 'required|max:22',
+            'dari_halaman' => 'required|max:22',
+            'sampai_halaman' => 'required|max:22',
+            'surat' => 'required',
+            ];
+
+        
+        $validatedData = $request->validate($rules);
+        $validatedData['karyawan_id'] = $hapalan->karyawan_id;
+        Hapalan::where('id', $hapalan->id)->update($validatedData);
+        return redirect('/dashboard/hafalan/'.$hapalan->karyawan_id)->with('success', 'Hapalan Berhasil Diubah!');
+    } 
+
+    public function destroy (Hapalan $hapalan) 
+    {
+        Hapalan::destroy($hapalan->id);
+        return redirect('/dashboard/hafalan/'.$hapalan->karyawan_id)->with('success', 'Hapalan Berhasil Dihapus');
+    }
+
     public function datatable(Request $request)
     {
         $tanggal = $request->tanggal ? $request->tanggal : date('Y-m-d');
@@ -66,7 +136,7 @@ class HafalanController extends Controller
                 return $data->karyawan->nama_lengkap;
             })
             ->editColumn('action', function ($data) { 
-                return '<a href="hafalan/' . $data->karyawan->id . '" class="bg-primary text-white p-1 mr-2">Hafalan</a>';
+                return '<a href="hafalan/' . $data->karyawan->id . '" class="bg-primary text-white p-2 rounded">Hafalan</a>';
                 // <a href="Edit" class="bg-primary text-white p-1">Edit</>
             })
           
@@ -85,11 +155,4 @@ class HafalanController extends Controller
         return Excel::download($export, 'mutabaah_' . date('d-m-Y') . '_dari_' . $request->date_start . '_sampai_' . $request->date_end . '_.xlsx');
     }
 
-    public function show (Karyawan $karyawan) 
-    {
-        return view('hafalan.show', [
-            'karyawan' => $karyawan,
-            'hafalans' => $karyawan->hapalan    
-        ]);
-    }
 }

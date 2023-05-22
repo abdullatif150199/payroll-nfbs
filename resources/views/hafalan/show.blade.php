@@ -5,11 +5,8 @@
             <div class="card">
                 <div class="card-header text-center">
                     <div class="">
-                        <a href="/hapalanCreate/{{ $karyawan->id }}" class="text-decoration-none btn btn-primary"><i class="bi bi-plus-lg"></i></a>
+                        <a href="/dashboard/hafalanCreate/{{ $karyawan->id }}" class="text-decoration-none btn btn-primary"><i class="bi bi-plus-lg"></i></a>
                     </div>
-                    <!-- <div class="text-center">
-                        <p>Detail Hafalan</p>
-                    </div> -->
                 </div>
                 <div class="table-responsive">
                     <table class="table table-responsive-sm table-hover table-outline table-vcenter card-table"
@@ -26,20 +23,20 @@
                             </tr>
                         </thead>
                         <tbody>
-                            @foreach ($hafalans as $hafalan)  
+                            @foreach ($hafalans as $hapalan)  
                             <tr>
                                 <td>{{ $loop->iteration }}</td>
-                                <td>{{ to_hari(getDay($hafalan->tanggal)) }}, {{ yearMonth($hafalan->tanggal) }}</td>
-                                <td>{{ $hafalan->juz}}</td>
-                                <td>{{ $hafalan->dari_halaman}}</td>
-                                <td>{{ $hafalan->sampai_halaman}}</td>
-                                <td>{{ $hafalan->surat}}</td>
+                                <td>{{ to_hari(getDay($hapalan->tanggal)) }}, {{ yearMonth($hapalan->tanggal) }}</td>
+                                <td>{{ $hapalan->juz}}</td>
+                                <td>{{ $hapalan->dari_halaman}}</td>
+                                <td>{{ $hapalan->sampai_halaman}}</td>
+                                <td>{{ $hapalan->surat}}</td>
                                 <td class="">
-                                    <a href="/dashboard/{{ $karyawan->id }}/edit" class="btn btn-success p-1"><i class="bi bi-pencil"></i> Edit</a>
-                                    <form action="/dashboard/{{ $karyawan->id}}" method="post" class="d-inline">
+                                    <a href="/dashboard/hafalan/{{ $hapalan->id }}/edit" class="badge bg-success p-3 text-white"><i class="bi bi-pencil"></i> Edit</a>
+                                    <form action="/dashboard/hafalan/{{ $hapalan->id}}" method="post" class="d-inline">
                                         @method('delete')
                                         @csrf
-                                        <button class="btn btn-danger border-0" onclick="return confirm('are you sure?')"><i class="bi bi-trash3-fill"></i></button>
+                                        <button class="badge bg-danger border-0 p-3 cursor-pointer" onclick="return confirm('yakin ingin menghaous item ini?')"><i class="bi bi-trash3-fill"></i></button>
                                     </form>
                                 </td>
                             </tr> 
@@ -48,6 +45,10 @@
                     </table>
                 </div>
             </div>
+            <div class="d-flex justify-content-center">
+              {{ $hafalans->links() }}
+            </div>
+        
         </div>
     </div>
 
