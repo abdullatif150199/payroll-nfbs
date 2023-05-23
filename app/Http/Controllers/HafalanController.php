@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use App\Models\Karyawan;
 use App\Models\Hapalan;
 use App\Models\Bidang;
+use App\Models\Jabatan;
 use App\Models\Unit;
 
 use App\Exports\MutabaahPegawaiExport;
@@ -101,6 +102,18 @@ class HafalanController extends Controller
     {
         Hapalan::destroy($hapalan->id);
         return redirect('/dashboard/hafalan/'.$hapalan->karyawan_id)->with('success', 'Hapalan Berhasil Dihapus');
+    }
+
+    public function detail ()
+    { 
+        $title = 'Setoran Hafalan';
+        $karyawans = Karyawan::simplePaginate(10);
+        $hapalans = $karyawans->pluck('hapalan');
+        return view('hafalan.detail', [
+            'title' => $title,
+            'karyawans' => $karyawans,
+            'hapalans' => $hapalans
+        ]); 
     }
 
     public function datatable(Request $request)

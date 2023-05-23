@@ -191,8 +191,8 @@
     <div class="row row-cards row-deck">
         <div class="ml-3 mb-2">
             <nav class="nav nav-pills flex-column flex-sm-row">
-                <a class="flex-sm-fill text-sm-center nav-link active" href="/dashboard/hafalan">Setoran Terbaru</a>
-                <a class="flex-sm-fill text-sm-center nav-link" href="#">Semua Setoran</a>
+                <a class="flex-sm-fill text-sm-center nav-link p-1 {{ request()->is('dashboard/hafalan') ? 'active' : '' }}" href="/dashboard/hafalan">Setoran Terbaru</a>
+                <a class="flex-sm-fill text-sm-center nav-link p-1  {{ request()->is('dashboard/hafalanDetail') ? 'active' : '' }}" href="/dashboard/hafalanDetail">Semua Setoran</a>
             </nav>
         </div>
         <div class="col-12">

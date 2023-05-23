@@ -3,9 +3,16 @@
 <div class="row">
         <div class="col-12">
             <div class="card">
-                <div class="card-header text-center">
+                <div class="card-header">
                     <div class="">
                         <a href="/dashboard/hafalanCreate/{{ $karyawan->id }}" class="text-decoration-none btn btn-primary"><i class="bi bi-plus-lg"></i></a>
+                    </div>
+                    <div class="row col-12 text-center justify-content-center">
+                        <div class="col text-center">
+                            <span>Pekan ini terisi : 0</span><br>
+                            <span class="text-success mx-2">Hafalan Saat Ini Di Juz 11</span> 
+                            <span class="text-success mx-2">Tersisa 16 Halaman di juz 11 </span>
+                        </div>
                     </div>
                 </div>
                 <div class="table-responsive">

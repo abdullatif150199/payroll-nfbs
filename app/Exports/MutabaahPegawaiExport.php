@@ -105,7 +105,6 @@ class MutabaahPegawaiExport implements FromQuery, WithHeadings, WithMapping, Wit
 
     public function registerEvents(): array
     {
-
         return [
             AfterSheet::class => function (AfterSheet $event) {
                 /** @var Sheet $sheet */
