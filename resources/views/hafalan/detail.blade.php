@@ -198,7 +198,7 @@
         <div class="col-12">
             <div class="card">
                 <form class="form-inline mt-5 ml-auto mr-3">
-                    <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
+                    <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search" name="search">
                     <button class="btn btn-outline-dark my-2 my-sm-0" type="submit">Search</button>
                 </form>
                 <div class="table-responsive">
@@ -208,7 +208,7 @@
                             <tr class="text-center">
                                 <th class="w-1">No. Induk</th>
                                 <th>Nama Lengkap</th>
-                                <th>HAPALAN</th>
+                                <th class="w-1">HAPALAN saat ini</th>
                                 <th>ACTION</th>
                             </tr>
                         </thead>
@@ -216,6 +216,13 @@
                             <tr class="text-center">
                                 <td>{{$karyawan->no_induk}}</td>
                                 <td>{{$karyawan->nama_lengkap}}</td>
+                                 <td>
+                                    @if($karyawan->hapalan->isNotEmpty())
+                                       Juz {{$karyawan->hapalan->last()['juz']}}
+                                    @else
+                                        -
+                                    @endif
+                                </td>
                                 <td><a href="/dashboard/hafalan/{{$karyawan->id}}" class="btn btn-primary text-white">Hafalan</a></td>
                             </tr>
                         @endforeach
