@@ -9,12 +9,13 @@
                     </div>
                     <div class="row col-12 text-center justify-content-center">
                         <div class="col text-center">
-                            <span>Pekan ini terisi : 0</span><br>
-                            <span class="text-success mx-2">Hafalan Saat Ini Di Juz 11</span> 
-                            <span class="text-success mx-2">Tersisa 16 Halaman di juz 11 </span>
+                            <span>Pekan ini terisi : {{$count}}</span><br>
+                            <span class="text-success mx-2">Hafalan Saat Ini Di Juz {{$juzTerakhir}}</span> 
+                            <span class="text-success mx-2">Tersisa {{$sisaHalaman}} Halaman Di Juz {{ $juzTerakhir }} </span>
                         </div>
                     </div>
                 </div>
+                @if($hafalans->count())
                 <div class="table-responsive">
                     <table class="table table-responsive-sm table-hover table-outline table-vcenter card-table"
                         id="hafalanTable">
@@ -51,6 +52,11 @@
                         </tbody>
                     </table>
                 </div>
+                @else
+                <div class="text-center mt-5">
+                    <p>Hafalan Masih Kosong...</p>
+                </div>
+                @endif
             </div>
             <div class="d-flex justify-content-center">
               {{ $hafalans->links() }}

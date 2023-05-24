@@ -37,10 +37,38 @@ class HafalanController extends Controller
     public function show (Karyawan $karyawan) 
     {
         $title = 'Detail Hafalan ';
+        $hafalanTerakhir = $karyawan->hapalan()->latest()->first();
+        $juzTerakhir = null;
+        $halamanTerakhir = null;
+
+        $count = $karyawan->hapalan()
+        ->whereBetween('tanggal', [Carbon::now()->startOfWeek(), Carbon::now()->endOfWeek()])
+        ->count();
+        
+        if ($hafalanTerakhir) {
+            $juzTerakhir = $hafalanTerakhir->juz;
+            $halamanTerakhir = $hafalanTerakhir->sampai_halaman;
+        } else {
+            $juzTerakhir = 0;
+        }
+        
+        if ($juzTerakhir >= 1 && $juzTerakhir <= 29) {
+            $jumlahHalaman = 20;
+        } elseif ($juzTerakhir == 30) {
+            $jumlahHalaman = 22;
+        } else {
+            $jumlahHalaman = 0; 
+        }
+        $sisaHalaman = $jumlahHalaman -  $halamanTerakhir;
+
         return view('hafalan.show', [
             'title' => $title.$karyawan->nama_lengkap,
             'karyawan' => $karyawan,
-            'hafalans' => $karyawan->hapalan()->latest('tanggal')->simplePaginate(10)  
+            'hafalans' => $karyawan->hapalan()->latest()->simplePaginate(10),
+            'juzTerakhir' => $juzTerakhir,
+            'hafalanTerakhir'  => $hafalanTerakhir,
+            'sisaHalaman' => $sisaHalaman,
+            'count' => $count
         ]);
     }
 
@@ -106,14 +134,22 @@ class HafalanController extends Controller
 
     public function detail ()
     { 
+        
         $title = 'Setoran Hafalan';
-        $karyawans = Karyawan::simplePaginate(10);
+        $karyawans = Karyawan::query();
+
+        if (request('search')) {
+            $karyawans->where('nama_lengkap', 'like', '%' . request('search') . '%');
+        }
+    
+        $karyawans = $karyawans->simplePaginate(10);
         $hapalans = $karyawans->pluck('hapalan');
+    
         return view('hafalan.detail', [
             'title' => $title,
             'karyawans' => $karyawans,
             'hapalans' => $hapalans
-        ]); 
+        ]);
     }
 
     public function datatable(Request $request)

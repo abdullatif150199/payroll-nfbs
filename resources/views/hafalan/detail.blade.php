@@ -197,18 +197,19 @@
         </div>
         <div class="col-12">
             <div class="card">
-                <form class="form-inline mt-5 ml-auto mr-3">
+                <form action="/dashboard/hafalanDetail" class="form-inline mt-5 ml-auto mr-3">
                     <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search" name="search">
                     <button class="btn btn-outline-dark my-2 my-sm-0" type="submit">Search</button>
                 </form>
                 <div class="table-responsive">
+                    @if($karyawans->count())
                     <table class="table table-responsive-sm table-hover table-outline table-vcenter card-table"
                         id="hafalanTable">
                         <thead>
                             <tr class="text-center">
                                 <th class="w-1">No. Induk</th>
                                 <th>Nama Lengkap</th>
-                                <th class="w-1">HAPALAN saat ini</th>
+                                <th class="w-1">HAfALAN SAAT INI</th>
                                 <th>ACTION</th>
                             </tr>
                         </thead>
@@ -227,6 +228,11 @@
                             </tr>
                         @endforeach
                     </table>
+                    @else
+                    <div class="text-center">
+                        <p>Data Tidak Ditemukan...</p>
+                    </div>
+                    @endif
                     <div class="my-5 text-center">
                         {{ $karyawans->links() }}
                     </div>
