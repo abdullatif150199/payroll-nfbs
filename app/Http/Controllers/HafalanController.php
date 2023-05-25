@@ -11,8 +11,9 @@ use App\Models\Jabatan;
 use App\Models\Unit;
 
 use App\Exports\MutabaahPegawaiExport;
+use App\Exports\HafalanPegawaiExport;
 use Maatwebsite\Excel\Facades\Excel;
-use Yajra\Datatables\Datatables;
+use Yajra\Datatables \Datatables;
 use Carbon\Carbon;
 
 class HafalanController extends Controller
@@ -34,42 +35,51 @@ class HafalanController extends Controller
         ]);
     }
 
-    public function show (Karyawan $karyawan) 
+    public function show(Karyawan $karyawan)
     {
         $title = 'Detail Hafalan ';
         $hafalanTerakhir = $karyawan->hapalan()->latest()->first();
-        $juzTerakhir = null;
-        $halamanTerakhir = null;
-
         $count = $karyawan->hapalan()
-        ->whereBetween('tanggal', [Carbon::now()->startOfWeek(), Carbon::now()->endOfWeek()])
-        ->count();
-        
-        if ($hafalanTerakhir) {
-            $juzTerakhir = $hafalanTerakhir->juz;
-            $halamanTerakhir = $hafalanTerakhir->sampai_halaman;
-        } else {
-            $juzTerakhir = 0;
-        }
-        
-        if ($juzTerakhir >= 1 && $juzTerakhir <= 29) {
-            $jumlahHalaman = 20;
-        } elseif ($juzTerakhir == 30) {
-            $jumlahHalaman = 22;
-        } else {
-            $jumlahHalaman = 0; 
-        }
-        $sisaHalaman = $jumlahHalaman -  $halamanTerakhir;
+            ->whereBetween('tanggal', [Carbon::now()->startOfWeek(), Carbon::now()->endOfWeek()])
+            ->count();
+
+        $totalPages = $this->countPages();
 
         return view('hafalan.show', [
-            'title' => $title.$karyawan->nama_lengkap,
+            'title' => $title . $karyawan->nama_lengkap,
             'karyawan' => $karyawan,
             'hafalans' => $karyawan->hapalan()->latest()->simplePaginate(10),
-            'juzTerakhir' => $juzTerakhir,
-            'hafalanTerakhir'  => $hafalanTerakhir,
-            'sisaHalaman' => $sisaHalaman,
-            'count' => $count
+            'count' => $count,
+            'totalPages' => $totalPages
         ]);
+    }
+
+    public function countPages()
+    {
+        $totalPages = 0;
+
+        for ($juzNumber = 1; $juzNumber <= 30; $juzNumber++) {
+            $totalPages += $this->calculatePageCount($juzNumber);
+        }
+
+        return $totalPages;
+    }
+
+    public function calculatePageCount($juzNumber)
+    {
+        $juz1Pages = 21;
+        $juz2To29Pages = 20;
+        $juz30Pages = 24;
+
+        if ($juzNumber == 1) {
+            return $juz1Pages;
+        } elseif ($juzNumber >= 2 && $juzNumber <= 29) {
+            return $juz2To29Pages;
+        } elseif ($juzNumber == 30) {
+            return $juz30Pages;
+        } else {
+            return 0;
+        }
     }
 
     public function create(Karyawan $karyawan)
@@ -90,9 +100,8 @@ class HafalanController extends Controller
             'sampai_halaman' => 'required|max:22',
             'surat' => 'required',
         ]);
-
+ 
         $validatedData['karyawan_id'] = $request->id;
-
         Hapalan::create($validatedData);
 
         return redirect('/dashboard/hafalan/'.$request->id)->with('success', 'Hafalan Berhasil Ditambahkan!');
@@ -194,14 +203,19 @@ class HafalanController extends Controller
     }
 
     // Download Rekap Mutabaah Pegawai - Semua atau Unit
-    public function unduh(Request $request)
+    // public function unduh(Request $request)
+        public function export() 
     {
-        $from = $request->date_start ? $request->date_start : Carbon::now()->subDays(7)->format('Y-m-d');
-        $to = $request->date_end ? $request->date_end : Carbon::now()->format('Y-m-d');
+        // $from = $request->date_start ? $request->date_start : Carbon::now()->subDays(7)->format('Y-m-d');
+        // $to = $request->date_end ? $request->date_end : Carbon::now()->format('Y-m-d');
 
-        $export = new MutabaahPegawaiExport($from, $to, $request->bidang, $request->unit);
+        // $export = new MutabaahPegawaiExport($from, $to, $request->bidang, $request->unit);
 
-        return Excel::download($export, 'mutabaah_' . date('d-m-Y') . '_dari_' . $request->date_start . '_sampai_' . $request->date_end . '_.xlsx');
+        // return Excel::download($export, 'mutabaah_' . date('d-m-Y') . '_dari_' . $request->date_start . '_sampai_' . $request->date_end . '_.xlsx');
+
+        {
+            return Excel::download(new HafalanPegawaiExport, 'hafalanPegawai.xlsx');
+        }
     }
 
 }

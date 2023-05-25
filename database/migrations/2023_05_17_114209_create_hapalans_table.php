@@ -17,7 +17,6 @@ class CreateHapalansTable extends Migration
             $table->id();
             $table->foreignId('karyawan_id');
             $table->string('tanggal')->nullable();
-            $table->string('nama')->nullable();
             $table->string('juz')->nullable();
             $table->string('dari_halaman')->nullable();
             $table->string('sampai_halaman')->nullable();

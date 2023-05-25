@@ -271,8 +271,11 @@
                                 Others
                             </button>
                             <div class="dropdown-menu">
-                                <a class="dropdown-item" href="#unduhMutabaah" data-toggle="modal">Unduh</a>
+                                <a class="dropdown-item" href="/dashboard/hafalan-export" >Unduh</a>
                             </div>
+                            <!-- <div class="dropdown-menu">
+                                <a class="dropdown-item" href="#unduhMutabaah" data-toggle="modal">Unduh</a>
+                            </div> -->
                         </div>
                     </form>
                 </div>
