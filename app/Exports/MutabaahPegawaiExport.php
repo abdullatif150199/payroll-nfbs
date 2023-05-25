@@ -14,7 +14,6 @@ use Maatwebsite\Excel\Events\AfterSheet;
 class MutabaahPegawaiExport implements FromQuery, WithHeadings, WithMapping, WithCustomStartCell, WithEvents
 {
     use Exportable;
-
     protected $from;
     protected $to;
     protected $bidang;

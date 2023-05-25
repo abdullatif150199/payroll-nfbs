@@ -2,8 +2,7 @@
 <div class="modal fade" id="formInsentif">
     <div class="modal-dialog">
         <div class="modal-content">
-
-            <!-- Modal Header -->
+            
             <div class="modal-header">
                 <h4 class="modal-title"></h4>
                 <button type="button" class="close" data-dismiss="modal"></button>

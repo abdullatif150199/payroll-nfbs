@@ -9,9 +9,9 @@
                     </div>
                     <div class="row col-12 text-center justify-content-center">
                         <div class="col text-center">
-                            <span>Pekan ini terisi : {{$count}}</span><br>
-                            <span class="text-success mx-2">Total {{$totalPages}} Halaman Dalam 30 Juz</span> 
-                           
+                            <span>Pekan ini terisi : {{$count}} </span><br>
+                            <span class="text-success mx-2">Semester Ini {{ $karyawan->nama_lengkap }} Sudah Menyetor {{ $halamanTerakhir }} Halaman Di Juz {{$juzTerakhir}}</span> <br>
+                            <span class="text-success mx-2">Tersisa {{$sisaHalaman}} Halaman Di Juz {{ $juzTerakhir }} </span>
                         </div>
                     </div>
                 </div>
