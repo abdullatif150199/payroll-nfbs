@@ -173,7 +173,9 @@ class MutabaahPegawaiExport implements FromQuery, WithHeadings, WithMapping, Wit
 
     public function map($item): array
     {
-        return [
+        dd($item);
+        return 
+        [
             $item->no_induk,
             $item->nama_lengkap,
             $item->mutabaah_count,

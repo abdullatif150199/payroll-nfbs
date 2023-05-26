@@ -270,12 +270,12 @@
                                 aria-expanded="false">
                                 Others
                             </button>
-                            <div class="dropdown-menu">
-                                <a class="dropdown-item" href="/dashboard/hafalan-export" >Unduh</a>
-                            </div>
                             <!-- <div class="dropdown-menu">
-                                <a class="dropdown-item" href="#unduhMutabaah" data-toggle="modal">Unduh</a>
+                                <a class="dropdown-item" href="/dashboard/hafalan-export" >Unduh</a>
                             </div> -->
+                            <div class="dropdown-menu">
+                                <a class="dropdown-item" href="#unduhHafalan" data-toggle="modal">Unduh</a>
+                            </div>
                         </div>
                     </form>
                 </div>
@@ -299,7 +299,7 @@
         </div>
     </div>
 
-    <div class="modal fade" id="unduhMutabaah">
+    <div class="modal fade" id="unduhHafalan">
         <div class="modal-dialog">
             <div class="modal-content">
 
@@ -309,7 +309,7 @@
                     <button type="button" class="close" data-dismiss="modal"></button>
                 </div>
 
-                <form method="post" action="{{ route('dash.mutabaah.unduh') }}">
+                <form method="post" action="{{ route('dash.hafalan.unduh') }}">
                     <div class="modal-body">
                         {{ csrf_field() }} {{ method_field('POST') }}
                         <div class="row">

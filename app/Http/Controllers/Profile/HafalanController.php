@@ -46,7 +46,8 @@ class HafalanController extends ProfileController
             'data' => $data,
             'count' => $count,
             'juzTerakhir' => $juzTerakhir,
-            'sisaHalaman' => $sisaHalaman
+            'sisaHalaman' => $sisaHalaman,
+            'halamanTerakhir' => $halamanTerakhir
         ]);
     }
 

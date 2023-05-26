@@ -28,8 +28,8 @@
                 </div>
                 <div class="row">
                     <div class="col text-center">
-                        <span class="text-success mx-2">Hafalan Anda Saat Ini Di Juz {{$juzTerakhir}}</span> 
-                        <span class="text-success mx-2">Tersisa {{$sisaHalaman}} Halaman Di Juz {{$juzTerakhir}}</span>
+                        <span class="text-success mx-2">Semester Ini Anda Sudah Menyetor {{ $halamanTerakhir }} Halaman Di Juz {{$juzTerakhir}}</span> <br>
+                        <span class="text-success mx-2">Tersisa {{$sisaHalaman}} Halaman Di Juz {{ $juzTerakhir }} </span>
                     </div>
                 </div>
             </div>

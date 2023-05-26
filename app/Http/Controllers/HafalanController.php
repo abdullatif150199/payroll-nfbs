@@ -10,7 +10,7 @@ use App\Models\Bidang;
 use App\Models\Jabatan;
 use App\Models\Unit;
 
-use App\Exports\MutabaahPegawaiExport;
+use App\Exports\HafalanPegawaiExport;
 use Maatwebsite\Excel\Facades\Excel;
 use Yajra\Datatables\Datatables;
 use Carbon\Carbon;
@@ -197,14 +197,21 @@ class HafalanController extends Controller
     }
 
     // Download Rekap Mutabaah Pegawai - Semua atau Unit
-    public function unduh(Request $request)
+    // public function export() 
+    public function unduh (Request $request)
     {
+
+       
+
         $from = $request->date_start ? $request->date_start : Carbon::now()->subDays(7)->format('Y-m-d');
         $to = $request->date_end ? $request->date_end : Carbon::now()->format('Y-m-d');
-
-        $export = new MutabaahPegawaiExport($from, $to, $request->bidang, $request->unit);
-
-        return Excel::download($export, 'mutabaah_' . date('d-m-Y') . '_dari_' . $request->date_start . '_sampai_' . $request->date_end . '_.xlsx');
+        
+        $export = new HafalanPegawaiExport($from, $to, $request->bidang, $request->unit);
+        
+        return Excel::download($export, 'hafalan_' . date('d-m-Y') . '_dari_' . $request->date_start . '_sampai_' . $request->date_end . '_.xlsx');
+        // {
+        //     return Excel::download(new HafalanPegawaiExport, 'HafalanPegawai.xlsx');
+        // }
     }
 
 }
