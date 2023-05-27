@@ -52,43 +52,25 @@ class HafalanPegawaiExport implements FromQuery, WithHeadings, WithMapping
     }
 
     public function query()
-    {
-        if ($this->unit && $this->unit != '') {
-            return Karyawan::query()
-                ->withCount(['hapalan' => function ($q) {
-                    $q->whereBetween('tanggal', [$this->from, $this->to]);
-                }])
-                ->when($this->unit, function ($q) {
-                    $q->whereHas('unit', function ($q) {
-                        $q->where('id', $this->unit);
-                    });
-                })->orderBy('nama_lengkap', 'asc');
+        {
+            $query = Karyawan::query()
+            ->when($this->unit, function ($q) {
+                $q->whereHas('unit', function ($q) {
+                    $q->where('id', $this->unit);
+                });
+            })
+            ->when($this->bidang, function ($q) {
+                $q->whereHas('bidang', function ($q) {
+                    $q->where('id', $this->bidang);
+                });
+            })
+            ->with(['hapalan' => function ($q) {
+                $q->whereBetween('tanggal', [$this->from, $this->to]);
+            }])
+            ->orderBy('nama_lengkap', 'asc');
+
+        return $query;
         }
-
-        if ($this->bidang && $this->bidang != '') {
-            return Karyawan::query()
-                ->withCount(['hapalan' => function ($query) {
-                    $query->whereBetween('tanggal', [$this->from, $this->to]);
-                }])
-                ->when($this->bidang, function ($q) {
-                    $q->whereHas('bidang', function ($q) {
-                        $q->where('id', $this->bidang);
-                    });
-                })->orderBy('nama_lengkap', 'asc');
-        }
-
-        return Karyawan::query()
-                ->with(['hapalan' => function ($q) {
-                    $q->whereBetween('tanggal', [$this->from, $this->to]);
-                }])
-                ->orderBy('nama_lengkap', 'asc');
-    }
-
-    // public function startCell(): string
-    // {
-    //     return 'A2';
-    // }
-
 
     public function headings(): array
     {
@@ -103,14 +85,16 @@ class HafalanPegawaiExport implements FromQuery, WithHeadings, WithMapping
 
     public function map($item): array
     {
-        return [
-            $item->no_induk,
-            $item->nama_lengkap,
-            $item->hapalan_count,
-            $item->juz,
-            $item->dari_halaman,
-            $item->sampai_halaman,
-        ];
+
+        $hapalan = $item->hapalan->first(); // Mengambil entri hapalan pertama dari kumpulan hapalan
+
+    return [
+        $item->no_induk,
+        $item->nama_lengkap,
+        $hapalan ? $hapalan->juz : null,
+        $hapalan ? $hapalan->dari_halaman : null,
+        $hapalan ? $hapalan->sampai_halaman : null,
+    ];
     }
 
     // persentasi mode tanpa hari ahad

@@ -34,8 +34,43 @@ class HafalanController extends Controller
         ]);
     }
 
+
+
+    // public function show (Karyawan $karyawan) 
+    // {
+    //     $hapalans = $karyawan->hapalan;
+    //     $totalHalaman = 0;
+    //     $lastJuz = null;
+    //     $maxHalaman = 0;
+
+    //     foreach ($hapalans as $hapalan) {
+    //         $juz = $hapalan->juz;
+    //         $halaman = $hapalan->sampai_halaman;
+            
+    //         if ($juz !== $lastJuz) {
+    //             $totalHalaman += $halaman;
+    //             $maxHalaman = $halaman;
+    //         } else {
+    //             $maxHalaman = max($maxHalaman, $halaman);
+    //         }
+        
+    //         $totalHalaman -= $maxHalaman;
+    //         $totalHalaman += $halaman;
+        
+    //         $lastJuz = $juz;
+    //     }
+    //     return dd($totalHalaman);
+
+
+    //     return view('hafalan.show', [
+    //         'title' => $title.$karyawan->nama_lengkap,
+    //         'count' => $count
+    //     ]);
+    // }
+
     public function show (Karyawan $karyawan) 
     {
+        $hapalans = $karyawan->hapalan;
         $title = 'Detail Hafalan ';
         $hafalanTerakhir = $karyawan->hapalan()->latest()->first();
         $juzTerakhir = null;
@@ -95,7 +130,6 @@ class HafalanController extends Controller
         ]);
 
         $validatedData['karyawan_id'] = $request->id;
-
         Hapalan::create($validatedData);
 
         return redirect('/dashboard/hafalan/'.$request->id)->with('success', 'Hafalan Berhasil Ditambahkan!');
@@ -198,10 +232,12 @@ class HafalanController extends Controller
 
     // Download Rekap Mutabaah Pegawai - Semua atau Unit
     // public function export() 
+    // {
+    //     return Excel::download(new HafalanPegawaiExport, 'HafalanPegawai.xlsx');
+    // }
+
     public function unduh (Request $request)
     {
-
-       
 
         $from = $request->date_start ? $request->date_start : Carbon::now()->subDays(7)->format('Y-m-d');
         $to = $request->date_end ? $request->date_end : Carbon::now()->format('Y-m-d');
@@ -209,9 +245,6 @@ class HafalanController extends Controller
         $export = new HafalanPegawaiExport($from, $to, $request->bidang, $request->unit);
         
         return Excel::download($export, 'hafalan_' . date('d-m-Y') . '_dari_' . $request->date_start . '_sampai_' . $request->date_end . '_.xlsx');
-        // {
-        //     return Excel::download(new HafalanPegawaiExport, 'HafalanPegawai.xlsx');
-        // }
     }
 
 }
