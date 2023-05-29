@@ -152,7 +152,7 @@ Route::group(['prefix' => 'dashboard', 'as' => 'dash.', 'middleware' => ['auth']
         Route::delete('hafalan/{hapalan:id}', 'HafalanController@destroy')->name('hafalan.destroy');
         Route::get('hafalanDetail', 'HafalanController@detail')->name('hafalan.detail');
         Route::post('hafalan-unduh', 'HafalanController@unduh')->name('hafalan.unduh');
-        Route::get('hafalan-unduh', 'HafalanController@export')->name('hafalan.export');
+        // Route::get('hafalan-unduh', 'HafalanController@export')->name('hafalan.export');
 
 
         Route::get('get-hafalan', 'HafalanController@datatable')->name('hafalan.datatable');

@@ -10,8 +10,8 @@
                     <div class="row col-12 text-center justify-content-center">
                         <div class="col text-center">
                             <span>Pekan ini terisi : {{$count}} </span><br>
-                            <span class="text-success mx-2">Semester Ini {{ $karyawan->nama_lengkap }} Sudah Menyetor {{ $halamanTerakhir }} Halaman Di Juz {{$juzTerakhir}}</span> <br>
-                            <span class="text-success mx-2">Tersisa {{$sisaHalaman}} Halaman Di Juz {{ $juzTerakhir }} </span>
+                            <span class="text-success mx-2">{{ $karyawan->nama_lengkap }} Sudah Menyetor {{ $halamanDiHapal }} Halaman Di Juz {{$juz}}</span> <br>
+                            <span class="text-success mx-2">Tersisa {{$sisaHalaman}} Halaman Di Juz {{ $juz }} </span>
                         </div>
                     </div>
                 </div>

@@ -21,11 +21,9 @@ class HafalanController extends Controller
     {
         $title = 'Setoran Hafalan';
         $view = 'hafalan.index';
-        // $list = [null, 'persentase', 'apel', 'persentase-apel', 'jadwal-apel'];
         $bidang = Bidang::pluck('nama_bidang', 'id');
         $unit = Unit::pluck('nama_unit', 'id');
         $karyawan = Karyawan::orderBy('nama_lengkap')->pluck('nama_lengkap', 'id');
-
         return view($view, [
             'title' => $title,
             'bidang' => $bidang,
@@ -36,79 +34,63 @@ class HafalanController extends Controller
 
 
 
-    // public function show (Karyawan $karyawan) 
-    // {
-    //     $hapalans = $karyawan->hapalan;
-    //     $totalHalaman = 0;
-    //     $lastJuz = null;
-    //     $maxHalaman = 0;
-
-    //     foreach ($hapalans as $hapalan) {
-    //         $juz = $hapalan->juz;
-    //         $halaman = $hapalan->sampai_halaman;
-            
-    //         if ($juz !== $lastJuz) {
-    //             $totalHalaman += $halaman;
-    //             $maxHalaman = $halaman;
-    //         } else {
-    //             $maxHalaman = max($maxHalaman, $halaman);
-    //         }
-        
-    //         $totalHalaman -= $maxHalaman;
-    //         $totalHalaman += $halaman;
-        
-    //         $lastJuz = $juz;
-    //     }
-    //     return dd($totalHalaman);
-
-
-    //     return view('hafalan.show', [
-    //         'title' => $title.$karyawan->nama_lengkap,
-    //         'count' => $count
-    //     ]);
-    // }
-
     public function show (Karyawan $karyawan) 
     {
         $hapalans = $karyawan->hapalan;
         $title = 'Detail Hafalan ';
         $hafalanTerakhir = $karyawan->hapalan()->latest()->first();
-        $juzTerakhir = null;
-        $halamanTerakhir = null;
 
         $count = $karyawan->hapalan()
         ->whereBetween('tanggal', [Carbon::now()->startOfWeek(), Carbon::now()->endOfWeek()])
         ->count();
         
         if ($hafalanTerakhir) {
-            $juzTerakhir = $hafalanTerakhir->juz;
-            $halamanTerakhir = $hafalanTerakhir->sampai_halaman;
+            $juz = $hafalanTerakhir->juz;
+            $sampaiHalaman = $hafalanTerakhir->sampai_halaman;
         } else {
-            $juzTerakhir = 0;
+            $juz = 0;
+            $sampaiHalaman = 0;
         }
-        
-        if ($juzTerakhir == 1 ) {
-            $jumlahHalaman = 21;
-        } elseif ($juzTerakhir >= 2 && $juzTerakhir <= 29) {
-            $jumlahHalaman = 20;
-        } elseif ($juzTerakhir == 30) {
-            $jumlahHalaman = 24;
+    
+        if ($juz == 1) {
+            $startHalaman = 1;
+            $endHalaman = 21;
+        } elseif ($juz >= 2 && $juz <= 29) {
+            $startHalaman = (($juz - 2) * 20) + 22;
+            $endHalaman = (($juz - 1) * 20) + 21;
+        } elseif ($juz == 30) {
+            $startHalaman = 581;
+            $endHalaman = 605;
         } else {
-            $jumlahHalaman = 0; 
+            $startHalaman = 0;
+            $endHalaman = 0;
         }
-        $sisaHalaman = $jumlahHalaman -  $halamanTerakhir;
 
+        if ($juz === 0) {
+            $halamanDiHapal = 0;
+        } elseif ($juz == 30) {
+            $halamanDiHapal = $sampaiHalaman - $startHalaman;
+        } else  {
+            $halamanDiHapal = $sampaiHalaman - $startHalaman + 1;
+        }
+
+        $sisaHalaman = $endHalaman - $sampaiHalaman;
+
+ 
         return view('hafalan.show', [
             'title' => $title.$karyawan->nama_lengkap,
             'karyawan' => $karyawan,
             'hafalans' => $karyawan->hapalan()->latest()->simplePaginate(10),
-            'juzTerakhir' => $juzTerakhir,
+            'juz' => $juz,
             'hafalanTerakhir'  => $hafalanTerakhir,
-            'halamanTerakhir' => $halamanTerakhir,
+            'sampaiHalaman' => $sampaiHalaman,
+            'halamanDiHapal' => $halamanDiHapal,
             'sisaHalaman' => $sisaHalaman,
             'count' => $count
         ]);
     }
+     
+    
 
     public function create(Karyawan $karyawan)
     {
@@ -230,21 +212,47 @@ class HafalanController extends Controller
             ->make(true);       
     }
 
-    // Download Rekap Mutabaah Pegawai - Semua atau Unit
-    // public function export() 
+  
+
+    // public function unduh (Request $request)
     // {
-    //     return Excel::download(new HafalanPegawaiExport, 'HafalanPegawai.xlsx');
+
+    //     $from = $request->date_start ? $request->date_start : Carbon::now()->subDays(7)->format('Y-m-d');
+    //     $to = $request->date_end ? $request->date_end : Carbon::now()->format('Y-m-d');
+        
+    //     $export = new HafalanPegawaiExport($from, $to, $request->bidang, $request->unit);
+        
+    //     return Excel::download($export, 'hafalan_' . date('d-m-Y') . '_dari_' . $request->date_start . '_sampai_' . $request->date_end . '_.xlsx');
+
     // }
 
-    public function unduh (Request $request)
+    public function unduh(Request $request)
     {
-
         $from = $request->date_start ? $request->date_start : Carbon::now()->subDays(7)->format('Y-m-d');
         $to = $request->date_end ? $request->date_end : Carbon::now()->format('Y-m-d');
-        
-        $export = new HafalanPegawaiExport($from, $to, $request->bidang, $request->unit);
-        
-        return Excel::download($export, 'hafalan_' . date('d-m-Y') . '_dari_' . $request->date_start . '_sampai_' . $request->date_end . '_.xlsx');
+        $bidang = $request->bidang;
+        $unit = $request->unit;
+       
+        $query = Karyawan::query();
+    
+        if ($unit && $unit != '') {
+            $query->whereHas('unit', function ($q) use ($unit) {
+                $q->where('id', $unit);
+            });
+        }
+    
+        if ($bidang && $bidang != '') {
+            $query->whereHas('bidang', function ($q) use ($bidang) {
+                $q->where('id', $bidang);
+            });
+        }
+    
+        $items = $query->withCount(['hapalan' => function ($q) use ($from, $to) {
+            $q->whereBetween('tanggal', [$from, $to]);
+        }])->orderBy('nama_lengkap', 'asc')->get();
+    
+        return Excel::download(new HafalanPegawaiExport($items), 'hafalan_' . date('d-m-Y') . '_dari_' . $request->date_start . '_sampai_' . $request->date_end . '_.xlsx');
     }
+    
 
 }

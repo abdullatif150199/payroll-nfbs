@@ -20,34 +20,52 @@ class HafalanController extends ProfileController
             ->latest()->simplePaginate(10);
 
         $hafalans = null;
-        $juzTerakhir = null;
-        $halamanTerakhir = null;
+        $juz = null;
+        $sampaiHalaman = null;
+        $halamanDiHapal = 0;
 
         if ($data->isNotEmpty()) {
             $hafalans = $data->first();
-            $juzTerakhir = $hafalans->juz;
-            $halamanTerakhir = $hafalans->sampai_halaman;
+            $juz = $hafalans->juz;
+            $sampaiHalaman = $hafalans->sampai_halaman;
         } else {
-            $juzTerakhir = 0;
+            $juz = 0;
+            $sampaiHalaman = 0;
         }
 
-        if ($juzTerakhir >= 1 && $juzTerakhir <= 29) {
-            $jumlahHalaman = 20;
-        } elseif ($juzTerakhir == 30) {
-            $jumlahHalaman = 22;
+        if ($juz == 1) {
+            $startHalaman = 1;
+            $endHalaman = 21;
+        } elseif ($juz >= 2 && $juz <= 29) {
+            $startHalaman = (($juz - 2) * 20) + 22;
+            $endHalaman = (($juz - 1) * 20) + 21;
+        } elseif ($juz == 30) {
+            $startHalaman = 581;
+            $endHalaman = 605;
         } else {
-            $jumlahHalaman = 0; 
+            $startHalaman = 0;
+            $endHalaman = 0;
         }
-        $sisaHalaman = $jumlahHalaman -  $halamanTerakhir;
+
+        if ($juz === 0) {
+            $halamanDiHapal = 0;
+        } elseif ($juz == 30) {
+            $halamanDiHapal = $sampaiHalaman - $startHalaman;
+        } else  {
+            $halamanDiHapal = $sampaiHalaman - $startHalaman + 1;
+        }
+
+        $sisaHalaman = $endHalaman - $sampaiHalaman;
 
 
 
         return view('profile.hafalan.index', [
             'data' => $data,
             'count' => $count,
-            'juzTerakhir' => $juzTerakhir,
+            'juz' => $juz,
             'sisaHalaman' => $sisaHalaman,
-            'halamanTerakhir' => $halamanTerakhir
+            'halamanDiHapal' => $halamanDiHapal,
+            'sampaiHalaman' => $sampaiHalaman
         ]);
     }
 

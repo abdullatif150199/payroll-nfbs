@@ -2,18 +2,7 @@
 
 @section('content')
     <div class="col-lg-8">
-        <!-- @if ($message = Session::get('success'))
-            <div class="alert alert-success alert-dismissible">
-                <button type="button" class="close" data-dismiss="alert"></button>
-                {{ $message }}
-            </div>
-        @endif
-        @if ($message = Session::get('error'))
-            <div class="alert alert-warning alert-dismissible">
-                <button type="button" class="close" data-dismiss="alert"></button>
-                {{ $message }}
-            </div>
-        @endif -->
+    
         <div class="card mb-3">
             <div class="card-body py-3">
                 <div class="row">
@@ -28,8 +17,8 @@
                 </div>
                 <div class="row">
                     <div class="col text-center">
-                        <span class="text-success mx-2">Semester Ini Anda Sudah Menyetor {{ $halamanTerakhir }} Halaman Di Juz {{$juzTerakhir}}</span> <br>
-                        <span class="text-success mx-2">Tersisa {{$sisaHalaman}} Halaman Di Juz {{ $juzTerakhir }} </span>
+                        <span class="text-success mx-2">Anda Sudah Menyetor {{ $halamanDiHapal }} Halaman Di Juz {{$juz}}</span> <br>
+                        <span class="text-success mx-2">Tersisa {{$sisaHalaman}} Halaman Di Juz {{ $juz }} </span>
                     </div>
                 </div>
             </div>
