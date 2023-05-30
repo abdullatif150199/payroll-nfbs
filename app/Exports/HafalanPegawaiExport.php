@@ -43,22 +43,46 @@ class  HafalanPegawaiExport implements FromCollection, WithHeadings
             $hapalans = $item->hapalan()->get();
             $juzHafalan = $hapalans->unique('juz')->count() - 1;
             $hafalanTerakhir = $hapalans->sortByDesc('juz')->first();
+
     
             if ($hafalanTerakhir) {
                 $juz = $hafalanTerakhir->juz;
                 $halamanTerakhir = $hafalanTerakhir->sampai_halaman;
+                if ($juz == 1) {
+                    $startHalaman = 1;
+                    $endHalaman = 21;
+                } elseif ($juz >= 2 && $juz <= 29) {
+                    $startHalaman = (($juz - 2) * 20) + 22;
+                    $endHalaman = (($juz - 1) * 20) + 21;
+                } elseif ($juz == 30) {
+                    $startHalaman = 581;
+                    $endHalaman = 605;
+                } else {
+                    $startHalaman = 0;
+                    $endHalaman = 0;
+                }
+
+                if ($juz === 0) {
+                    $halamanDiHapal = 0;
+                } elseif ($juz == 30) {
+                    $halamanDiHapal = $halamanTerakhir - $startHalaman;
+                } else  {
+                    $halamanDiHapal = $halamanTerakhir - $startHalaman + 1;
+                }
+
+                $sisaHalaman = $endHalaman - $halamanTerakhir;
     
                 $data[] = [
                     $item->no_induk,
                     $item->nama_lengkap,
-                    $juzHafalan. " juz ".$halamanTerakhir." Halaman ",
-                    "juz ".$juz." Halaman ".$halamanTerakhir,
+                    $juzHafalan. " juz ". $halamanDiHapal ." Halaman ",
+                    "juz ".$juz." Halaman " . $halamanTerakhir,
                 ];
             } else {
                 $data[] = [
                     $item->no_induk,
                     $item->nama_lengkap,
-                    " Belum Ada Hafalan ",
+                    " - ",
                     " - ",
                 ];
             }

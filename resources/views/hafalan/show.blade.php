@@ -40,11 +40,11 @@
                                 <td>{{ $hapalan->sampai_halaman}}</td>
                                 <td>{{ $hapalan->surat}}</td>
                                 <td class="">
-                                    <a href="/dashboard/hafalan/{{ $hapalan->id }}/edit" class="badge bg-success p-3 text-white"><i class="bi bi-pencil"></i> Edit</a>
+                                    <a href="/dashboard/hafalan/{{ $hapalan->id }}/edit" class="badge bg-success p-3 text-white" style="text-decoration: none;"><i class="bi bi-pencil"></i> Edit</a>
                                     <form action="/dashboard/hafalan/{{ $hapalan->id}}" method="post" class="d-inline">
                                         @method('delete')
                                         @csrf
-                                        <button class="badge bg-danger border-0 p-3 cursor-pointer" onclick="return confirm('yakin ingin menghaous item ini?')"><i class="bi bi-trash3-fill"></i></button>
+                                        <button class="badge bg-danger border-0 p-3" onclick="return confirm('yakin ingin menghaous item ini?')" style="cursor: pointer;"><i class="bi bi-trash3-fill"></i></button>
                                     </form>
                                 </td>
                             </tr> 

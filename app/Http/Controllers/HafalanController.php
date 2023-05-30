@@ -3,7 +3,6 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-
 use App\Models\Karyawan;
 use App\Models\Hapalan;
 use App\Models\Bidang;
@@ -99,6 +98,22 @@ class HafalanController extends Controller
             'title' => $title.$karyawan->nama_lengkap,
             'id' => $karyawan->id,
         ]);
+    }
+
+    public function getData(Request $request)
+    {
+        $selectedJuz = $request->input('selectedValue');
+        $numPages = $selectedJuz == 1 ? 21 : ($selectedJuz >= 2 && $selectedJuz <= 29 ? 20 : ($selectedJuz == 30 ? 24 : 0));
+        $options = [];
+        if ($numPages > 0) {
+            $startPage = $selectedJuz == 1 ? 1 : ($selectedJuz - 2) * 20 + 22;
+            $endPage = $startPage + $numPages - 1;
+
+            for ($i = $startPage; $i <= $endPage; $i++) {
+                $options[] = $i;
+            }
+        }
+        return response()->json($options);
     }
 
     public function store(Request $request)
@@ -204,7 +219,7 @@ class HafalanController extends Controller
                 return $data->karyawan->nama_lengkap;
             })
             ->editColumn('action', function ($data) { 
-                return '<a href="hafalan/' . $data->karyawan->id . '" class="bg-primary text-white p-2 rounded">Hafalan</a>';
+                return '<a href="hafalan/' . $data->karyawan->id . '" class="bg-primary text-white p-2 rounded" style="text-decoration: none;">Hafalan</a>';
                 // <a href="Edit" class="bg-primary text-white p-1">Edit</>
             })
           
@@ -251,7 +266,7 @@ class HafalanController extends Controller
             $q->whereBetween('tanggal', [$from, $to]);
         }])->orderBy('nama_lengkap', 'asc')->get();
     
-        return Excel::download(new HafalanPegawaiExport($items), 'hafalan_' . date('d-m-Y') . '_dari_' . $request->date_start . '_sampai_' . $request->date_end . '_.xlsx');
+        return Excel::download(new HafalanPegawaiExport($items), 'hafalan_' . date('d-m-Y') . '_dari_' . $from . '_sampai_' . $to . '_.xlsx');
     }
     
 

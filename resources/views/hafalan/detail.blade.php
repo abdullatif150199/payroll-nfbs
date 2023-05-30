@@ -209,7 +209,7 @@
                             <tr class="text-center">
                                 <th class="w-1">No. Induk</th>
                                 <th>Nama Lengkap</th>
-                                <th class="w-1">HAfALAN SAAT INI</th>
+                                <th class="w-1">HAfALAN TERAKHIR</th>
                                 <th>ACTION</th>
                             </tr>
                         </thead>
@@ -219,7 +219,7 @@
                                 <td>{{$karyawan->nama_lengkap}}</td>
                                  <td>
                                     @if($karyawan->hapalan->isNotEmpty())
-                                       Juz {{$karyawan->hapalan->last()['juz']}}
+                                       Juz {{$karyawan->hapalan->last()['juz']}} <br> Hal {{$karyawan->hapalan->last()['sampai_halaman']}}
                                     @else
                                         -
                                     @endif

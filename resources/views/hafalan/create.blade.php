@@ -23,7 +23,12 @@
                             </div>
                             <div class="mb-3">
                                 <label for="juz" class="form-label">Juz</label>
-                                <input type="text" class="form-control @error('juz') is-invalid @enderror"  id="juz" name="juz" value="{{ old('juz') }}">
+                                <select class="form-control @error('juz') is-invalid @enderror" id="juz" name="juz" value="{{ old('juz') }}">
+                                    <option value="" selected>Pilih Juz </option>
+                                    @for ($i = 1; $i <= 30; $i++)
+                                        <option value="{{ $i }}">{{ $i }}</option>
+                                    @endfor
+                                </select>
                                 @error('juz')
                                     <div class="invalid-feedback">
                                         {{ $message }}
@@ -32,7 +37,9 @@
                             </div>
                             <div class="mb-3">
                                 <label for="dari_halaman" class="form-label">Dari Halaman</label>
-                                <input type="text" class="form-control @error('dari_halaman') is-invalid @enderror"  id="dari_halaman" name="dari_halaman" value="{{ old('dari_halaman') }}">
+                                <select class="form-control @error('dari_halaman') is-invalid @enderror" id="dari_halaman" name="dari_halaman" value="{{ old('dari_halaman') }}">
+                                <option value="" selected></option>
+                                </select>
                                 @error('dari_halaman')
                                     <div class="invalid-feedback">
                                         {{ $message }}
@@ -41,7 +48,8 @@
                             </div>
                             <div class="mb-3">
                                 <label for="sampai_halaman" class="form-label">Sampai Halaman</label>
-                                <input type="text" class="form-control  @error('sampai_halaman') is-invalid @enderror" id="sampai_halaman" name="sampai_halaman" value="{{ old('sampai_halaman') }}">
+                                <select class="form-control  @error('sampai_halaman') is-invalid @enderror" id="sampai_halaman" name="sampai_halaman" value="{{ old('sampai_halaman') }}">
+                                </select>
                                 @error('sampai_halaman')
                                     <div class="invalid-feedback">
                                         {{ $message }}
@@ -77,6 +85,35 @@
         $('.datepicker').datetimepicker({
             timepicker: false,
             format: 'Y-m-d'
+        });
+    </script>
+
+    <script type="text/javascript">
+        $(document).ready(function() {
+            $('#juz').on('change', function() {
+                var selectedJuz = $(this).val();
+
+                $.ajax({
+                    url: '{{ route("dash.hafalan.data") }}',
+                    method: 'GET',
+                    data: {
+                        selectedValue: selectedJuz
+                    },
+                    success: function(response) {
+                        var options = '';
+
+                        $.each(response, function(index, value) {
+                            options += '<option value="' + value + '">' + value + '</option>';
+                        });
+
+                        $('#dari_halaman').html(options);
+                        $('#sampai_halaman').html(options);
+                    },
+                    error: function(xhr) {
+                        console.log(xhr.responseText);
+                    }
+                });
+            });
         });
     </script>
 @endpush
