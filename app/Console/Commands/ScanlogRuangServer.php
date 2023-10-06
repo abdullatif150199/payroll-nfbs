@@ -45,9 +45,9 @@ class ScanlogRuangServer extends Command
     public function handle()
     {
         $finger = new EasyLink;
-        $scanlogs = $finger->newScan("61627018331452");
+        $scanlogs = $finger->newScan("61627018330776");
 
-        dd($scanlogs);
+        // dd($scanlogs);
 
         if (!$scanlogs->Result) {
             Log::critical('putus: ', ['sn'=>'aku']);
@@ -67,7 +67,7 @@ class ScanlogRuangServer extends Command
 
             // Masuk -- ini nih
             $start = strtotime('05:00:00');
-            $end = strtotime('08:10:00');
+            $end = strtotime('10:10:00');
             if ($scanTime >= $start && $scanTime < $end) {
                 $karyawan->kehadiran()->firstOrCreate([
                     'tanggal' => date('Y-m-d', strtotime($scan->ScanDate))

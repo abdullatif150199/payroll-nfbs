@@ -1,6 +1,8 @@
 <?php
 
+use Database\Factories\TaskFactory;
 use Illuminate\Database\Seeder;
+use App\Models\Task;
 
 class DatabaseSeeder extends Seeder
 {
@@ -11,17 +13,18 @@ class DatabaseSeeder extends Seeder
      */
     public function run()
     {
-        $this->call(GolonganSeeder::class);
-        $this->call(JabatanSeeder::class);
-        $this->call(JamPerpekanTableSeeder::class);
-        $this->call(KelompokKerjaTableSeeder::class);
-        $this->call(NilaiKinerjaSeeder::class);
-        $this->call(PermissionSeeder::class);
-        $this->call(PersentaseKinerjaTableSeeder::class);
-        $this->call(RoleTableSeeder::class);
-        $this->call(SettingTableSeeder::class);
-        $this->call(StatusKeluargaTableSeeder::class);
-        $this->call(StatusKerjaSeeder::class);
-        $this->call(UsersTableSeeder::class);
+        // $this->call(GolonganSeeder::class);
+        // $this->call(JabatanSeeder::class);
+        // $this->call(JamPerpekanTableSeeder::class);
+        // $this->call(KelompokKerjaTableSeeder::class);
+        // $this->call(NilaiKinerjaSeeder::class);
+        // $this->call(PermissionSeeder::class);
+        // $this->call(PersentaseKinerjaTableSeeder::class);
+        // $this->call(RoleTableSeeder::class);
+        // $this->call(SettingTableSeeder::class);
+        // $this->call(StatusKeluargaTableSeeder::class);
+        // $this->call(StatusKerjaSeeder::class);
+        // $this->call(UsersTableSeeder::class);
+
     }
 }

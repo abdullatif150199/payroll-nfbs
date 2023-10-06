@@ -35,6 +35,7 @@ class ScanlogJob implements ShouldQueue
      */
     public function handle()
     {
+        dd($this->scanlog, $this->karyawan);
         $device = Device::where('serial_number', $this->scanlog->SN)->first();
         $device->deviceLogs()->create([
             'nama_lengkap' => $this->karyawan->nama_lengkap,

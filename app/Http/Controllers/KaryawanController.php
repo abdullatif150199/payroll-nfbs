@@ -130,6 +130,7 @@ class KaryawanController extends Controller
 
     public function store(KaryawanFormRequest $request)
     {
+        // dd($request);
         // dapatkan no_induk
         $kel = KelompokKerja::findOrFail($request->kelompok_kerja);
         $setting = Setting::where('key', 'no_urut_induk_terbaru')->first();

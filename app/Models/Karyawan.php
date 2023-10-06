@@ -178,6 +178,11 @@ class Karyawan extends Model
         return $this->hasOne(Fingerprint::class);
     }
 
+    public function task()
+    {
+        return $this->belongsTo(Task::class);
+    }
+
     // Get gaji Pokok
     public function getGajiPokokAttribute($value)
     {

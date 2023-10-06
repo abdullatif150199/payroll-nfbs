@@ -134,6 +134,8 @@ Route::group(['prefix' => 'dashboard', 'as' => 'dash.', 'middleware' => ['auth']
 
         Route::get('kehadiran/insertview', 'KehadiranController@insertview')->name('kehadiran.insertview');
         Route::post('kehadiran/insert', 'KehadiranController@insert')->name('kehadiran.insert');
+        Route::get('kehadiran/muhafidz', 'MuhafidzController@index')->name('muhafidz');
+        Route::get('get-muhafidz', 'MuhafidzController@datatable')->name('muhafidz.datatable');
         Route::post('kehadiran/download-attendance', 'KehadiranController@downloadAttendance')->name('kehadiran.download');
 
         // mutabaah
@@ -335,9 +337,9 @@ Route::group(['prefix' => 'dashboard', 'as' => 'dash.', 'middleware' => ['auth']
         });
 
 
-     
-        
 
-    
+
+
+
     });
 });
