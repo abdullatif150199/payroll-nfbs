@@ -188,6 +188,12 @@
 @endpush
 @section('content')
     <div class="row row-cards row-deck">
+        <div class="ml-3 mb-2">
+            <nav class="nav nav-pills flex-column flex-sm-row">
+                <a class="flex-sm-fill text-sm-center nav-link p-1 {{ request()->is('dashboard/kehadiran') ? 'active' : '' }}" href="/dashboard/kehadiran">Pegawai</a>
+                <a class="flex-sm-fill text-sm-center nav-link p-1  {{ request()->is('dashboard/kehadiran/muhafidz') ? 'active' : '' }}" href="/dashboard/kehadiran/muhafidz">Muhafidz</a>
+            </nav>
+        </div>
         <div class="col-12">
             <div class="card">
                 <div class="card-header">

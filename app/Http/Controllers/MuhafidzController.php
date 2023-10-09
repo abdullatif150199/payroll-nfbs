@@ -20,13 +20,16 @@ class MuhafidzController extends Controller
 {
     public function index(Request $request)
     {
-        $title = 'Daftar Hadir Harian Muhafidz';
+        $title = 'Daftar Hadir Harian';
         $view = 'kehadiran.muhafidz';
         $list = [null, 'persentase', 'apel', 'persentase-apel', 'jadwal-apel'];
         $bidang = Bidang::pluck('nama_bidang', 'id');
         $unit = Unit::pluck('nama_unit', 'id');
-        $karyawan = Karyawan::orderBy('nama_lengkap')->pluck('nama_lengkap', 'id');
+        $karyawan = Karyawan::whereHas('bidang', function ($query) {
+            $query->where('nama_bidang', 'muhafidz');
+        })->orderBy('nama_lengkap')->pluck('nama_lengkap', 'id');
 
+        // dd($karyawan);
         if (!in_array($request->list, $list)) {
             abort(404);
         }
@@ -61,7 +64,13 @@ class MuhafidzController extends Controller
 
     public function datatable(Request $request)
     {
-        $data = Kehadiran::filterByUnitOrBidang($request)
+         $karyawan = Karyawan::whereHas('bidang', function ($query) {
+            $query->where('nama_bidang', 'muhafidz');
+        })->orderBy('nama_lengkap')->pluck('nama_lengkap', 'id');
+
+        $data =  $data = Kehadiran::whereHas('karyawan', function ($query) use ($karyawan) {
+            $query->whereIn('nama_lengkap', $karyawan);
+        })->filterByUnitOrBidang($request)
             ->get();
 
         return Datatables::of($data)

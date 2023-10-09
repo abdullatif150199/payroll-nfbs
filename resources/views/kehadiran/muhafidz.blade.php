@@ -3,7 +3,6 @@
     <link rel="stylesheet" href="{{ asset('css/dataTables.bootstrap4.min.css') }}">
     <link rel="stylesheet" href="{{ asset('css/select.dataTables.min.css') }}">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.3/css/select2.min.css" rel="stylesheet">
-    <link rel="stylesheet" href="{{ asset('css/jquery.datetimepicker.css') }}">
     <style>
         .dataTables_length {
             padding-left: 1rem;
@@ -203,7 +202,7 @@
                         <div class="row gutters-xs">
                             <div class="col">
                                 <select name="day" class="form-control custom-select"
-                                    onchange="$('#hafalanTable').DataTable().draw()">
+                                    onchange="$('#kehadiranTable').DataTable().draw()">
                                     <option value="">Tahun</option>
                                     @for ($i = 1; $i <= 31; $i++)
                                         <option {{ date('d') == $i ? 'selected' : '' }} value="{{ $i }}">
@@ -213,7 +212,7 @@
                             </div>
                             <div class="col">
                                 <select name="month" class="form-control custom-select"
-                                    onchange="$('#hafalanTable').DataTable().draw()">
+                                    onchange="$('#kehadiranTable').DataTable().draw()">
                                     <option value="">Bulan</option>
                                     <option {{ date('m') == '01' ? 'selected' : '' }} value="01">Januari</option>
                                     <option {{ date('m') == '02' ? 'selected' : '' }} value="02">Februari</option>
@@ -231,7 +230,7 @@
                             </div>
                             <div class="col">
                                 <select name="year" class="form-control custom-select"
-                                    onchange="$('#hafalanTable').DataTable().draw()">
+                                    onchange="$('#kehadiranTable').DataTable().draw()">
                                     <option value="">Tahun</option>
                                     @for ($i = 2018; $i <= date('Y'); $i++)
                                         <option {{ date('Y') == $i ? 'selected' : '' }} value="{{ $i }}">
@@ -244,8 +243,8 @@
                         <div class="row gutters-xs">
                             <div class="col">
                                 <select name="bidang" class="form-control"
-                                    onchange="$('#hafalanTable').DataTable().draw()">
-                                    <option value="">Semua Departemen</option>
+                                    onchange="$('#kehadiranTable').DataTable().draw()">
+                                    <option value="">Muhafidz</option>
                                     @foreach ($bidang as $key => $val)
                                         <option value="{{ $key }}">{{ substr($val, 0, 8) }}</option>
                                     @endforeach
@@ -256,8 +255,8 @@
                         <div class="row gutters-xs">
                             <div class="col">
                                 <select name="unit" class="form-control"
-                                    onchange="$('#hafalanTable').DataTable().draw()">
-                                    <option value="">Semua Bidang</option>
+                                    onchange="$('#kehadiranTable').DataTable().draw()">
+                                    <option value="">Muhafidz / Santah</option>
                                     @foreach ($unit as $key => $val)
                                         <option value="{{ $key }}">{{ $val }}</option>
                                     @endforeach
@@ -270,18 +269,17 @@
                                 aria-expanded="false">
                                 Others
                             </button>
-                            <!-- <div class="dropdown-menu">
-                                <a class="dropdown-item" href="/dashboard/hafalan-export" >Unduh</a>
-                            </div> -->
                             <div class="dropdown-menu">
-                                <a class="dropdown-item" href="#unduhHafalan" data-toggle="modal">Unduh</a>
+                                <a class="dropdown-item" href="{{ route('dash.kehadiran.insertview') }}">Input</a>
+                                <a class="dropdown-item" href="?list=apel">Hadir Apel</a>
+                                <a class="dropdown-item" href="?list=persentase">% Kehadiran</a>
                             </div>
                         </div>
                     </form>
                 </div>
                 <div class="table-responsive">
                     <table class="table table-responsive-sm table-hover table-outline table-vcenter card-table"
-                        id="hafalanTable">
+                        id="kehadiranTable">
                         <thead>
                             <tr>
                                 <th class="w-1">No. Induk</th>
@@ -300,81 +298,18 @@
         </div>
     </div>
 
-    <div class="modal fade" id="unduhHafalan">
-        <div class="modal-dialog">
-            <div class="modal-content">
-
-                <!-- Modal Header -->
-                <div class="modal-header">
-                    <h4 class="modal-title">Unduh Hafalan</h4>
-                    <button type="button" class="close" data-dismiss="modal"></button>
-                </div>
-
-                <form method="post" action="{{ route('dash.hafalan.unduh') }}">
-                    <div class="modal-body">
-                        {{ csrf_field() }} {{ method_field('POST') }}
-                        <div class="row">
-                            <div class="col">
-                                <div class="form-group">
-                                    <label class="form-label">Dari</label>
-                                    <input type="text" name="date_start" class="form-control datepicker">
-                                </div>
-                            </div>
-                            <div class="col">
-                                <div class="form-group">
-                                    <label class="form-label">Sampai</label>
-                                    <input type="text" name="date_end" class="form-control datepicker">
-                                </div>
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="col">
-                                <div class="form-group">
-                                    <label class="form-label">Departemen</label>
-                                    <select name="bidang" class="form-control">
-                                        <option value="">Semua Departemen</option>
-                                        @foreach ($bidang as $key => $val)
-                                            <option value="{{ $key }}">{{ $val }}</option>
-                                        @endforeach
-                                    </select>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="col">
-                                <div class="form-group">
-                                    <label class="form-label">Bidang</label>
-                                    <select name="unit" class="form-control">
-                                        <option value="">Semua Bidang</option>
-                                        @foreach ($unit as $key => $val)
-                                            <option value="{{ $key }}">{{ $val }}</option>
-                                        @endforeach
-                                    </select>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                        <button type="submit" class="btn btn-primary">Unduh</button>
-                    </div>
-                </form>
-
-            </div>
-        </div>
-    </div>
+    @include('kehadiran.modals')
 @endsection
 
 @push('scripts')
-    <script src="{{ asset('js/jquery.datetimepicker.full.min.js') }}"></script>
-    {{-- <script>
+    <script>
         // $(document).ready(function() {
         var oTable = $('#kehadiranTable').DataTable({
             serverSide: true,
             processing: true,
             select: true,
             ajax: {
-                url: '{{ route('dash.kehadiran.datatable') }}',
+                url: '{{ route('dash.muhafidz.datatable') }}',
                 data: function(d) {
                     d.tanggal = $('select[name=year]').val() + '-' + $('select[name=month]').val() + '-' + $(
                         'select[name=day]').val();
@@ -466,5 +401,5 @@
             });
         });
         // });
-    </script> --}}
+    </script>
 @endpush
