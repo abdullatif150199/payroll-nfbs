@@ -44,12 +44,21 @@ class ScanlogNonShift extends Command
     public function handle()
     {
         $jam = [
-            'masuk_min' => strtotime('05:00:00'),
+
+            'datang_subuh_min' => strtotime('04:30:00'),
+            'datang_subuh_max' => strtotime('05:30:00'),
+            'pulang_subuh_min' => strtotime('05:40:00'),
+            'pulang_subuh_max' => strtotime('06:29:00'),
+            'masuk_min' => strtotime('06:30:00'),
             'masuk_max' => strtotime('10:30:00'),
             'kembali_min' => strtotime('12:45:00'),
             'kembali_max' => strtotime('14:30:00'),
             'pulang_min' => strtotime('14:30:00'),
-            'pulang_max' => strtotime('18:00:00'),
+            'pulang_max' => strtotime('17:00:00'),
+            'datang_malam_min' => strtotime('18:00:00'),
+            'datang_malam_max' => strtotime('18:45:00'),
+            'pulang_malam_min' => strtotime('19:00:00'),
+            'pulang_malam_max' => strtotime('20:30:00'),
         ];
 
         $finger = new EasyLink;
@@ -67,12 +76,44 @@ class ScanlogNonShift extends Command
             foreach ($scanlogs->Data as $scan) {
                 $scanTime = strtotime(date('H:i:s', strtotime($scan->ScanDate)));
                 $karyawan = Karyawan::where('no_induk', $scan->PIN)->first();
+
+                $muhafidz = Karyawan::whereHas('bidang', function ($query) {
+                    $query->where('nama_bidang', 'muhafidz');
+                })->pluck('no_induk')->
+                toArray();
+
                 if (!$karyawan) {
                     continue;
                 }
 
                 // Simpan Log
                 ScanlogJob::dispatch($scan, $karyawan);
+
+                  // Masuk subuh-- ini nih
+
+             if ($scanTime >= $jam['datang_subuh_min'] && $scanTime < $jam['datang_subuh_max']) {
+                if(in_array($karyawan->no_induk, $muhafidz)) {
+                    $karyawan->kehadiranMuhafidz()->firstOrCreate([
+                        'tanggal' => date('Y-m-d', strtotime($scan->ScanDate))
+                    ], [
+                        'datang_subuh' => date('H:i:s', strtotime($scan->ScanDate))
+                    ]);
+                }
+            }
+
+            // pulang subuh
+            if ($scanTime >= $jam['pulang_subuh_min'] && $scanTime < $jam['pulang_subuh_max']) {
+                if(in_array($karyawan->no_induk, $muhafidz)) {
+                    $karyawan->kehadiranMuhafidz()->updateOrCreate([
+                        'tanggal' => date('Y-m-d', strtotime($scan->ScanDate))
+                    ], [
+                        'pulang_subuh' => date('H:i:s', strtotime($scan->ScanDate))
+                    ]);
+                }
+            }
+
+
+
 
                 // Masuk -- ini nih
                 if ($scanTime >= $jam['masuk_min'] && $scanTime < $jam['masuk_max']) {
@@ -133,6 +174,28 @@ class ScanlogNonShift extends Command
 
                     continue;
                 }
+
+                         // datang malam
+            if ($scanTime >= $jam['datang_malam_min'] && $scanTime < $jam['datang_malam_max']) {
+                if(in_array($karyawan->no_induk, $muhafidz)) {
+                    $karyawan->kehadiranMuhafidz()->updateOrCreate([
+                        'tanggal' => date('Y-m-d', strtotime($scan->ScanDate))
+                    ], [
+                        'datang_malam' => date('H:i:s', strtotime($scan->ScanDate))
+                    ]);
+                }
+            }
+
+            // pulang malam
+            if ($scanTime >= $jam['pulang_malam_min'] && $scanTime < $jam['pulang_malam_max']) {
+                if(in_array($karyawan->no_induk, $muhafidz)) {
+                    $karyawan->kehadiranMuhafidz()->updateOrCreate([
+                        'tanggal' => date('Y-m-d', strtotime($scan->ScanDate))
+                    ], [
+                        'pulang_malam' => date('H:i:s', strtotime($scan->ScanDate))
+                    ]);
+                }
+            }
 
                 // device apel
                 apel:

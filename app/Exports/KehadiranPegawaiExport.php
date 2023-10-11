@@ -68,7 +68,7 @@ class KehadiranPegawaiExport implements FromQuery, WithHeadings, WithMapping
             'NIP',
             'Nama',
             'Jumlah Jam',
-            'Persentasi',            
+            'Persentasi',
         ];
     }
 

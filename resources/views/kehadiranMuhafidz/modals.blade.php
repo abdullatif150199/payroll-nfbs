@@ -16,32 +16,32 @@
                     <div class="row">
                         <div class="col">
                             <div class="form-group">
-                                <label class="form-label">Jam Masuk</label>
-                                <input type="text" name="jam_masuk" class="form-control" required>
+                                <label class="form-label">Tahfidz Subuh</label>
+                                <input type="text" name="datang_subuh" class="form-control" required>
                             </div>
                         </div>
                     </div>
                     <div class="row shift">
                         <div class="col">
                             <div class="form-group">
-                                <label class="form-label">Jam Istirahat</label>
-                                <input type="text" name="jam_istirahat" class="form-control">
+                                <label class="form-label">Pulang</label>
+                                <input type="text" name="pulang_subuh" class="form-control">
                             </div>
                         </div>
                     </div>
                     <div class="row shift">
                         <div class="col">
                             <div class="form-group">
-                                <label class="form-label">Jam Kembali</label>
-                                <input type="text" name="jam_kembali" class="form-control">
+                                <label class="form-label">Tahfidz Malam</label>
+                                <input type="text" name="datang_malam" class="form-control">
                             </div>
                         </div>
                     </div>
                     <div class="row">
                         <div class="col">
                             <div class="form-group">
-                                <label class="form-label">Jam Pulang</label>
-                                <input type="text" name="jam_pulang" class="form-control">
+                                <label class="form-label">Pulang</label>
+                                <input type="text" name="pulang_malam" class="form-control">
                             </div>
                         </div>
                     </div>

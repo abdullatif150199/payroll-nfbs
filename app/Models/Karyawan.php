@@ -183,6 +183,11 @@ class Karyawan extends Model
         return $this->belongsTo(Task::class);
     }
 
+    public function kehadiranMuhafidz ()
+    {
+        return $this->hasMany(KehadiranMuhafidz::class);
+    }
+
     // Get gaji Pokok
     public function getGajiPokokAttribute($value)
     {

@@ -122,21 +122,28 @@ Route::group(['prefix' => 'dashboard', 'as' => 'dash.', 'middleware' => ['auth']
 
         // Kehadiran
         Route::get('kehadiran', 'KehadiranController@index')->name('kehadiran');
+        Route::get('kehadiran/muhafidz', 'MuhafidzController@index')->name('muhafidz');
         Route::get('get-kehadiran', 'KehadiranController@datatable')->name('kehadiran.datatable');
         Route::get('get-pilihan', 'KehadiranController@pilihan')->name('kehadiran.pilihan');
         Route::get('get-apel', 'KehadiranController@apel')->name('kehadiran.apel');
         Route::get('get-jadwal', 'KehadiranController@jadwal')->name('kehadiran.jadwal');
         Route::post('kehadiran/store', 'KehadiranController@store')->name('kehadiran.store');
         Route::get('kehadiran/{id}/edit', 'KehadiranController@edit')->name('kehadiran.edit');
+        Route::get('kehadiran/muhafidz/{id}/edit', 'MuhafidzController@edit')->name('muhafidz.edit');
         Route::put('kehadiran/{id}', 'KehadiranController@update')->name('kehadiran.update');
+        Route::put('kehadiran/muhafidz/{id}', 'MuhafidzController@update')->name('muhafidz.update');
         Route::delete('kehadiran/{id}', 'KehadiranController@destroy')->name('kehadiran.destroy');
         Route::post('kehadiran/unduh', 'KehadiranController@unduh')->name('kehadiran.unduh');
 
+
         Route::get('kehadiran/insertview', 'KehadiranController@insertview')->name('kehadiran.insertview');
+        Route::get('kehadiran/muhafidz/insertview', 'MuhafidzController@insertview')->name('muhafidz.insertview');
         Route::post('kehadiran/insert', 'KehadiranController@insert')->name('kehadiran.insert');
+        Route::post('kehadiran/muhafidz/insert', 'MuhafidzController@insert')->name('muhafidz.insert');
         Route::get('kehadiran/muhafidz', 'MuhafidzController@index')->name('muhafidz');
         Route::get('get-muhafidz', 'MuhafidzController@datatable')->name('muhafidz.datatable');
         Route::post('kehadiran/download-attendance', 'KehadiranController@downloadAttendance')->name('kehadiran.download');
+        Route::post('kehadiran/muhafidz/download-attendance', 'MuhafidzController@downloadAttendance')->name('muhafidz.download');
 
         // mutabaah
         Route::get('mutabaah', 'MutabaahController@index')->name('mutabaah');

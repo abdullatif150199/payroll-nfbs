@@ -43,14 +43,14 @@ class ScanlogMuhafidz extends Command
     public function handle()
     {
         $jam = [
-            'pagi_min' => strtotime('05:00:00'),
-            'pagi_max' => strtotime('05:30:00'),
-            'pulangPagi_min' => strtotime('06:00:00'),
-            'PulangPagi_max' => strtotime('06:30:00'),
-            'malam_min' => strtotime('18:00:00'),
-            'malam_max' => strtotime('18:45:00'),
-            'pulangMalam_min' => strtotime('19:30:00'),
-            'pulangMalam_max' => strtotime('20:00:00'),
+            'datang_subuh_min' => strtotime('05:00:00'),
+            'datang_subuh_max' => strtotime('05:30:00'),
+            'pulang_subuh_min' => strtotime('06:00:00'),
+            'pulang_subuh_max' => strtotime('06:29:00'),
+            'datang_malam_min' => strtotime('18:00:00'),
+            'datang_malam_max' => strtotime('18:45:00'),
+            'pulang_malam_min' => strtotime('19:30:00'),
+            'pulang_malam_max' => strtotime('20:00:00'),
         ];
 
         $finger = new EasyLink;

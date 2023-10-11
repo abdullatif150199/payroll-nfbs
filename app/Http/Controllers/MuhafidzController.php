@@ -12,7 +12,8 @@ use App\Models\Unit;
 use Maatwebsite\Excel\Facades\Excel;
 use App\Exports\KehadiranExport;
 
-use App\Exports\KehadiranPegawaiExport;
+use App\Exports\KehadiranMuhafidzExport;
+use App\Models\KehadiranMuhafidz;
 use Carbon\Carbon;
 
 
@@ -21,7 +22,7 @@ class MuhafidzController extends Controller
     public function index(Request $request)
     {
         $title = 'Daftar Hadir Harian';
-        $view = 'kehadiran.muhafidz';
+        $view = 'kehadiranMuhafidz.index';
         $list = [null, 'persentase', 'apel', 'persentase-apel', 'jadwal-apel'];
         $bidang = Bidang::pluck('nama_bidang', 'id');
         $unit = Unit::pluck('nama_unit', 'id');
@@ -64,14 +65,8 @@ class MuhafidzController extends Controller
 
     public function datatable(Request $request)
     {
-         $karyawan = Karyawan::whereHas('bidang', function ($query) {
-            $query->where('nama_bidang', 'muhafidz');
-        })->orderBy('nama_lengkap')->pluck('nama_lengkap', 'id');
-
-        $data =  $data = Kehadiran::whereHas('karyawan', function ($query) use ($karyawan) {
-            $query->whereIn('nama_lengkap', $karyawan);
-        })->filterByUnitOrBidang($request)
-            ->get();
+        $data = KehadiranMuhafidz::filterByUnitOrBidang($request)
+        ->get();
 
         return Datatables::of($data)
             ->addColumn('actions', function ($data) {
@@ -80,10 +75,10 @@ class MuhafidzController extends Controller
             ->editColumn('jumlah_jam', function ($data) {
                 if ($data->karyawan->tipe_kerja !== 'shift') {
                     $result = sum_time(
-                        $data->jam_masuk,
-                        $data->jam_istirahat,
-                        $data->jam_kembali,
-                        $data->jam_pulang
+                        $data->datang_subuh,
+                        $data->pulang_subuh,
+                        $data->datang_malam,
+                        $data->pulang_malam
                     ) ?? '<span class="tag tag-rounded tag-red">Incomplete</span>';
                 } else {
                     $result = sum_time_shift(
@@ -122,17 +117,10 @@ class MuhafidzController extends Controller
 
     public function edit(Request $request, $id)
     {
-        $get = null;
 
-        if (!empty($request->edit)) {
-            if ($request->edit == 'jadwal') {
-                $get = ApelDay::findOrFail($id);
-            }
-        } else {
-            $get = Kehadiran::findOrFail($id);
-        }
+     $get = KehadiranMuhafidz::findOrFail($id);
 
-        return $get;
+    return $get;
     }
 
     public function update(Request $request, $id)
@@ -150,15 +138,15 @@ class MuhafidzController extends Controller
             }
         } else {
             $this->validate($request, [
-                'jam_masuk' => 'required'
+                'datang_subuh' => 'required'
             ]);
 
-            $get = Kehadiran::findOrFail($id);
+            $get = KehadiranMuhafidz::findOrFail($id);
             $updated = $get->update([
-                'jam_masuk' => $request->jam_masuk,
-                'jam_istirahat' => $request->jam_istirahat,
-                'jam_kembali' => $request->jam_kembali,
-                'jam_pulang' => $request->jam_pulang
+                'datang_subuh' => $request->datang_subuh,
+                'pulang_subuh' => $request->pulang_subuh,
+                'datang_malam' => $request->datang_malam,
+                'pulang_malam' => $request->pulang_malam
             ]);
         }
 
@@ -340,9 +328,9 @@ class MuhafidzController extends Controller
             $request->date_end = Carbon::now()->format('Y-m-d');
         }
 
-        $export = new KehadiranPegawaiExport($request->date_start, $request->date_end, $request->bidang, $request->unit);
+        $export = new KehadiranMuhafidzExport($request->date_start, $request->date_end);
 
-        return Excel::download($export, 'kehadiran_' . date('d-m-Y') . 'dari ' . $request->date_start . ' sampai ' . $request->date_end . '.xlsx');
+        return Excel::download($export, 'kehadiran_Muhafidz_' . date('d-m-Y') . 'dari ' . $request->date_start . ' sampai ' . $request->date_end . '.xlsx');
     }
 
     // Insert kehadiran pegawai yang dinas seharian
@@ -350,7 +338,7 @@ class MuhafidzController extends Controller
     public function insertview()
     {
         $title = 'Tambah Kehadiran';
-        return view('kehadiran.insertview', [
+        return view('kehadiranMuhafidz.insertview', [
             'title' => $title
         ]);
     }
@@ -370,10 +358,10 @@ class MuhafidzController extends Controller
             return;
         }
 
-        $result = $karyawan->kehadiran()->firstOrCreate([
+        $result = $karyawan->kehadiranMuhafidz()->firstOrCreate([
             'tanggal' => $request->tanggal
-        ], ['jam_masuk' => '07:00:00', 'jam_istirahat' => '12:00:00', 'jam_kembali' => '13:15:00', 'jam_pulang' => '15:15:00']);
+        ], ['datang_subuh' => '05:00:00', 'pulang_subuh' => '06:30:00', 'datang_malam' => '18:00:00', 'pulang_malam' => '19:30:00']);
 
-        return redirect()->route('dash.kehadiran');
+        return redirect()->route('dash.muhafidz');
     }
 }

@@ -220,7 +220,7 @@
                         </div>
                     </div>
                 </form>
-                <div class="card-options">                    
+                <div class="card-options">
                     <a class="btn btn-primary mr-2" href="#unduhScanlog" data-toggle="modal"><i class="fe fe-download"></i> Unduh</a>
                 </div>
             </div>
@@ -266,7 +266,7 @@
                                 <label class="form-label">Sampai</label>
                                 <input type="text" name="date_end" class="form-control datepicker">
                             </div>
-                        </div>                        
+                        </div>
                     </div>
                     <div class="row">
                         <div class="col">
@@ -334,6 +334,6 @@
             {data: 'jumlah_jam', searchable: false, orderable: false},
             {data: 'persentase', searchable: false, orderable: false}
         ]
-    });  
+    });
 </script>
 @endpush

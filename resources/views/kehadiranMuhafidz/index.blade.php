@@ -2,6 +2,7 @@
 @push('styles')
     <link rel="stylesheet" href="{{ asset('css/dataTables.bootstrap4.min.css') }}">
     <link rel="stylesheet" href="{{ asset('css/select.dataTables.min.css') }}">
+    <link rel="stylesheet" href="{{ asset('css/jquery.datetimepicker.css') }}">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.3/css/select2.min.css" rel="stylesheet">
     <style>
         .dataTables_length {
@@ -245,9 +246,9 @@
                                 <select name="bidang" class="form-control"
                                     onchange="$('#kehadiranTable').DataTable().draw()">
                                     <option value="">Muhafidz</option>
-                                    @foreach ($bidang as $key => $val)
+                                    {{-- @foreach ($bidang as $key => $val)
                                         <option value="{{ $key }}">{{ substr($val, 0, 8) }}</option>
-                                    @endforeach
+                                    @endforeach --}}
                                 </select>
                             </div>
                         </div>
@@ -257,9 +258,9 @@
                                 <select name="unit" class="form-control"
                                     onchange="$('#kehadiranTable').DataTable().draw()">
                                     <option value="">Muhafidz / Santah</option>
-                                    @foreach ($unit as $key => $val)
+                                    {{-- @foreach ($unit as $key => $val)
                                         <option value="{{ $key }}">{{ $val }}</option>
-                                    @endforeach
+                                    @endforeach --}}
                                 </select>
                             </div>
                         </div>
@@ -270,9 +271,9 @@
                                 Others
                             </button>
                             <div class="dropdown-menu">
-                                <a class="dropdown-item" href="{{ route('dash.kehadiran.insertview') }}">Input</a>
-                                <a class="dropdown-item" href="?list=apel">Hadir Apel</a>
-                                <a class="dropdown-item" href="?list=persentase">% Kehadiran</a>
+                                <a class="dropdown-item" href="{{ route('dash.muhafidz.insertview') }}">Input</a>
+                                {{-- <a class="dropdown-item" href="#unduhScanlog" data-toggle="modal">Unduh</a> --}}
+                                {{-- <a class="dropdown-item" href="?list=persentase">% Kehadiran</a> --}}
                             </div>
                         </div>
                     </form>
@@ -298,11 +299,81 @@
         </div>
     </div>
 
-    @include('kehadiran.modals')
-@endsection
+    <div class="modal fade" id="unduhScanlog">
+        <div class="modal-dialog">
+            <div class="modal-content">
 
+                <!-- Modal Header -->
+                <div class="modal-header">
+                    <h4 class="modal-title">Unduh Kehadiran</h4>
+                    <button type="button" class="close" data-dismiss="modal"></button>
+                </div>
+
+                <form method="post" action="{{ route('dash.muhafidz.download') }}">
+                    <div class="modal-body">
+                        {{ csrf_field() }} {{ method_field('POST') }}
+                        <div class="row">
+                            <div class="col">
+                                <div class="form-group">
+                                    <label class="form-label">Dari</label>
+                                    <input type="text" name="date_start" class="form-control datepicker">
+                                </div>
+                            </div>
+                            <div class="col">
+                                <div class="form-group">
+                                    <label class="form-label">Sampai</label>
+                                    <input type="text" name="date_end" class="form-control datepicker">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col">
+                                <div class="form-group">
+                                    <label class="form-label">Departemen</label>
+                                    <select name="bidang" class="form-control">
+                                        <option value="">Muhafidz</option>
+                                        {{-- @foreach ($bidang as $key => $val)
+                                        <option value="{{ $key }}">{{ $val }}</option>
+                                        @endforeach --}}
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col">
+                                <div class="form-group">
+                                    <label class="form-label">Bidang</label>
+                                    <select name="unit" class="form-control">
+                                        <option value="">Muhafidz / Santah</option>
+                                        {{-- @foreach ($unit as $key => $val)
+                                        <option value="{{ $key }}">{{ $val }}</option>
+                                        @endforeach --}}
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                        <button type="submit" class="btn btn-primary">Unduh</button>
+                    </div>
+                </form>
+
+            </div>
+        </div>
+    </div>
+
+    @include('kehadiranMuhafidz.modals')
+
+@endsection
 @push('scripts')
+<script src="{{ asset('js/jquery.datetimepicker.full.min.js') }}"></script>
     <script>
+      $('.datepicker').datetimepicker({
+        timepicker:false,
+        format: 'Y-m-d'
+    });
+
         // $(document).ready(function() {
         var oTable = $('#kehadiranTable').DataTable({
             serverSide: true,
@@ -328,16 +399,16 @@
                     orderable: false
                 },
                 {
-                    data: 'jam_masuk'
+                    data: 'datang_subuh'
                 },
                 {
-                    data: 'jam_istirahat'
+                    data: 'pulang_subuh'
                 },
                 {
-                    data: 'jam_kembali'
+                    data: 'datang_malam'
                 },
                 {
-                    data: 'jam_pulang'
+                    data: 'pulang_malam'
                 },
                 {
                     data: 'jumlah_jam',
@@ -353,7 +424,7 @@
         });
 
         function editKehadiran(id) {
-            var url = '{{ route('dash.kehadiran.edit', ':id') }}';
+            var url = '{{ route('dash.muhafidz.edit', ':id') }}';
             url = url.replace(':id', id);
             $('input[name=_method]').val('PUT');
             $('#formKehadiran form')[0].reset();
@@ -371,10 +442,10 @@
                     $('.modal-title').text('Edit Kehadiran');
                     $('#formKehadiran').modal('show');
                     $('input[name=id]').val(data.id);
-                    $('input[name=jam_masuk]').val(data.jam_masuk);
-                    $('input[name=jam_istirahat]').val(data.jam_istirahat);
-                    $('input[name=jam_kembali]').val(data.jam_kembali);
-                    $('input[name=jam_pulang]').val(data.jam_pulang);
+                    $('input[name=datang_subuh]').val(data.datang_subuh);
+                    $('input[name=pulang_subuh]').val(data.pulang_subuh);
+                    $('input[name=datang_malam]').val(data.datang_malam);
+                    $('input[name=pulang_malam]').val(data.pulang_malam);
                 }
             });
         }
@@ -384,7 +455,7 @@
             var id = $('input[name=id]').val();
             var save_method = $('input[name=_method]').val();
 
-            url_raw = '{{ route('dash.kehadiran.update', ':id') }}';
+            url_raw = '{{ route('dash.muhafidz.update', ':id') }}';
             url = url_raw.replace(':id', id);
 
             $.ajax({
@@ -400,6 +471,5 @@
                 }
             });
         });
-        // });
     </script>
 @endpush
